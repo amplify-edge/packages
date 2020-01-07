@@ -3,7 +3,7 @@ package document
 import (
 	"context"
 
-	v1 "github.com/winwisely99/main/packages/document/server/api/v1"
+	v1 "github.com/getcouragenow/packages/doc/server/api/v1"
 )
 
 // Repository interface

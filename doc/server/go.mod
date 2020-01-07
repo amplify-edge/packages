@@ -1,4 +1,4 @@
-module github.com/winwisely99/main/packages/document/server
+module github.com/getcouragenow/packages/doc/server
 
 go 1.13
 

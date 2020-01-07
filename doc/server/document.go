@@ -8,7 +8,10 @@ import (
 	"sync"
 	"time"
 
-	v1 "github.com/winwisely99/main/packages/document/server/api/v1"
+	// github.com/getcouragenow/packages/doc/server
+	// github.com/getcouragenow/packages/doc/server
+
+	v1 "github.com/getcouragenow/packages/doc/server/api/v1"
 )
 
 // documentServiceServer is implementation of DocumentServiceServer proto interface

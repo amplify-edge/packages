@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	v1 "github.com/winwisely99/main/packages/document/server/api/v1"
+	v1 "github.com/getcouragenow/packages/doc/server/api/v1"
 
-	db "github.com/winwisely99/main/packages/document/server/repository/memory"
+	db "github.com/getcouragenow/packages/doc/server/repository/memory"
 
 	"net"
 	"testing"

@@ -8,7 +8,7 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	guuid "github.com/google/uuid"
-	v1 "github.com/winwisely99/main/packages/document/server/api/v1"
+	v1 "github.com/getcouragenow/packages/doc/server/api/v1"
 )
 
 // Memory structure used as in memory database for development only
