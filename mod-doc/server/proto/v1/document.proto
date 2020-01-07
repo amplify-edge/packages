@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package v1;
+
+//import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+//import "google/protobuf/wrappers.proto";
+
+// Conflict status used as a response to acheck if docs are sync
+enum ConflictStatus{
+    NONE = 0; // NONE
+    NEW = 1; // NEW when document exists only on client local
+    OUTDATED = 2; // OUTDATED when lastupdate client local and server not equal
+    SYNC = 3; // SYNC when document is sync
+}
+
+// Sync type of a document
+enum SyncType{
+    NOTHING = 0; // NOTHING
+    CREATE = 1; // CREATE sync with server by creating new document
+    MERGE = 2; // MERGE sync with server by creating merge document
+}
+
+// document object
+message Document{
+    string id = 1; // document id server
+    string localId = 2; // document id local
+    string data = 3; // document data
+    string uid = 4; // document user id
+    ConflictStatus Conflict = 5; // document conflict status
+    SyncType type = 6; // document conflict status
+    google.protobuf.Timestamp createdAt = 7; // document created timestamp
+    google.protobuf.Timestamp lastUpdate = 8; // document last updated timestamp
+}
+
+// Check sync document
+message CheckSync{
+    string id = 1; // document id
+    string localId = 2; // document id local
+    google.protobuf.Timestamp lastUpdate = 3; // document last updated timestamp
+}
+
+// Request check sync document
+message RequestCheckSync{
+    string uid = 1; // user id
+    repeated CheckSync checks= 2; // list of checks   
+}
+
+// Response check sync document
+message ResponseCheckSync{
+    string id = 1; // document id
+    string localId = 2; // document id local
+    ConflictStatus conflict = 3; // document conflict status
+}
+
+// Document Services
+service DocumentService{
+
+    // Create a new Document
+    rpc New (Document) returns (ResponseCheckSync) {}
+
+    // Update a Document
+    rpc Update (Document) returns (ResponseCheckSync) {}
+
+    // Delete a document
+    rpc Delete (Document) returns (ResponseCheckSync) {}
+    
+    // Check if local documents are sync with server
+    rpc CheckIfDocumentsSync (RequestCheckSync) returns (stream ResponseCheckSync) {}
+
+    // Sync local documents with server
+    rpc SyncDocuments (stream Document) returns (stream ResponseCheckSync) {}
+}
