@@ -20,3 +20,22 @@ In each folder there is:
 IO is GRPC to the embed golang layer running on the device.
 
 See the embed repo.
+
+
+## Modularity and IOC
+
+Use the inside out approach so things dont get monolithic.
+
+
+Also we want it to be easy for others to use a Module and compose it how they want with their app.
+Flutter does not have Modular Routing yet but the following does the same:
+
+https://pub.dev/packages/flutter_modular
+
+Examples:
+
+- https://github.com/Flutterando/github_search
+
+- https://github.com/felipewom/flutter_app_modular
+
+- https://github.com/VictorOchoaS/ToDo-App
