@@ -15,6 +15,16 @@ In each folder there is:
 - Flutter
 - Makefile.
 
+## Docs
+
+Use the same structure as here for this repo, so its easy to publish and easy for others to use.
+
+https://github.com/rodydavis/plugins
+
+Its uses: https://github.com/flutter/plugin_tools
+
+
+
 ## IO
 
 IO is GRPC to the embed golang layer running on the device.
