@@ -69,6 +69,19 @@ flu-fix:
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
+flu-mob-ios-sign:
+	# run the runner project
+	open $(LIB_FSPATH)/ios/Runner.xcworkspace
+	# authorise the apple account
+	open https://developer.apple.com
+	
+flu-mobreal-run: ## flu-mob-run
+	cd $(SAMPLE_FSPATH) && flutter run -d 5443c9fdd6f6c7b4e2dfa7de50a7bf11ebaae245
+
+
+
+flu-desk-build: ## flu-desk-build
+	cd $(SAMPLE_FSPATH) && 	flutter build
 
 
 
