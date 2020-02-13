@@ -9,7 +9,6 @@ class ResponsiveScaffoldView extends StatefulWidget {
 class _ResponsiveScaffoldViewState extends State<ResponsiveScaffoldView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int _index = 0;
 
   @override
   Widget build(BuildContext context) {

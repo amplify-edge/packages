@@ -38,7 +38,7 @@ class App extends StatelessWidget {
           child: InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ResponsiveScaffoldView();
+                return  ResponsiveScaffoldView();
               }));
             },
             child: Container(
