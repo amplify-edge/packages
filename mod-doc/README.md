@@ -1,27 +1,14 @@
-# mod-doc
+# Docs
 
-This is a package for writing documents.
+We need internally and externally a good gitbook like way to make docs from Markdown and SVG.
 
-Based on  https://github.com/memspace/zefyr
+FLutter is the right way to do this because we can leverage it.
 
-It uses the quillJS schema to allow collaborative real time editing.
+- Can embed into deployed apps as Help
+- Can deploy to Web for Developer docs.
+
+Good example for the CI of it to deplyo to Firebase
+https://github.com/rodydavis/website/blob/master/.github/workflows/main.yml
 
 
 
-Cursors
-
-- Known as RTT ( Real Time Test) where you can see as the other types.
-
-Data Store
-
-- Images and data.
-- Use Hive. Examples in Mains repo.
-- See the GSheet tool in the Bootstrap repo to see how to boot push data in and out.
-
-Printing
-
-- It allows printing via conversion to Markdown and then conversion to PDF and then sending to the PDF Plugin in the Plugin repo.
-
-IO & Security
-
-- Will be provided via the embed core.
