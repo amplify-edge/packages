@@ -49,3 +49,7 @@ Examples:
 - https://github.com/felipewom/flutter_app_modular
 
 - https://github.com/VictorOchoaS/ToDo-App
+
+## maintemplate
+
+To run the maintemplate app on web, just use command  **flutter run -d chrome**
