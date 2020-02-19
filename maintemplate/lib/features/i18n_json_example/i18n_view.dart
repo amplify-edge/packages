@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maintemplate/core/i18n/app_localization.dart';
 
-class I18NView extends StatelessWidget {
+class I18NWithJsonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

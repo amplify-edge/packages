@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:maintemplate/core/i18n/app_localization.dart';
-import 'package:maintemplate/features/i18n_example/i18n_view.dart';
 import 'package:maintemplate/features/master_detail_scaffold_example/data/mock_item.dart';
 import 'package:maintemplate/features/master_detail_scaffold_example/master_detail_view.dart';
 import 'package:maintemplate/features/responsive_scaffold_example/responsive_scaffold_view.dart';
 import 'package:provider/provider.dart';
 
+import 'features/i18n_json_example/i18n_view.dart';
+import 'features/navigation_rail/navigation_rail.dart';
 import 'features/responvive_builder_example/responsive_template.dart';
 
 void main() => runApp(Provider<List<MockItem>>(
@@ -27,29 +28,18 @@ void main() => runApp(Provider<List<MockItem>>(
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      // localeResolutionCallback:
-      //     (Locale locale, Iterable<Locale> supportedLocales) {
-      //   for (var supportedLocale in supportedLocales) {
-      //     if (locale.languageCode == supportedLocale.languageCode ||
-      //         locale.countryCode == supportedLocale.countryCode) {
-      //       return supportedLocale;
-      //     }
-
-      //     return supportedLocales.first;
-      //   }
-      // },
     )));
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Flex(
-      direction: Axis.vertical,
-      children: <Widget>[
-        Flexible(
-          flex: 1,
-          child: InkWell(
+        body: GridView.count(
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          crossAxisCount: 2,
+          children : [
+            InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return ResponsiveTemplate();
@@ -60,11 +50,8 @@ class App extends StatelessWidget {
               child: Text("Responsive Builder"),
             )),
           ),
-        ),
-        Divider(),
-        Flexible(
-          flex: 1,
-          child: InkWell(
+
+           InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return ResponsiveScaffoldView();
@@ -75,29 +62,23 @@ class App extends StatelessWidget {
               child: Text("Responsive Scaffold"),
             )),
           ),
-        ),
-        Divider(),
-        Flexible(
-          flex: 1,
-          child: InkWell(
+
+           InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return MasterDetailView();
+                return ResponsiveScaffoldView();
               }));
             },
             child: Container(
                 child: Center(
-              child: Text("Master Detail Scaffold"),
+              child: Text("Responsive Scaffold"),
             )),
           ),
-        ),
-        Divider(),
-        Flexible(
-          flex: 1,
-          child: InkWell(
+
+           InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return I18NView();
+                return I18NWithJsonView();
               }));
             },
             child: Container(
@@ -105,8 +86,89 @@ class App extends StatelessWidget {
               child: Text("Flutter Internationalization"),
             )),
           ),
-        ),
-      ],
-    ));
+
+           InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return NavigationRailView();
+              }));
+            },
+            child: Container(
+                child: Center(
+              child: Text("Navigation Rail"),
+            )),
+          ),
+
+          ]
+        )
+        
+        
+        
+    //     Flex(
+    //   direction: Axis.vertical,
+    //   children: <Widget>[
+    //     Flexible(
+    //       flex: 1,
+    //       child: InkWell(
+    //         onTap: () {
+    //           Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //             return ResponsiveTemplate();
+    //           }));
+    //         },
+    //         child: Container(
+    //             child: Center(
+    //           child: Text("Responsive Builder"),
+    //         )),
+    //       ),
+    //     ),
+    //     Divider(),
+    //     Flexible(
+    //       flex: 1,
+    //       child: InkWell(
+    //         onTap: () {
+    //           Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //             return ResponsiveScaffoldView();
+    //           }));
+    //         },
+    //         child: Container(
+    //             child: Center(
+    //           child: Text("Responsive Scaffold"),
+    //         )),
+    //       ),
+    //     ),
+    //     Divider(),
+    //     Flexible(
+    //       flex: 1,
+    //       child: InkWell(
+    //         onTap: () {
+    //           Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //             return MasterDetailView();
+    //           }));
+    //         },
+    //         child: Container(
+    //             child: Center(
+    //           child: Text("Master Detail Scaffold"),
+    //         )),
+    //       ),
+    //     ),
+    //     Divider(),
+    //     Flexible(
+    //       flex: 1,
+    //       child: InkWell(
+    //         onTap: () {
+    //           Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //             return I18NView();
+    //           }));
+    //         },
+    //         child: Container(
+    //             child: Center(
+    //           child: Text("Flutter Internationalization"),
+    //         )),
+    //       ),
+    //     ),
+    //   ],
+    // )
+    
+    );
   }
 }

@@ -24,6 +24,7 @@ dependencies:
 
   
   provider:
+  navigation_rail: ^1.0.4
   
 
   # Responsive Design
