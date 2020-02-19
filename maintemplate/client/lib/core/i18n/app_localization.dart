@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -13,13 +13,11 @@ class AppLocalizations{
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   AppLocalizations(this.locale);
-
   
   static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
   
-
   Future<bool> load() async{
     // Load json file from asset
     String jsonString = await rootBundle.loadString('lang/${locale.languageCode}.json');

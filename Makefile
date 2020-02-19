@@ -14,7 +14,17 @@ print:
 	@echo
 
 
+### GIT-FORK
+
 #See: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork
+
+## git-upstream-open
+git-upstream-open: 
+	open https://github.com/$(UPSTREAM_ORG)/$(REPO_NAME).git 
+
+## git-fork-open
+git-fork-open: 
+	open https://github.com/$(FORK_ORG)/$(REPO_NAME).git
 
 git-status:
 	git status
@@ -30,3 +40,20 @@ git-fork-catchup:
 
 	# This brings your fork's master branch into sync with the upstream repository, without losing your local changes.
 	git merge upstream/master
+
+
+## GIT-TAG
+
+git-tag-create: ## git-tag-create
+	# this will create a local tag on your current branch and push it to Github.
+
+	git tag $(TAG_NAME)
+
+	# push it up
+	git push origin --tags
+
+git-tag-delete: ## git-tag-delete
+	# this will delete a local tag and push that to Github
+
+	git push --delete origin $(TAG_NAME)
+	git tag -d $(TAG_NAME)
