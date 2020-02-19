@@ -8,6 +8,9 @@ import 'package:maintemplate/features/responsive_scaffold_example/responsive_sca
 import 'package:maintemplate/features/grpc_web_example/grpc_web_view.dart';
 import 'package:provider/provider.dart';
 
+import 'package:maintemplate/features/i18n_json_example/i18n_view.dart';
+import 'package:maintemplate/features/navigation_rail/navigation_rail.dart';
+
 import 'package:maintemplate/features/grpc_web_example/blocs/bloc.dart';
 import 'package:maintemplate/features/grpc_web_example/blocs/bloc_provider.dart';
 import 'package:maintemplate/features/grpc_web_example/blocs/message_events.dart';
