@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: maintemplate-envoy
+  name: maintemplate-envoy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: maintemplate-envoy
+      name: maintemplate-envoy
+    spec:
+      containers:
+        - name: maintemplate-envoy
+          image: envoyproxy/envoy
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/envoy/
+        volumes:
+          - name: config-volume
+            configMap:
+              name: maintemplate-envoy-config
+              items:
+              - key: config
+                path: envoy.yaml
