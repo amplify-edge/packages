@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-web
+spec:
+  selector:
+    app: grpc-web
+  type: ClusterIP
+  clusterIP: None  # headless service
+  ports:
+  - name: http2-grpc-web
+    protocol: TCP
+    port: 9074  # no targetPort for headless service
