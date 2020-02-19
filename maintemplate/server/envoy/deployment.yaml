@@ -19,10 +19,10 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /etc/envoy/
-        volumes:
+      volumes:
           - name: config-volume
-            configMap:
+          configMap:
               name: maintemplate-envoy-config
               items:
               - key: config
-                path: envoy.yaml
+              path: envoy.yaml
