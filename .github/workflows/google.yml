@@ -69,9 +69,9 @@ jobs:
     - name: Deploy
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
-        kubectl create configmap maintemplate-envoy-config --from-file=config=maintemplate/server/envoy/envoy.yaml
+        kubectl create configmap maintemplate-envoy-config --from-file=config=maintemplate/server/envoy/envoy.yaml --dry-run -o yaml | kubectl apply -f -
         kubectl run $DEPLOYMENT_NAME --image $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
         kubectl create -f maintemplate/server/envoy/deployment.yaml
-        kubectl expose deployment $DEPLOYMENT_NAME --port=9074 --target-port=9074 --type=LoadBalancer
+        kubectl expose deployment $DEPLOYMENT_NAME --port=9074 --target-port=9074 --type=LoadBalancer --dry-run -o yaml | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
