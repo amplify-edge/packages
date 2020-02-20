@@ -61,19 +61,18 @@ class ChatService {
   }
 
   void recv() async {
+    var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
     do {
       try {
         // create new client
-        var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
-      
         await for (var message in stream) {
           onMessageReceived(MessageReceivedEvent(text: message.text));
         }
       } catch (e) {
         onMessageReceiveFailed(MessageReceiveFailedEvent(error: e.toString()));
+        await Future.delayed(const Duration(seconds: 5));
       }
       // try to connect again
-      await Future.delayed(const Duration(seconds: 5));
     } while (true);
   }
 

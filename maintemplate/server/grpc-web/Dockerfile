@@ -7,7 +7,7 @@ RUN go get -d \
     google.golang.org/grpc \
     github.com/golang/protobuf/ptypes
 
-WORKDIR /go/src/github.com/winwisely112/flutter-grpc-tutorial/go-server
+WORKDIR /go/src/github.com/getcouragenow/packages/maintemplate/server/grpc-web/
 COPY . .
 
 RUN go build -o app cmd/server/main.go
@@ -18,6 +18,6 @@ FROM alpine:latest
 EXPOSE 9074/tcp
 
 WORKDIR /root/
-COPY --from=builder /go/src/github.com/winwisely112/flutter-grpc-tutorial/go-server/app .
+COPY --from=builder /go/src/github.com/getcouragenow/packages/maintemplate/server/grpc-web/app /root/
 
-ENTRYPOINT ["./app"]
+ENTRYPOINT ["/root/app"]
