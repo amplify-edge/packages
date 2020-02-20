@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: grpc-web
-        image: flutter-grpc-tutorial:0.2
-        imagePullPolicy: Never
+        image: gcr.io/GKE_PROJECT/IMAGE:TAG
         ports:
         - containerPort: 9074
+        resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 100m
