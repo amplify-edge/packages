@@ -23,6 +23,7 @@ print:
 ## git-upstream-open
 git-upstream-open: 
 	open https://github.com/$(UPSTREAM_ORG)/$(REPO_NAME).git 
+	
 
 ## git-fork-open
 git-fork-open: 
