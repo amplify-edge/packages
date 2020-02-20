@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: grpc-web
-        image: flutter-grpc-tutorial:0.2
+        image: grpc-web-example:0.1.10
         imagePullPolicy: Never
         ports:
         - containerPort: 9074

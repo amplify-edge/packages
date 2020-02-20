@@ -6,8 +6,7 @@ spec:
   selector:
     app: grpc-web
   type: ClusterIP
-  clusterIP: None  # headless service
   ports:
-  - name: http2-grpc-web
+  - name: http2
     protocol: TCP
     port: 9074  # no targetPort for headless service
