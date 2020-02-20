@@ -69,6 +69,7 @@ jobs:
     - name: Deploy
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
+        touch kustomization.yaml
         ./kustomize edit add resource maintemplate/server/k8s/*
         ./kustomize edit set image gcr.io/GKE_PROJECT/IMAGE:TAG=gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA 
         ./kustomize build . | kubectl apply -f -
