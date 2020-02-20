@@ -1,13 +1,15 @@
 
+# git
+REPO_NAME=$(notdir $(shell pwd))
 UPSTREAM_ORG=getcouragenow
-REPO_NAME=packages
+FORK_ORG=$(shell basename $(dir $(abspath $(dir $$PWD))))
 
-CWD=$(PWD)
-
+# remove the "v" prefix
+VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 
 print:
 	@echo
-	@echo CWD: $(CWD)
+	@echo FORK_ORG: $(FORK_ORG)
 
 	@echo UPSTREAM_ORG: $(UPSTREAM_ORG)
 	@echo REPO_NAME: $(REPO_NAME)
