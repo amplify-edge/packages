@@ -29,27 +29,21 @@ env:
 
 jobs:
 
-  flutter:
-    runs-on: ubuntu-latest
-    #Identifies any jobs that must complete successfully before this job will run.
-    name: web
-    steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'dev'
-      - run: flutter  config --enable-web
-        working-directory: maintemplate/client/
-      - run: flutter pub get
-        working-directory: maintemplate/client/
-      # build Flutter web version
-      - run: flutter build web
-        working-directory: maintemplate/client/
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
-
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: 'dev'
+    - run: flutter  config --enable-web
+      working-directory: maintemplate/client/
+    - run: flutter pub get
+      working-directory: maintemplate/client/
+    # build Flutter web version
+    - run: flutter build web
+      working-directory: maintemplate/client/
     - name: Checkout
       uses: actions/checkout@v2
 
