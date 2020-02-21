@@ -43,7 +43,7 @@ class ChatService {
   /// Event is raised when message receiving is failed
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
-  final channel = GrpcWebClientChannel.xhr(Uri.parse("http://localhost:8074"));
+
 
   /// Constructor
   ChatService(
@@ -61,6 +61,7 @@ class ChatService {
   }
 
   void recv() async {
+    final channel = GrpcWebClientChannel.xhr(Uri.parse("http://localhost:8074"));
     var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
     do {
       try {
@@ -81,6 +82,7 @@ class ChatService {
 
   /// Send message to the server
   void send(MessageOutgoing message) {
+    final channel = GrpcWebClientChannel.xhr(Uri.parse("http://localhost:8074"));
     var request = StringValue.create();
     request.value = message.text;
     grpc.ChatServiceClient(channel).send(request);

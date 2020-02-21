@@ -1,0 +1,8 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grpc-web
+spec:
+  backend:
+    serviceName: grpc-web
+    servicePort: 9074

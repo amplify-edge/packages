@@ -27,6 +27,23 @@ env:
   DEPLOYMENT_NAME: maintemplate
 
 jobs:
+
+  flutter:
+    runs-on: ubuntu-latest
+    #Identifies any jobs that must complete successfully before this job will run.
+    name: web
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - run: flutter  config --enable-web
+        working-directory: maintemplate/client/
+      - run: flutter pub get
+        working-directory: maintemplate/client/
+      # build Flutter web version
+      - run: flutter build web
+        working-directory: maintemplate/client/
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
@@ -54,6 +71,8 @@ jobs:
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" maintemplate/server/grpc-web
+        cp -rf maintemplate/client/build/web maintemplate/server/flutter
+        docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$GITHUB_SHA" maintemplate/server/flutter
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
@@ -70,6 +89,7 @@ jobs:
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         touch kustomization.yaml
         ./kustomize edit add resource maintemplate/server/k8s/*
-        ./kustomize edit set image gcr.io/GKE_PROJECT/IMAGE:TAG=gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA 
+        ./kustomize edit set image gcr.io/GKE_PROJECT/IMAGE:TAG=gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
+        ./kustomize edit set image gcr.io/GKE_PROJECT/flutter-web-IMAGE:TAG=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl get services -o wide

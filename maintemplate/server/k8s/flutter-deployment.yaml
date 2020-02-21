@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grpc-web
+  name: flutter
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: grpc-web
+      app: flutter
   template:
     metadata:
       labels:
-        app: grpc-web
+        app: flutter
     spec:
       containers:
-      - name: grpc-web
-        image: gcr.io/GKE_PROJECT/IMAGE:TAG
+      - name: flutter
+        image: gcr.io/GKE_PROJECT/flutter-web-IMAGE:TAG
         imagePullPolicy: Always
         ports:
-        - containerPort: 9074
+        - containerPort: 80
         resources:
             requests:
               cpu: 100m
