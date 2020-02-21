@@ -37,17 +37,16 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         channel: 'dev'
-    - run: flutter  config --enable-web
-      working-directory: maintemplate/client/
+
     - run: flutter pub get
+      working-directory: maintemplate/client/
+    - run: flutter  config --enable-web
       working-directory: maintemplate/client/
     # build Flutter web version
     - run: flutter build web
       working-directory: maintemplate/client/
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    # Setup gcloud CLI
+      
+      # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '270.0.0'
