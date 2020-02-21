@@ -6,23 +6,13 @@ Afteer deployment use kubectl port-forward:
 # Minikube
 Install minikube and then run below command:
 ```
+eval $(minikube docker-env)
+```
+and:
+```
 make deploy
 ```
-
-# Client connection
-You can connect your flutter client to this server via:
-
-For web:
+Flutter web will be served on minikube IP:
 ```
-make connect-grpc-web
-```
-
-For others:
-```
-make connect-grpc
-```
-
-And for android use adb to connect local port to emulator:
-```
-adb reverse tcp:9074 tcp:9074
-```
+minikube ip
+``` 

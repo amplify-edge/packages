@@ -1,7 +1,6 @@
 import 'dart:html';
 import 'dart:io';
 import 'dart:async';
-import 'dart:ui';
 import 'package:grpc/grpc_web.dart';
 
 import 'package:maintemplate/features/grpc_web_example/blocs/message_events.dart';
@@ -43,6 +42,7 @@ class ChatService {
   /// Event is raised when message receiving is failed
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
+  final channel = GrpcWebClientChannel.xhr(Uri.parse(window.location.protocol + "//" + window.location.hostname));
 
 
   /// Constructor
@@ -61,10 +61,9 @@ class ChatService {
   }
 
   void recv() async {
-    final channel = GrpcWebClientChannel.xhr(Uri.parse("http://localhost:8074"));
-    var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
     do {
       try {
+        var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
         // create new client
         await for (var message in stream) {
           onMessageReceived(MessageReceivedEvent(text: message.text));
@@ -82,7 +81,7 @@ class ChatService {
 
   /// Send message to the server
   void send(MessageOutgoing message) {
-    final channel = GrpcWebClientChannel.xhr(Uri.parse("http://localhost:8074"));
+
     var request = StringValue.create();
     request.value = message.text;
     grpc.ChatServiceClient(channel).send(request);

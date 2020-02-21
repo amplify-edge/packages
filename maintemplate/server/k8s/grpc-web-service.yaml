@@ -10,5 +10,4 @@ spec:
   type: NodePort
   ports:
   - name: http2
-    protocol: TCP
     port: 9074
