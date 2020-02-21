@@ -40,12 +40,12 @@ jobs:
 
     - run: flutter pub get
       working-directory: maintemplate/client/
-    - run: flutter  config --enable-web
+    - run: flutter config --enable-web
       working-directory: maintemplate/client/
     # build Flutter web version
     - run: flutter build web
       working-directory: maintemplate/client/
-      
+
       # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
@@ -71,6 +71,7 @@ jobs:
     - name: Publish
       run: |
         docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
+        docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/flutter-web-$IMAGE:$GITHUB_SHA
         
     # Set up kustomize
     - name: Set up Kustomize
