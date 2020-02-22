@@ -126,7 +126,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           _isComposing = text.length > 0;
                         });
                       },
-                      onSubmitted: _isComposing ? _handleSubmitted : null,
+//                      onSubmitted: _isComposing ? _handleSubmitted : null,
                     )
                   : TextField(
                       key: Key('message-text-field'),
@@ -138,7 +138,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           _isComposing = text.length > 0;
                         });
                       },
-                      onSubmitted: _isComposing ? _handleSubmitted : null,
+//                      onSubmitted: _isComposing ? _handleSubmitted : null,
                       decoration:
                           InputDecoration.collapsed(hintText: "Send a message"),
                     ),
