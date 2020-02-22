@@ -48,5 +48,6 @@ deploy:
 	@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE:TAG"="localhost:5000/grpc-web:${RANDTAG}"
 	@./kustomize edit set image "gcr.io/GKE_PROJECT/flutter-web-IMAGE:TAG"="localhost:5000/flutter-web:${RANDTAG}"
 	@./kustomize build . | kubectl replace --force -f -
+	@kubectl annotate ingress maintemplate nginx.ingress.kubernetes.io/use-regex="true"
 	@rm kustomization.yaml 
 	@rm -rf flutter/web ./kustomize	

@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: maintemplate
+  name: maintemplate  
 spec:
   rules:
   - http:
@@ -9,8 +9,8 @@ spec:
       - backend:
           serviceName: flutter
           servicePort: 80
-        path: /flutter
+        path: /*
       - backend:
           serviceName: envoy
           servicePort: 443
-        path: /v1.ChatService    
+        path: /v1\.ChatService*
