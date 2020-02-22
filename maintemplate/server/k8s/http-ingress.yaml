@@ -6,15 +6,11 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
-        backend:
+      - backend:
           serviceName: flutter
           servicePort: 80
-      - path: /v1.ChatService
-        backend:
+        path: /flutter
+      - backend:
           serviceName: envoy
           servicePort: 443
-      - path: /v2/*
-        backend:
-          serviceName: web2
-          servicePort: 8080
+        path: /v1.ChatService    

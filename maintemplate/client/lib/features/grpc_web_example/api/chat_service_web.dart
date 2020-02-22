@@ -62,8 +62,8 @@ class ChatService {
 
   void recv() async {
     do {
+      var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
       try {
-        var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
         // create new client
         await for (var message in stream) {
           onMessageReceived(MessageReceivedEvent(text: message.text));
