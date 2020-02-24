@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grpc-web
+  annotations:
+    cloud.google.com/app-protocols: '{"http2":"HTTP2"}'
 spec:
   selector:
     app: grpc-web
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: http2
-    protocol: TCP
-    port: 9074  # no targetPort for headless service
+    port: 9074
