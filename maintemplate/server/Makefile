@@ -11,7 +11,7 @@ RESET  := $(shell tput -Txterm sgr0)
 
 ## Show help
 help:
-	@echo 'Package eris provides a better way to handle errors in Go.'
+	@echo 'Server for mainTemplate'
 	@echo ''
 	@echo 'Usage:'
 	@echo '  ${YELLOW}make${RESET} ${GREEN}<target>${RESET}'
