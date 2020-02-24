@@ -1,9 +1,11 @@
 
 
-# https://github.com/memspace/zefyr
+# Orig: https://github.com/memspace/zefyr
+# Our Fork: https://github.com/winwisely112/zefyr
+# runs fine in FLutter Web using flutetr Master channel :)
 
 LIB_NAME=zefyr
-LIB=github.com/memspace/$(LIB_NAME)
+LIB=github.com/winwisely112/$(LIB_NAME)
 LIB_BRANCH=master
 LIB_FSPATH=$(GOPATH)/src/$(LIB)
 
@@ -273,12 +275,12 @@ flu-create-pop:
 	
 	# set specific settings...will do with mage later
 
-flu-web-run:
+flu-web-run: ## flu-web-run
 	flutter config --enable-web
-	cd $(NEW_SAMPLE_FSPATH) && flutter run -d chrome
+	cd $(SAMPLE_FSPATH) && flutter run -d chrome
 flu-web-build:
 	flutter config --enable-web
-	cd $(NEW_SAMPLE_FSPATH) && flutter build web
+	cd $(SAMPLE_FSPATH) && flutter build web
 	
 
 ### i18n

@@ -13,7 +13,7 @@ RANDTAG := $(shell head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 
 ## Show help
 help:
-	@echo 'Package eris provides a better way to handle errors in Go.'
+	@echo 'Server for mainTemplate'
 	@echo ''
 	@echo 'Usage:'
 	@echo '  ${YELLOW}make${RESET} ${GREEN}<target>${RESET}'
