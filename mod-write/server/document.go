@@ -8,10 +8,10 @@ import (
 	"sync"
 	"time"
 
-	// github.com/getcouragenow/packages/doc/server
-	// github.com/getcouragenow/packages/doc/server
+	// github.com/getcouragenow/packages/mod-write/server
+	// github.com/getcouragenow/packages/mod-write/server
 
-	v1 "github.com/getcouragenow/packages/doc/server/api/v1"
+	v1 "github.com/getcouragenow/packages/mod-write/server/api/v1"
 )
 
 // documentServiceServer is implementation of DocumentServiceServer proto interface

@@ -3,7 +3,7 @@ package document
 import (
 	"context"
 
-	v1 "github.com/getcouragenow/packages/doc/server/api/v1"
+	v1 "github.com/getcouragenow/packages/mod-write/server/api/v1"
 )
 
 // Repository interface
