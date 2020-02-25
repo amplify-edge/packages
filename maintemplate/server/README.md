@@ -1,4 +1,6 @@
+
 ## Server for main template
+
 ### GCP
 Install gcloud and Enable Kubernetes Engine API for your GCP project.
 ```
@@ -23,6 +25,15 @@ GCP_ZONE=<GCP zone> GCP_REGION=<GCP region> GCP_USER=<your GCP username> GCP_PRO
 Add provided variables as secrets to your github project. Github action will use these variables to deploy your project on GKE cluster and your project will be available on GKE_IP.
 
 
+# Server for main template
+
+http://34.89.133.90/#/
+
+# GCP
+Set up secrets in your workspace: GKE_PROJECT with the name of the project, GKE_EMAIL with the service account email, GKE_KEY with the Base64 encoded JSON service account key (https://github.com/GoogleCloudPlatform/github-actions/tree/docs/service-account-key/setup-gcloud#inputs).
+Afteer deployment use kubectl port-forward:
+
+
 ### Minikube
 Install minikube and then run below command:
 ```
@@ -35,4 +46,4 @@ make deploy
 Flutter web will be served on minikube IP:
 ```
 minikube ip
-```
+
