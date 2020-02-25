@@ -14,15 +14,14 @@ on:
   push:
     branches:
     - master
-    - workflow-gcp-flutter
+    - gke-setup
 
 # Environment variables available to all jobs and steps in this workflow
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: europe-west3-c
-  GKE_CLUSTER: standard-cluster-1
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}
   IMAGE: maintemplate
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
@@ -58,7 +57,7 @@ jobs:
         # Set up docker to authenticate
         # via gcloud command-line tool.
         gcloud auth configure-docker
-      
+        
     # Build the Docker image
     - name: Build
       run: |        
@@ -67,12 +66,12 @@ jobs:
           --build-arg GITHUB_REF="$GITHUB_REF" maintemplate/server/grpc-web
         cp -rf maintemplate/client/build/web maintemplate/server/flutter
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$GITHUB_SHA" maintemplate/server/flutter
+        
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
         docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
         docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/flutter-web-$IMAGE:$GITHUB_SHA
-        
     # Set up kustomize
     - name: Set up Kustomize
       run: |
@@ -81,10 +80,14 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |
-        gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
+        gcloud container clusters get-credentials $GKE_PROJECT --zone $GKE_ZONE --project $GKE_PROJECT
         touch kustomization.yaml
         ./kustomize edit add resource maintemplate/server/k8s/*
         ./kustomize edit set image gcr.io/GKE_PROJECT/IMAGE:TAG=gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
         ./kustomize edit set image gcr.io/GKE_PROJECT/flutter-web-IMAGE:TAG=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml
+        kubectl --namespace ingress-nginx patch svc ingress-nginx -p '{"spec": {"loadBalancerIP": "${{ secrets.GKE_IP }}"}}'
         kubectl get services -o wide
+        echo ${{ secrets.GKE_IP }}
