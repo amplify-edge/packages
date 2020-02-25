@@ -6,6 +6,9 @@ github.com/dchenk/go-render-quill v0.0.0-20200207074018-c3313572c1d4 h1:SfW8ZuIh
 github.com/dchenk/go-render-quill v0.0.0-20200207074018-c3313572c1d4/go.mod h1:TBGmdxkTKzFmSgVONaa2K/bYhYJPpc6gW+A7tRY8LIo=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
+github.com/getcouragenow/packages v0.0.0-20200225071247-4e5c6b7093a7 h1:DAuXw082bwgUOy363DewL9OHIP+cOpQns3XTr9WE9SQ=
+github.com/getcouragenow/packages/doc/server v0.0.0-20200120073537-f249729ece23 h1:2Ura8TmPKIsH/jrzUgzCtoCDTF92kw94czkBGXmJkB0=
+github.com/getcouragenow/packages/doc/server v0.0.0-20200120073537-f249729ece23/go.mod h1:10HeP/E8ow3AOq/9aZXD0KK3F88Mh2qzWpKGs/W3JrI=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
