@@ -7,8 +7,6 @@ YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
 RESET  := $(shell tput -Txterm sgr0)
 
-RANDTAG := $(shell head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
-
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
 
@@ -71,30 +69,8 @@ gke-vars:
 	@echo echo $$(cat  ~/.getcouragenow/${GCP_PROJECT}.json | base64 -w0)
 
 
-minikube-dep:
-	# LATER make this done in bootstrapper
-
-	# vbox
-	# ?
-
-	# kubectl
-	# https://kubernetes.io/docs/tasks/tools/install-kubectl/
-	# make this part of this makefile !!
-
-	# docker
-	# ?
-
-	# minkube
-	# ?
-
-	# gcloud
-	# ?
-
-	# what have i forgotten :) ?
-
-## Configure minikube
+## Configure minikube vm-driver
 minikube-config: 
-	# assumes docker desktop is installed with defaults.
 	minikube config set vm-driver virtualbox
 	$(MAKE) minikube-clean
 
@@ -102,28 +78,26 @@ minikube-clean:
 	minikube delete
 	minikube start
 
-
-## Init minikube
+## Configure minikube
 minikube-init:
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
-	@while [ "`kubectl get pods --namespace kube-system -l kubernetes.io/minikube-addons=registry -l actual-registry=true -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}' | cut -f1`" != "True" ]]; do echo "waiting for minkube registry" && sleep 1; done
-	@kubectl port-forward --namespace kube-system svc/registry 5000:80
+	@kubectl port-forward --namespace kube-system svc/registry --address localhost 5000:80	
 
 ## Deploy on minikube
 minikube-deploy:
 	@cp -rf ../client/build/web flutter/
-	@docker build --tag localhost:5000/grpc-web:${RANDTAG} grpc-web/
-	@docker build --tag localhost:5000/flutter-web:${RANDTAG} flutter/
-	@docker push localhost:5000/grpc-web:${RANDTAG}
-	@docker push localhost:5000/flutter-web:${RANDTAG}
+	@docker build --tag localhost:5000/grpc-web grpc-web/
+	@docker build --tag localhost:5000/flutter-web flutter/
+	@docker push localhost:5000/grpc-web
+	@docker push localhost:5000/flutter-web
 	@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
 	@chmod u+x ./kustomize
 	@touch kustomization.yaml
 	@./kustomize edit add resource k8s/*
-	@./kustomize edit set image "gcr.io/GCP_PROJECT/IMAGE:TAG"="localhost:5000/grpc-web:${RANDTAG}"
-	@./kustomize edit set image "gcr.io/GCP_PROJECT/flutter-web-IMAGE:TAG"="localhost:5000/flutter-web:${RANDTAG}"
+	@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
+	@./kustomize edit set image "gcr.io/GKE_PROJECT/flutter-web-IMAGE"="localhost:5000/flutter-web"
 	@./kustomize build . | kubectl replace --force -f -
 	@rm kustomization.yaml 
-	@rm -rf flutter/web ./kustomize	
+	@rm -rf flutter/web ./kustomize
