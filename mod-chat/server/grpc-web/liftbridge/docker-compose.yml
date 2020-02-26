@@ -1,0 +1,11 @@
+version: "3"
+services: 
+    lift:
+        image: liftbridge/liftbridge-docker
+        ports: 
+            - 9292:9292
+            - 4222:4222
+            - 8222:8222
+            - 6222:6222
+            
+    

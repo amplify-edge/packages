@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flutter
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flutter
+  template:
+    metadata:
+      labels:
+        app: flutter
+    spec:
+      containers:
+      - name: flutter
+        image: gcr.io/GKE_PROJECT/flutter-web-IMAGE:TAG
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 100m
