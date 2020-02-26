@@ -31,14 +31,7 @@ func NewChatServiceServer() v1.ChatServiceServer {
 		panic(err)
 	}
 
-	go func() {
-		client.Subscribe(context.Background(), subject, func(msg lb.Message, err error) {
-			if err != nil {
-				panic(err)
-			}
-			fmt.Println("Received message", string(msg.Value()))
-		})
-	}()
+	client.CreateStream(context.Background(), subject, name)
 
 	return &chatServiceServer{client: client}
 }
@@ -47,7 +40,7 @@ func NewChatServiceServer() v1.ChatServiceServer {
 func (s *chatServiceServer) Send(ctx context.Context, message *wrappers.StringValue) (*empty.Empty, error) {
 	if message != nil {
 		log.Printf("Send requested: message=%v", *message)
-		a, err := s.client.Publish(ctx, subject, []byte(message.Value), lb.AckPolicyAll())
+		_, err := s.client.Publish(ctx, name, []byte(message.Value), lb.AckPolicyAll())
 
 		if err != nil {
 			fmt.Println("Could not Publish message", err.Error())
@@ -64,7 +57,16 @@ func (s *chatServiceServer) Send(ctx context.Context, message *wrappers.StringVa
 
 // Subscribe is streaming method to get echo messages from the server
 func (s *chatServiceServer) Subscribe(e *empty.Empty, stream v1.ChatService_SubscribeServer) error {
-	log.Print("Subscribe requested")
+
+	s.client.Subscribe(context.Background(), subject, func(msg lb.Message, err error) {
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("Received message", string(msg.Value()))
+		s.msg <- string(msg.Value())
+	})
+
 	for {
 		m := <-s.msg
 		n := v1.Message{Text: fmt.Sprintf("I have received from you: %s. Thanks!", m)}
@@ -76,4 +78,6 @@ func (s *chatServiceServer) Subscribe(e *empty.Empty, stream v1.ChatService_Subs
 		}
 		log.Printf("Message sent: %+v", n)
 	}
+	// log.Print("Subscribe requested")
+
 }
