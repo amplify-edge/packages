@@ -29,7 +29,13 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
-## Run the code
+
+
+## Local run
+local-run:
+	go run ./grpc-web/cmd/server/main.go
+
+## minikube run
 deploy:
 	@echo Running
 	@eval $$(minikube -p minikube docker-env)
