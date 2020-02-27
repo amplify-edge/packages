@@ -14,7 +14,7 @@ on:
   push:
     branches:
     - master
-    - gke-setup
+    - ci-https
 
 # Environment variables available to all jobs and steps in this workflow
 env:
