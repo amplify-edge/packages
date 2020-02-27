@@ -8,31 +8,38 @@ import 'features/settings/settings.dart';
 
 void main() {
   setupLocator();
-  runApp(
-    
-    ChangeNotifierProvider<SettingsViewModel>(
-      create: (BuildContext context) =>
-          SettingsViewModel(),
-      child: App(),
-    )
-  );
+  runApp(ServiceProvider());
+}
+
+class ServiceProvider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        Provider.value(value: "Saad"),
+      ],
+      child: ChangeNotifierProvider<SettingsViewModel>(
+        create: (context) => SettingsViewModel(),
+        child: App(),
+      ),
+    );
+  }
 }
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<SettingsViewModel>(context);
-    
-    print(model.themeMode);
+   final model = Provider.of<SettingsViewModel>(context);
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-       theme: themeData,
-        darkTheme: ThemeData.dark(),
-        themeMode: model.themeMode,
         initialRoute: Router.home,
         onGenerateRoute: Router.generateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,
-      );
-    
+        theme: themeData,
+        darkTheme: ThemeData.dark(),
+        themeMode: model.themeMode,
+ 
+    );
   }
 }

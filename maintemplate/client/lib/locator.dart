@@ -15,8 +15,4 @@ void setupLocator(){
     settingsService: locator<SettingsService>()
   ));
 
-
-
-
-
 }

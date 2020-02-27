@@ -13,17 +13,11 @@ import '../view_models/settings_view_model.dart';
 class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<SettingsViewModel>.withoutConsumer(
-      viewModel: SettingsViewModel(
-        // settingsRepository: locator<SettingsRepository>()
-      ),
-      reuseExisting: true,
-      builder: (context, model, child){
+ 
         return ScreenTypeLayout.builder(
-        desktop: (context) => SettingsViewWeb(model : model),
+        desktop: (context) => SettingsViewWeb( ),
+        mobile: (context) => SettingsViewWeb(),
       );
-      }
-       
-    );
+    
   }
 }
