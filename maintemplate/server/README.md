@@ -1,8 +1,15 @@
 
 ## Server for main template
 
+Install the gcloud tool:
+
+- windows: https://cloud.google.com/sdk/docs/quickstart-windows
+- mac: https://cloud.google.com/sdk/docs/quickstart-macos
+- linux: https://cloud.google.com/sdk/docs/quickstart-linux
+
+
 ### GCP
-Install gcloud and Enable Kubernetes Engine API for your GCP project.
+Enable Kubernetes Engine API for your GCP project.
 ```
 GCP_USER=<your GCP username> GCP_PROJECT=<your GCP project> make gke-setup
 ```

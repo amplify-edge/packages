@@ -12,4 +12,4 @@ The Best Practice Architecture of Flutter and Golang and Boostrapping( tools and
 
 # Demo
 
-Its running on kubernetes here: http://34.89.133.90/#/
+Its running on kubernetes here: http://35.198.152.38/#/
