@@ -57,3 +57,29 @@ deploy:
 	@kubectl annotate ingress maintemplate nginx.ingress.kubernetes.io/use-regex="true"
 	@rm kustomization.yaml 
 	@rm -rf flutter/web ./kustomize	
+
+protoc-go:
+	protoc -I grpc-web/pkg/proto grpc-web/pkg/proto/v2.proto --gofast_out=plugins=grpc:./grpc-web/pkg/api/v2
+
+######## Test golang client/serveur ########
+# 1. make nats
+# 2. make lift
+# 3. make svr-go
+# 4. make cli-go
+
+nats:
+	# start nats container
+	docker run -d --name nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats 
+
+lift:
+	# start liftbridge
+	mkdir lift_cache
+	liftbridge -c grpc-web/liftbridge/config.conf --raft-bootstrap-seed -d lift_cache
+
+svr-go:
+	# start serveur
+	cd grpc-web/cmd/server && go run main.go
+
+cli-go:
+	# start a client
+	cd go-client && go run main.go

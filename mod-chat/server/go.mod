@@ -6,5 +6,6 @@ require (
 	github.com/Workiva/go-datastructures v1.0.50
 	github.com/golang/protobuf v1.3.3
 	github.com/liftbridge-io/go-liftbridge v1.0.0-alpha
+	github.com/satori/go.uuid v1.2.0
 	google.golang.org/grpc v1.27.1
 )
