@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:maintemplate/core/core.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../locator.dart';
 import '../../settings.dart';
 
 class SettingsViewWeb extends StatelessWidget {
-  final model;
-  SettingsViewWeb({Key key, this.model}) : super(key: key);
+
+  SettingsViewWeb({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final SettingsViewModel m = Provider.of<SettingsViewModel>(context);
+    final model = Provider.of<SettingsViewModel>(context);
     return Scaffold(
+      appBar: AppBar(
+        title:Text("Settings"),
+        leading: IconButton(icon:Icon( Icons.arrow_back), onPressed: (){
+          locator<NavigationService>().pop();
+        }),
+      ),
       body: Column(children: [
         ListTile(
           leading: Icon(Icons.palette),
           title: const Text('Change Theme'),
           trailing: DropdownButton<ThemeMode>(
-            value: m.themeMode,
+            value: model.themeMode,
             onChanged: (ThemeMode value) {
-               m.changeTheme(value);
+               model.changeTheme(value);
             },
             items: ThemeMode.values
                 .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {

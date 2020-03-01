@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:maintemplate/core/core.dart';
 import 'package:navigation_rail/navigation_rail.dart';
 
-import '../../../../locator.dart';
 
-class HomeView extends StatefulWidget {
+import '../locator.dart';
+
+class LayoutTemplate extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _LayoutTemplateState createState() => _LayoutTemplateState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _LayoutTemplateState extends State<LayoutTemplate> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {

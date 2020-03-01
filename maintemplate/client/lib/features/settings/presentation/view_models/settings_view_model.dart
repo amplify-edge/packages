@@ -15,9 +15,8 @@ class SettingsViewModel extends ChangeNotifier{
   
   ThemeMode get themeMode => _themeMode; 
 
-  void changeTheme(theme){
-    _themeMode = theme ?? _themeMode;
-    print(_themeMode);
+  void changeTheme(ThemeMode theme){
+    _themeMode = theme;
     notifyListeners();
   }
 
