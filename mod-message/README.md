@@ -31,7 +31,6 @@ exports two classes (`Message` and `Conversation`, from [`lib/utils/wrappers.dar
 
 [`lib/utils/hive_parse.dart`](https://github.com/AKushWarrior/packages/blob/master/mod-messages/lib/utils/hive_parse.dart) exports a method (`parseAll(Box hiveBox)`) that takes a box and returns a `List<Conversation>`. 
 
-[`lib/utils/hive_parse.dart`](https://github.com/AKushWarrior/packages/blob/master/mod-messages/lib/utils/hive_parse.dart) also exports a method (`persist(List<Conversation>, Box hiveBox)`) that takes a List<Conversation> and a box. It merges list the box: 
-If both the box and a List have the same message, it defers to the List version is stored instead of the Box. If only the Box has a message, the message is preserved in the Box.
+[`lib/utils/hive_parse.dart`](https://github.com/AKushWarrior/packages/blob/master/mod-messages/lib/utils/hive_parse.dart) also exports a method (`persist(List<Conversation>, Box hiveBox)`) that takes a List<Conversation> and a box. It merges the list & the box: If both the box and a List have the same message, it the List version is stored instead of the Box, to preserve updates in isNew. If the Box has messages that the List doesn't have, those messages are preserved in the Box.
 
 For an example of using these utilities, see [`lib/main.dart`](https://github.com/AKushWarrior/packages/blob/master/mod-messages/lib/main.dart) and [`lib/widgets/pane.dart`](https://github.com/AKushWarrior/packages/blob/master/mod-messages/lib/widgets/pane.dart)
