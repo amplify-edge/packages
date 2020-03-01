@@ -1,9 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:maintemplate/core/core.dart';
-import 'package:maintemplate/features/settings/repository/settings_repository.dart';
-import 'package:meta/meta.dart';
 
 class SettingsViewModel extends ChangeNotifier{
 

@@ -1,45 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:maintemplate/app_module.dart';
+import 'package:maintemplate/layout_template.dart';
 import 'package:maintemplate/locator.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 
 import '././core/core.dart';
-import 'features/settings/settings.dart';
+import 'modules/settings/settings.dart';
 
 void main() {
   setupLocator();
-  runApp(ServiceProvider());
-}
-
-class ServiceProvider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider.value(value: "Saad"),
-      ],
-      child: ChangeNotifierProvider<SettingsViewModel>(
+  runApp(
+    ChangeNotifierProvider<SettingsViewModel>(
         create: (context) => SettingsViewModel(),
-        child: App(),
-      ),
-    );
-  }
+        child: ModularApp(module: AppModule())),
+  );
 }
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   final model = Provider.of<SettingsViewModel>(context);
+    final model = Provider.of<SettingsViewModel>(context);
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: Router.home,
-        onGenerateRoute: Router.generateRoute,
-        navigatorKey: locator<NavigationService>().navigatorKey,
-        theme: themeData,
-        darkTheme: ThemeData.dark(),
-        themeMode: model.themeMode,
- 
+      debugShowCheckedModeBanner: false,
+      builder: (context, child) => LayoutTemplate(body: child),
+      theme: themeData,
+      darkTheme: ThemeData.dark(),
+      themeMode: model.themeMode,
+      initialRoute: Paths.home,
+      onGenerateRoute: Modular.generateRoute,
+      navigatorKey: Modular.navigatorKey,
     );
   }
 }

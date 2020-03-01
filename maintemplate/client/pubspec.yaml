@@ -24,7 +24,7 @@ dependencies:
   
   
   # Responsive Design
-  navigation_rail: ^1.0.4
+  # navigation_rail: ^1.0.4
   responsive_builder: 
   responsive_scaffold: ^1.3.0+2
   master_detail_scaffold: ^1.1.1+1
