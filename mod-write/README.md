@@ -2,26 +2,16 @@
 
 This is a package for writing documents.
 
-Based on  https://github.com/memspace/zefyr
-
-It uses the quillJS schema to allow collaborative real time editing.
+![Screenshot](https://raw.githubusercontent.com/memspace/zefyr/master/assets/zefyr-2.png)
 
 
+Based on zefyr
+- code: https://github.com/memspace/zefyr
+- docs: https://zefyr-editor.gitbook.io/docs/
 
-Cursors
+It uses the quillJS schema and Operational Transforms (OT) to allow collaborative real time editing.
 
-- Known as RTT ( Real Time Test) where you can see as the other types.
+These OTs are events that are backend can use with NATS
 
-Data Store
 
-- Images and data.
-- Use Hive. Examples in Mains repo.
-- See the GSheet tool in the Bootstrap repo to see how to boot push data in and out.
 
-Printing
-
-- It allows printing via conversion to Markdown and then conversion to PDF and then sending to the PDF Plugin in the Plugin repo.
-
-IO & Security
-
-- Will be provided via the embed core.
