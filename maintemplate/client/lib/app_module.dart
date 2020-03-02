@@ -13,6 +13,8 @@ import 'modules/settings/settings_module.dart';
 import 'modules/startup/startup.dart';
 import 'modules/writer/writer_module.dart';
 
+
+
 class AppModule extends MainModule {
   // here will be any class you want to inject into your project (eg bloc, dependency)
   @override

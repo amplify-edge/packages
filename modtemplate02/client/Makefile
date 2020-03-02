@@ -4,44 +4,34 @@ GO_ARCH		:= $(shell go env GOARCH)
 
 GIT_VERSION	:= $(shell git describe --tags)
 
-current_dir = $(shell pwd)
-
-SAMPLE_NAME = 
-SAMPLE_FSPATH = $(PWD)/$(SAMPLE_NAME)
-
 # Absolute File path to Server
+current_dir = $(shell pwd)
 SERVER_FSPATH=$(current_dir)/../server
 
-I18N_TEMPLATE_DIR = $(current_dir)/i18n/
-I18N_TEMPLATE_NAME = "intl.arb"
-I18N_TEMPLATE_PATH = $(I18N_TEMPLATE_DIR)/$(I18N_TEMPLATE_NAME)
-I18N_PREFIX_OUT_FILES = "stock"
+# Path to Examle.
+CWD=$(PWD)
+SAMPLE_NAME = 
+SAMPLE_FSPATH = $(CWD)/$(SAMPLE_NAME)
 
 help: ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
 
 print: ## print
 	@echo
 	@echo GO_OS: $(GO_OS)
 	@echo GO_ARCH: $(GO_ARCH)
 	@echo GIT_VERSION: $(GIT_VERSION)
-	@echo LIB_FSPATH: $(LIB_FSPATH)
 	@echo
 
-	@echo SAMPLE
+	@echo SERVER_FSPATH: $(SERVER_FSPATH)
+	
+	@echo
+
+	@echo
+	@echo SAMPLE_NAME: $(SAMPLE_NAME)
 	@echo SAMPLE_FSPATH: $(SAMPLE_FSPATH)
 	@echo
-
-	@echo I18N
-	@echo I18N_TEMPLATE_PATH: $(I18N_TEMPLATE_PATH)
-	@echo I18N_PREFIX_OUT_FILES: $(I18N_PREFIX_OUT_FILES)
-	@echo
-
-	@echo SERVER:
-	@echo SERVER_FSPATH: $(SERVER_FSPATH)
-	@echo
-
-
 
 os-dep:
 	# Assume hover make file has ben run
@@ -64,18 +54,22 @@ flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
 flu-desk-run: ## flu-desk-run
+	# hover init only needed first time.
 	#cd $(SAMPLE_FSPATH) && hover init
 	cd $(SAMPLE_FSPATH) && hover run
 
 
-### GEN 
+# gen
 
-flu-gen: ## flu-gen
+flu-update:
 	cd $(SAMPLE_FSPATH) && flutter packages get
 	$(MAKE) gen-icons
 	$(MAKE) gen-hive
 	$(MAKE) gen-proto
 	cd $(SAMPLE_FSPATH) && flutter analyze 
+
+
+### GEN 
 
 gen-icons:
 	# mobile and web
@@ -107,23 +101,5 @@ else
 endif
 
 
-## LANG
-
-lang-gen: ## gen-len
-	# wrapper script to call others to make it seemless
-	$(MAKE) lang-gen-go
-
-lang-gen-go: ## lang-gen-go
-	# calls our golang tool to do its thing...
-	@echo go-flu-gen
-
-lang-gen-json: ## lang-gen-json
-	# generate full json files
-	mkdir -p i18n
-	i18n flutter --dir $(I18N_TEMPLATE_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es -f
-
-lang-gen-arb: ## lang-gen-arb
-	# ?
-	i18n flutter --dir $(I18N_TEMPLATE_DIR)
-
+# i18N (TODO)
 
