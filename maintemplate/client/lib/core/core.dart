@@ -3,6 +3,9 @@ export './shared_services/navigation_service.dart';
 export './shared_services/dialogue_service.dart';
 export './shared_services/base_model.dart';
 
+// i18n
+export './i18n/app_localization.dart';
+
 // Shared Widgets
 export './shared_widgets/dialog_manager_widget.dart';
 
@@ -15,3 +18,4 @@ export './themes/app_theme.dart';
 // Errors
 export './errors/exceptions.dart';
 export './errors/failures.dart';
+

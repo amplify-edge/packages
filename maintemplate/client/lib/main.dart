@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
 import 'package:maintemplate/layout_template.dart';
@@ -31,6 +32,17 @@ class App extends StatelessWidget {
       initialRoute: Paths.home,
       onGenerateRoute: Modular.generateRoute,
       navigatorKey: Modular.navigatorKey,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const <Locale>[
+        Locale('en'),
+        Locale('es'),
+        Locale('fr'),
+        Locale('ur'),
+      ],
     );
   }
 }

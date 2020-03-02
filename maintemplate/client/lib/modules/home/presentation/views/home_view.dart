@@ -12,6 +12,6 @@ class _HomeViewState extends State<HomeView> {
   
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Home"));
+    return Center(child: Text(AppLocalizations.of(context).tabhome()));
   }
 }
