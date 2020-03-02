@@ -82,6 +82,15 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
            Modular.to.pushNamed(Paths.writer);
             print("Writer tapped");},
         ),
+        TabItem(
+          title: Text("ModWriter"),
+          icon: Icon(Icons.font_download),
+          onTap: () {
+            //  Navigator.of(context).pushNamed(Router.writer);
+            // locator<NavigationService>().navigateTo(Router.writer);
+            Modular.to.pushNamed(Paths.modWriter);
+            print("ModWriter tapped");},
+        ),
       ],
       onPressed: (index) {
         print(index);
