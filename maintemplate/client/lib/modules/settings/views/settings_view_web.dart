@@ -12,40 +12,58 @@ class SettingsViewWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<SettingsViewModel>(context);
     return Scaffold(
-      body: Column(children: [
-        Row(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: IconButton(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: [
+          Row(
+            children: <Widget>[
+              IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     Modular.to.pop();
                   }),
-            ),
-            SizedBox(width : 16),
-            Text("Settings")
-          ],
-        ),
-        ListTile(
-          leading: Icon(Icons.palette),
-          title: const Text('Change Theme'),
-          trailing: DropdownButton<ThemeMode>(
-            value: model.themeMode,
-            onChanged: (ThemeMode value) {
-              model.changeTheme(value);
-            },
-            items: ThemeMode.values
-                .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
-              return DropdownMenuItem<ThemeMode>(
-                value: value,
-                child: Text(
-                    value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
-              );
-            }).toList(),
+              SizedBox(width : 16),
+              Text("Settings")
+            ],
           ),
-        ),
-      ]),
+          ListTile(
+            leading: Icon(Icons.palette),
+            title: const Text('Change Theme'),
+            trailing: DropdownButton<ThemeMode>(
+              value: model.themeMode,
+              onChanged: (ThemeMode value) {
+                model.changeTheme(value);
+              },
+              items: ThemeMode.values
+                  .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
+                return DropdownMenuItem<ThemeMode>(
+                  value: value,
+                  child: Text(
+                      value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
+                );
+              }).toList(),
+            ),
+          ),
+           ListTile(
+            leading: Icon(Icons.language),
+            title: const Text('Change Language'),
+            trailing: DropdownButton<ThemeMode>(
+              value: model.themeMode,
+              onChanged: (ThemeMode value) {
+                model.changeTheme(value);
+              },
+              items: ThemeMode.values
+                  .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
+                return DropdownMenuItem<ThemeMode>(
+                  value: value,
+                  child: Text(
+                      value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
+                );
+              }).toList(),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }

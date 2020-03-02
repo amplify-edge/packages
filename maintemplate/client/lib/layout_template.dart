@@ -32,7 +32,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text("Settings"),
+              title: Text(AppLocalizations.of(context).tabsettings()),
               onTap: (){
              //  Navigator.of(context).pushNamed(Router.settings);
               // locator<NavigationService>().navigateTo( Router.settings);
@@ -47,7 +47,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
       bottomNavigationBarUnselectedColor: Colors.grey,
       tabs: [
         TabItem(
-          title: Text("Home"),
+          title: Text(AppLocalizations.of(context).tabhome()),
           icon: Icon(Icons.home),
           onTap: () {
           //  locator<NavigationService>().navigateTo(Router.home);
@@ -56,7 +56,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("Home tapped");},
         ),
          TabItem(
-          title: Text("Chat"),
+          title: Text(AppLocalizations.of(context).tabchat()),
           icon: Icon(Icons.chat),
           onTap: () {
             // Navigator.of(context).pushNamed(Router.chat);
@@ -65,7 +65,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("Chat tapped");},
         ),
         TabItem(
-          title: Text("ION"),
+          title: Text(AppLocalizations.of(context).tabIon()),
           icon: Icon(Icons.video_call),
           onTap: () {
             // Navigator.of(context).pushNamed(Router.ion);
@@ -74,7 +74,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("ION tapped");},
         ),
          TabItem(
-          title: Text("Writer"),
+          title: Text(AppLocalizations.of(context).tabwriter()),
           icon: Icon(Icons.edit),
           onTap: () {
            //  Navigator.of(context).pushNamed(Router.writer);

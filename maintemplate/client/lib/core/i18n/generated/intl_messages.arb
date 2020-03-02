@@ -1,0 +1,33 @@
+{
+  "@@last_modified": "2020-03-02T18:39:38.527498",
+  "tabhome": "Home",
+  "@tabhome": {
+    "description": "text for the home tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabchat": "Chat",
+  "@tabchat": {
+    "description": "text for the chat tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabIon": "Ion",
+  "@tabIon": {
+    "description": "text for the ion tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabsettings": "Settings",
+  "@tabsettings": {
+    "description": "text for the settings tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabwriter": "Writer",
+  "@tabwriter": {
+    "description": "text for the writer tab",
+    "type": "text",
+    "placeholders": {}
+  }
+}
