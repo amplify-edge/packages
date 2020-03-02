@@ -119,11 +119,9 @@ lang-gen-go: ## lang-gen-go
 
 lang-gen-json: ## lang-gen-json
 	# generate full json files
-	mkdir -p i18n
 	i18n flutter --dir $(I18N_TEMPLATE_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es -f
 
 lang-gen-arb: ## lang-gen-arb
-	# ?
+	# generate arb files from json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR)
-
 
