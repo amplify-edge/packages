@@ -16,3 +16,13 @@ Flutter web will be served on minikube IP:
 ```
 minikube ip
 ``` 
+
+
+# Test golang client/serveur
+
+1. start nats server: `make nats`
+2. start liftbridge server: `make lift`
+3. start server: `make svr-go`
+4. start a go-client: `make cli-go`
+
+You can run many clients in different shells to test with.
