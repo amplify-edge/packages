@@ -13,7 +13,7 @@ import 'modules/settings/settings_module.dart';
 import 'modules/startup/startup.dart';
 import 'modules/writer/writer_module.dart';
 
-
+import 'package:mod_write/writer_module.dart';
 
 class AppModule extends MainModule {
   // here will be any class you want to inject into your project (eg bloc, dependency)
@@ -33,7 +33,8 @@ class AppModule extends MainModule {
         Router(Paths.chat, module: ChatModule()),
         Router(Paths.ion, module: IonModule()),
         Router(Paths.writer, module: WriterModule()),
-         Router(Paths.settings, module: SettingsModule()),
+        Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
+        Router(Paths.settings, module: SettingsModule()),
       ];
 
 // add your main widget here
