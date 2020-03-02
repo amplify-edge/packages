@@ -30,9 +30,9 @@ dependencies:
   master_detail_scaffold: ^1.1.1+1
   rflutter_alert: ^1.0.3
 
-  modtemlate02:
+  modtemplate02:
    git:
-     url: git://github.com/getcourgaenow/packages.git
+     url: git://github.com/getcouragenow/packages.git
      path: modtemplate02/client/
 
   # Architectural packages
