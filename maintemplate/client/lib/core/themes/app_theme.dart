@@ -23,8 +23,6 @@ ThemeData themeData = ThemeData(
       bodyText2: TextStyle(color: Color(hexColor('000000')), fontSize: 16,fontWeight: FontWeight.bold),
       button: TextStyle(color: Color(hexColor('ffffff')), fontSize: 16, fontWeight: FontWeight.bold),
       subtitle1:  TextStyle(color: Colors.grey, fontSize: 14,fontWeight: FontWeight.w300)
-
-
     ));
 
 LinearGradient gradientHome = LinearGradient(

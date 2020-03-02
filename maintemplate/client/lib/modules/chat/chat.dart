@@ -1,0 +1,1 @@
+export './views/chat_view.dart';
