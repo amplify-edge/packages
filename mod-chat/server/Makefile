@@ -2,6 +2,8 @@
 VERSION             := v0.0.0
 TARGET_MAX_CHAR_NUM := 20
 
+JETSTREAM_TAG = 0.10.0
+
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
@@ -86,3 +88,26 @@ svr-go:
 cli-go:
 	# start a client
 	cd go-client && go run main.go
+
+config-nats-jets:
+	# config nats to use jetstream
+	cd $(GOPATH)/src/github.com/ && git clone https://github.com/nats-io/nats-server.git
+	cd $(GOPATH)/src/github.com/nats-server && git checkout jetstream
+	cd $(GOPATH)/src/github.com/nats-server && go build
+	cd $(GOPATH)/src/github.com/nats-server && mv ./nats-server $(GOPATH)/bin 
+
+config-nats:
+	# setup nats jetstream client
+	cd $(GOPATH)/src/github.com/ && rm -rf jetstream
+	mkdir -p $(GOPATH)/src/github.com/jetstream
+	cd $(GOPATH)/src/github.com/jetstream && git clone https://github.com/nats-io/jetstream.git --tags $(JETSTREAM_TAG)
+	cd $(GOPATH)/src/github.com/jetstream/$(JETSTREAM_TAG)/nats && go build
+	cd $(GOPATH)/src/github.com/jetstream/$(JETSTREAM_TAG)/nats && mv ./nats $(GOPATH)/bin
+
+start-jetstream:
+	# start nats-server
+	mkdir -p nats
+	nats-server -js -sd ./nats
+
+build-cli:
+	go build -o $(GOPATH)/bin/jets
