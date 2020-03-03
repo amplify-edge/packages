@@ -26,7 +26,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) => LayoutTemplate(body: child),
-      theme: themeData,
+      
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       darkTheme: ThemeData.dark(),
       themeMode: model.themeMode,
       initialRoute: Paths.home,
