@@ -29,6 +29,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // set your initial route
       initialRoute: "/",
       // add Modular to manage the routing system

@@ -7,9 +7,7 @@ import 'package:mod_chat/mod_chat.dart';
 import 'package:mod_ion/ion_module.dart';
 
 import 'core/core.dart';
-import 'modules/login/login.dart';
 import 'modules/settings/settings_module.dart';
-import 'modules/startup/startup.dart';
 import 'modules/writer/writer_module.dart';
 
 import 'package:mod_write/writer_module.dart';

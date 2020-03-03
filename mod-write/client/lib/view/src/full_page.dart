@@ -1,31 +1,19 @@
-// Copyright (c) 2018, the Zefyr project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mod_write/stub_data.dart';
+import 'package:mod_write/view/list_document.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:zefyr/zefyr.dart';
 
 import 'images.dart';
 
-class ZefyrLogo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text('Ze'),
-        FlutterLogo(size: 24.0),
-        Text('yr'),
-      ],
-    );
-  }
-}
-
 class FullPageEditorScreen extends StatefulWidget {
+  final String id;
+
+  const FullPageEditorScreen({Key key, @required this.id}) : super(key: key);
+
   @override
   _FullPageEditorScreenState createState() => _FullPageEditorScreenState();
 }
@@ -37,15 +25,10 @@ final doc =
     r'xibility in mind. It provides clean interface for distraction-free editing. Think Medium.com-like experience.\nMarkdown inspired semantics"},{"insert":"\n","attributes":{"heading":2}},{"insert":"Ever needed to have a heading line inside of a quote block, like this:\nI’m a Markdown heading"},{"insert":"\n","attributes":{"block":"quote","heading":3}},{"insert":"And I’m a regular paragraph"},{"insert":"\n","attributes":{"block":"quote"}},{"insert":"Code blocks"},{"insert":"\n","attributes":{"headin'
     r'g":2}},{"insert":"Of course:\nimport ‘package:flutter/material.dart’;"},{"insert":"\n","attributes":{"block":"code"}},{"insert":"import ‘package:zefyr/zefyr.dart’;"},{"insert":"\n\n","attributes":{"block":"code"}},{"insert":"void main() {"},{"insert":"\n","attributes":{"block":"code"}},{"insert":" runApp(MyZefyrApp());"},{"insert":"\n","attributes":{"block":"code"}},{"insert":"}"},{"insert":"\n","attributes":{"block":"code"}},{"insert":"\n\n\n"}]';
 
-Delta getDelta() {
-  return Delta.fromJson(json.decode(doc) as List);
-}
-
 enum _Options { darkTheme }
 
 class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
-  final ZefyrController _controller =
-      ZefyrController(NotusDocument.fromDelta(getDelta()));
+  ZefyrController _controller;
   final FocusNode _focusNode = FocusNode();
   bool _editing = false;
   StreamSubscription<NotusChange> _sub;
@@ -54,9 +37,16 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
   @override
   void initState() {
     super.initState();
+    _controller = ZefyrController(NotusDocument.fromDelta(getDelta()));
     _sub = _controller.document.changes.listen((change) {
       print('${change.source}: ${change.change}');
     });
+  }
+
+  Delta getDelta() {
+    return Delta.fromJson(json.decode(StubData.documents
+        .firstWhere((Document element) => element.id == widget.id)
+        .content) as List);
   }
 
   @override
@@ -70,18 +60,11 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
     final done = _editing
         ? IconButton(onPressed: _stopEditing, icon: Icon(Icons.save))
         : IconButton(onPressed: _startEditing, icon: Icon(Icons.edit));
-    final result = Scaffold(
-      resizeToAvoidBottomPadding: true,
+    return Scaffold(
       appBar: AppBar(
-        title: Container(),
-        actions: [
-          done,
-          PopupMenuButton<_Options>(
-            itemBuilder: buildPopupMenu,
-            onSelected: handlePopupItemSelected,
-          )
-        ],
+        actions: <Widget>[done],
       ),
+      resizeToAvoidBottomPadding: true,
       body: ZefyrScaffold(
         child: ZefyrEditor(
           controller: _controller,
@@ -92,10 +75,6 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
         ),
       ),
     );
-    if (_darkTheme) {
-      return Theme(data: ThemeData.dark(), child: result);
-    }
-    return Theme(data: ThemeData(primarySwatch: Colors.cyan), child: result);
   }
 
   void handlePopupItemSelected(value) {
@@ -127,5 +106,6 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
     setState(() {
       _editing = false;
     });
+    print("zefyr json: ${jsonEncode(_controller.document.toDelta())}");
   }
 }

@@ -24,7 +24,6 @@ class MaterialNavigationRail extends StatelessWidget {
       bottomNavigationBarUnselectedColor;
   final bool isDense;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   MaterialNavigationRail(
       {Key key,
@@ -56,6 +55,8 @@ class MaterialNavigationRail extends StatelessWidget {
       child: LayoutBuilder(builder: (context, dimens) {
         final _direction = Directionality.of(context);
         final isRtl = _direction == TextDirection.rtl;
+
+        //DESKTOP
         if (dimens.maxWidth >= this.desktopBreakpoint &&
             dimens.maxHeight > this.minHeight) {
           return Material(
@@ -97,19 +98,21 @@ class MaterialNavigationRail extends StatelessWidget {
           );
         }
 
+        //TABLET
         if (dimens.maxWidth >= this.tabletBreakpoint &&
             dimens.maxHeight > this.minHeight) {
           return Scaffold(
-            key: _scaffoldKey,
             appBar: AppBar(
                 title: title,
                 actions: actions,
                 automaticallyImplyLeading: false,
-                leading: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      _scaffoldKey.currentState.openDrawer();
-                    })),
+                leading: Builder(
+                  builder: (context) => IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      }),
+                )),
             drawer: (this.drawerHeaderBuilder != null ||
                     this.drawerFooterBuilder != null)
                 ? _buildDrawer(context, false)
@@ -151,17 +154,20 @@ class MaterialNavigationRail extends StatelessWidget {
             ),
           );
         }
+
+        //PHONE
         return Scaffold(
-            key: _scaffoldKey,
             appBar: AppBar(
                 title: title,
                 actions: actions,
                 automaticallyImplyLeading: false,
-                leading: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      _scaffoldKey.currentState.openDrawer();
-                    })),
+                leading: Builder(
+                  builder: (context) => IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      }),
+                )),
             drawer: drawerHeaderBuilder != null || drawerFooterBuilder != null
                 ? _buildDrawer(context, false)
                 : null,

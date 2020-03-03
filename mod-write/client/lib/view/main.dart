@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final nav = Navigator.of(context);
     return Scaffold(
-      appBar: AppBar(title: ZefyrLogo()),
+      appBar: AppBar(title: Container()),
       body: Column(
         children: <Widget>[
           Expanded(child: Container()),
