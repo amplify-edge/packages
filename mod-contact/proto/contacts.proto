@@ -1,0 +1,138 @@
+syntax = "proto3";
+package contacts;
+
+option java_package = "io.getcouragenow.contacts";
+
+///  Account Status
+enum AccountStatus {
+    UNDEFINED = 0; //  testing account in trial field / dev field
+    UNVERIFIED = 1; //  register but not success versify. //  verify by email confirm or  active code msg to phone
+    ACTIVE = 2; //  active , all feature access-able
+    SUSPEND = 3; // suspend,   login and review profile / history data but can't use any others feature
+    DELETED = 4; // mark as deleted, hided account and disable all feature include login
+}
+
+///  phone type
+enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+}
+
+///  phone number
+message PhoneNumber {
+    PhoneType type = 1;
+    string number = 2;
+}
+
+///  account
+message account {
+    uint64 id = 1; //  primary key,  account id / member id , use inside platform as account id to all services
+    int64 registerDate = 2; //  register date
+    int64 lastActivity = 3; //  account last Activity timestamp,  time.Unix()
+    AccountStatus status = 4; //  account status
+    string PIN = 5; // PIN ( personal identify number ) , auto-generate  PIN that show to members , and print in papers
+    string email = 6; // login email
+    string loginName = 7; //  login name
+    string activeURI = 8; // active URI for active account after register
+    bytes secretKey = 9; //  reserved  field, crypt key
+    bytes secretTokens = 10; //  reserved  field, access token that generate by crypt key
+    bytes signature = 11; //  reserved  field
+    People profile = 12; //  account profile detail
+}
+
+///  contact type
+enum typeId {
+    NEW = 0;
+    FAMILY = 1;
+    FRIEND = 2;
+    ALUMNI = 3;
+    STAFF = 4;
+}
+/// contacts group
+message NamedContacts {
+    typeId relationShip = 1;
+    string name = 2;
+    repeated uint64 people = 3;
+}
+
+///  people profile
+message People {
+    uint64 id = 1; //  primary key, same as account id
+    AccountStatus status = 2; //  account status
+    int64 birthday = 3; //
+    int64 lastUpdated = 4; //  account  profile last updated timestamp,   time.Unix()
+    string name = 5; //  first name
+    string email = 6;
+    string note = 7;
+    string address = 8;
+    repeated PhoneNumber phoneNumber = 9;
+}
+
+/// addressbook
+message AddressBook {
+    uint64 id = 1; //  address book primary key , used in server side
+    uint64 ownerID = 2; //  address book owner id , same as account id
+    int64 lastSyncActivity = 3; // timestamp for address book sync between client side and server side, time.Uinx()
+    bool inPrivate = 4; // in private or public
+    repeated NamedContacts Contacts = 5;
+}
+
+///
+enum activeType {
+    Register = 0;
+    Active = 1;
+    Reset = 2;
+    Suspend = 3;
+}
+
+message activeReq {
+    int64 tid = 1; //  transaction id
+    activeType auth = 2;
+    string email = 3; // login email
+    string password = 4;
+    PhoneNumber phoneNumber = 5;
+    bytes payload = 6; //  payload
+}
+
+enum authType {
+    ByPass = 0;
+    Auth = 1;
+    Refresh = 2;
+}
+
+message LoginReq {
+    int64 tid = 1; //  transaction id
+    string email = 2; // login email
+    string PIN = 3; // PIN ( personal identify number ) , auto-generate  PIN that show to members , and print in papers
+    string password = 4;
+    PhoneNumber phoneNumber = 5;
+    bytes payload = 6; //  payload
+}
+
+message AuthReq {
+    int64 tid = 1; //  transaction id
+    uint64 id = 2; //  primary key,  account id / member id , use inside platform as account id to all services
+    string email = 3; // login email
+    bytes secretTokens = 4; //  reserved  field, access token that generate by crypt key
+    bytes payload = 5; //  payload
+}
+
+message AuthResp {
+    int64 tid = 1; //  transaction id for async
+    uint64 id = 2; //  primary key,  account id / member id , use inside platform as account id to all services
+    int64 expiredTime = 3; //  account last Activity timestamp,  time.Unix()
+    string refreshURI = 4; // active URI for active account after register
+    bytes secretTokens = 5; //  reserved  field, access token that generate by crypt key
+}
+
+// The greeting service definition.
+service UmsService {
+    // Sends a msg to server
+    rpc Register (activeReq) returns (account) {
+    }
+    rpc Login (LoginReq) returns (account) {
+    }
+    rpc Auth (AuthReq) returns (AuthResp) {
+    }
+}
