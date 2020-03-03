@@ -17,4 +17,5 @@ class Paths {
   static const String ion = '/ion';
   static const String writer = '/writer';
   static const String settings = '/settings';
+  static const String modWriter = '/modWriter';
 }
