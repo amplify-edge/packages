@@ -13,14 +13,14 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-    - master
-    - ci-https
+    - '*'
 
 # Environment variables available to all jobs and steps in this workflow
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   IMAGE: maintemplate
   REGISTRY_HOSTNAME: gcr.io
@@ -64,6 +64,8 @@ jobs:
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" maintemplate/server/grpc-web
+          
+        sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
         cp -rf maintemplate/client/build/web maintemplate/server/flutter
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$GITHUB_SHA" maintemplate/server/flutter
         
