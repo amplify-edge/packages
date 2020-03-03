@@ -39,6 +39,8 @@ dependencies:
     path: ../../mod-write/client
   mod_chat:
     path: ../../mod-chat/client
+  mod_ion:
+    path: ../../mod-ion/client
 
   # Architectural packages
   provider: ^4.0.4
