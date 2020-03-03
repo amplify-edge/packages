@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
 import 'package:maintemplate/modules/home/home.dart';
+import 'package:mod_chat/mod_chat.dart';
 
 import 'core/core.dart';
-import 'modules/chat/chat.dart';
-import 'modules/chat/chat_module.dart';
 import 'modules/ion/ion_module.dart';
 import 'modules/login/login.dart';
 import 'modules/settings/settings_module.dart';
@@ -30,7 +29,7 @@ class AppModule extends MainModule {
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
         Router(Paths.home, module: HomeModule()),
-        Router(Paths.chat, module: ChatModule()),
+        Router(Paths.chat, module: ChatModule(Paths.chat)),
         Router(Paths.ion, module: IonModule()),
         Router(Paths.writer, module: WriterModule()),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),

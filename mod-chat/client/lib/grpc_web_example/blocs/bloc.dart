@@ -2,9 +2,9 @@ import 'dart:collection';
 
 import 'package:rxdart/rxdart.dart';
 
-import 'package:maintemplate/features/grpc_web_example/models/message.dart';
-import 'package:maintemplate/features/grpc_web_example/models/message_incoming.dart';
-import 'package:maintemplate/features/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/models/message.dart';
+import 'package:mod_chat/grpc_web_example/models/message_incoming.dart';
+import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 
 import 'bloc_provider.dart';
 import 'message_events.dart';

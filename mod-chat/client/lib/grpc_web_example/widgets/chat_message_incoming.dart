@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:maintemplate/features/grpc_web_example/models/message_incoming.dart';
+import 'package:mod_chat/grpc_web_example/models/message_incoming.dart';
 
 import 'chat_message.dart';
 

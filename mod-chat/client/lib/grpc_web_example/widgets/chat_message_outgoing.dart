@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:shimmer/shimmer.dart';
 
-import 'package:maintemplate/features/grpc_web_example/models/message_outgoing.dart';
-import 'package:maintemplate/features/grpc_web_example/theme.dart';
+import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/theme.dart';
 
 import 'chat_message.dart';
 

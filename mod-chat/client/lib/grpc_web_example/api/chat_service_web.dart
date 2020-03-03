@@ -3,15 +3,12 @@ import 'dart:io';
 import 'dart:async';
 import 'package:grpc/grpc_web.dart';
 
-import 'package:maintemplate/features/grpc_web_example/blocs/message_events.dart';
-import 'package:maintemplate/features/grpc_web_example/models/message_outgoing.dart';
 import 'package:flutter/foundation.dart';
-
-
-import 'package:maintemplate/features/grpc_web_example/api/v1/chat.pbgrpc.dart' as grpc;
-import 'package:maintemplate/features/grpc_web_example/api/v1/google/protobuf/empty.pb.dart';
-import 'package:maintemplate/features/grpc_web_example/api/v1/google/protobuf/wrappers.pb.dart';
-
+import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/empty.pb.dart';
+import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/wrappers.pb.dart';
+import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
+import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/api/v1/chat.pbgrpc.dart' as grpc;
 
 /// ChatService client implementation
 class ChatService {
@@ -42,8 +39,8 @@ class ChatService {
   /// Event is raised when message receiving is failed
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
-  final channel = GrpcWebClientChannel.xhr(Uri.parse(window.location.protocol + "//" + window.location.hostname));
-
+  final channel = GrpcWebClientChannel.xhr(
+      Uri.parse(window.location.protocol + "//" + window.location.hostname));
 
   /// Constructor
   ChatService(
@@ -51,8 +48,9 @@ class ChatService {
       this.onMessageSendFailed,
       this.onMessageReceived,
       this.onMessageReceiveFailed});
-      // : _portSendStatus = ReceivePort(),
-      //   _portReceiving = ReceivePort();
+
+  // : _portSendStatus = ReceivePort(),
+  //   _portReceiving = ReceivePort();
 
   // Start threads to send and receive messages
 
@@ -76,12 +74,10 @@ class ChatService {
     } while (true);
   }
 
-  void shutdown() {
-  }
+  void shutdown() {}
 
   /// Send message to the server
   void send(MessageOutgoing message) {
-
     var request = StringValue.create();
     request.value = message.text;
     grpc.ChatServiceClient(channel).send(request);
