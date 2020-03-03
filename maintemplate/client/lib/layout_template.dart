@@ -43,11 +43,12 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
         );
       },
       body: widget.body,
-      bottomNavigationBarSelectedColor: Theme.of(context).primaryColor,
+      bottomNavigationBarSelectedColor:(Theme.of(context).brightness == Brightness.dark) ? Colors.tealAccent[200] : Theme.of(context).primaryColor,
       bottomNavigationBarUnselectedColor: Colors.grey,
+
       tabs: [
         TabItem(
-          title: Text(AppLocalizations.of(context).tabhome()),
+          title: Text(AppLocalizations.of(context).tabhome(),),
           icon: Icon(Icons.home),
           onTap: () {
           //  locator<NavigationService>().navigateTo(Router.home);
@@ -75,22 +76,22 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
         ),
          TabItem(
           title: Text(AppLocalizations.of(context).tabwriter()),
-          icon: Icon(Icons.edit),
+          icon: Icon(Icons.font_download),
           onTap: () {
            //  Navigator.of(context).pushNamed(Router.writer);
            // locator<NavigationService>().navigateTo(Router.writer);
-           Modular.to.pushNamed(Paths.writer);
+           Modular.to.pushNamed(Paths.modWriter);
             print("Writer tapped");},
         ),
-        TabItem(
-          title: Text("ModWriter"),
-          icon: Icon(Icons.font_download),
-          onTap: () {
-            //  Navigator.of(context).pushNamed(Router.writer);
-            // locator<NavigationService>().navigateTo(Router.writer);
-            Modular.to.pushNamed(Paths.modWriter);
-            print("ModWriter tapped");},
-        ),
+        // TabItem(
+        //   title: Text("ModWriter"),
+        //   icon: Icon(Icons.font_download),
+        //   onTap: () {
+        //     //  Navigator.of(context).pushNamed(Router.writer);
+        //     // locator<NavigationService>().navigateTo(Router.writer);
+        //     Modular.to.pushNamed(Paths.modWriter);
+        //     print("ModWriter tapped");},
+        // ),
       ],
       onPressed: (index) {
         print(index);

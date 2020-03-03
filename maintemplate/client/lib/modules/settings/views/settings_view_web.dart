@@ -10,6 +10,7 @@ class SettingsViewWeb extends StatelessWidget {
   SettingsViewWeb({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
     final model = Provider.of<SettingsViewModel>(context);
     return Scaffold(
       body: Padding(
@@ -17,11 +18,7 @@ class SettingsViewWeb extends StatelessWidget {
         child: Column(children: [
           Row(
             children: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Modular.to.pop();
-                  }),
+              Icon( Icons.arrow_back  ),
               SizedBox(width : 16),
               Text("Settings")
             ],
@@ -47,17 +44,18 @@ class SettingsViewWeb extends StatelessWidget {
            ListTile(
             leading: Icon(Icons.language),
             title: const Text('Change Language'),
-            trailing: DropdownButton<ThemeMode>(
-              value: model.themeMode,
-              onChanged: (ThemeMode value) {
-                model.changeTheme(value);
+            trailing: DropdownButton<Locale>(
+              value: model.locale,
+              onChanged: (Locale value) {
+                AppLocalizations.load(value);
+                model.changeLanguage(value);
               },
-              items: ThemeMode.values
-                  .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
-                return DropdownMenuItem<ThemeMode>(
+              items: model.supportedLocales
+                  .map<DropdownMenuItem<Locale>>((Locale value) {
+                return DropdownMenuItem<Locale>(
                   value: value,
                   child: Text(
-                      value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
+                      value.languageCode.getLanguage),
                 );
               }).toList(),
             ),

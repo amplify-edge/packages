@@ -151,7 +151,6 @@ class MaterialNavigationRail extends StatelessWidget {
             ),
           );
         }
-
         return Scaffold(
             key: _scaffoldKey,
             appBar: AppBar(
@@ -169,21 +168,58 @@ class MaterialNavigationRail extends StatelessWidget {
             body: body,
             floatingActionButton: floatingActionButton,
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            bottomNavigationBar: BottomNavigationBar(
-                currentIndex: currentIndex,
-                type: bottomNavigationBarType,
-                backgroundColor: bottomNavigationBarColor,
-                unselectedItemColor: bottomNavigationBarUnselectedColor,
-                selectedItemColor: bottomNavigationBarSelectedColor,
-                onTap: (index) {
-                  onPressed(index);
-                  tabs[index].onTap();
-                },
-                items: [
+            bottomNavigationBar: BottomAppBar(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
                   for (var tab in this.tabs) ...[
-                    BottomNavigationBarItem(icon: tab.icon, title: tab.title)
-                  ]
-                ]));
+                    InkWell(
+                      onTap: () {
+                        onPressed(tabs.indexOf(tab));
+                        tab.onTap();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            IconTheme(
+                              data: IconThemeData(
+                                color: (currentIndex == tabs.indexOf(tab)) ? bottomNavigationBarSelectedColor : bottomNavigationBarUnselectedColor,
+                              ),
+                              child: tab.icon),
+                            DefaultTextStyle(
+                              style: TextStyle(color:(currentIndex == tabs.indexOf(tab)) ? bottomNavigationBarSelectedColor : bottomNavigationBarUnselectedColor,),
+                              child: tab.title)
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ],
+              ),
+            )
+            //  BottomNavigationBar(
+            //   currentIndex: currentIndex,
+            //   type: bottomNavigationBarType,
+            //   backgroundColor: bottomNavigationBarColor,
+            //   unselectedItemColor: bottomNavigationBarUnselectedColor,
+            //   selectedItemColor: bottomNavigationBarSelectedColor,
+            //   onTap: (index) {
+            //     onPressed(index);
+            //     tabs[index].onTap();
+            //   },
+            //   items: [
+            //     for (var tab in this.tabs) ...[
+            //       BottomNavigationBarItem(
+            //         icon: tab.icon,
+            //         title: tab.title,
+            //       )
+            //     ],
+            //   ],
+            // ),
+            );
       }),
     );
   }
@@ -284,7 +320,7 @@ class MaterialNavigationRail extends StatelessWidget {
 }
 
 class TabItem extends StatelessWidget {
-  final Widget title;
+  final Text title;
   final Icon icon;
   final Function onTap;
   const TabItem({
