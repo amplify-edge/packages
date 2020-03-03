@@ -7,7 +7,7 @@ import 'package:latlong/latlong.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
-class MapView extends StatelessWidget {
+class MapsView extends StatelessWidget {
   MapController _mapController = MapController();
   @override
   Widget build(BuildContext context) {
