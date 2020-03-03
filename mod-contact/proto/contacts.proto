@@ -59,7 +59,7 @@ message NamedContacts {
 ///  people profile
 message People {
     uint64 id = 1; //  primary key, same as account id
-    AccountStatus status = 2; //  account status
+    int64 accountID = 2; //  account status
     int64 birthday = 3; //
     int64 lastUpdated = 4; //  account  profile last updated timestamp,   time.Unix()
     string name = 5; //  first name
