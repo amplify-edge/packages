@@ -4,9 +4,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
 import 'package:maintemplate/modules/home/home.dart';
 import 'package:mod_chat/mod_chat.dart';
+import 'package:mod_ion/ion_module.dart';
 
 import 'core/core.dart';
-import 'modules/ion/ion_module.dart';
 import 'modules/login/login.dart';
 import 'modules/settings/settings_module.dart';
 import 'modules/startup/startup.dart';
@@ -30,7 +30,7 @@ class AppModule extends MainModule {
         //     transition: TransitionType.fadeIn),
         Router(Paths.home, module: HomeModule()),
         Router(Paths.chat, module: ChatModule(Paths.chat)),
-        Router(Paths.ion, module: IonModule()),
+        Router(Paths.ion, module: IonModule(Paths.ion)),
         Router(Paths.writer, module: WriterModule()),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
         Router(Paths.settings, module: SettingsModule()),
