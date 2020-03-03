@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-web
+  template:
+    metadata:
+      labels:
+        app: grpc-web
+    spec:
+      containers:
+      - name: grpc-web
+        image: gcr.io/GKE_PROJECT/IMAGE:TAG
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9074
+        resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 100m
