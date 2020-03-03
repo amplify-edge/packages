@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_write/home_screen.dart';
+import 'package:mod_write/view/list_document.dart';
 import 'package:mod_write/view/src/form.dart';
 import 'package:mod_write/view/src/full_page.dart';
 import 'package:mod_write/view/src/view.dart';
@@ -15,7 +16,7 @@ class ModWriterModule extends ChildModule {
   static String cutOffBaseRoute(String route) {
     if (route.indexOf(baseRoute) < 0) return route;
     return route.substring(
-        fullPageRoute.indexOf(baseRoute) + baseRoute.length, route.length);
+        route.indexOf(baseRoute) + baseRoute.length, route.length);
   }
 
   ModWriterModule(String baseRoute) {
@@ -26,7 +27,7 @@ class ModWriterModule extends ChildModule {
       ModWriterModule.baseRoute = "$baseRoute/";
     }
 
-    ModWriterModule.fullPageRoute = ModWriterModule.baseRoute + "fullpage";
+    ModWriterModule.fullPageRoute = ModWriterModule.baseRoute + "fullpage/:id";
     ModWriterModule.formRoute = ModWriterModule.baseRoute + "form";
     ModWriterModule.viewRoute = ModWriterModule.baseRoute + "view";
   }
@@ -42,13 +43,13 @@ class ModWriterModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        Router("/", child: (context, args) => HomeScreen()),
-        Router(cutOffBaseRoute(fullPageRoute),
-            child: (context, args) => FullPageEditorScreen()),
+        Router("/", child: (context, args) => DocumentList()),
+        /*Router(cutOffBaseRoute(fullPageRoute),
+            child: (context, args) => FullPageEditorScreen(id: args.params['id'],)),
         Router(cutOffBaseRoute(formRoute),
             child: (context, args) => FormEmbeddedScreen()),
         Router(cutOffBaseRoute(viewRoute),
-            child: (context, args) => ViewScreen()),
+            child: (context, args) => ViewScreen()),*/
       ];
 
   static Inject get to => Inject<ModWriterModule>.of();

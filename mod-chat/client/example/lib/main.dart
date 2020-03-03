@@ -9,8 +9,6 @@ import 'package:maintemplate/features/responsive_scaffold_example/responsive_sca
 import 'package:mod_chat/mod_chat.dart';
 import 'package:provider/provider.dart';
 
-import 'package:maintemplate/features/i18n_json_example/i18n_view.dart';
-import 'package:maintemplate/features/navigation_rail/navigation_rail.dart';
 
 import 'features/responvive_builder_example/responsive_template.dart';
 

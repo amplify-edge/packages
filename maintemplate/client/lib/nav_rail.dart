@@ -55,6 +55,8 @@ class MaterialNavigationRail extends StatelessWidget {
       child: LayoutBuilder(builder: (context, dimens) {
         final _direction = Directionality.of(context);
         final isRtl = _direction == TextDirection.rtl;
+
+        //DESKTOP
         if (dimens.maxWidth >= this.desktopBreakpoint &&
             dimens.maxHeight > this.minHeight) {
           return Material(
@@ -96,6 +98,7 @@ class MaterialNavigationRail extends StatelessWidget {
           );
         }
 
+        //TABLET
         if (dimens.maxWidth >= this.tabletBreakpoint &&
             dimens.maxHeight > this.minHeight) {
           return Scaffold(
@@ -151,6 +154,8 @@ class MaterialNavigationRail extends StatelessWidget {
             ),
           );
         }
+
+        //PHONE
         return Scaffold(
             appBar: AppBar(
                 title: title,
