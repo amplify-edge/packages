@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'package:maintemplate/features/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 
 /// New message created event
 class MessageNewCreatedEvent {

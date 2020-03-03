@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:maintemplate/features/grpc_web_example/models/message.dart';
+import 'package:mod_chat/grpc_web_example/models/message.dart';
 
 /// ChatMessage is base abstract class for outgoing and incoming message widgets
 abstract class ChatMessage extends Widget {

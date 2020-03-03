@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:maintemplate/features/grpc_web_example/blocs/bloc.dart';
-import 'package:maintemplate/features/grpc_web_example/blocs/bloc_provider.dart';
-import 'package:maintemplate/features/grpc_web_example/blocs/message_events.dart';
+import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
+import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
+import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 
-import 'package:maintemplate/features/grpc_web_example/models/message.dart';
-import 'package:maintemplate/features/grpc_web_example/models/message_incoming.dart';
-import 'package:maintemplate/features/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/models/message.dart';
+import 'package:mod_chat/grpc_web_example/models/message_incoming.dart';
+import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 
-import 'package:maintemplate/features/grpc_web_example/theme.dart';
+import 'package:mod_chat/grpc_web_example/theme.dart';
 
-import 'package:maintemplate/features/grpc_web_example/widgets/chat_message.dart';
-import 'package:maintemplate/features/grpc_web_example/widgets/chat_message_incoming.dart';
-import 'package:maintemplate/features/grpc_web_example/widgets/chat_message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/widgets/chat_message.dart';
+import 'package:mod_chat/grpc_web_example/widgets/chat_message_incoming.dart';
+import 'package:mod_chat/grpc_web_example/widgets/chat_message_outgoing.dart';
 
 /// Host screen widget - main window
 class HomePage extends StatefulWidget {
@@ -63,10 +63,10 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text('Flutter gRPC Web'),
         elevation: isIOS(context) ? 0.0 : 4.0,
-      ),
+      ),*/
       body: new Container(
           child: new Column(
             children: <Widget>[

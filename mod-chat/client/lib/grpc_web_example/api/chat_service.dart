@@ -1,9 +1,9 @@
 import 'dart:isolate';
 import 'dart:io';
 import 'package:grpc/grpc.dart';
+import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
+import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 
-import 'package:maintemplate/features/grpc_web_example/blocs/message_events.dart';
-import 'package:maintemplate/features/grpc_web_example/models/message_outgoing.dart';
 
 import 'v1/chat.pbgrpc.dart' as grpc;
 import 'v1/google/protobuf/empty.pb.dart';
