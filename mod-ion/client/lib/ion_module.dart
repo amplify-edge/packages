@@ -1,5 +1,5 @@
-import 'package:mod_ion/home_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_ion/src/call_sample/call_sample.dart';
 
 class IonModule extends ChildModule {
   // not sure if this is the best way to store the current route statically
@@ -13,9 +13,11 @@ class IonModule extends ChildModule {
   }
 
   IonModule(String baseRoute) {
+    print("creating IonModule!!");
     assert(baseRoute != null);
     IonModule.baseRoute = baseRoute;
   }
+
 
   @override
   List<Bind> get binds => [];
@@ -30,7 +32,7 @@ class IonModule extends ChildModule {
   List<Router> get routers => [
         Router(
           "/",
-          child: (context, args) => HomeScreen(),
+          child: (context, args) => CallSample(ip: "demo.cloudwebrtc.com"),
         ),
       ];
 

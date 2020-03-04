@@ -148,7 +148,7 @@ flu-mob-run:
 
 
 
-WEB_SAMPLE=example_web
+WEB_SAMPLE=example
 #WEB_SAMPLE=example
 WEB_SAMPLE_FSPATH=$(LIB_FSPATH)/$(WEB_SAMPLE)
 flu-web-create:
