@@ -2,28 +2,34 @@ syntax = "proto3";
 package v3;
 
 
-// response
-message Response{}
+message ReqMessage{
+    string deviceID = 1; // device id
+    string roomID = 2; // room id
+    string message = 3; // message
+}
+
+message ResMessage{}
 
 // request
 message Request{
-    string username = 1; // user username
-    string deviceID = 4; // device id
+    string user = 1; // user username
+    string roomID = 2; // room id
+    string deviceID = 3; // device id
 }
 
 // chat message
 message Message{
-    string from_user = 1; // from user 
-    string to_user = 2; // to user
-    string text = 3; // text
+    string id = 1; // message id
+    string content = 2; // message content
+    string roomID = 3; // device id
     string deviceID = 4; // device id
 }
 
 //services
 service ChatService{
-    // send request to register the new user
-    rpc Send(Message) returns (Response){}
+    // send messages
+    rpc Send(ReqMessage) returns (ResMessage){}
 
-    // subscribe to a stream
+    // subscribe to a room
     rpc Subscribe(Request) returns (stream Message){}
 }
