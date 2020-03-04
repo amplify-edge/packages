@@ -107,5 +107,10 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
       _editing = false;
     });
     print("zefyr json: ${jsonEncode(_controller.document.toDelta())}");
+    var _doc = StubData.documents
+        .firstWhere((Document element) => widget.id == element.id);
+    StubData.documents.remove(_doc);
+    StubData.documents.add(Document(
+        _doc.id, _doc.name, jsonEncode(_controller.document.toDelta())));
   }
 }
