@@ -93,6 +93,9 @@ flutter:
     - lang/fr.json
     - lang/he.json
     - lang/zh-cn.json
+    - assets/hambach.png
+    - assets/london_strike.png
+    - assets/pipeline.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
