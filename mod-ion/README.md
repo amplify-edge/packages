@@ -22,6 +22,10 @@ The backend is golang
 
 - See that folder for its capabilities
 
+### Works
+but not master detail view yet: 3bb572c927a79e91060eb8f2f614fe63bf1888cc
+
+
 # runtime folder
 
 There are 2 ways to run flutter:
