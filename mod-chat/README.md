@@ -1,14 +1,26 @@
 # Architecture for chat
-
-chat use grpc and jetstream and nats to pub/sub.
-
-protofile: server/grpc-web/pkg/proto/v3.proto
-
-- Client should make request to register and provide username and deviceID.
-- Users can have many devices.
-- Server use username and the deviceID as a keys for push a message to the right users.
+- Now, we don't require a login so devices are endpoints of chat.
+- We don't have multiple devices for a user.
+- Each device has a unique ID.
+- We have chatrooms mapped to subjects of nats.io.
+- One-to-one chat is a chatroom with two devices.
+# Architecture for chat
+- Now, we don't require a login so devices are endpoints of chat.
+- We don't have multiple devices for a user.
+- Each device has a unique ID.
+- We have chatrooms mapped to subjects.
+- One-to-one chat is a chatroom with two devices.
+- Users can publish their messages to a chatroom and the message will be sent all subscribed devices.
 - The client should send a message with the informations:
-    - from_user.
-    - to_user.
-    - text.
-    - deviceID
+- Chatroom ID
+- Device UID
+- Message
+- The client should subscribe to a chatroom using:
+- Device UID
+- User name
+- Client recieves a message containing:
+- Chatroom ID
+- Sender device ID
+- Message
+- Message ID
+- Time ?
