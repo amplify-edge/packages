@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:mod_chat/grpc_web_example/api/chat_service.dart' if (dart.library.html) 'package:mod_chat/grpc_web_example/api/chat_service_web.dart';
-
+import 'package:mod_chat/grpc_web_example/api/chat_service.dart'
+    if (dart.library.html) 'package:mod_chat/grpc_web_example/api/chat_service_web.dart';
 
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
@@ -9,6 +9,9 @@ import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 
 import 'package:mod_chat/grpc_web_example/pages/home.dart';
 import 'package:mod_chat/grpc_web_example/theme.dart';
+
+import '../utils/device_info.dart'
+    if (dart.library.js) '../utils/device_info_web.dart';
 
 // Stateful application widget
 class GRPCWebApp extends StatefulWidget {
