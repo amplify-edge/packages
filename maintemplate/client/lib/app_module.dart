@@ -34,7 +34,7 @@ class AppModule extends MainModule {
         Router(Paths.ion, module: IonModule(Paths.ion)),
         Router(Paths.writer, module: WriterModule()),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
-        Router(Paths.modGeo, module: GeoModule()),
+        Router(Paths.modGeo, module: GeoModule(Paths.modGeo)),
         Router(Paths.settings, module: SettingsModule()),
       ];
 
