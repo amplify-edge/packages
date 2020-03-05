@@ -14,7 +14,7 @@ description: Geolocation module.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -24,6 +24,8 @@ dependencies:
   flutter_map: ^0.8.2
   latlong: ^0.6.1
   font_awesome_flutter: ^8.7.0
+  responsive_builder: ^0.1.5
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

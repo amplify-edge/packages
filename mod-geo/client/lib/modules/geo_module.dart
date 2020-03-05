@@ -1,6 +1,7 @@
 
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_geo/modules/map/services/mock_map_service.dart';
 import 'map/map.dart';
 
 
@@ -20,7 +21,9 @@ class GeoModule extends ChildModule{
   }
 
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+    Bind((i) => MockMapService()),
+  ];
 
 
   @override
