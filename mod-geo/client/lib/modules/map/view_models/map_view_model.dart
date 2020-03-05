@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:latlong/latlong.dart';
-import 'package:meta/meta.dart';
 
 class MapViewModel extends ChangeNotifier {
   // This should be current location

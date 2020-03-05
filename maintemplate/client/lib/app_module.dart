@@ -4,16 +4,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
 import 'package:maintemplate/modules/home/home.dart';
 import 'package:mod_chat/mod_chat.dart';
+import 'package:mod_geo/mod_geo.dart';
+
 import 'package:mod_ion/ion_module.dart';
 
 import 'core/core.dart';
-import 'modules/login/login.dart';
 import 'modules/settings/settings_module.dart';
-import 'modules/startup/startup.dart';
 import 'modules/writer/writer_module.dart';
 
 import 'package:mod_write/writer_module.dart';
-import 'package:mod_geo/mod-geo/geo_module.dart';
 
 
 class AppModule extends MainModule {

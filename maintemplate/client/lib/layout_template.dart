@@ -59,7 +59,6 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           title: Text(AppLocalizations.of(context).tabchat()),
           icon: Icon(Icons.chat),
           onTap: () {
-          
               Modular.to.pushNamed(Paths.chat);
             print("Chat tapped");},
         ),
@@ -80,7 +79,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("Writer tapped");},
         ),
          TabItem(
-          title: Text(AppLocalizations.of(context).tabwriter()),
+          title: Text("Maps"),
           icon: Icon(Icons.map),
           onTap: () {
            Modular.to.pushNamed(Paths.modGeo);

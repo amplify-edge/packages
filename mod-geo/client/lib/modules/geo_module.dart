@@ -1,6 +1,8 @@
 
+
 import 'package:flutter_modular/flutter_modular.dart';
-import './views/map_view.dart';
+import 'map/map.dart';
+
 
 class GeoModule extends ChildModule{
   @override

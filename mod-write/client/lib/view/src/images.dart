@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:zefyr/zefyr.dart';
 
 /// Custom image delegate used by this example to load image from application
@@ -19,13 +20,15 @@ class CustomImageDelegate implements ZefyrImageDelegate<ImageSource> {
 
   @override
   Future<String> pickImage(ImageSource source) async {
-    final file = await ImagePicker.pickImage(source: source);
+    final file = await ImagePickerWeb.getImage();
+    print("mod-writer, image found: ${file.uri.toString()}");
     if (file == null) return null;
     return file.uri.toString();
   }
 
   @override
   Widget buildImage(BuildContext context, String key) {
+    print("mod-writer, buildImage: ${key}");
     // We use custom "asset" scheme to distinguish asset images from other files.
     if (key.startsWith('asset://')) {
       final asset = AssetImage(key.replaceFirst('asset://', ''));

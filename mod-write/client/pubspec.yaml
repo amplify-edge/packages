@@ -17,6 +17,7 @@ dependencies:
       url: git://github.com/winwisely99/zefyr.git
       path: packages/zefyr/
   flutter_modular: ^0.5.2
+  image_picker_web: ^0.1.6
 
 dev_dependencies:
   flutter_test:
@@ -27,7 +28,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:
+    - assets/hambach.png
+    - assets/london_strike.png
+    - assets/pipeline.png
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

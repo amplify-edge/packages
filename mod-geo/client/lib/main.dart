@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 
+import 'modules/map/views/map_view.dart';
 
-import '././mod-geo/views/map_view.dart';
+
 
 void main() { 
 
