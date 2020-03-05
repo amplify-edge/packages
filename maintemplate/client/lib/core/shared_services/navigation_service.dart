@@ -23,6 +23,6 @@ class NavigationService{
   }
 
    void  pop(){
-    return navigatorKey.currentState.pop();
+    navigatorKey.currentState.pop();
   }
 }
