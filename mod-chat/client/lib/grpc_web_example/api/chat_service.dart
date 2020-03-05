@@ -8,6 +8,8 @@ import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 import 'v1/chat.pbgrpc.dart' as grpc;
 import 'v1/google/protobuf/empty.pb.dart';
 import 'v1/google/protobuf/wrappers.pb.dart';
+import 'package:mod_chat/utils/device_info.dart'
+    if (dart.library.js) 'package:mod_chat/utils/device_info_web.dart';
 
 /// CHANGE TO IP ADDRESS OF YOUR SERVER IF IT IS NECESSARY
 const serverIP = "127.0.0.1";
@@ -169,11 +171,12 @@ class ChatService {
         ),
       );
 
-      var stream = grpc.ChatServiceClient(client).subscribe(Empty.create());
+      var stream = grpc.ChatServiceClient(client)
+          .subscribe(grpc.Request()..deviceID = DeviceInfo.label);
 
       try {
         await for (var message in stream) {
-          portReceive.send(MessageReceivedEvent(text: message.text));
+          portReceive.send(MessageReceivedEvent(text: message.content));
         }
       } catch (e) {
         // notify caller
