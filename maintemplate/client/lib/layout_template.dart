@@ -51,8 +51,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           title: Text(AppLocalizations.of(context).tabhome(),),
           icon: Icon(Icons.home),
           onTap: () {
-          //  locator<NavigationService>().navigateTo(Router.home);
-           // Navigator.of(context).pushNamed(Router.home);
+        
             Modular.to.pushNamed(Paths.home);
             print("Home tapped");},
         ),
@@ -60,8 +59,6 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           title: Text(AppLocalizations.of(context).tabchat()),
           icon: Icon(Icons.chat),
           onTap: () {
-            // Navigator.of(context).pushNamed(Router.chat);
-            // locator<NavigationService>().navigateTo(Router.chat);
               Modular.to.pushNamed(Paths.chat);
             print("Chat tapped");},
         ),
@@ -69,8 +66,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           title: Text(AppLocalizations.of(context).tabIon()),
           icon: Icon(Icons.video_call),
           onTap: () {
-            // Navigator.of(context).pushNamed(Router.ion);
-            // locator<NavigationService>().navigateTo(Router.ion);
+          
               Modular.to.pushNamed(Paths.ion);
             print("ION tapped");},
         ),
@@ -78,9 +74,15 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           title: Text(AppLocalizations.of(context).tabwriter()),
           icon: Icon(Icons.font_download),
           onTap: () {
-           //  Navigator.of(context).pushNamed(Router.writer);
-           // locator<NavigationService>().navigateTo(Router.writer);
+        
            Modular.to.pushNamed(Paths.modWriter);
+            print("Writer tapped");},
+        ),
+         TabItem(
+          title: Text("Maps"),
+          icon: Icon(Icons.map),
+          onTap: () {
+           Modular.to.pushNamed(Paths.modGeo);
             print("Writer tapped");},
         ),
         // TabItem(

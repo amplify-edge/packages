@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 
+import 'modules/map/views/map_view.dart';
 
-import '././mod-geo/views/map_view.dart';
+
 
 void main() { 
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MapView(),
+      home: MapsView(),
     );
   }
 }

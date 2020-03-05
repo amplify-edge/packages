@@ -4,6 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
 import 'package:maintemplate/modules/home/home.dart';
 import 'package:mod_chat/mod_chat.dart';
+import 'package:mod_geo/mod_geo.dart';
+
 import 'package:mod_ion/ion_module.dart';
 
 import 'core/core.dart';
@@ -11,6 +13,7 @@ import 'modules/settings/settings_module.dart';
 import 'modules/writer/writer_module.dart';
 
 import 'package:mod_write/writer_module.dart';
+
 
 class AppModule extends MainModule {
   // here will be any class you want to inject into your project (eg bloc, dependency)
@@ -31,6 +34,7 @@ class AppModule extends MainModule {
         Router(Paths.ion, module: IonModule(Paths.ion)),
         Router(Paths.writer, module: WriterModule()),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
+        Router(Paths.modGeo, module: GeoModule()),
         Router(Paths.settings, module: SettingsModule()),
       ];
 

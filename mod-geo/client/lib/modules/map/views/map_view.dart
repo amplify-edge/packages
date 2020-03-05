@@ -1,13 +1,14 @@
-import 'package:client/mod-geo/view_models/map_view_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map/flutter_map.dart';
 
 import 'package:latlong/latlong.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mod_geo/modules/map/view_models/map_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
-class MapView extends StatelessWidget {
+class MapsView extends StatelessWidget {
   MapController _mapController = MapController();
   @override
   Widget build(BuildContext context) {
