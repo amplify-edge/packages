@@ -9,7 +9,7 @@ import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/wrappers.pb.dar
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 import 'package:mod_chat/grpc_web_example/api/v1/chat.pbgrpc.dart' as grpc;
-
+import 'package:mod_chat/utils/device_info_web.dart';
 /// ChatService client implementation
 class ChatService {
   // _isolateSending is isolate to send chat messages
@@ -60,11 +60,12 @@ class ChatService {
 
   void recv() async {
     do {
-      var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
+      var stream = grpc.ChatServiceClient(channel)
+          .subscribe(grpc.Request()..deviceID = DeviceInfo.label);
       try {
         // create new client
         await for (var message in stream) {
-          onMessageReceived(MessageReceivedEvent(text: message.text));
+          onMessageReceived(MessageReceivedEvent(text: message.content));
         }
       } catch (e) {
         onMessageReceiveFailed(MessageReceiveFailedEvent(error: e.toString()));
@@ -78,8 +79,9 @@ class ChatService {
 
   /// Send message to the server
   void send(MessageOutgoing message) {
-    var request = StringValue.create();
-    request.value = message.text;
+    var request = grpc.ReqMessage();
+    request.message = message.text;
+    request.deviceID = DeviceInfo.label;
     grpc.ChatServiceClient(channel).send(request);
     onMessageSent(MessageSentEvent(id: message.id));
   }
