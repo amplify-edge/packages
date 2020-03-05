@@ -7,4 +7,5 @@ class Paths {
   static const String writer = '/writer';
   static const String settings = '/settings';
   static const String modWriter = '/modWriter';
+  static const String modGeo = '/geo';
 }

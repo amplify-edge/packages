@@ -41,6 +41,9 @@ dependencies:
     path: ../../mod-chat/client
   mod_ion:
     path: ../../mod-ion/client
+  mod_geo:
+    path: ../../mod-geo/client
+ 
 
   # Architectural packages
   provider: ^4.0.4

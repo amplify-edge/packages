@@ -13,6 +13,8 @@ import 'modules/startup/startup.dart';
 import 'modules/writer/writer_module.dart';
 
 import 'package:mod_write/writer_module.dart';
+import 'package:mod_geo/mod-geo/geo_module.dart';
+
 
 class AppModule extends MainModule {
   // here will be any class you want to inject into your project (eg bloc, dependency)
@@ -33,6 +35,7 @@ class AppModule extends MainModule {
         Router(Paths.ion, module: IonModule(Paths.ion)),
         Router(Paths.writer, module: WriterModule()),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
+        Router(Paths.modGeo, module: GeoModule()),
         Router(Paths.settings, module: SettingsModule()),
       ];
 

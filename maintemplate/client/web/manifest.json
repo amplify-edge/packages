@@ -1,6 +1,6 @@
 {
-    "name": "maintemplate",
-    "short_name": "maintemplate",
+    "name": "GetCourage",
+    "short_name": "GetCourage",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
