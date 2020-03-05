@@ -3,8 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/nav_rail.dart';
 
 import 'core/core.dart';
-import 'core/themes/app_theme.dart';
-import 'locator.dart';
 
 class LayoutTemplate extends StatefulWidget {
   final Widget body;

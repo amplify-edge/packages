@@ -4,7 +4,6 @@ import 'package:maintemplate/core/core.dart';
 import 'package:maintemplate/modules/settings/view_models/settings_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../locator.dart';
 
 class SettingsViewWeb extends StatelessWidget {
   SettingsViewWeb({Key key}) : super(key: key);

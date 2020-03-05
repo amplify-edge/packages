@@ -3,14 +3,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
 import 'package:maintemplate/layout_template.dart';
-import 'package:maintemplate/locator.dart';
 import 'package:provider/provider.dart';
 
 import '././core/core.dart';
 import 'modules/settings/settings.dart';
 
 void main() {
-  setupLocator();
+
   runApp(
     ChangeNotifierProvider<SettingsViewModel>(
         create: (context) => SettingsViewModel(),

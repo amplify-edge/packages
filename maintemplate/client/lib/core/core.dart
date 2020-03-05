@@ -1,6 +1,5 @@
 // Shared Services
-export './shared_services/navigation_service.dart';
-export './shared_services/dialogue_service.dart';
+
 export './shared_services/base_model.dart';
 
 // extensions

@@ -16,7 +16,7 @@ class Location{
 }
 
 
-List<Campaign> campaigns = [
+List<Campaign> mockCampaigns = [
   Campaign(
     campaignName: "London Tax Strike",
     campaignAffiliation: "Extiction Rebelion",
@@ -30,8 +30,8 @@ List<Campaign> campaigns = [
     campaignName: "Stop LNG Gas Export Depot",
     campaignAffiliation: "Extiction Rebelion",
     location: Location(
-      latitude: 51.5074,
-      longitude: 0.1278
+      latitude: 47.2529,
+      longitude: 122.4443
     ),
   ),
 
@@ -39,8 +39,8 @@ List<Campaign> campaigns = [
     campaignName: "Shut Down Hambach Coal Mine",
     campaignAffiliation: "Extiction Rebelion",
     location: Location(
-      latitude: 51.5074,
-      longitude: 0.1278
+      latitude: 51.1657,
+      longitude:10.4515
     ),
   ),
 
@@ -48,8 +48,8 @@ List<Campaign> campaigns = [
     campaignName: "NY State Shutdown Pipline",
     campaignAffiliation: "Extiction Rebelion",
     location: Location(
-      latitude: 51.5074,
-      longitude: 0.1278
+      latitude: 40.7128,
+      longitude:74.0060
     ),
   ),
 ];
