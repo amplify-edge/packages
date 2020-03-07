@@ -72,3 +72,4 @@ build/
 
 # ours
 *.flutter-plugins-dependencies
+*.flutter-plugins-*
