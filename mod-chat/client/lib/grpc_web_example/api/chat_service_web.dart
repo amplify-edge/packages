@@ -8,7 +8,7 @@ import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/empty.pb.dart';
 import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/wrappers.pb.dart';
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
-import 'package:mod_chat/grpc_web_example/api/v1/chat.pbgrpc.dart' as grpc;
+import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 
 /// ChatService client implementation
 class ChatService {
@@ -40,7 +40,7 @@ class ChatService {
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
   final channel = GrpcWebClientChannel.xhr(
-      Uri.parse(window.location.protocol + "//" + window.location.hostname));
+      Uri.parse(window.location.origin));
 
   /// Constructor
   ChatService(
@@ -60,11 +60,11 @@ class ChatService {
 
   void recv() async {
     do {
-      var stream = grpc.ChatServiceClient(channel).subscribe(Empty.create());
+      var stream = grpc.BroadcastClient(channel).createStream(grpc.Connect());
       try {
         // create new client
         await for (var message in stream) {
-          onMessageReceived(MessageReceivedEvent(text: message.text));
+          onMessageReceived(MessageReceivedEvent(text: message.content));
         }
       } catch (e) {
         onMessageReceiveFailed(MessageReceiveFailedEvent(error: e.toString()));
@@ -80,7 +80,13 @@ class ChatService {
   void send(MessageOutgoing message) {
     var request = StringValue.create();
     request.value = message.text;
-    grpc.ChatServiceClient(channel).send(request);
+
+    var msg = grpc.Message.create();
+    msg.id = "0";
+    msg.content = message.text;
+    msg.timestamp = DateTime.now().toString();
+
+    grpc.BroadcastClient(channel).broadcastMessage(msg);
     onMessageSent(MessageSentEvent(id: message.id));
   }
 }
