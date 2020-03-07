@@ -63,7 +63,7 @@ jobs:
       run: |        
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" maintemplate/server/
+          --build-arg GITHUB_REF="$GITHUB_REF" .
           
         sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
         cp -rf maintemplate/client/build/web maintemplate/server/flutter
