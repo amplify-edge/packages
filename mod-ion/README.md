@@ -1,6 +1,6 @@
 # mod-ion
 
-ION and CloudWebrtc are a powerful Pub Sub system.
+ION and CloudWebrtc are a powerful system for Video Conferencing.
 
 It allows us to do:
 
@@ -9,52 +9,35 @@ It allows us to do:
 - Multi party video conferencing ( using the Server as a relay)
 - Data Publish and Subscribe
 
-The Frontend is Flutter
 
-- use the CloudWebRTC Project code.
-- See that folder in this repo for more info
-
+## DEV
+For devs..but not master detail view yet: 3bb572c927a79e91060eb8f2f614fe63bf1888cc
 
 
-The backend is golang 
+# Topology ( Servers )
 
-- Uses the Ion Project code.
+ion sdk —wss—-> signal—>biz—->islb—->sfu
 
-- See that folder for its capabilities
+change to
 
-### Works
-but not master detail view yet: 3bb572c927a79e91060eb8f2f614fe63bf1888cc
+ion sdk —grpc—->grpc sinal—>biz—->islb->sfu
+- relies on k8, envoy to handle all communications between client and server using just standard GRPC.
 
+# Entry points 
 
-# runtime folder
+Each Server and what the do.
 
-There are 2 ways to run flutter:
+...
 
-- go-flutter
+# Redis swap out
 
-- google-flutter
-
-go-flutter is what we prefer but at this time it cannot run CloudWebRTC due to the Cpp / CGO aspects. We are in discussions about porting it with @CloudWebrtc
-
-google-flutter is not what we prefer but can run CloudWebRTC on a mac. 
-
-## Try folder
-
-Just a dumping groudn for experiments.
-
-## Getting started
-
-Get google-flutter-desktop running off the make file. worked a month ago.
-- Works on my MAC BTW...
-
-Get cloudwebrtc running. Start with flutter-webrtc
-- ios sim works on my mac very well.
-- android real works and can call the IOS sim.
-- mac does not work. POD file missing despite the flu-fix working for mobile.. Weird it used to work :()
+Why and where ...
 
 
 ## Google Desktop
 
-Mac os needs to copy the Runner project from flutter-desktop-embedding to create a demo.
-https://github.com/flutter-webrtc/libwebrtc/releases
+Uses ASTI embeddign inside go-flutter
+
+- when a webrtc session occurs, the go-embed layer can open the ASTI layer and run flutter web inside it.
+
 
