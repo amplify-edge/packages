@@ -14,6 +14,7 @@ import (
 
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 
+	"github.com/nats-io/nats.go"
 	stan "github.com/nats-io/stan.go"
 
 	modchat_pb "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
@@ -45,11 +46,18 @@ func (fs FileSystem) Open(path string) (http.File, error) {
 var port = flag.Int("port", 9074, "the port to serve on")
 var local = flag.Bool("local", false, "flag for local development")
 var directory = flag.String("dir", "../client/build/web/", "the directory of static file to host")
+var natsAddr = flag.String("nats-server", "127.0.0.1", "nats server address")
 
 func main() {
 	flag.Parse()
 
-	conn, err := stan.Connect("test-cluster", "test-client")
+	nc, err := nats.Connect(fmt.Sprintf("nats://%s:4222", *natsAddr))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer nc.Close()
+
+	conn, err := stan.Connect("test-cluster", "test-client", stan.NatsConn(nc))
 	if err != nil {
 		log.Fatal(err)
 	}

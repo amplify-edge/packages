@@ -28,13 +28,13 @@ data:
                   routes:
                   - match: { prefix: "/" }
                     route:
-                      cluster: grpc-web
+                      cluster: maintemplate
                       max_grpc_timeout: 0s
                   cors:
                     allow_origin_regex:
                         - .*
                     allow_methods: GET, PUT, DELETE, POST, OPTIONS
-                    allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
+                    allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-maintemplate,grpc-timeout
                     max_age: "1728000"
                     expose_headers: custom-header-1,grpc-status,grpc-message
               http_filters:
@@ -42,18 +42,18 @@ data:
               - name: envoy.cors
               - name: envoy.router
       clusters:        
-      - name: grpc-web
+      - name: maintemplate
         connect_timeout: 0.5s
         type: STRICT_DNS
         dns_lookup_family: V4_ONLY
         lb_policy: ROUND_ROBIN
         http2_protocol_options: {}
         load_assignment:
-          cluster_name: grpc-web
+          cluster_name: maintemplate
           endpoints:
           - lb_endpoints:
             - endpoint:
                 address:
                   socket_address:
-                    address: grpc-web.default.svc.cluster.local
+                    address: maintemplate.default.svc.cluster.local
                     port_value: 9074
