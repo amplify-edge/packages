@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/getcouragenow/packages/mod-chat/server/pkg/proto"
+	proto "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
 
 	"encoding/hex"
 	"log"
