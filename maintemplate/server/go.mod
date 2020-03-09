@@ -1,12 +1,6 @@
-module github.com/winwisely112/packages/maintemplate/server
+module github.com/getcouragenow/packages/maintemplate/server
 
 go 1.13
-
-replace github.com/getcouragenow/packages v0.0.0-20200305101555-5048f3d4a686 => ../../..
-
-replace github.com/winwisely112/packages v0.0.0-20200305101555-5048f3d4a686 => ../../..
-
-replace github.com/getcouragenow/packages/mod-chat/server v0.0.0-20200305101555-5048f3d4a686 => ../../mod-chat/server
 
 require (
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
