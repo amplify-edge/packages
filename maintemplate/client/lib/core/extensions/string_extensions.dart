@@ -18,5 +18,9 @@ extension StringExtension on String {
     if (this == 'ur') {
       return 'Urdu';
     }
+
+    if (this == 'system') {
+      return 'system';
+    }
   }
 }

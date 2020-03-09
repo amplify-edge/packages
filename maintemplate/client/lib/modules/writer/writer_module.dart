@@ -3,7 +3,7 @@
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/core/core.dart';
-import 'package:mod_write/mod_write.dart';
+// import 'package:mod_write/mod_write.dart';
 
 import 'views/writer_view.dart';
 

@@ -17,10 +17,22 @@ void main() {
   );
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget { 
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
+  AppLocalizationsDelegate _delegate;
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<SettingsViewModel>(context);
+    _delegate =  AppLocalizationsDelegate(model.locale);
+
+    print("${_delegate.overriddenLocale} delegate");
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -35,10 +47,12 @@ class App extends StatelessWidget {
       onGenerateRoute: Modular.generateRoute,
       navigatorKey: Modular.navigatorKey,
       localizationsDelegates: [
-        AppLocalizations.delegate,
+        FallbackCupertinoLocalisationsDelegate(),
+        _delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
+      locale: (model.locale == Locale('system') ? null : model.locale),
       supportedLocales: const <Locale>[
         Locale('en'),
         Locale('es'),

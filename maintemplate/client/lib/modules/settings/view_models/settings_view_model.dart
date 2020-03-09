@@ -10,8 +10,9 @@ class SettingsViewModel extends ChangeNotifier{
   // SettingsViewModel({@required this.settingsRepository});
 
   ThemeMode _themeMode = ThemeMode.system;
-  Locale _locale = Locale('en');
+  Locale _locale = Locale('system');
   List<Locale> supportedLocales = [
+    Locale('system'),
     Locale('en'),
     Locale('es'),
     Locale('fr'),

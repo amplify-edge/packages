@@ -12,55 +12,56 @@ class SettingsViewWeb extends StatelessWidget {
 
     final model = Provider.of<SettingsViewModel>(context);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(children: [
-          Row(
+      body: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
             children: <Widget>[
-              Icon( Icons.arrow_back  ),
+              Icon( Icons.settings  ),
               SizedBox(width : 16),
               Text("Settings")
             ],
           ),
-          ListTile(
-            leading: Icon(Icons.palette),
-            title: const Text('Change Theme'),
-            trailing: DropdownButton<ThemeMode>(
-              value: model.themeMode,
-              onChanged: (ThemeMode value) {
-                model.changeTheme(value);
-              },
-              items: ThemeMode.values
-                  .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
-                return DropdownMenuItem<ThemeMode>(
-                  value: value,
-                  child: Text(
-                      value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
-                );
-              }).toList(),
-            ),
+        ),
+        ListTile(
+          leading: Icon(Icons.palette),
+          title: const Text('Change Theme'),
+          trailing: DropdownButton<ThemeMode>(
+            value: model.themeMode,
+            onChanged: (ThemeMode value) {
+              model.changeTheme(value);
+            },
+            items: ThemeMode.values
+                .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
+              return DropdownMenuItem<ThemeMode>(
+                value: value,
+                child: Text(
+                    value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
+              );
+            }).toList(),
           ),
-           ListTile(
-            leading: Icon(Icons.language),
-            title: const Text('Change Language'),
-            trailing: DropdownButton<Locale>(
-              value: model.locale,
-              onChanged: (Locale value) {
-                AppLocalizations.load(value);
-                model.changeLanguage(value);
-              },
-              items: model.supportedLocales
-                  .map<DropdownMenuItem<Locale>>((Locale value) {
-                return DropdownMenuItem<Locale>(
-                  value: value,
-                  child: Text(
-                      value.languageCode.getLanguage),
-                );
-              }).toList(),
-            ),
+        ),
+         ListTile(
+          leading: Icon(Icons.language),
+          title: const Text('Change Language'),
+          trailing: DropdownButton<Locale>(
+            value: model.locale,
+            onChanged: (Locale value) {
+            //  helper.onLocaleChanged(value);
+            //  model.notifyListeners();
+              model.changeLanguage(value);
+            },
+            items: model.supportedLocales
+                .map<DropdownMenuItem<Locale>>((Locale value) {
+              return DropdownMenuItem<Locale>(
+                value: value,
+                child: Text(
+                    value.languageCode.getLanguage),
+              );
+            }).toList(),
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }
