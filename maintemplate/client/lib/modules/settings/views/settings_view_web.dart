@@ -11,6 +11,7 @@ class SettingsViewWeb extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final model = Provider.of<SettingsViewModel>(context);
+    final env = model.envVariables;
     return Scaffold(
       body: Column(children: [
         Padding(
@@ -60,6 +61,18 @@ class SettingsViewWeb extends StatelessWidget {
               );
             }).toList(),
           ),
+        ),
+        ListTile(
+          title: Text("Channel"),
+          subtitle: Text(env.channel),
+        ),
+        ListTile(
+          title: Text("Url"),
+          subtitle: Text(env.url),
+        ),
+        ListTile(
+          title: Text("GitHash"),
+          subtitle: Text(env.gitHash),
         ),
       ]),
     );
