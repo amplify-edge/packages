@@ -63,7 +63,7 @@ jobs:
       run: |        
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" maintemplate/server/grpc-web
+          --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
           
         sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
         cp -rf maintemplate/client/build/web maintemplate/server/flutter
@@ -84,7 +84,7 @@ jobs:
       run: |
         gcloud container clusters get-credentials $GKE_PROJECT --zone $GKE_ZONE --project $GKE_PROJECT
         touch kustomization.yaml
-        ./kustomize edit add resource maintemplate/server/k8s/*
+        ./kustomize edit add resource maintemplate/server/deployments/*
         ./kustomize edit set image gcr.io/GKE_PROJECT/IMAGE:TAG=gcr.io/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
         ./kustomize edit set image gcr.io/GKE_PROJECT/flutter-web-IMAGE:TAG=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
