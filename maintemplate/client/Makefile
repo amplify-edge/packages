@@ -56,6 +56,9 @@ flu-web-run: ## flu-web-run
 	flutter config --enable-web
 	cd $(SAMPLE_FSPATH) && flutter run -d chrome
 
+## i18n can be done in 2 ways 
+## 1. System Level .i.e  change locale from your device settings.
+## 2. App Level .i.e. change language from application settings.
 flu-web-build: ## flu-web-build
 	flutter config --enable-web
 	cd $(SAMPLE_FSPATH) && flutter build web
