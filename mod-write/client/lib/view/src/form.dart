@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:zefyr/zefyr.dart';
 
 import 'full_page.dart';
-import 'images.dart';
+import 'package:mod_write/view/src/zefyr_image_delegate.dart'
+    if (dart.library.js) 'package:mod_write/view/src/zefyr_image_delegate_web.dart';
 
 enum _Options { darkTheme }
 

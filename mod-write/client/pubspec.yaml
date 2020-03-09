@@ -12,12 +12,13 @@ dependencies:
     sdk: flutter
   notus: ^0.1.5
   image_picker: ^0.6.3+4
+  #see zefyr_image_delegate_web -> out commented due to cocoapods error
+  #image_picker_web: ^0.1.6
   zefyr:
     git:
       url: git://github.com/winwisely99/zefyr.git
       path: packages/zefyr/
   flutter_modular: ^0.5.2
-  image_picker_web: ^0.1.6
 
 dev_dependencies:
   flutter_test:
