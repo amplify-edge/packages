@@ -112,8 +112,9 @@ class ChatService {
 
         try {
           // try to send
-          var request = StringValue.create();
-          request.value = message.text;
+          var request = grpc.ReqMessage();
+          request.message = message.text;
+          request.deviceID = DeviceInfo.label;
           await grpc.ChatServiceClient(client).send(request);
           // sent successfully
           portSendStatus.send(MessageSentEvent(id: message.id));

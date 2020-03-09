@@ -1,16 +1,10 @@
-// Copyright (c) 2018, the Zefyr project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
-import 'dart:io';
-
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:zefyr/zefyr.dart';
 
-/// Custom image delegate used by this example to load image from application
-/// assets.
+//import 'package:image_picker_web/image_picker_web.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
+
 class CustomImageDelegate implements ZefyrImageDelegate<ImageSource> {
   @override
   ImageSource get cameraSource => ImageSource.camera;
@@ -20,10 +14,11 @@ class CustomImageDelegate implements ZefyrImageDelegate<ImageSource> {
 
   @override
   Future<String> pickImage(ImageSource source) async {
-    final file = await ImagePickerWeb.getImage();
+    /*  final file = await ImagePickerWeb.getImage();
     print("mod-writer, image found: ${file.uri.toString()}");
     if (file == null) return null;
-    return file.uri.toString();
+    return file.uri.toString();*/
+    return null;
   }
 
   @override
