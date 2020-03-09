@@ -17,10 +17,12 @@ void main() {
   );
 }
 
-class App extends StatelessWidget {
+class App extends StatelessWidget { 
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<SettingsViewModel>(context);
+    print(model.locale);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -35,7 +37,7 @@ class App extends StatelessWidget {
       onGenerateRoute: Modular.generateRoute,
       navigatorKey: Modular.navigatorKey,
       localizationsDelegates: [
-        AppLocalizations.delegate,
+        AppLocalizationsDelegate(model.locale),
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],

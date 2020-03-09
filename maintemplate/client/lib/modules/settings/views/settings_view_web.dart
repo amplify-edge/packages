@@ -46,7 +46,6 @@ class SettingsViewWeb extends StatelessWidget {
             trailing: DropdownButton<Locale>(
               value: model.locale,
               onChanged: (Locale value) {
-                AppLocalizations.load(value);
                 model.changeLanguage(value);
               },
               items: model.supportedLocales
