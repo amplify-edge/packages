@@ -7,6 +7,7 @@ export './extensions/string_extensions.dart';
 
 // i18n
 export './i18n/app_localization.dart';
+export './i18n/localization_helper.dart';
 
 // Shared Widgets
 export './shared_widgets/dialog_manager_widget.dart';

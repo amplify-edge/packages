@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 
@@ -65,31 +66,49 @@ class AppLocalizations {
   }
 }
 
-class AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   final Locale overriddenLocale;
 
   AppLocalizationsDelegate(this.overriddenLocale);
 
   @override
-  bool shouldReload(AppLocalizationsDelegate old) => false;
+  bool shouldReload(AppLocalizationsDelegate old) => true;
 
   @override
   bool isSupported(Locale locale) {
-    // if (this.overriddenLocale == Locale('system')) {
-    //   return ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
-    // }
-
-     return ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
-
-    // return overriddenLocale != null;
+    return ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
   }
 
   @override
   Future<AppLocalizations> load(Locale locale) {
-    if(this.overriddenLocale == Locale('system')){
+    if (this.overriddenLocale == Locale('system')) {
+      print("return system");
       return AppLocalizations.load(locale);
     }
+    print("return overriden");
     return AppLocalizations.load(this.overriddenLocale);
   }
+}
+
+class FallbackCupertinoLocalisationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const FallbackCupertinoLocalisationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) =>
+      ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) =>
+      SynchronousFuture<_DefaultCupertinoLocalizations>(
+          _DefaultCupertinoLocalizations(locale));
+
+  @override
+  bool shouldReload(FallbackCupertinoLocalisationsDelegate old) => false;
+}
+
+class _DefaultCupertinoLocalizations extends DefaultCupertinoLocalizations {
+  final Locale locale;
+
+  _DefaultCupertinoLocalizations(this.locale);
 }

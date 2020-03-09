@@ -304,7 +304,7 @@ class MaterialNavigationRail extends StatelessWidget {
       );
     }
     return IconButton(
-      iconSize: 44,
+      iconSize: 50,
       onPressed: () {
         onPressed(tabs.indexOf(item));
         item.onTap();
