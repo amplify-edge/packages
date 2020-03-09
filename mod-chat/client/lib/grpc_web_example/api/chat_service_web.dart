@@ -8,8 +8,8 @@ import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/empty.pb.dart';
 import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/wrappers.pb.dart';
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
-import 'package:mod_chat/grpc_web_example/api/v1/chat.pbgrpc.dart' as grpc;
-import 'package:mod_chat/utils/device_info_web.dart';
+import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
+
 /// ChatService client implementation
 class ChatService {
   // _isolateSending is isolate to send chat messages
@@ -40,7 +40,7 @@ class ChatService {
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
   final channel = GrpcWebClientChannel.xhr(
-      Uri.parse(window.location.protocol + "//" + window.location.hostname));
+      Uri.parse(window.location.origin));
 
   /// Constructor
   ChatService(
@@ -60,8 +60,7 @@ class ChatService {
 
   void recv() async {
     do {
-      var stream = grpc.ChatServiceClient(channel)
-          .subscribe(grpc.Request()..deviceID = DeviceInfo.label);
+      var stream = grpc.BroadcastClient(channel).createStream(grpc.Connect());
       try {
         // create new client
         await for (var message in stream) {
@@ -79,10 +78,15 @@ class ChatService {
 
   /// Send message to the server
   void send(MessageOutgoing message) {
-    var request = grpc.ReqMessage();
-    request.message = message.text;
-    request.deviceID = DeviceInfo.label;
-    grpc.ChatServiceClient(channel).send(request);
+    var request = StringValue.create();
+    request.value = message.text;
+
+    var msg = grpc.Message.create();
+    msg.id = "0";
+    msg.content = message.text;
+    msg.timestamp = DateTime.now().toString();
+
+    grpc.BroadcastClient(channel).broadcastMessage(msg);
     onMessageSent(MessageSentEvent(id: message.id));
   }
 }
