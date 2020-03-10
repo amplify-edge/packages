@@ -62,10 +62,10 @@ jobs:
 
         sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
 
-        sed -i s/#\{channel_name\}/$CHANNEL_NAME/g maintemplate/client/assets/env.json
-        sed -i s/#\{channel_url\}/$CHANNEL_URL/g maintemplate/client/assets/env.json
-        sed -i s/#\{githash\}/$GITHUB_SHA/g maintemplate/client/assets/env.json
-        sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/assets/env.json
+        sed -i s/#\{channel_name\}/$CHANNEL_NAME/g maintemplate/client/build/web/assets/env.json
+        sed -i s/#\{channel_url\}/$CHANNEL_URL/g maintemplate/client/build/web/assets/env.json
+        sed -i s/#\{githash\}/$GITHUB_SHA/g maintemplate/client/build/web/assets/env.json
+        sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/build/web/assets/env.json
 
         cp -rf maintemplate/client/build/web maintemplate/server/flutter
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
