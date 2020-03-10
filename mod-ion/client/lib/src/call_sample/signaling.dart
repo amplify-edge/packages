@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_webrtc/webrtc.dart';
+import 'package:mod_ion/ion_module.dart';
 import 'random_string.dart';
 
-import '../utils/device_info.dart'
-    if (dart.library.js) '../utils/device_info_web.dart';
 import '../utils/websocket.dart'
     if (dart.library.js) '../utils/websocket_web.dart';
 
@@ -268,9 +267,9 @@ class Signaling {
       print('onOpen');
       this?.onStateChange(SignalingState.ConnectionOpen);
       _send('new', {
-        'name': DeviceInfo.label,
+        'name': IonModule.deviceID,
         'id': _selfId,
-        'user_agent': DeviceInfo.userAgent
+        'user_agent': IonModule.userAgent
       });
     };
 

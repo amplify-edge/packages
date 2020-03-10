@@ -1,5 +1,6 @@
 library mod_chat;
 
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
@@ -11,15 +12,20 @@ class ChatModule extends ChildModule {
   // it works ... ideas welcome
   static String baseRoute;
 
+  // we need device id statically for further use with static methods
+  static String deviceID;
+
   static String cutOffBaseRoute(String route) {
     if (route.indexOf(baseRoute) < 0) return route;
     return route.substring(
         route.indexOf(baseRoute) + baseRoute.length, route.length);
   }
 
-  ChatModule(String baseRoute) {
+  ChatModule(String baseRoute, {@required deviceID}) {
+    assert(deviceID != null);
     assert(baseRoute != null);
     ChatModule.baseRoute = baseRoute;
+    ChatModule.deviceID = deviceID;
   }
 
   @override
@@ -33,11 +39,14 @@ class ChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-    Router("/", child: (context, args) => BlocProvider<GRPCWebBloc>(
-      bloc: GRPCWebBloc(),
-      child: GRPCWebApp(),
-    ),),
-  ];
+        Router(
+          "/",
+          child: (context, args) => BlocProvider<GRPCWebBloc>(
+            bloc: GRPCWebBloc(),
+            child: GRPCWebApp(),
+          ),
+        ),
+      ];
 
   static Inject get to => Inject<ChatModule>.of();
 }

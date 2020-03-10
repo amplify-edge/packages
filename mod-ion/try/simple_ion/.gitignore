@@ -1,0 +1,11 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+
+build/
+
+go/dlib/darwin/*
+go/dlib/linux/*
+go/dlib/windows/*
