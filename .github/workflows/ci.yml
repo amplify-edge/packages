@@ -15,6 +15,7 @@ env:
   IMAGE: maintemplate
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
+  RELEASE_CHANNEL: ci
 
 jobs:
 
