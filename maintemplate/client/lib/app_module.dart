@@ -13,8 +13,11 @@ import 'package:mod_write/mod_write.dart';
 import 'core/core.dart';
 import 'modules/settings/settings_module.dart';
 
-
 class AppModule extends MainModule {
+  final String url;
+
+  AppModule({this.url});
+
   // here will be any class you want to inject into your project (eg bloc, dependency)
   @override
   List<Bind> get binds => [];
@@ -30,7 +33,8 @@ class AppModule extends MainModule {
         //     transition: TransitionType.fadeIn),
         Router(Paths.home, module: HomeModule()),
         Router(Paths.chat,
-            module: ChatModule(Paths.chat, deviceID: SessionModule.deviceID)),
+            module: ChatModule(Paths.chat,
+                deviceID: SessionModule.deviceID, url: url)),
         Router(Paths.ion,
             module: IonModule(Paths.ion,
                 deviceID: SessionModule.deviceID,

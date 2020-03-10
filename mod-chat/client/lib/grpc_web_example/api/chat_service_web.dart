@@ -1,11 +1,7 @@
 import 'dart:html';
-import 'dart:io';
 import 'dart:async';
 import 'package:grpc/grpc_web.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/empty.pb.dart';
-import 'package:mod_chat/grpc_web_example/api/v1/google/protobuf/wrappers.pb.dart';
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;

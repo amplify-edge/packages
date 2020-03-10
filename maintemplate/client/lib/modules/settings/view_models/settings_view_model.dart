@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'package:flutter/services.dart' show rootBundle;
 
 class SettingsViewModel extends ChangeNotifier {
   // final SettingsRepository settingsRepository;
@@ -11,14 +12,12 @@ class SettingsViewModel extends ChangeNotifier {
 
   EnvVariables get envVariables => _envVariables;
 
-  SettingsViewModel(BuildContext context) {
-    fetchEnvVariables(context);
-  }
-
-  void fetchEnvVariables(BuildContext context) async {
-    String data =
-    await DefaultAssetBundle.of(context).loadString("assets/env.json");
+  Future<void> fetchEnvVariables() async {
+    //String data =
+    //await DefaultAssetBundle.of(context).loadString("assets/env.json");
+    String data = await rootBundle.loadString("assets/env.json");
     _envVariables = EnvVariables.fromJson(data);
+    print("alec data : ${_envVariables.channel}");
     notifyListeners();
   }
 
@@ -61,10 +60,10 @@ class EnvVariables {
   static EnvVariables fromJson(String jsonString) {
     var data = json.decode(jsonString);
     return EnvVariables(
-        channel: data["channel"] ?? "-",
-        url: data["url"] ?? "-",
-        gitHash: data["githash"] ?? "-",
-        flutterChannel: data["flutter_channel"]?? "",
-        );
+      channel: data["channel"] ?? "-",
+      url: data["url"] ?? "-",
+      gitHash: data["githash"] ?? "-",
+      flutterChannel: data["flutter_channel"] ?? "",
+    );
   }
 }
