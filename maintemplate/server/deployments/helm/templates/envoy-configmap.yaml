@@ -55,5 +55,5 @@ data:
             - endpoint:
                 address:
                   socket_address:
-                    address: maintemplate-{{ .Release.Name }}.default.svc.cluster.local
+                    address: {{ .Release.Name }}-maintemplate.default.svc.cluster.local
                     port_value: 9074
