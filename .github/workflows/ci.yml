@@ -59,8 +59,8 @@ jobs:
           --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
           
         sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
-        
-        sed -i s/#\{channel_name\}/$CHANNEL_NAME/g maintemplate/client/build/web/assets/assets/env.json
+
+        sed -i s/#\{channel_name\}/$RELEASE_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
         sed -i s/#\{channel_url\}/$CHANNEL_URL/g maintemplate/client/build/web/assets/assets/env.json
         sed -i s/#\{channel_githash\}/$GITHUB_SHA/g maintemplate/client/build/web/assets/assets/env.json
         sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
