@@ -10,9 +10,6 @@ import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/pages/home.dart';
 import 'package:mod_chat/grpc_web_example/theme.dart';
 
-import '../utils/device_info.dart'
-    if (dart.library.js) '../utils/device_info_web.dart';
-
 // Stateful application widget
 class GRPCWebApp extends StatefulWidget {
   @override
