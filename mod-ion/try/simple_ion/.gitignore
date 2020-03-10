@@ -8,3 +8,4 @@ build/
 
 go/dlib/darwin/*
 go/dlib/linux/*
+go/dlib/windows/*
