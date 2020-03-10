@@ -78,8 +78,8 @@ class ChatService {
 
   /// Send message to the server
   void send(MessageOutgoing message) {
-    var request = StringValue.create();
-    request.value = message.text;
+    //var request = StringValue.create();
+    //request.value = message.text;
 
     var msg = grpc.Message.create();
     msg.id = "0";
