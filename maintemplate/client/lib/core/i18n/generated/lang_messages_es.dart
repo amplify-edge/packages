@@ -21,9 +21,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "changeLanguageSet" : MessageLookupByLibrary.simpleMessage("Cambiar idioma"),
+    "changeThemeSet" : MessageLookupByLibrary.simpleMessage("Cambiar tema"),
     "tabIon" : MessageLookupByLibrary.simpleMessage("Ion"),
+    "tabSettings" : MessageLookupByLibrary.simpleMessage("Configuración"),
     "tabchat" : MessageLookupByLibrary.simpleMessage("Chat"),
     "tabhome" : MessageLookupByLibrary.simpleMessage("Inicio"),
+    "tabmap" : MessageLookupByLibrary.simpleMessage("Mapa"),
     "tabsettings" : MessageLookupByLibrary.simpleMessage("Configuración"),
     "tabwriter" : MessageLookupByLibrary.simpleMessage("Escritor")
   };

@@ -3,8 +3,8 @@
 ## Generating the i18n files
 
 The files in this directory are based on ../lib/core/i18n/app_localization.dart
-which defines all of the localizable strings used by the stocks
-app. The stocks app uses
+which defines all of the localizable strings used by the maintemplate
+app. The maintemplate app uses
 the [Dart `intl` package](https://github.com/dart-lang/intl).
 
 Rebuilding everything requires two steps.
