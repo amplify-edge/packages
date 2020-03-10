@@ -15,7 +15,7 @@ spec:
       containers:
       - name: {{ .Release.Name }}-maintemplate
         image: {{ .Values.maintemplateServerImage }}
-        args: ["-nats-server", "nats-streaming"]
+        args: ["-nats-server", "{{ .Release.Name }}-nats-streaming"]
         imagePullPolicy: Always
         ports:
         - containerPort: 9074
