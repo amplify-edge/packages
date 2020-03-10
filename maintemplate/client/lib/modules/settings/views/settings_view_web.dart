@@ -74,6 +74,10 @@ class SettingsViewWeb extends StatelessWidget {
           title: Text("GitHash"),
           subtitle: Text(env.gitHash),
         ),
+        ListTile(
+          title: Text("Flutter channel"),
+          subtitle: Text(env.flutterChannel),
+        ),
       ]),
     );
   }
