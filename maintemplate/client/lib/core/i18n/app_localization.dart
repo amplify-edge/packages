@@ -64,6 +64,42 @@ class AppLocalizations {
       locale: locale.toString(),
     );
   }
+
+  String tabmap() {
+    return Intl.message(
+      'Map',
+      name: 'tabmap',
+      desc: 'text for the writer tab',
+      locale: locale.toString(),
+    );
+  }
+
+  String tabSettings() {
+    return Intl.message(
+      'Settings',
+      name: 'tabSettings',
+      desc: 'text for the settings tab',
+      locale: locale.toString(),
+    );
+  }
+
+  String changeLanguageSet() {
+    return Intl.message(
+      'Change Language',
+      name: 'changeLanguageSet',
+      desc: 'text for the change language text in settings screen',
+      locale: locale.toString(),
+    );
+  }
+
+  String changeThemeSet() {
+    return Intl.message(
+      'Change Theme',
+      name: 'changeThemeSet',
+      desc: 'text for the change theme text in settings screen',
+      locale: locale.toString(),
+    );
+  }
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -19,13 +19,13 @@ class SettingsViewWeb extends StatelessWidget {
             children: <Widget>[
               Icon( Icons.settings  ),
               SizedBox(width : 16),
-              Text("Settings")
+              Text(AppLocalizations.of(context).tabSettings())
             ],
           ),
         ),
         ListTile(
           leading: Icon(Icons.palette),
-          title: const Text('Change Theme'),
+          title: Text(AppLocalizations.of(context).changeThemeSet()),
           trailing: DropdownButton<ThemeMode>(
             value: model.themeMode,
             onChanged: (ThemeMode value) {
@@ -43,12 +43,10 @@ class SettingsViewWeb extends StatelessWidget {
         ),
          ListTile(
           leading: Icon(Icons.language),
-          title: const Text('Change Language'),
+          title:  Text(AppLocalizations.of(context).changeLanguageSet()),
           trailing: DropdownButton<Locale>(
             value: model.locale,
             onChanged: (Locale value) {
-            //  helper.onLocaleChanged(value);
-            //  model.notifyListeners();
               model.changeLanguage(value);
             },
             items: model.supportedLocales

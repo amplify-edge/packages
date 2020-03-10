@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-03-02T18:39:38.527498",
+  "@@last_modified": "2020-03-10T17:32:07.116941",
   "tabhome": "Accueil",
   "@tabhome": {
     "description": "text for the home tab",
@@ -27,6 +27,30 @@
   "tabwriter": "Writer",
   "@tabwriter": {
     "description": "text for the writer tab",
+    "placeholders": {},
+    "type": "text"
+  },
+  "tabmap": "Carte",
+  "@tabmap": {
+    "description": "text for the writer tab",
+    "placeholders": {},
+    "type": "text"
+  },
+  "tabSettings": "Paramètres",
+  "@tabSettings": {
+    "description": "text for the settings tab",
+    "placeholders": {},
+    "type": "text"
+  },
+  "changeLanguageSet": "Changer la langue",
+  "@changeLanguageSet": {
+    "description": "text for the change language text in settings screen",
+    "placeholders": {},
+    "type": "text"
+  },
+  "changeThemeSet": "Changer le thème",
+  "@changeThemeSet": {
+    "description": "text for the change theme text in settings screen",
     "placeholders": {},
     "type": "text"
   }
