@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 
-
 class SettingsViewModel extends ChangeNotifier {
   // final SettingsRepository settingsRepository;
 
@@ -18,7 +17,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   void fetchEnvVariables(BuildContext context) async {
     String data =
-        await DefaultAssetBundle.of(context).loadString("assets/env.json");
+    await DefaultAssetBundle.of(context).loadString("assets/env.json");
     _envVariables = EnvVariables.fromJson(data);
     notifyListeners();
   }
@@ -52,17 +51,20 @@ class EnvVariables {
   final String channel;
   final String url;
   final String gitHash;
+  final String flutterChannel;
 
-  EnvVariables({this.channel, this.url, this.gitHash});
+  EnvVariables({this.channel, this.url, this.gitHash, this.flutterChannel});
 
   factory EnvVariables.empty() =>
-      EnvVariables(channel: "", url: "", gitHash: "");
+      EnvVariables(channel: "", url: "", gitHash: "", flutterChannel: "");
 
   static EnvVariables fromJson(String jsonString) {
     var data = json.decode(jsonString);
     return EnvVariables(
         channel: data["channel"] ?? "-",
         url: data["url"] ?? "-",
-        gitHash: data["githash"] ?? "-");
+        gitHash: data["githash"] ?? "-",
+        flutterChannel: data["flutter_channel"]?? "",
+        );
   }
 }
