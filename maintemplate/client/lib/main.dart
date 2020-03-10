@@ -12,7 +12,7 @@ void main() {
 
   runApp(
     ChangeNotifierProvider<SettingsViewModel>(
-        create: (context) => SettingsViewModel(),
+        create: (context) => SettingsViewModel(context),
         child: ModularApp(module: AppModule())),
   );
 }

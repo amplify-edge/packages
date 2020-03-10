@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: maintemplate-envoy-config
+  name: {{ .Release.Name }}-maintemplate-envoy-config
 data:
   envoy.yaml : |
     admin:
@@ -55,5 +55,5 @@ data:
             - endpoint:
                 address:
                   socket_address:
-                    address: maintemplate.default.svc.cluster.local
+                    address: maintemplate-{{ .Release.Name }}.default.svc.cluster.local
                     port_value: 9074

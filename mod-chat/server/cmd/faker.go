@@ -1,54 +1,41 @@
-/*
-Copyright © 2020 NAME HERE <EMAIL ADDRESS>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-package cmd
+package main
 
 import (
 	"encoding/json"
+	"flag"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
-	"github.com/spf13/cobra"
+	proto "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
+
+	"github.com/nats-io/stan.go"
 )
 
 var (
-	faFile    *string
-	faSubject *string
-	faURL     *string
-	url       = "https://jsonplaceholder.typicode.com/users"
+	channel    string
+	file       string
+	clusterID  string
+	clientID   string
+	stanClient stan.Conn
 )
 
-// fakerCmd represents the faker command
-var fakerCmd = &cobra.Command{
-	Use:   "faker",
-	Short: "populate nats server with fake data",
-	Long:  ``,
-	RunE: func(cmd *cobra.Command, args []string) error {
-		if *faURL == "" {
-			return populate(*faFile, true)
-		}
-		return populate(*faURL, false)
-	},
-}
+func main() {
+	flag.StringVar(&channel, "channel", "public-chat", "channel to add fake data")
+	flag.StringVar(&clusterID, "cluster-id", "test-cluster", "nats streaming server cluster id")
+	flag.StringVar(&clientID, "client-id", "test-client-2", "nats streaming server client id")
+	flag.StringVar(&file, "file", "../fake_data/data.json", "file fake data could be simple file or url")
+	flag.Parse()
 
-func init() {
-	rootCmd.AddCommand(fakerCmd)
-	faFile = fakerCmd.Flags().StringP("file", "f", "./fake_data/data.json", "file path fake data")
-	faURL = fakerCmd.Flags().StringP("url", "u", "", "url of file fake data")
-	faSubject = fakerCmd.Flags().StringP("subject", "s", "MESSAGES.fake", "subject where add fake data")
+	sc, err := stan.Connect(clusterID, clientID)
+	if err != nil {
+		log.Fatalf("Can't connect: %v.\nMake sure a NATS Streaming Server is running at: %s", err)
+	}
+
+	defer sc.Close()
+	stanClient = sc
+	populate(file, true)
 }
 
 func openFileFomURL(url string) ([]byte, error) {
@@ -65,30 +52,28 @@ func populate(file string, local bool) error {
 
 	var data []byte
 	var err error
-
-	if local {
-		data, err = ioutil.ReadFile(file)
-		if err != nil {
-			return err
-		}
-	} else {
+	if strings.HasPrefix(file, "http") {
 		data, err = openFileFomURL(file)
-		if err != nil {
-			return err
-		}
+	} else {
+		data, err = ioutil.ReadFile(file)
 	}
 
-	messages := []string{}
+	messages := []proto.Message{}
 	err = json.Unmarshal(data, &messages)
 	if err != nil {
 		return err
 	}
 
 	for _, msg := range messages {
-		err := publish(*faSubject, msg)
+		data, err := json.Marshal(msg)
 		if err != nil {
-			log.Println("Error to publish", err)
+			continue
+		}
+		err = stanClient.Publish(channel, data)
+		if err != nil {
+			log.Println(err.Error())
 		}
 	}
+	stan.DefaultOptions.NatsConn.Flush()
 	return nil
 }

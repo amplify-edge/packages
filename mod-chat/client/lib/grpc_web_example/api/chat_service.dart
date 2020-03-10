@@ -4,8 +4,7 @@ import 'package:grpc/grpc.dart';
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 
-
-import 'v1/chat.pbgrpc.dart' as grpc;
+import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 import 'v1/google/protobuf/empty.pb.dart';
 import 'v1/google/protobuf/wrappers.pb.dart';
 
@@ -110,9 +109,12 @@ class ChatService {
 
         try {
           // try to send
-          var request = StringValue.create();
-          request.value = message.text;
-          await grpc.ChatServiceClient(client).send(request);
+          var msg = grpc.Message.create();
+          msg.id = "0";
+          msg.content = message.text;
+          msg.timestamp = DateTime.now().toString();
+          await grpc.BroadcastClient(client).broadcastMessage(msg);
+
           // sent successfully
           portSendStatus.send(MessageSentEvent(id: message.id));
           sent = true;
@@ -169,11 +171,11 @@ class ChatService {
         ),
       );
 
-      var stream = grpc.ChatServiceClient(client).subscribe(Empty.create());
+      var stream = grpc.BroadcastClient(client).createStream(grpc.Connect());
 
       try {
         await for (var message in stream) {
-          portReceive.send(MessageReceivedEvent(text: message.text));
+          portReceive.send(MessageReceivedEvent(text: message.content));
         }
       } catch (e) {
         // notify caller

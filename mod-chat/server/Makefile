@@ -64,31 +64,26 @@ protoc-go:
 	protoc -I grpc-web/pkg/proto grpc-web/pkg/proto/v2.proto --gofast_out=plugins=grpc:./grpc-web/pkg/api/v2
 
 
+###### nats ######
 install-nats:
 	# install nats server
 	go get -u github.com/nats-io/nats-server
 
-install-liftbridge:
-	# install liftbridge server
-	go get github.com/liftbridge-io/liftbridge
-
 nats:
 	# start nats server
 	nats-server
+
+###### liftbridge ######
+install-liftbridge:
+	# install liftbridge server
+	go get github.com/liftbridge-io/liftbridge
 
 lift:
 	# start liftbridge
 	mkdir -p lift_cache
 	liftbridge -c grpc-web/liftbridge/config.conf --raft-bootstrap-seed -d lift_cache
 
-svr-go:
-	# start serveur
-	cd grpc-web/cmd/server && go run main.go
-
-cli-go:
-	# start a client
-	cd go-client && go run main.go
-
+###### jetstream ######
 config-nats-jets:
 	# config nats to use jetstream
 	cd $(GOPATH)/src/github.com/ && git clone https://github.com/nats-io/nats-server.git
@@ -109,5 +104,21 @@ start-jetstream:
 	mkdir -p nats
 	nats-server -js -sd ./nats
 
-build-cli:
-	go build -o $(GOPATH)/bin/jets
+###### nats streaming server ######
+config-nss:
+	# install nats-streaming-server
+	go get github.com/nats-io/nats-streaming-server
+
+nss:
+	# start nats-streaming-server
+	nats-streaming-server -SD -SV -SDV
+
+go-srv:
+	cd cmd && go run server.go
+
+go-cli:
+	cd cmd && go run client.go
+
+faker:
+	cd cmd && go run faker.go
+
