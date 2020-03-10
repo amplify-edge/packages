@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: maintemplate
+  name: {{ .Release.Name }}-maintemplate
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: maintemplate
+      app: {{ .Release.Name }}-maintemplate
   template:
     metadata:
       labels:
-        app: maintemplate
+        app: {{ .Release.Name }}-maintemplate
     spec:
       containers:
-      - name: maintemplate
-        image: gcr.io/GKE_PROJECT/IMAGE:TAG
-        args: ["-nats-server", "nats-streaming"]
+      - name: {{ .Release.Name }}-maintemplate
+        image: {{ .Values.maintemplateServerImage }}
+        args: ["-nats-server", "{{ .Release.Name }}-nats-streaming"]
         imagePullPolicy: Always
         ports:
         - containerPort: 9074

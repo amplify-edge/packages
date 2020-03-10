@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: maintemplate
+  name: {{ .Release.Name }}-maintemplate
   annotations:
     cloud.google.com/app-protocols: '{"http2":"HTTP2"}'
 spec:
   selector:
-    app: maintemplate
+    app: {{ .Release.Name }}-maintemplate
   type: NodePort
   ports:
   - name: http2
