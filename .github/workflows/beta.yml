@@ -79,7 +79,7 @@ jobs:
         helm install --debug --dry-run ci ./helm\
          --set flutterImage=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
          --set maintemplateImage=gcr.io/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
-         {{ secrets.HELM_VARS }}
+         ${{ secrets.HELM_VARS }}
         kubectl --namespace ingress-nginx patch svc ingress-nginx -p '{"spec": {"loadBalancerIP": "${{ secrets.GKE_IP }}"}}'
         kubectl get services -o wide
         echo ${{ secrets.GKE_IP }}
