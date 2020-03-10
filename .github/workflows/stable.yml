@@ -15,7 +15,9 @@ env:
   IMAGE: maintemplate
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
-  RELEASE_CHANNEL: stable 
+  RELEASE_CHANNEL: stable
+  FLUTTER_CHANNEL: beta
+  CHANNEL_URL: getcouragenow.org
 
 jobs:
 
@@ -57,8 +59,14 @@ jobs:
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
-          
+
         sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
+
+        sed -i s/#\{channel_name\}/$CHANNEL_NAME/g maintemplate/client/assets/env.json
+        sed -i s/#\{channel_url\}/$CHANNEL_URL/g maintemplate/client/assets/env.json
+        sed -i s/#\{githash\}/$GITHUB_SHA/g maintemplate/client/assets/env.json
+        sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/assets/env.json
+
         cp -rf maintemplate/client/build/web maintemplate/server/flutter
         docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
         
