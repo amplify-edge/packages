@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_ion/src/call_sample/call_sample.dart';
 
@@ -5,6 +6,8 @@ class IonModule extends ChildModule {
   // not sure if this is the best way to store the current route statically
   // it works ... ideas welcome
   static String baseRoute;
+  static String deviceID;
+  static String userAgent;
 
   static String cutOffBaseRoute(String route) {
     if (route.indexOf(baseRoute) < 0) return route;
@@ -12,12 +15,15 @@ class IonModule extends ChildModule {
         route.indexOf(baseRoute) + baseRoute.length, route.length);
   }
 
-  IonModule(String baseRoute) {
-    print("creating IonModule!!");
+  IonModule(String baseRoute,
+      {@required String deviceID, @required String userAgent}) {
+    assert(deviceID != null);
+    IonModule.deviceID = deviceID;
+    assert(userAgent != null);
+    IonModule.userAgent = userAgent;
     assert(baseRoute != null);
     IonModule.baseRoute = baseRoute;
   }
-
 
   @override
   List<Bind> get binds => [];
