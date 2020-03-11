@@ -1,11 +1,10 @@
 library mod_chat;
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_chat/grpc_web_example/api/chat_service.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
-import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
-import 'package:mod_chat/grpc_web_example/grpc_web_view.dart';
+import 'package:mod_chat/grpc_web_example/pages/home.dart';
 export 'package:mod_chat/chat_module.dart';
 
 class ChatModuleConfig {
@@ -46,7 +45,9 @@ class ChatModule extends ChildModule {
   }
 
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind((i) => GRPCWebBloc()),
+      ];
 
   // routes for child module are starting with '/', e.g. "/fullpage"
   // but to call inside this module the correct route
@@ -56,13 +57,7 @@ class ChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        Router(
-          "/",
-          child: (context, args) => BlocProvider<GRPCWebBloc>(
-            bloc: GRPCWebBloc(),
-            child: GRPCWebApp(),
-          ),
-        ),
+        Router("/", child: (context, args) => HomePage()),
       ];
 
   static Inject get to => Inject<ChatModule>.of();

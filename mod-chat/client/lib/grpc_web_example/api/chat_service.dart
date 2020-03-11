@@ -41,11 +41,10 @@ class ChatService {
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
   /// Constructor
-  ChatService(
-      {this.onMessageSent,
-      this.onMessageSendFailed,
-      this.onMessageReceived,
-      this.onMessageReceiveFailed})
+  ChatService({this.onMessageSent,
+    this.onMessageSendFailed,
+    this.onMessageReceived,
+    this.onMessageReceiveFailed})
       : _portSendStatus = ReceivePort(),
         _portReceiving = ReceivePort();
 
@@ -59,7 +58,7 @@ class ChatService {
   void _startSending() async {
     // start thread to send messages
     _isolateSending =
-        await Isolate.spawn(_sendingIsolate, _portSendStatus.sendPort);
+    await Isolate.spawn(_sendingIsolate, _portSendStatus.sendPort);
 
     // listen send status
     await for (var event in _portSendStatus) {
@@ -177,39 +176,44 @@ class ChatService {
     //the correct host url
     ReceivePort newReceivePort = ReceivePort();
     portReceive.send(newReceivePort.sendPort);
-    newReceivePort.listen((message) {
+
+    //wait for host url and then go on!
+    await for (var message in newReceivePort){
       if (message is ChatModuleConfig) {
         hostUrl = message.url;
+        break;
       }
-    });
+    }
 
     do {
       // create new client
-      client ??= ClientChannel(
-        hostUrl, // Your IP here or localhost
-        port: serverPort,
-        options: ChannelOptions(
-          //TODO: Change to secure with server certificates
-          credentials: ChannelCredentials.insecure(),
-          idleTimeout: Duration(seconds: 1),
-        ),
-      );
+      if (hostUrl != null) {
+        client ??= ClientChannel(
+          hostUrl, // Your IP here or localhost
+          port: serverPort,
+          options: ChannelOptions(
+            //TODO: Change to secure with server certificates
+            credentials: ChannelCredentials.insecure(),
+            idleTimeout: Duration(seconds: 1),
+          ),
+        );
 
-      var stream = grpc.BroadcastClient(client).createStream(grpc.Connect());
+        var stream = grpc.BroadcastClient(client).createStream(grpc.Connect());
 
-      try {
-        await for (var message in stream) {
-          portReceive.send(MessageReceivedEvent(text: message.content));
+        try {
+          await for (var message in stream) {
+            portReceive.send(MessageReceivedEvent(text: message.content));
+          }
+        } catch (e) {
+          // notify caller
+          portReceive.send(MessageReceiveFailedEvent(error: e.toString()));
+          // reset client
+          client.shutdown();
+          client = null;
         }
-      } catch (e) {
-        // notify caller
-        portReceive.send(MessageReceiveFailedEvent(error: e.toString()));
-        // reset client
-        client.shutdown();
-        client = null;
       }
       // try to connect again
-      sleep(Duration(seconds: 5));
+      sleep(Duration(milliseconds: (hostUrl == null) ? 1000 : 5000));
     } while (true);
   }
 
