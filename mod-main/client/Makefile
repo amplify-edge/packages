@@ -61,7 +61,7 @@ flu-mob-run: ## flu-mob-run
 
 flu-desk-run: ## flu-desk-run
 
-	cd $(SAMPLE_FSPATH) && hover init
+	#cd $(SAMPLE_FSPATH) && hover init
 	cd $(SAMPLE_FSPATH) && hover run
 
 
