@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:mod_main/modules/campaign/data/campaign_model.dart';
+import 'package:mod_main/modules/orgs/data/org_model.dart';
+import '../../../core/core.dart';
 
-class CampaignDetailView extends StatelessWidget {
-  final Campaign campaign;
+class OrgDetailView extends StatelessWidget {
+  final Org org;
 
-  const CampaignDetailView({Key key, this.campaign}) : super(key: key);
+  const OrgDetailView({Key key, this.org}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -16,10 +18,10 @@ class CampaignDetailView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(campaign.logoUrl),
+                backgroundImage: NetworkImage(org.logoUrl),
               ),
               title: Text(
-                campaign.campaignName,
+                org.campaignName,
                 //style: Theme.of(context).textTheme.title,
               ),
             ),
@@ -31,7 +33,7 @@ class CampaignDetailView extends StatelessWidget {
             'Category',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.category),
+          subtitle: Text(org.category),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -39,7 +41,7 @@ class CampaignDetailView extends StatelessWidget {
             'Type of Action',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.actionType),
+          subtitle: Text(org.actionType),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -48,7 +50,7 @@ class CampaignDetailView extends StatelessWidget {
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(
-              '${campaign.actionLocation} / ${DateFormat('yyyy MMM dd HH:MM').format(campaign.actionTime)}'),
+              '${org.actionLocation} / ${DateFormat('yyyy MMM dd HH:MM').format(org.actionTime)}'),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -56,7 +58,7 @@ class CampaignDetailView extends StatelessWidget {
             'Length of the Action',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text('${campaign.actionLength} ${campaign.uom}'),
+          subtitle: Text('${org.actionLength} ${org.uom}'),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -64,7 +66,7 @@ class CampaignDetailView extends StatelessWidget {
             'Goal',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.goal),
+          subtitle: Text(org.goal),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -72,7 +74,7 @@ class CampaignDetailView extends StatelessWidget {
             'Strategy',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.strategy),
+          subtitle: Text(org.strategy),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -80,7 +82,7 @@ class CampaignDetailView extends StatelessWidget {
             'Historical Precedents',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.histPrecedents),
+          subtitle: Text(org.histPrecedents),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -88,7 +90,7 @@ class CampaignDetailView extends StatelessWidget {
             'Backing/Endorsing Organizations',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.backingOrg.join('\n')),
+          subtitle: Text(org.backingOrg.join('\n')),
         ),
         const SizedBox(height: 16.0),
         ListTile(
@@ -96,7 +98,7 @@ class CampaignDetailView extends StatelessWidget {
             'People already pledged',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.alreadyPledged.toString()),
+          subtitle: Text(org.alreadyPledged.toString()),
         ),
         const SizedBox(height: 16.0),
         Card(
@@ -119,21 +121,21 @@ class CampaignDetailView extends StatelessWidget {
                 ListTile(
                   title: const Text('Pioneers needed to start'),
                   trailing: Text(
-                    '${campaign.minPioneers}',
+                    '${org.minPioneers}',
                     style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
                 ListTile(
                   title: const Text('Rebels needed to trigger media'),
                   trailing: Text(
-                    '${campaign.minRebelsForMedia}',
+                    '${org.minRebelsForMedia}',
                     style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
                 ListTile(
                   title: const Text('Rebels needed to win'),
                   trailing: Text(
-                    '${campaign.minRebelsToWin}',
+                    '${org.minRebelsToWin}',
                     style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
@@ -147,18 +149,21 @@ class CampaignDetailView extends StatelessWidget {
             'Contact Details',
             style: Theme.of(context).textTheme.title,
           ),
-          subtitle: Text(campaign.contact),
+          subtitle: Text(org.contact),
         ),
         const SizedBox(height: 16.0),
         ButtonBar(children: [
+            FlatButton(
+            onPressed: () {
+              Modular.to.pushNamed("/myneeds/campaigns/${org.id}");
+            },
+            child: Text("Not Ready"),
+          ),
           RaisedButton(
             onPressed: () {},
             child: Text("Ready"),
           ),
-          FlatButton(
-            onPressed: () {},
-            child: Text("Not Ready"),
-          ),
+        
         ]),
         const SizedBox(height: 8.0),
       ],

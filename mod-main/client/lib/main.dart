@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: "/",
       onGenerateRoute: Modular.generateRoute,
       navigatorKey: Modular.navigatorKey,
     );
