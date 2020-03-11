@@ -128,3 +128,20 @@ lang-gen-arb: ## lang-gen-arb
 	# generate arb files from json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR)
 
+
+
+# # # # # # Start asti desktop # # # # # #
+# build asti desktop
+build-asti:
+	# if you get an error when building you should update the go.mod module path
+	go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
+	cd desktop && astilectron-bundler
+
+start-asti-linux:
+	./desktop/output/linux-amd64/ION\ Desktop\ App
+	
+start-asti-mac:
+	./desktop/output/darwin-amd64/MacOS/ion_desktop
+	
+start-asti-win:
+	./desktop/output/windows-386/ION\ Desktop\ App
