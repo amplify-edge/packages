@@ -19,6 +19,7 @@ dependencies:
       url: git://github.com/winwisely99/zefyr.git
       path: packages/zefyr/
   flutter_modular: ^0.5.2
+  responsive_scaffold: ^1.3.0+2
 
 dev_dependencies:
   flutter_test:
