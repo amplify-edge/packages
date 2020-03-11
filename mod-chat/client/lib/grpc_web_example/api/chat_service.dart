@@ -1,16 +1,15 @@
 import 'dart:isolate';
 import 'dart:io';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:grpc/grpc.dart';
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
 
 import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
-import 'v1/google/protobuf/empty.pb.dart';
-import 'v1/google/protobuf/wrappers.pb.dart';
+import 'package:mod_chat/mod_chat.dart';
 
 /// CHANGE TO IP ADDRESS OF YOUR SERVER IF IT IS NECESSARY
-const serverIP = "127.0.0.1";
-const serverPort = 9074;
+const serverPort = 433;
 
 /// ChatService client implementation
 class ChatService {
@@ -42,11 +41,10 @@ class ChatService {
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
   /// Constructor
-  ChatService(
-      {this.onMessageSent,
-      this.onMessageSendFailed,
-      this.onMessageReceived,
-      this.onMessageReceiveFailed})
+  ChatService({this.onMessageSent,
+    this.onMessageSendFailed,
+    this.onMessageReceived,
+    this.onMessageReceiveFailed})
       : _portSendStatus = ReceivePort(),
         _portReceiving = ReceivePort();
 
@@ -60,12 +58,13 @@ class ChatService {
   void _startSending() async {
     // start thread to send messages
     _isolateSending =
-        await Isolate.spawn(_sendingIsolate, _portSendStatus.sendPort);
+    await Isolate.spawn(_sendingIsolate, _portSendStatus.sendPort);
 
     // listen send status
     await for (var event in _portSendStatus) {
       if (event is SendPort) {
         _portSending = event;
+        event.send(ChatModule.chatModuleConfig);
       } else if (event is MessageSentEvent) {
         // call for success handler
         if (onMessageSent != null) {
@@ -90,59 +89,72 @@ class ChatService {
     // send port to send messages to the caller
     portSendStatus.send(portSendMessages.sendPort);
 
+    String hostUrl;
+    //handshake here we are sending back a port with which we receive
+    //the correct host url
+
     ClientChannel client;
-
     // waiting messages to send
-    await for (MessageOutgoing message in portSendMessages) {
-      var sent = false;
-      do {
-        // create new client
-        client ??= ClientChannel(
-          serverIP, // Your IP here or localhost
-          port: serverPort,
-          options: ChannelOptions(
-            //TODO: Change to secure with server certificates
-            credentials: ChannelCredentials.insecure(),
-            idleTimeout: Duration(seconds: 1),
-          ),
-        );
+    await for (var message in portSendMessages) {
+      if (message is ChatModuleConfig) {
+        hostUrl = message.url;
+      } else if (message is MessageOutgoing) {
+        var sent = false;
+        do {
+          // create new client
+          client ??= ClientChannel(
+            hostUrl, // Your IP here or localhost
+            port: serverPort,
+            options: ChannelOptions(
+              //TODO: Change to secure with server certificates
+              credentials: ChannelCredentials.insecure(),
+              idleTimeout: Duration(seconds: 1),
+            ),
+          );
 
-        try {
-          // try to send
-          var msg = grpc.Message.create();
-          msg.id = "0";
-          msg.content = message.text;
-          msg.timestamp = DateTime.now().toString();
-          await grpc.BroadcastClient(client).broadcastMessage(msg);
+          try {
+            // try to send
+            var msg = grpc.Message.create();
+            msg.id = "0";
+            msg.content = message.text;
+            msg.timestamp = DateTime.now().toString();
+            await grpc.BroadcastClient(client).broadcastMessage(msg);
 
-          // sent successfully
-          portSendStatus.send(MessageSentEvent(id: message.id));
-          sent = true;
-        } catch (e) {
-          // sent failed
-          portSendStatus.send(
-              MessageSendFailedEvent(id: message.id, error: e.toString()));
-          // reset client
-          client.shutdown();
-          client = null;
-        }
+            // sent successfully
+            portSendStatus.send(MessageSentEvent(id: message.id));
+            sent = true;
+          } catch (e) {
+            // sent failed
+            portSendStatus.send(
+                MessageSendFailedEvent(id: message.id, error: e.toString()));
+            // reset client
+            client.shutdown();
+            client = null;
+          }
 
-        if (!sent) {
-          // try to send again
-          sleep(Duration(seconds: 5));
-        }
-      } while (!sent);
+          if (!sent) {
+            // try to send again
+            sleep(Duration(seconds: 5));
+          }
+        } while (!sent);
+      }
     }
   }
 
   /// Start listening messages from the server
   void _startReceiving() async {
     // start thread to receive messages
-    _isolateReceiving =
-        await Isolate.spawn(_receivingIsolate, _portReceiving.sendPort);
+    _isolateReceiving = await Isolate.spawn(
+      _receivingIsolate,
+      _portReceiving.sendPort,
+    );
 
     // listen for incoming messages
     await for (var event in _portReceiving) {
+      if (event is SendPort) {
+        // send chat module config to isolate for initialization
+        event.send(ChatModule.chatModuleConfig);
+      }
       if (event is MessageReceivedEvent) {
         if (onMessageReceived != null) {
           onMessageReceived(event);
@@ -159,33 +171,49 @@ class ChatService {
   static void _receivingIsolate(SendPort portReceive) async {
     ClientChannel client;
 
+    String hostUrl;
+    //handshake here we are sending back a port with which we receive
+    //the correct host url
+    ReceivePort newReceivePort = ReceivePort();
+    portReceive.send(newReceivePort.sendPort);
+
+    //wait for host url and then go on!
+    await for (var message in newReceivePort){
+      if (message is ChatModuleConfig) {
+        hostUrl = message.url;
+        break;
+      }
+    }
+
     do {
       // create new client
-      client ??= ClientChannel(
-        serverIP, // Your IP here or localhost
-        port: serverPort,
-        options: ChannelOptions(
-          //TODO: Change to secure with server certificates
-          credentials: ChannelCredentials.insecure(),
-          idleTimeout: Duration(seconds: 1),
-        ),
-      );
+      if (hostUrl != null) {
+        client ??= ClientChannel(
+          hostUrl, // Your IP here or localhost
+          port: serverPort,
+          options: ChannelOptions(
+            //TODO: Change to secure with server certificates
+            credentials: ChannelCredentials.insecure(),
+            idleTimeout: Duration(seconds: 1),
+          ),
+        );
 
-      var stream = grpc.BroadcastClient(client).createStream(grpc.Connect());
+        var stream = grpc.BroadcastClient(client).createStream(grpc.Connect());
 
-      try {
-        await for (var message in stream) {
-          portReceive.send(MessageReceivedEvent(text: message.content));
+        try {
+          await for (var message in stream) {
+            portReceive.send(MessageReceivedEvent(text: message.content));
+          }
+        } catch (e) {
+          // notify caller
+          portReceive.send(MessageReceiveFailedEvent(error: e.toString()));
+          // reset client
+          client.shutdown();
+          client = null;
         }
-      } catch (e) {
-        // notify caller
-        portReceive.send(MessageReceiveFailedEvent(error: e.toString()));
-        // reset client
-        client.shutdown();
-        client = null;
       }
       // try to connect again
-      sleep(Duration(seconds: 5));
+      sleep(Duration(milliseconds: (hostUrl == null) ? 1000 : 5000));
     } while (true);
   }
 
