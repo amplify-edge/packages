@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
@@ -39,17 +40,9 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _isInit = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    // As the context of not yet available at initState() level,
-    // if not yet initialized, we get the list of all genres
-    // and retrieve the currently selected one, as well as the
-    // filter parameters
-    if (_isInit == false) {
-      _appBloc = BlocProvider.of<GRPCWebBloc>(context);
-      _isInit = true;
-    }
+  void initState() {
+    super.initState();
+    _appBloc = Modular.get<GRPCWebBloc>();
   }
 
   @override
@@ -155,7 +148,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   : new IconButton(
                       key: Key('send-button'),
                       icon: new Icon(Icons.send),
-                      onPressed:_isComposing
+                      onPressed: _isComposing
                           ? () => _handleSubmitted(_textController.text)
                           : null,
                     ),
