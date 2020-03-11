@@ -1,4 +1,10 @@
-import 'package:mod_write/view/list_document.dart';
+class Document {
+  final String name;
+  final String content;
+  final String id;
+
+  Document(this.id, this.name, this.content);
+}
 
 class StubData {
   static List<Document> documents = [
@@ -15,9 +21,9 @@ class StubData {
       "2",
       "Shut Down Hambach Coal Mine",
       r'[{"insert":"Shut Down Hambach Coal Mine"},{"insert":"\n","attributes":{"heading":1}},{"insert":"Goal"},{"insert":"\n","attributes":{"heading":2}},{"insert":"We will strike aganist the proposal to build a new coal mine here in Germany and demand that the government refuse the proposal and divest from fossil fuels.\nStrategy"},{"insert":"\n","attributes":{"heading":2}},{"insert":"TBA\n\nLocation: Hambach Coal Mine, Niederzier, DE."},{"insert":"\n","attributes":{"block":"ul"}},{"insert":"Contact: climate@xr.org"},{"insert":"\n","attributes":{"block":"ul"}},'
-      r'{"insert":"Length: 5 Month"},'
-      r'{"insert":"\n","attributes":{"block":"ul"}},'
-      r'{"insert":"​","attributes":{"embed":{"type":"image","source":"asset://assets/hambach.png"}}},{"insert":"\n"}]',
+          r'{"insert":"Length: 5 Month"},'
+          r'{"insert":"\n","attributes":{"block":"ul"}},'
+          r'{"insert":"​","attributes":{"embed":{"type":"image","source":"asset://assets/hambach.png"}}},{"insert":"\n"}]',
     ),
     Document(
       "3",
