@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-class Campaign {
+class Org {
   // final Id<Campaign> id;
 
   final String id;
@@ -49,7 +49,7 @@ class Campaign {
 
   final String uom;
 
-  const Campaign({
+  const Org({
     @required this.actionLength,
     @required this.actionType,
     @required this.alreadyPledged,
@@ -97,8 +97,8 @@ class Campaign {
         assert(crgIdsMany != null);
 }
 
-List<Campaign> mockCampaigns = [
-  Campaign(
+List<Org> mockOrgs = [
+  Org(
     actionLength: "1",
     actionType: "NVDA",
     alreadyPledged: "29738",
