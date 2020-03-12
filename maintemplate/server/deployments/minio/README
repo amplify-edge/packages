@@ -1,0 +1,1 @@
+kubectl create secret generic minio-creds-secret --from-literal=accesskey='$ACCESS_KEY' --from-literal=secretkey='$SECRET_KEY'
