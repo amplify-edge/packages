@@ -63,6 +63,26 @@ flu-web-build: ## flu-web-build
 	flutter config --enable-web
 	cd $(SAMPLE_FSPATH) && flutter build web
 
+	# asti desktop
+	rm -rf $(SAMPLE_FSPATH)/desktop/resources/app/*
+	cp -r $(SAMPLE_FSPATH)/build/web/* $(SAMPLE_FSPATH)/desktop/resources/app
+	cd desktop && astilectron-bundler
+
+asti-install:
+	# install go-astilectron-bundler
+	sudo rm -rf $(GOPATH)/src/github.com/go-astilectron-bundler
+	cd $(GOPATH)/src/github.com/ && git clone https://github.com/asticode/go-astilectron-bundler.git
+	cd $(GOPATH)/src/github.com/go-astilectron-bundler/astilectron-bundler && go build -o $(GOBIN)/astilectron-bundler
+
+asti-desk-linux:
+	./desktop/output/linux-amd64/ION\ Desktop\ App
+	
+asti-desk-mac:
+	./desktop/output/darwin-amd64/MacOS/ion_desktop
+	
+asti-desk-win:
+	./desktop/output/windows-386/ION\ Desktop\ App
+
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
@@ -132,10 +152,11 @@ lang-gen-arb: ## lang-gen-arb
 
 # # # # # # Start asti desktop # # # # # #
 # build asti desktop
-build-asti:
-	# if you get an error when building you should update the go.mod module path
-	go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
-	cd desktop && astilectron-bundler
+install-asti:
+	# install go-astilectron-bundler
+	sudo rm -rf $(GOPATH)/src/github.com/go-astilectron-bundler
+	cd $(GOPATH)/src/github.com/ && git clone https://github.com/asticode/go-astilectron-bundler.git
+	cd $(GOPATH)/src/github.com/go-astilectron-bundler/astilectron-bundler && go build -o $(GOBIN)/astilectron-bundler
 
 start-asti-linux:
 	./desktop/output/linux-amd64/ION\ Desktop\ App
