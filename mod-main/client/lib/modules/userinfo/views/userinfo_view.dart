@@ -9,85 +9,94 @@ class UserInfoView extends StatelessWidget {
       viewModel: UserInfoViewModel(),
       builder: (context, UserInfoViewModel model, child) => Scaffold(
           body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            ListTile(
-                title: Text(
-              '1. Where are you?',
-              style: Theme.of(context).textTheme.title,
-            )),
-            ListTile(
-              title: _select((value) { model.changeCountry(value);}, model.selectedCountry, model.countries),
-            ),
-            ListTile(
-              title: _select((value) {model.changeCity(value);},  model.selectedCity, model.cities)
-            ),
-            ListTile(
-              title: TextFormField(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                '1. Where are you?',
+                style: Theme.of(context).textTheme.title,
+              ),
+              const SizedBox(height: 8.0),
+             
+              _select((value) {
+                model.changeCountry(value);
+              }, model.selectedCountry, model.countries),
+            
+              _select((value) {
+                model.changeCity(value);
+              }, model.selectedCity, model.cities),
+             
+              TextFormField(
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Zip Code',
                 ),
               ),
-            ),
-            const SizedBox(height: 48.0),
-            ListTile(
-              title: Text(
+            
+              const SizedBox(height: 48.0),
+              Text(
                 '2. Travel distance you can afford?',
                 style: Theme.of(context).textTheme.title,
               ),
-            ),
-            ListTile(
-              title: TextFormField(
+              const SizedBox(height: 8.0),
+            
+              TextFormField(
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Distance in KM',
                 ),
               ),
-            ),
-            const SizedBox(height: 48.0),
-            ListTile(
-              title: Text(
+              
+              const SizedBox(height: 48.0),
+              Text(
                 '3. Age',
                 style: Theme.of(context).textTheme.title,
               ),
-            ),
-            ListTile(title: _select((value) { model.changeAge(value);}, model.selectedAge, model.age)),
-            const SizedBox(height: 48.0),
-            ListTile(
-              title: Text(
+               const SizedBox(height: 8.0),
+             
+              _select((value) {
+                model.changeAge(value);
+              }, model.selectedAge, model.age),
+             
+              const SizedBox(height: 48.0),
+              Text(
                 '4. Any Campaign Affiliations ?',
                 style: Theme.of(context).textTheme.title,
               ),
-            ),
-            ListTile(
-              title: _select((value) { model.changeAffiliation(value);}, model.selectedCampaignAffiliation, model.campaignAffiliations)),
+               const SizedBox(height: 8.0),
+             
+               _select((value) {
+                  model.changeAffiliation(value);
+                }, model.selectedCampaignAffiliation,
+                    model.campaignAffiliations),
             
-            const SizedBox(height: 48.0),
-            ListTile(
-              title: ButtonBar(
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                     model.navigateNext();
-                    },
-                    child: const Text('Next'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-          // ),
-          //   ),
+              const SizedBox(height: 48.0),
+               ButtonBar(
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () {
+                        model.navigateNext();
+                      },
+                      child: const Text('Next'),
+                    ),
+                  ],
+                ),
+             
+            ],
+            // ),
+            //   ),
+          ),
         ),
       )),
     );
   }
 
-  Widget _select(Function onChanged,String value, List<String> items) {
+  Widget _select(Function onChanged, String value, List<String> items) {
     return DropdownButton<String>(
       value: value,
-      icon: Icon(Icons.arrow_downward),
+      icon: Icon(Icons.arrow_drop_down),
       iconSize: 24,
       elevation: 5,
       isExpanded: true,

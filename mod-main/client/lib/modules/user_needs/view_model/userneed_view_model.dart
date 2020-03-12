@@ -1,11 +1,15 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
+import 'package:mod_main/modules/orgs/data/org_model.dart';
 import '../../orgs/service/orgs_service.dart';
 
 class UserNeedsViewModel extends BaseModel {
 
   final orgService = Modular.get<OrgsService>();
   String _orgId;
+  Org _org;
+
+  get org => _org;
 
   Map<String, dynamic> _value = <String, dynamic>{
     "1": false,
@@ -22,8 +26,10 @@ class UserNeedsViewModel extends BaseModel {
   Map<String, dynamic> get value => _value;
 
   fetchOrgById(String id){
+    setBuzy(true);
     _orgId = id;
-    return orgService.getOrgById(id);
+    _org = orgService.getOrgById(id);
+    setBuzy(false);
   }
 
   void selectNeed(String key, value) {
@@ -33,9 +39,12 @@ class UserNeedsViewModel extends BaseModel {
 
   void navigateNext() {
     showActionDialogBox(
-      onPressedNo: (){},
+      onPressedNo: (){
+        
+      },
       onPressedYes: (){
-        Modular.to.pushNamed(Paths.supportRoles.replaceAll(':id', _orgId));
+        Modular.to.pop();
+        Modular.to.pushNamed(Modular.get<Paths>().supportRoles.replaceAll(':id', _orgId));
       },
       title: "Support Role",
       description:

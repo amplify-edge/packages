@@ -7,7 +7,7 @@ import 'map/map.dart';
 
 class GeoModule extends ChildModule{
 
-   static String baseRoute;
+  static String baseRoute;
 
   static String cutOffBaseRoute(String route) {
     if (route.indexOf(baseRoute) < 0) return route;

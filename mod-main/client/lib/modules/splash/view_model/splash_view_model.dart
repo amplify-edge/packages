@@ -8,7 +8,7 @@ class SplashViewModel extends BaseModel{
 
   void handleStartUpLogic() {
     Future.delayed(Duration(seconds: 5), (){
-      Modular.to.pushReplacementNamed(Paths.userInfo);
+     // Modular.to.pushReplacementNamed(Modular.get<Paths>().)
     });
   }
 }

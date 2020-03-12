@@ -11,8 +11,23 @@ import '../modules/support_roles/services/supportRole_service.dart';
 import '../modules/support_roles/views/support_role_view.dart';
 
 class MainAppModule extends ChildModule{
-   @override
+
+  static String baseRoute;
+
+  static String cutOffBaseRoute(String route) {
+    if (route.indexOf(baseRoute) < 0) return route;
+    return route.substring(
+        route.indexOf(baseRoute) + baseRoute.length, route.length);
+  }
+
+  MainAppModule(String baseRoute) {
+    assert(baseRoute != null);
+    MainAppModule.baseRoute = baseRoute;
+  }
+
+  @override
   List<Bind> get binds => [
+      Bind((i) => Paths(baseRoute)),
       Bind((i) => OrgsService()),
       Bind((i) => SupportRoleService())
   ];
@@ -20,10 +35,10 @@ class MainAppModule extends ChildModule{
   
   @override
   List<Router> get routers => [
-     Router(Paths.userInfo, child: (_, args) => UserInfoView()),
-   Router(Paths.campaigns, child: (_, args) => OrgView()),
-   Router(Paths.myNeeds, child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
-   Router(Paths.supportRoles, child: (_, args) => SupportRoleView(orgId: args.params['id'],))
+    Router("/userInfo", child: (_, args) => UserInfoView()),
+    Router("/orgs", child: (_, args) => OrgView()),
+    Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
+    Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],))
   ];
 
   static Inject get to => Inject<MainAppModule>.of();

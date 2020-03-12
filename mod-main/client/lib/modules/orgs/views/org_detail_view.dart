@@ -13,20 +13,6 @@ class OrgDetailView extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: <Widget>[
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(org.logoUrl),
-              ),
-              title: Text(
-                org.campaignName,
-                //style: Theme.of(context).textTheme.title,
-              ),
-            ),
-          ),
-        ),
         //   CarouselWithIndicator(imgList: campaign.videoURL),
         ListTile(
           title: Text(
@@ -155,7 +141,7 @@ class OrgDetailView extends StatelessWidget {
         ButtonBar(children: [
             FlatButton(
             onPressed: () {
-              Modular.to.pushNamed("/myneeds/campaigns/${org.id}");
+              Modular.to.pushNamed(Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
             },
             child: Text("Not Ready"),
           ),
