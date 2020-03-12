@@ -45,7 +45,8 @@ dependencies:
     path: ../../mod-geo/client
   mod_session:
     path: ../../mod-session/client
-
+  mod_main:
+    path: ../../mod-main/client
  
 
   # Architectural packages

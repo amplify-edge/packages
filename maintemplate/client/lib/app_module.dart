@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
-import 'package:maintemplate/modules/home/home.dart';
+import 'package:maintemplate/modules/startup/views/startup_view.dart';
 import 'package:mod_chat/mod_chat.dart';
 import 'package:mod_geo/mod_geo.dart';
 
 import 'package:mod_ion/ion_module.dart';
+import 'package:mod_main/modules/mod_main.dart';
 import 'package:mod_session/mod_session.dart';
 import 'package:mod_write/mod_write.dart';
 
@@ -31,7 +32,8 @@ class AppModule extends MainModule {
         // Router(Paths.login,
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
-        Router(Paths.home, module: HomeModule()),
+        Router(Paths.startup, child: (_, args) => StartupView()),
+        Router(Paths.modMain, module: MainAppModule(Paths.modMain)),
         Router(Paths.chat,
             module: ChatModule(Paths.chat,
                 deviceID: SessionModule.deviceID, url: url)),

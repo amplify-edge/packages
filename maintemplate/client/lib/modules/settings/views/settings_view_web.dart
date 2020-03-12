@@ -13,17 +13,11 @@ class SettingsViewWeb extends StatelessWidget {
     final model = Provider.of<SettingsViewModel>(context);
     final env = model.envVariables;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).tabSettings()),
+      ),
       body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: <Widget>[
-              Icon( Icons.settings  ),
-              SizedBox(width : 16),
-              Text(AppLocalizations.of(context).tabSettings())
-            ],
-          ),
-        ),
+       
         ListTile(
           leading: Icon(Icons.palette),
           title: Text(AppLocalizations.of(context).changeThemeSet()),
