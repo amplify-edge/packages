@@ -16,7 +16,7 @@ class UserInfoViewModel extends BaseModel {
   String get selectedCampaignAffiliation => _selectedCampaignAffiliation;
 
   void navigateNext(){
-    Modular.to.pushNamed(Paths.campaigns);
+    Modular.to.pushNamed(Modular.get<Paths>().orgs);
   }
 
   void changeCountry(country){

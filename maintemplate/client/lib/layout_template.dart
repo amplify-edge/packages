@@ -50,7 +50,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           icon: Icon(Icons.home),
           onTap: () {
         
-            Modular.to.pushNamed(Paths.home);
+            Modular.to.pushNamed(Paths.modMain);
             print("Home tapped");},
         ),
          TabItem(

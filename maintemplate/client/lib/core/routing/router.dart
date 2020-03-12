@@ -1,5 +1,5 @@
 class Paths {
-  static const String startup = '/';
+  static const String startup = '/startup';
   static const String login = '/login';
   static const String home = '/home';
   static const String chat = '/chat';
@@ -8,4 +8,5 @@ class Paths {
   static const String settings = '/settings';
   static const String modWriter = '/modWriter';
   static const String modGeo = '/geo';
+  static const String modMain = '/enrollement';
 }

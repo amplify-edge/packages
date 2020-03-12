@@ -7,46 +7,38 @@ import '../view_model/supportRole_view_model.dart';
 
 class SupportRoleView extends StatelessWidget {
   final String orgId;
-  Org _org;
+
 
   SupportRoleView({Key key, this.orgId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       onModelReady: (SupportRoleViewModel model) {
-        _org = model.fetchOrgById(orgId);
+        model.fetchOrgById(orgId);
       },
       viewModel: SupportRoleViewModel(),
       builder: (context, SupportRoleViewModel model, child) => Scaffold(
-        body: Column(children: [
-           ListTile(
-              leading: Card(
-                shape: const CircleBorder(),
-                child: CircleAvatar(
-                  backgroundColor: Theme.of(context).cardColor,
-                  child: Icon(
-                    FontAwesomeIcons.users,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-              ),
-              title: Text(
-                "Support Roles",
-              ),
-            ),
+        appBar: AppBar(
+          title:Text("Support Roles"),
+          centerTitle:true,
+        ),
+        body:(model.buzy) ?
+        Center(child: Offstage()) 
+        : Column(children: [
+          
           Card(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(_org.logoUrl),
+                  backgroundImage: NetworkImage(model.org.logoUrl),
                 ),
                 title: Text(
-                  _org.campaignName,
+                  model.org.campaignName,
                   style: Theme.of(context).textTheme.title,
                 ),
                 subtitle: Text(
-                  _org.goal,
+                  model.org.goal,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),

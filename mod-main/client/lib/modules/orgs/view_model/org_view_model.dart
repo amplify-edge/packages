@@ -10,7 +10,7 @@ class OrgViewModel extends BaseModel{
   List<Org> get orgs => orgService.getOrgs();
 
   void navigateToReady(){
-    Modular.to.pushNamed(Paths.ready);
+    Modular.to.pushNamed(Modular.get<Paths>().ready);
   }
 
   void navigateToNotReady(int index){
