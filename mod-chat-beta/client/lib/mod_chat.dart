@@ -1,14 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
 
-//TODO: Uncomment when done.
 //import 'screens/screenwidget.dart';
 
 class ModChatModule extends ChildModule {
-  Box messages;
-  Box groups;
-
-  ModChatModule(this.messages, this.groups);
+  ModChatModule();
 
   @override
   List<Bind> get binds => [];

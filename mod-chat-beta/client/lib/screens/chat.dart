@@ -33,9 +33,9 @@ class _ChatWidgetState extends State {
               itemCount: convo.messages.length,
               itemBuilder: (BuildContext ctxt, int i) {
                 var message = convo.messages[i];
-                if (!message.self) message.isRead = true;
+                if (!message.isSelf) message.isRead = true;
                 return forgeBubble(
-                    message.inner, true, [message.self, message.isRead]);
+                    message.inner, true, [message.isSelf, message.isRead]);
               })),
       Form(
         child: Row(children: <Widget>[
@@ -74,29 +74,31 @@ class _ChatWidgetState extends State {
       nip = BubbleNip.rightTop;
       align = Alignment.topRight;
       if (isSelfAndRead[1]) {
-        content = Row(children: <Widget>[
-          Text(message),
+        content = Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          Flexible(child: Text(message)),
           Icon(CommunityMaterialIcons.check_all)
         ]);
       } else {
-        content = Row(children: <Widget>[
-          Text(message),
+        content = Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          Flexible(child: Text(message)),
           Icon(CommunityMaterialIcons.check)
         ]);
       }
     } else {
       nip = BubbleNip.leftTop;
       align = Alignment.topLeft;
-      content = Row(children: <Widget>[Text(message)]);
+      content = Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        Flexible(child: Text(message)),
+      ]);
     }
     if (!isNip) nip = BubbleNip.no;
     return Bubble(
       alignment: align,
       nip: nip,
       child: content,
-      radius: Radius.zero,
-      nipWidth: 8,
-      nipHeight: 24,
+      radius: Radius.circular(5),
+      nipWidth: 4,
+      nipHeight: 12,
     );
   }
 }

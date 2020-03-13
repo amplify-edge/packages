@@ -29,7 +29,7 @@ class _PaneWidgetState extends State {
   }
 
   void markUnread(int convoPos) {
-    if (!convos[convoPos].messages.last.self) {
+    if (!convos[convoPos].messages.last.isSelf) {
       setState(() {
         convos[convoPos].messages.last.isRead = false;
       });
@@ -78,7 +78,7 @@ class _PaneWidgetState extends State {
 }
 
 Color isBold(Message latest) {
-  if (!latest.isRead) {
+  if (!latest.isRead && !latest.isSelf) {
     return Colors.white;
   } else {
     return Colors.grey[350];
@@ -108,11 +108,11 @@ String parse(DateTime original) {
 }
 
 IconData readSymbol(Message latest) {
-  if (latest.isRead && !latest.self) {
+  if (!latest.isRead && !latest.isSelf) {
     return Icons.markunread;
-  } else if (!latest.self) {
+  } else if (!latest.isSelf) {
     return Icons.mail_outline;
-  } else if (latest.self && !latest.isRead) {
+  } else if (latest.isSelf && !latest.isRead) {
     return CommunityMaterialIcons.check;
   } else {
     return CommunityMaterialIcons.check_all;
@@ -120,7 +120,7 @@ IconData readSymbol(Message latest) {
 }
 
 String withAuthor(Message latest, String sender) {
-  if (latest.self) {
+  if (latest.isSelf) {
     return 'You: ' + latest.inner;
   } else {
     return sender + ': ' + latest.inner;

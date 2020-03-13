@@ -1,0 +1,29 @@
+syntax = "proto3";
+package v2;
+
+
+// response
+message Response{}
+
+// request
+message Request{
+    string username = 1; // user username
+    string friend = 2; // friend username
+}
+
+// chat message
+message Message{
+    string from_user = 1; // from user 
+    string to_user = 2; // to user
+    string text = 3; // string
+    string connID = 4; // string
+}
+
+//services
+service ChatService{
+    // send message
+    rpc Send(Message) returns (Response){}
+
+    // subscribe
+    rpc Subscribe(Request) returns (stream Message){}
+}

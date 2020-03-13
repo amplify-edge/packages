@@ -7,22 +7,22 @@ import 'package:hive/hive.dart';
 // Each Map<String, dynamic> in the List represents one message in the conversation, where:
 //
 // {'content': String message}    // Actual message content
-// {'self': bool isSelf}          // Whether this message is sent by user
+// {'isSelf': bool isSelf}          // Whether this message is sent by user
 // {'isRead': bool isRead}        // Whether this message is "new" (Not been opened locally)
 // {'timeProcessed': int time}    // Time when message was processed (In microseconds since epoch)
 
-List<Conversation> parseAll(Box<List<Map<String, dynamic>>> box) {
-  var conversations = <Conversation>[];
+List<Chat> parseAll(Box<List<Map<String, dynamic>>> box) {
+  var conversations = <Chat>[];
   for (var contact in box.keys) {
     var map = box.get(contact);
     var messages = <Message>[];
     for (var val in map) {
       messages.add(Message(
-          val['content'], val['self'], val['isRead'], val['timeProcessed']));
+          val['content'], val['isSelf'], val['isRead'], val['timeProcessed']));
     }
-    conversations.add(Conversation(messages, contact));
+    conversations.add(Chat(messages, contact));
   }
-  conversations.sort((Conversation a, Conversation b) {
+  conversations.sort((Chat a, Chat b) {
     var messageA = a.messages.last;
     var messageB = b.messages.last;
     if (messageA.timeProcessed < messageB.timeProcessed)
@@ -37,7 +37,7 @@ List<Conversation> parseAll(Box<List<Map<String, dynamic>>> box) {
 
 /// Run this to persist your local list of conversation (with its edits) while
 /// also keeping new messages that are in Hive.
-void persist(List<Conversation> data, Box<List<Map<String, dynamic>>> box) {
+void persist(List<Chat> data, Box<List<Map<String, dynamic>>> box) {
   for (var convo in data) {
     var hiveConvo = box.get(convo.contact);
     hiveConvo ??= <Map<String, dynamic>>[];
@@ -47,7 +47,7 @@ void persist(List<Conversation> data, Box<List<Map<String, dynamic>>> box) {
     for (var message in convo.messages) {
       hiveVal.add({
         'content': message.inner,
-        'self': message.self,
+        'isSelf': message.isSelf,
         'isRead': message.isRead,
         'timeProcessed': message.timeProcessed,
       });
@@ -57,7 +57,7 @@ void persist(List<Conversation> data, Box<List<Map<String, dynamic>>> box) {
       if (message['timeProcessed'] < time) break;
       hiveVal.add({
         'content': message['content'],
-        'self': message['self'],
+        'isSelf': message['isSelf'],
         'isRead': message['isRead'],
         'timeProcessed': message['timeProcessed'],
       });
@@ -68,18 +68,21 @@ void persist(List<Conversation> data, Box<List<Map<String, dynamic>>> box) {
 
 class Message {
   String inner;
-  bool self;
+  bool isSelf;
   bool isRead;
   int timeProcessed;
+  String senderID;
+  String senderName;
 
-  Message(this.inner, this.self, this.isRead, this.timeProcessed);
+  Message(this.inner, this.isSelf, this.isRead, this.timeProcessed);
 }
 
-class Conversation {
+class Chat {
   List<Message> messages;
-  String contact;
+  String chatID;
+  String chatName;
 
-  Conversation(List<Message> messages, this.contact) {
+  Chat(List<Message> messages, this.chatName, this.chatID) {
     this.messages = messages;
     this.messages.sort((Message a, Message b) {
       if (a.timeProcessed < b.timeProcessed)
