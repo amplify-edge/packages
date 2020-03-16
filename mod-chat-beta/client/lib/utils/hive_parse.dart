@@ -2,27 +2,29 @@ import 'package:hive/hive.dart';
 
 // Hive Data should be structured like this:
 //
-// box.get(String contactName) returns a List<Map<String, dynamic>>, representing one conversation.
+// box.get(String chatid) returns a List<Map<String, dynamic>>, representing one chatroom.
 //
-// Each Map<String, dynamic> in the List represents one message in the conversation, where:
+// Each Map<String, dynamic> in the List represents one message in the chatroom, where:
 //
 // {'content': String message}    // Actual message content
 // {'isSelf': bool isSelf}          // Whether this message is sent by user
 // {'isRead': bool isRead}        // Whether this message is "new" (Not been opened locally)
 // {'timeProcessed': int time}    // Time when message was processed (In microseconds since epoch)
+// {'senderId': String deviceId}  // Unique ID for server routing
+// {'senderName': String name}    // Username of sender
 
-List<Chat> parseAll(Box<List<Map<String, dynamic>>> box) {
-  var conversations = <Chat>[];
-  for (var contact in box.keys) {
-    var map = box.get(contact);
+List<ChatRoom> parseAll(Box box) {
+  var conversations = <ChatRoom>[];
+  for (var chatid in box.keys) {
+    var map = box.get(chatid);
     var messages = <Message>[];
     for (var val in map) {
-      messages.add(Message(
-          val['content'], val['isSelf'], val['isRead'], val['timeProcessed']));
+      messages.add(Message(val['content'], val['isSelf'], val['isRead'],
+          val['timeProcessed'], val['senderId'], val['senderName']));
     }
-    conversations.add(Chat(messages, contact));
+    conversations.add(ChatRoom(messages, chatid));
   }
-  conversations.sort((Chat a, Chat b) {
+  conversations.sort((ChatRoom a, ChatRoom b) {
     var messageA = a.messages.last;
     var messageB = b.messages.last;
     if (messageA.timeProcessed < messageB.timeProcessed)
@@ -37,9 +39,9 @@ List<Chat> parseAll(Box<List<Map<String, dynamic>>> box) {
 
 /// Run this to persist your local list of conversation (with its edits) while
 /// also keeping new messages that are in Hive.
-void persist(List<Chat> data, Box<List<Map<String, dynamic>>> box) {
+void persist(List<ChatRoom> data, Box box) {
   for (var convo in data) {
-    var hiveConvo = box.get(convo.contact);
+    var hiveConvo = box.get(convo.chatid);
     hiveConvo ??= <Map<String, dynamic>>[];
     box.clear();
     List<Map<String, dynamic>> hiveVal = <Map<String, dynamic>>[];
@@ -50,6 +52,8 @@ void persist(List<Chat> data, Box<List<Map<String, dynamic>>> box) {
         'isSelf': message.isSelf,
         'isRead': message.isRead,
         'timeProcessed': message.timeProcessed,
+        'senderId': message.senderId,
+        'senderName': message.senderName,
       });
       time = message.timeProcessed;
     }
@@ -60,9 +64,11 @@ void persist(List<Chat> data, Box<List<Map<String, dynamic>>> box) {
         'isSelf': message['isSelf'],
         'isRead': message['isRead'],
         'timeProcessed': message['timeProcessed'],
+        'senderId': message['senderId'],
+        'senderName': message['senderName'],
       });
     }
-    box.put(convo.contact, hiveVal);
+    box.put(convo.chatid, hiveVal);
   }
 }
 
@@ -71,18 +77,18 @@ class Message {
   bool isSelf;
   bool isRead;
   int timeProcessed;
-  String senderID;
+  String senderId;
   String senderName;
 
-  Message(this.inner, this.isSelf, this.isRead, this.timeProcessed);
+  Message(this.inner, this.isSelf, this.isRead, this.timeProcessed,
+      this.senderId, this.senderName);
 }
 
-class Chat {
+class ChatRoom {
   List<Message> messages;
-  String chatID;
-  String chatName;
+  String chatid;
 
-  Chat(List<Message> messages, this.chatName, this.chatID) {
+  ChatRoom(List<Message> messages, this.chatid) {
     this.messages = messages;
     this.messages.sort((Message a, Message b) {
       if (a.timeProcessed < b.timeProcessed)
@@ -94,3 +100,9 @@ class Chat {
     });
   }
 }
+
+//TODO: Implement deviceId to get a real ID.
+String get deviceId => '000000';
+
+//TODO: Implement deviceId to get a real username.
+String get deviceUser => 'TestUser';

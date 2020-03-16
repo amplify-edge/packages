@@ -25,7 +25,7 @@ print: ## print
 
 git-clone:
 	mkdir -p $(LIB_FSPATH)
-	cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
+cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
 	cd $(LIB_FSPATH) && git checkout $(LIB_BRANCH)
 git-pull:
 	cd $(LIB_FSPATH) && git pull
@@ -47,7 +47,6 @@ flu-config: ## flu-config
 flu-web-run: ## flu-web-run
 	# WORKS :)
 	flutter config --enable-web
-	cd $(SAMPLE_FSPATH) && flutter create .
 	cd $(SAMPLE_FSPATH) && flutter run -d chrome
 
 flu-web-build: ## flu-web-build
@@ -61,7 +60,7 @@ flu-mob-run: ## flu-mob-run
 
 flu-desk-run: ## flu-desk-run
 
-	cd $(SAMPLE_FSPATH) && hover init
+	#cd $(SAMPLE_FSPATH) && hover init
 	cd $(SAMPLE_FSPATH) && hover run
 
 
