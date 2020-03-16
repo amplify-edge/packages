@@ -150,19 +150,24 @@ lang-gen-arb: ## lang-gen-arb
 
 
 
-# # # # # # Start asti desktop # # # # # #
-# build asti desktop
-install-asti:
-	# install go-astilectron-bundler
-	sudo rm -rf $(GOPATH)/src/github.com/go-astilectron-bundler
-	cd $(GOPATH)/src/github.com/ && git clone https://github.com/asticode/go-astilectron-bundler.git
-	cd $(GOPATH)/src/github.com/go-astilectron-bundler/astilectron-bundler && go build -o $(GOBIN)/astilectron-bundler
+### ASTI
 
-start-asti-linux:
+go-desk-dep: ## go-desk-dep
+	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
+	go get -u github.com/asticode/go-astilectron-bundler/...
+	cd $(current_dir)/desktop && go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
+	which astilectron-bundler
+
+go-desk-build: ## go-desk-build
+	# -d is for darwin
+	cd $(current_dir)/desktop && astilectron-bundler -d
+
+
+go-desk-run-lin: ## go-desk-run-lin
 	./desktop/output/linux-amd64/ION\ Desktop\ App
 	
-start-asti-mac:
+go-desk-run-mac: ## go-desk-run-mac
 	./desktop/output/darwin-amd64/MacOS/ion_desktop
 	
-start-asti-win:
+go-desk-run-win: ## go-desk-run-win
 	./desktop/output/windows-386/ION\ Desktop\ App
