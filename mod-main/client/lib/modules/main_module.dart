@@ -3,12 +3,15 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
 
+import 'orgs/service/orgs_service.dart';
 import 'orgs/views/org_view.dart';
+import 'splash/views/splash_view.dart';
+import 'support_roles/services/supportRole_service.dart';
+import 'support_roles/views/support_role_view.dart';
 import 'user_needs/views/user_need_view.dart';
 import 'userinfo/views/userinfo_view.dart';
-import '../modules/orgs/service/orgs_service.dart';
-import '../modules/support_roles/services/supportRole_service.dart';
-import '../modules/support_roles/views/support_role_view.dart';
+import '../modules/org_manager/orgs/views/orgs_manager_view.dart';
+
 
 class MainAppModule extends ChildModule{
 
@@ -21,6 +24,9 @@ class MainAppModule extends ChildModule{
   }
 
   MainAppModule(String baseRoute) {
+    if(baseRoute == '/'){
+      baseRoute = '';
+    }
     assert(baseRoute != null);
     MainAppModule.baseRoute = baseRoute;
   }
@@ -31,10 +37,11 @@ class MainAppModule extends ChildModule{
       Bind((i) => OrgsService()),
       Bind((i) => SupportRoleService())
   ];
-
   
   @override
   List<Router> get routers => [
+    Router("/", child: (_, args) => SplashView()),
+    Router("/dashboard", child: (_, args) => OrgManagerView()),
     Router("/userInfo", child: (_, args) => UserInfoView()),
     Router("/orgs", child: (_, args) => OrgView()),
     Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
