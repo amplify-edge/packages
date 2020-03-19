@@ -86,7 +86,7 @@ jobs:
     - name: Deploy
       run: |
         gcloud container clusters get-credentials $GKE_PROJECT --zone $GKE_ZONE --project $GKE_PROJECT
-        helm upgrade --force --install $RELEASE_CHANNEL ./maintemplate/server/deployments/helm\
+        helm upgrade --install $RELEASE_CHANNEL ./maintemplate/server/deployments/helm\
          --set flutterImage=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
          --set maintemplateServerImage=gcr.io/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
          ${{ secrets.HELM_VARS }}
