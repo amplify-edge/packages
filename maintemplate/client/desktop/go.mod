@@ -1,4 +1,4 @@
-module github.com/getcouragenow/packages/maintemplate/client/desktop
+module github.com/winwisely99/packages/maintemplate/client/desktop
 
 go 1.13
 
