@@ -152,6 +152,11 @@ lang-gen-arb: ## lang-gen-arb
 
 ### ASTI
 
+# 1. dep
+# 2. build
+# 3. copy flutter web build in
+# 4. run (for the desktop your on)
+
 go-desk-dep: ## go-desk-dep
 	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
 	go get -u github.com/asticode/go-astilectron-bundler/...
@@ -160,14 +165,16 @@ go-desk-dep: ## go-desk-dep
 
 go-desk-build: ## go-desk-build
 	# -d is for darwin
-	cd $(current_dir)/desktop && astilectron-bundler -d
+	cd $(current_dir)/desktop && astilectron-bundler
 
 
 go-desk-run-lin: ## go-desk-run-lin
+	# SOMEONE on Linux fix this to be correct pathing style
 	./desktop/output/linux-amd64/ION\ Desktop\ App
 	
 go-desk-run-mac: ## go-desk-run-mac
-	./desktop/output/darwin-amd64/MacOS/ion_desktop
+	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
 	
 go-desk-run-win: ## go-desk-run-win
-	./desktop/output/windows-386/ION\ Desktop\ App
+	# SOMEONE on Windows fix this to be correct pathing style
+	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
