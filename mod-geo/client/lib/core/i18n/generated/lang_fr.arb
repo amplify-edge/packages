@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-03-24T12:33:43.592300",
+  "test": "Cette chaîne doit être traduite",
+  "@test": {
+    "description": "text for the home tab",
+    "placeholders": {},
+    "type": "text"
+  }
+}

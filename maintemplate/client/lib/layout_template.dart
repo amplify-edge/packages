@@ -77,7 +77,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("Writer tapped");},
         ),
          TabItem(
-          title: Text("Maps"),
+          title: Text(AppLocalizations.of(context).tabmap()),
           icon: Icon(Icons.map),
           onTap: () {
            Modular.to.pushNamed(Paths.modGeo);
