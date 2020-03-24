@@ -7,12 +7,12 @@
 # To configure this workflow:
 name: Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
 on:
-  pull_request:
-    branches:
-      - master
-    paths:
-      - "maintemplate/client/**"
-      - ".github/workflows/build-sign-deploy-desktop.yml"
+  #pull_request:
+    #branches:
+      #- master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-desktop.yml"
   push:
     branches: 
       - master

@@ -26,12 +26,12 @@
 
 name: Build, Package, Sign and Deploy iOS & Android Apps
 on:
-  pull_request:
-    branches:
-      - master
-    paths:
-      - "maintemplate/client/**"
-      - ".github/workflows/build-sign-deploy-mobile.yml"
+  #pull_request:
+    #branches:
+      #- master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-mobile.yml"
   push:
     branches: 
       - master
