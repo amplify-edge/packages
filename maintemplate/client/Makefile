@@ -63,26 +63,6 @@ flu-web-build: ## flu-web-build
 	flutter config --enable-web
 	cd $(SAMPLE_FSPATH) && flutter build web
 
-	# asti desktop
-	rm -rf $(SAMPLE_FSPATH)/desktop/resources/app/*
-	cp -r $(SAMPLE_FSPATH)/build/web/* $(SAMPLE_FSPATH)/desktop/resources/app
-	cd desktop && astilectron-bundler
-
-asti-install:
-	# install go-astilectron-bundler
-	sudo rm -rf $(GOPATH)/src/github.com/go-astilectron-bundler
-	cd $(GOPATH)/src/github.com/ && git clone https://github.com/asticode/go-astilectron-bundler.git
-	cd $(GOPATH)/src/github.com/go-astilectron-bundler/astilectron-bundler && go build -o $(GOBIN)/astilectron-bundler
-
-asti-desk-linux:
-	./desktop/output/linux-amd64/ION\ Desktop\ App
-	
-asti-desk-mac:
-	./desktop/output/darwin-amd64/MacOS/ion_desktop
-	
-asti-desk-win:
-	./desktop/output/windows-386/ION\ Desktop\ App
-
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
@@ -152,22 +132,46 @@ lang-gen-arb: ## lang-gen-arb
 
 ### ASTI
 
+# 1. dep
+# 2. build
+# 3. run (for the desktop your on)
+
 go-desk-dep: ## go-desk-dep
 	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
 	go get -u github.com/asticode/go-astilectron-bundler/...
+	go get -u github.com/asticode/go-astilectron-bootstrap
 	cd $(current_dir)/desktop && go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
 	which astilectron-bundler
 
 go-desk-build: ## go-desk-build
-	# -d is for darwin
-	cd $(current_dir)/desktop && astilectron-bundler -d
+	# build flutter web
+	flutter config --enable-web
+	cd $(SAMPLE_FSPATH) && flutter build web
 
+	# copy flutter web build to desktop/resources/app
+	rm -rf $(SAMPLE_FSPATH)desktop/resources/app
+	mkdir -p $(SAMPLE_FSPATH)desktop/resources/app/
+	cp -r $(SAMPLE_FSPATH)build/web/* $(SAMPLE_FSPATH)desktop/resources/app
+
+	# -d is for darwin
+	cd $(SAMPLE_FSPATH)desktop && astilectron-bundler
 
 go-desk-run-lin: ## go-desk-run-lin
+	# SOMEONE on Linux fix this to be correct pathing style
 	./desktop/output/linux-amd64/ION\ Desktop\ App
 	
 go-desk-run-mac: ## go-desk-run-mac
-	./desktop/output/darwin-amd64/MacOS/ion_desktop
+	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
 	
 go-desk-run-win: ## go-desk-run-win
-	./desktop/output/windows-386/ION\ Desktop\ App
+	# SOMEONE on Windows fix this to be correct pathing style
+	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
+
+go-desk-clean:
+	rm -rf $(SAMPLE_FSPATH)desktop/resources/app
+	rm -rf $(SAMPLE_FSPATH)desktop/output
+	rm -rf $(SAMPLE_FSPATH)desktop/bind_darwin_amd64.go
+	rm -rf $(SAMPLE_FSPATH)desktop/bind_linux_amd64.go
+	rm -rf $(SAMPLE_FSPATH)desktop/bind_windows_386.go
+	rm -rf $(SAMPLE_FSPATH)desktop/windows.syso
+
