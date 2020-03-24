@@ -69,12 +69,12 @@ class _AppState extends State<App> {
         GlobalMaterialLocalizations.delegate
       ],
       locale: (model.locale == Locale('system') ? null : model.locale),
-      // supportedLocales: const <Locale>[
-      //   Locale('en'),
-      //   Locale('es'),
-      //   Locale('fr'),
-      //   Locale('ur'),
-      // ],
+      supportedLocales: const <Locale>[
+        Locale('en'),
+        Locale('es'),
+        Locale('fr'),
+        Locale('ur'),
+      ],
     );
   }
 }
