@@ -18,13 +18,31 @@ How the Modular Router is loaded with User and its roles and the URLS via a gola
 
 We have .app and .exe and "exe"
 
-1. Make an installer for each OS
+0. Make an installer for each OS
+- hover packages code:
 - msi
 - pkg (dmg are old)
 - linux snap, etc, etc
 
-1. sign and push to apple appstore
+1. sign
+https://github.com/itchio/itch-setup/blob/master/scripts/ci-build.sh#L73
 
-2. autoupdate
+2.5 push me the devs
 
+2.7 push to upstore
+
+2. autoupdate (later)
 https://www.electronjs.org/docs/api/auto-updater
+- squirrel desktop electron
+- mobile: see ci/update.
+
+
+Splash
+https://github.com/asticode/go-astisplash
+
+Notifications
+https://github.com/asticode/astilectron/issues/24
+- will not work !!
+
+
+
