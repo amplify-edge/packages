@@ -5,14 +5,14 @@
 #   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
 #   * LINUX_SIGN_KEY_ID used to find the key.
 # To configure this workflow:
-name: Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
+name: Build, Package, Sign and Deploy Windows, Linux and MacOs Apps using Electron
 on:
-  pull_request:
-    branches:
-      - master
-    paths:
-      - "maintemplate/client/**"
-      - ".github/workflows/build-sign-deploy-desktop.yml"
+  #pull_request:
+    #branches:
+      #- master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-desktop.yml"
   push:
     branches: 
       - master
