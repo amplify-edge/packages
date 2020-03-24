@@ -7,12 +7,12 @@
 # To configure this workflow:
 name: Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
 on:
-  #pull_request:
-    #branches:
-      #- master
-    #paths:
-      #- "maintemplate/client/**"
-      #- ".github/workflows/build-sign-deploy-desktop.yml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "maintemplate/client/**"
+      - ".github/workflows/build-sign-deploy-desktop.yml"
   push:
     branches: 
       - master
@@ -36,7 +36,7 @@ jobs:
           export GOPATH=$HOME/go
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go version
-      - name: Install Hover
+      - name: Install asti
         run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
           sudo apt-get install gcc libc6-dev
@@ -44,6 +44,8 @@ jobs:
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go version
           go get -u github.com/go-flutter-desktop/hover
+          go get -u github.com/asticode/go-astilectron-bundler/...
+          go get -u github.com/asticode/go-astilectron-bootstrap
       - name: Cloning repository
         uses: actions/checkout@v2.0.0
       - uses: subosito/flutter-action@v1.2.0
@@ -56,12 +58,17 @@ jobs:
         run: |
           export GOPATH=$HOME/go
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-          hover build linux
+          flutter config --enable-web
+          flutter build web
+          cp -r build/web/* desktop/resources/app
+          cd desktop && astilectron-bundler -l
         working-directory: maintemplate/client/
       - name: Packaging Linux App
         run: |
           export GOPATH=$HOME/go
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          
+          
           hover init-packaging linux-appimage
           hover init-packaging linux-deb
           hover init-packaging linux-snap
@@ -101,7 +108,8 @@ jobs:
       - name: Install Hover
         run: |
           go version
-          go get -u github.com/go-flutter-desktop/hover
+          go get -u github.com/asticode/go-astilectron-bundler/...
+          go get -u github.com/asticode/go-astilectron-bootstrap
       - name: Cloning repository
         uses: actions/checkout@v2.0.0
       - uses: subosito/flutter-action@v1.2.0
@@ -111,7 +119,7 @@ jobs:
         run: flutter pub get
         working-directory: maintemplate/client/
       - name: Build Linux Application
-        run: hover build windows
+        run: astilectron-bundler -w
         working-directory: maintemplate/client/
       - name: Packaging Windows App
         run: |
