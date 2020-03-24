@@ -8,6 +8,9 @@ import 'package:provider/provider.dart' as provider;
 import '././core/core.dart';
 import 'modules/settings/settings.dart';
 
+// Bottom Up approach .....
+import 'package:mod_geo/core/core.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -37,13 +40,16 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   AppLocalizationsDelegate _delegate;
+  ModGeoAppLocalizationsDelegate _modGeoADelegate;
 
   @override
   Widget build(BuildContext context) {
     final model = provider.Provider.of<SettingsViewModel>(context);
     _delegate = AppLocalizationsDelegate(model.locale);
+    _modGeoADelegate = ModGeoAppLocalizationsDelegate(model.locale);
 
     print("${_delegate.overriddenLocale} delegate");
+    print("${_modGeoADelegate.overriddenLocale} delegate");
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -57,18 +63,18 @@ class _AppState extends State<App> {
       onGenerateRoute: Modular.generateRoute,
       navigatorKey: Modular.navigatorKey,
       localizationsDelegates: [
-        FallbackCupertinoLocalisationsDelegate(),
         _delegate,
+        _modGeoADelegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
       locale: (model.locale == Locale('system') ? null : model.locale),
-      supportedLocales: const <Locale>[
-        Locale('en'),
-        Locale('es'),
-        Locale('fr'),
-        Locale('ur'),
-      ],
+      // supportedLocales: const <Locale>[
+      //   Locale('en'),
+      //   Locale('es'),
+      //   Locale('fr'),
+      //   Locale('ur'),
+      // ],
     );
   }
 }
