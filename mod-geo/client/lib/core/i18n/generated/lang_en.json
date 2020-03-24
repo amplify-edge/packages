@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-03-24T12:33:43.592300",
+  "test": "This string should be translated",
+  "@test": {
+    "description": "text for the home tab",
+    "placeholders": {},
+    "type": "text"
+  }
+}
