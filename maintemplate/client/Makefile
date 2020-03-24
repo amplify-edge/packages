@@ -121,6 +121,8 @@ lang-gen-go: ## lang-gen-go
 	# calls our golang tool to do its thing...
 	@echo go-flu-gen
 
+lang-dep:
+	go get -u github.com/getcouragenow/bootstrap/tool/i18n
 lang-gen-json: ## lang-gen-json
 	# generate full json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es -f
