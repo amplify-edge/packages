@@ -24,7 +24,7 @@
 #   * https://developer.apple.com/documentation/appstoreconnectapi/certificates
 #   * https://github.com/flutter/flutter/issues/13065
 
-name: Build, Package, Sign and Deploy iOS & Android Apps
+name: Mobile - Build, Package, Sign and Deploy iOS & Android Apps
 on:
   #pull_request:
     #branches:
