@@ -111,6 +111,7 @@ endif
 
 
 ## LANG
+# 0. ensure you have the i18n tool
 # 1. 
 
 lang-gen: ## gen-len
@@ -119,7 +120,7 @@ lang-gen: ## gen-len
 
 lang-gen-go: ## lang-gen-go
 	# calls our golang tool to do its thing...
-	@echo go-flu-gen
+	@echo i18n flutter
 
 lang-gen-json: ## lang-gen-json
 	# generate full json files
