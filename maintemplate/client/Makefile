@@ -66,6 +66,13 @@ flu-web-build: ## flu-web-build
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
+flu-mob-build: ## flu-mob-build
+	# ios
+	# https://flutter.dev/docs/deployment/ios
+	# change to ios 11 in xcode for runner and pods
+	cd $(SAMPLE_FSPATH)/ios && pod install
+	#cd $(SAMPLE_FSPATH) && flutter build ios
+
 flu-desk-run: ## flu-desk-run
 	#cd $(SAMPLE_FSPATH) && hover init
 	cd $(SAMPLE_FSPATH) && hover run
@@ -166,6 +173,17 @@ go-desk-run-lin: ## go-desk-run-lin
 	
 go-desk-run-mac: ## go-desk-run-mac
 	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
+
+TARGET_MAC=$(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
+SIGNKEY_MAC="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
+# From: https://developer.apple.com/account
+# NOTE: waiting on Apple to approve me...
+go-desk-sign-mac: ## go-desk-sign-mac
+	# sign *after* packing
+	echo TARGET_MAC : $(TARGET_MAC)
+	echo SIGNKEY_MAC : $(SIGNKEY_MAC)
+	codesign --deep --force --verbose --sign ${SIGNKEY_MAC} "${TARGET}"
+	codesign --verify -vvvv "${TARGET}"
 	
 go-desk-run-win: ## go-desk-run-win
 	# SOMEONE on Windows fix this to be correct pathing style

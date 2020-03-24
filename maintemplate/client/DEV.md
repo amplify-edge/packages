@@ -27,6 +27,9 @@ We have .app and .exe and "exe"
 1. sign
 https://github.com/itchio/itch-setup/blob/master/scripts/ci-build.sh#L73
 
+How to sign ?
+https://www.electron.build/code-signing
+
 2.5 push me the devs
 
 2.7 push to upstore
