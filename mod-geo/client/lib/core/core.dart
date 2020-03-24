@@ -1,0 +1,1 @@
+export './i18n/app_localization.dart';
