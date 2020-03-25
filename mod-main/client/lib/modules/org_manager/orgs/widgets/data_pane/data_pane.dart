@@ -20,7 +20,7 @@ class DataPane extends StatelessWidget {
             firstRowIndex: model.firstRowIndex,
             
             itemCount: model.orgsPerPage.length ?? 0,
-            header: Container(height: 50, color: Colors.red),
+            header: Text("Organization Details"),
             handleNext: ()  {
                model.handleNextPage();
             },
