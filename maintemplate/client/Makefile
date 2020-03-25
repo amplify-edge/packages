@@ -174,6 +174,21 @@ go-desk-run-lin: ## go-desk-run-lin
 go-desk-run-mac: ## go-desk-run-mac
 	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
 
+
+go-desk-pack-mac:  ## go-desk-pack-mac
+
+	#darwin
+	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-bundle
+
+	# skaffold the file system with the pkg templates.
+	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-pkg
+
+	# inject out .app into it.
+	cp -rf $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app ./Applications/maintemplate.app
+
+	# 
+
+
 TARGET_MAC=$(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
 SIGNKEY_MAC="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
 # From: https://developer.apple.com/account
@@ -196,4 +211,6 @@ go-desk-clean:
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_linux_amd64.go
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_windows_386.go
 	rm -rf $(SAMPLE_FSPATH)desktop/windows.syso
+
+
 
