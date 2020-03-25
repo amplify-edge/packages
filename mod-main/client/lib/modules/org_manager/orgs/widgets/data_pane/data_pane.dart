@@ -18,7 +18,8 @@ class DataPane extends StatelessWidget {
         NativeDataTable.builder(
             rowsPerPage: model.rowsPerPage,
             firstRowIndex: model.firstRowIndex,
-            itemCount: model.orgs.length ?? 0,
+            
+            itemCount: model.orgsPerPage.length ?? 0,
             header: Container(height: 50, color: Colors.red),
             handleNext: ()  {
                model.handleNextPage();
@@ -45,7 +46,7 @@ class DataPane extends StatelessWidget {
               );
             },
             onSelectAll: (bool value) {
-              for (var row in model.orgs) {}
+              model.onSelectAll(value);
             },
             rowCountApproximate: true,
             actions: <Widget>[
@@ -60,13 +61,17 @@ class DataPane extends StatelessWidget {
                 onPressed: () {},
               ),
             ],
+          
             itemBuilder: (int index) {
               final org = model.orgs[index];
               return DataRow.byIndex(
                 index: index,
-                onSelectChanged: (value) {},
-                selected: true,
+                onSelectChanged: (value) {
+                  model.changeSelection(value, index);
+                },
+                selected: model.selected[index],
                 cells: [
+                  DataCell(Text(org.id)),
                   DataCell(Text(org.organization)),
                   DataCell(Text(org.campaignName)),
                   DataCell(Text(org.category)),
@@ -81,6 +86,7 @@ class DataPane extends StatelessWidget {
               );
             },
             columns: [
+               DataColumn(label: Text("Sr. No")),
               DataColumn(label: Text("Organization")),
               DataColumn(label: Text("Campaign")),
               DataColumn(label: Text("Category")),
