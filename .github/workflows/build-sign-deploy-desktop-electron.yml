@@ -12,13 +12,13 @@ on:
       #- master
     #paths:
       #- "maintemplate/client/**"
-      #- ".github/workflows/build-sign-deploy-desktop.yml"
+      #- ".github/workflows/build-sign-deploy-desktop-electron.yml"
   push:
     branches: 
       - master
     paths:
       - "maintemplate/client/**"
-      - ".github/workflows/build-sign-deploy-desktop.yml"
+      - ".github/workflows/build-sign-deploy-desktop-electron.yml"
 
 jobs:
   build-package-sign-linux:
