@@ -125,7 +125,7 @@ jobs:
     name: "MAC Build, Package, Sign and Deploy"
     runs-on: [macos-latest]
     env:
-      GO111MODULE: auto
+      GO111MODULE: off
     steps:
       - name: Set up go
         uses: actions/setup-go@v1
