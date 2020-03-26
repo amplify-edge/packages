@@ -1,4 +1,3 @@
-
 GO_OS 		:= $(shell go env GOOS)
 GO_ARCH		:= $(shell go env GOARCH)
 
@@ -118,8 +117,9 @@ endif
 
 
 ## LANG
-# 0. ensure you have the i18n tool
-# 1. 
+# 0. make lang-dep => ensure you have the i18n tool
+# 1. make lang-gen-json => generate translated json files
+# 2. make lang-gen-arb => convert json files to arb
 
 lang-gen: ## gen-len
 	# wrapper script to call others to make it seemless
@@ -131,6 +131,7 @@ lang-gen-go: ## lang-gen-go
 
 lang-dep:
 	go get -u github.com/getcouragenow/bootstrap/tool/i18n
+
 lang-gen-json: ## lang-gen-json
 	# generate full json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es -f
@@ -139,13 +140,12 @@ lang-gen-arb: ## lang-gen-arb
 	# generate arb files from json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR)
 
-
-
 ### ASTI
 
 # 1. dep
 # 2. build
 # 3. run (for the desktop your on)
+# 4. pack (for the desktop your on)
 
 go-desk-dep: ## go-desk-dep
 	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
@@ -172,25 +172,13 @@ go-desk-run-lin: ## go-desk-run-lin
 	./desktop/output/linux-amd64/ION\ Desktop\ App
 
 go-desk-pack-lin: ## go-desk-pack-lin
+	# debian
+	cd $(SAMPLE_FSPATH)packer/ && make go-pack-deb
 
-	#linux -skaffold the file system with the pkg templates.
-	#cd $(SAMPLE_FSPATH) && hover init-packaging linux-appimage
-	cd $(SAMPLE_FSPATH) && hover init-packaging linux-deb
-	#cd $(SAMPLE_FSPATH) && hover init-packaging linux-snap
-
-	# inject the bnary build of the deb into the rigt place that the package uses.
-	cp -rf $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app ./Applications/maintemplate.app
-
-	# call deb packing
-
-
-go-desk-sign-lin: ## go-desk-sign-lin
-	# sign *after* packing
-	#echo TARGET_MAC : $(TARGET_MAC)
-	#echo SIGNKEY_MAC : $(SIGNKEY_MAC)
-	#codesign --deep --force --verbose --sign ${SIGNKEY_MAC} "${TARGET}"
-	#codesign --verify -vvvv "${TARGET}"
-
+SIGN_KEY_ID_LINUX="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
+go-desk-sign-lin:
+	debsigs --sign=origin -k ${SIGN_KEY_ID_LINUX} $(SAMPLE_FSPATH)packer/build/linux-deb/*.deb
+	debsigs --verify -c $(SAMPLE_FSPATH)packer/build/linux-deb/*.deb
 	
 go-desk-run-mac: ## go-desk-run-mac
 	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
@@ -231,6 +219,3 @@ go-desk-clean:
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_linux_amd64.go
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_windows_386.go
 	rm -rf $(SAMPLE_FSPATH)desktop/windows.syso
-
-
-
