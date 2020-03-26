@@ -82,7 +82,9 @@ class DataPane extends StatelessWidget {
       },
       columns: [
         DataColumn(label: Text("Organization")),
-        DataColumn(label: Text("Campaign")),
+        DataColumn(label: Text("Campaign"), onSort: (int columnIndex,bool ascending){
+          model.sort((org) => org.campaignName, columnIndex, ascending);
+        }),
         DataColumn(label: Text("Category")),
         DataColumn(label: Text("Action Type")),
         DataColumn(label: Text("Action Location")),

@@ -33,6 +33,7 @@ dependencies:
   flutter_modular: ^0.5.5
   intl:
   data_tables: ^1.0.3
+  random_string: ^2.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

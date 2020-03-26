@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:random_string/random_string.dart';
 
 class Org {
   // final Id<Campaign> id;
@@ -109,14 +110,13 @@ List<Org> mockOrgs = List<Org>.generate(
       "Org 2",
       "Org 3",
     ],
-    campaignName: "NY State Pipeline Shutdown",
+    campaignName: randomAlpha(10),
     campaignStill: "NY State Pipeline Shutdown",
     category: "Climate",
     contact: "climate@xr.org",
     crgIdsMany: [
       "crg001",
       "crg002",
-
     ],
     crgQuantityMany: [
       "500",
