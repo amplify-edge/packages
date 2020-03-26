@@ -11,12 +11,14 @@ class OrgManagerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);
-    return ViewModelProvider.withConsumer(
+    return 
+    ViewModelProvider.withConsumer(
       viewModel: OrgsViewModel(),
-      builder: (context, model, child) => Scaffold(
+      builder: (context,OrgsViewModel model, child) => Scaffold(
         body: ResponsiveListScaffold.builder(
           scaffoldKey: _scaffoldKey,
           detailBuilder: (context, int index, tablet) {
+            print("notified");
             return DetailsScreen(
               body: Scaffold(
                   appBar: AppBar(
