@@ -11,6 +11,7 @@ class OrgDashboardMobileView extends StatelessWidget {
    
   @override
   Widget build(BuildContext context) {
+    print("Mobile ");
     return ResponsiveBuilder(
       builder: (context, sizingInfo) {
         return Scaffold(
@@ -18,7 +19,6 @@ class OrgDashboardMobileView extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               iconTheme: Theme.of(context).iconTheme,  
-
             ),
             drawer: Drawer(
               child: FilterPane(sizingInfo: sizingInfo)),

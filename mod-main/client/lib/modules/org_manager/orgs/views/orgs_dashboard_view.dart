@@ -11,8 +11,7 @@ class OrgsDashboardView extends StatelessWidget {
   const OrgsDashboardView({Key key, this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ResponsiveBuilder(
+    return  ResponsiveBuilder(
         builder: (context, sizingInfo) {
           if (sizingInfo.screenSize.width >= 1100.0) {
             return OrgDashboardDesktopView(model : model);
@@ -20,7 +19,7 @@ class OrgsDashboardView extends StatelessWidget {
 
           return OrgDashboardMobileView(model : model);
         },
-      ),
+      
     );
   }
 }
