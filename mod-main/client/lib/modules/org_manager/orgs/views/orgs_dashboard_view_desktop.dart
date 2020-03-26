@@ -17,6 +17,7 @@ class OrgDashboardDesktopView extends StatelessWidget {
       body: ResponsiveBuilder(
         builder: (context, sizingInfo) {
           return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               FilterPane(sizingInfo: sizingInfo),
               SizedBox(width: 16),
