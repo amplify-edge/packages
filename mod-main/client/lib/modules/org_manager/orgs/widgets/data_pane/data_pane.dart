@@ -9,89 +9,91 @@ class DataPane extends StatelessWidget {
 
   const DataPane({Key key, this.model, this.sizingInfo}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-    return 
-    // (widget.model.buzy)
-    //     ? Center(child: CircularProgressIndicator()): 
+    return
+        // (widget.model.buzy)
+        //     ? Center(child: CircularProgressIndicator()):
         NativeDataTable.builder(
-            rowsPerPage: model.rowsPerPage,
-            firstRowIndex: model.firstRowIndex,
-            itemCount: model.orgs.length ?? 0,
-            header: Container(height: 50, color: Colors.red),
-            handleNext: ()  {
-               model.handleNextPage();
-            },
-            handlePrevious: () {
-             model.handlePrevPage();
-            },
-            sortColumnIndex: model.sortColumnIndex,
-            sortAscending: model.sortAscending,
-            onRefresh: () async {
-              await new Future.delayed(new Duration(seconds: 3));
+      rowsPerPage: model.rowsPerPage,
+      firstRowIndex: model.firstRowIndex,
+      itemCount: model.orgsPerPage.length ?? 0,
+      header: Text("Organization Details"),
+      handleNext: () {
+        model.handleNextPage();
+      },
+      handlePrevious: () {
+        model.handlePrevPage();
+      },
+      sortColumnIndex: model.sortColumnIndex,
+      sortAscending: model.sortAscending,
+      onRefresh: () async {
+        await new Future.delayed(new Duration(seconds: 3));
 
-              return null;
-            },
-            onRowsPerPageChanged: (int value) {
-              print("New Rows: $value");
-            },
-            noItems: Text("No Orgs"),
-            mobileItemBuilder: (BuildContext context, int index) {
-              final org = model.orgs[index];
-              return ListTile(
-                title: Text(org.organization),
-                onTap: () {},
-              );
-            },
-            onSelectAll: (bool value) {
-              for (var row in model.orgs) {}
-            },
-            rowCountApproximate: true,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.info_outline),
-                onPressed: () {},
-              ),
-            ],
-            selectedActions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {},
-              ),
-            ],
-            itemBuilder: (int index) {
-              final org = model.orgs[index];
-              return DataRow.byIndex(
-                index: index,
-                onSelectChanged: (value) {},
-                selected: true,
-                cells: [
-                  DataCell(Text(org.organization)),
-                  DataCell(Text(org.campaignName)),
-                  DataCell(Text(org.category)),
-                  DataCell(Text(org.actionType)),
-                  DataCell(Text(org.actionLocation)),
-                  DataCell(Text(org.actionLength)),
-                  DataCell(Text(org.actionTime.toString())),
-                  DataCell(Text(org.histPrecedents)),
-                  DataCell(Text(org.strategy)),
-                  DataCell(Text(org.goal)),
-                ],
-              );
-            },
-            columns: [
-              DataColumn(label: Text("Organization")),
-              DataColumn(label: Text("Campaign")),
-              DataColumn(label: Text("Category")),
-              DataColumn(label: Text("Action Type")),
-              DataColumn(label: Text("Action Location")),
-              DataColumn(label: Text("Action Length")),
-              DataColumn(label: Text("Action Time")),
-              DataColumn(label: Text("Historical Precedents")),
-              DataColumn(label: Text("Strategy")),
-              DataColumn(label: Text("Goal")),
-            ],
-          );
+        return null;
+      },
+      onRowsPerPageChanged: (int value) {
+        print("New Rows: $value");
+      },
+      noItems: Text("No Orgs"),
+      // mobileItemBuilder: (BuildContext context, int index) {
+      //   final org = model.orgs[index];
+      //   return Text("${index} - ${org.organization}");
+         
+      // },
+      onSelectAll: (bool value) {
+        model.onSelectAll(value);
+      },
+      rowCountApproximate: true,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.info_outline),
+          onPressed: () {},
+        ),
+      ],
+      selectedActions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {},
+        ),
+      ],
+      itemBuilder: (int index) {
+        final org = model.orgs[index];
+        return DataRow.byIndex(
+          index: index,
+          onSelectChanged: (value) {
+            model.changeSelection(value, index);
+          },
+          selected: model.selected[index],
+          cells: [
+           
+            DataCell(Text(org.organization)),
+            DataCell(Text(org.campaignName)),
+            DataCell(Text(org.category)),
+            DataCell(Text(org.actionType)),
+            DataCell(Text(org.actionLocation)),
+            DataCell(Text(org.actionLength)),
+            DataCell(Text(org.actionTime.toString())),
+            DataCell(Text(org.histPrecedents)),
+            DataCell(Text(org.strategy)),
+            DataCell(Text(org.goal)),
+          ],
+        );
+      },
+      columns: [
+        DataColumn(label: Text("Organization")),
+        DataColumn(label: Text("Campaign"), onSort: (int columnIndex,bool ascending){
+          model.sort((org) => org.campaignName, columnIndex, ascending);
+        }),
+        DataColumn(label: Text("Category")),
+        DataColumn(label: Text("Action Type")),
+        DataColumn(label: Text("Action Location")),
+        DataColumn(label: Text("Action Length")),
+        DataColumn(label: Text("Action Time")),
+        DataColumn(label: Text("Historical Precedents")),
+        DataColumn(label: Text("Strategy")),
+        DataColumn(label: Text("Goal")),
+      ],
+    );
   }
 }

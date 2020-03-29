@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:random_string/random_string.dart';
 
 class Org {
   // final Id<Campaign> id;
@@ -100,6 +101,7 @@ class Org {
 List<Org> mockOrgs = List<Org>.generate(
   100,
   (index) => Org(
+    id: (index+1).toString(),
     actionLength: "1",
     actionType: "NVDA",
     alreadyPledged: "29738",
@@ -108,14 +110,13 @@ List<Org> mockOrgs = List<Org>.generate(
       "Org 2",
       "Org 3",
     ],
-    campaignName: "NY State Pipeline Shutdown",
+    campaignName: randomAlpha(10),
     campaignStill: "NY State Pipeline Shutdown",
     category: "Climate",
     contact: "climate@xr.org",
     crgIdsMany: [
       "crg001",
       "crg002",
-
     ],
     crgQuantityMany: [
       "500",
@@ -124,7 +125,6 @@ List<Org> mockOrgs = List<Org>.generate(
     goal:
         "We will state a peaceful NVDA at the NYC Pipeline with the demand to have it shut down.",
     histPrecedents: "TBA",
-    id: "1",
     logoUrl:
         "https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/wp-cms/uploads/2019/10/i-2-90414932-extinction-rebellion-symbol.jpg",
     minPioneers: "50",

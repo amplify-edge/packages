@@ -1,4 +1,3 @@
-
 GO_OS 		:= $(shell go env GOOS)
 GO_ARCH		:= $(shell go env GOARCH)
 
@@ -66,6 +65,13 @@ flu-web-build: ## flu-web-build
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
+flu-mob-build: ## flu-mob-build
+	# ios
+	# https://flutter.dev/docs/deployment/ios
+	# change to ios 11 in xcode for runner and pods
+	cd $(SAMPLE_FSPATH)/ios && pod install
+	#cd $(SAMPLE_FSPATH) && flutter build ios
+
 flu-desk-run: ## flu-desk-run
 	#cd $(SAMPLE_FSPATH) && hover init
 	cd $(SAMPLE_FSPATH) && hover run
@@ -111,8 +117,9 @@ endif
 
 
 ## LANG
-# 0. ensure you have the i18n tool
-# 1. 
+# 0. make lang-dep => ensure you have the i18n tool
+# 1. make lang-gen-json => generate translated json files
+# 2. make lang-gen-arb => convert json files to arb
 
 lang-gen: ## gen-len
 	# wrapper script to call others to make it seemless
@@ -124,6 +131,7 @@ lang-gen-go: ## lang-gen-go
 
 lang-dep:
 	go get -u github.com/getcouragenow/bootstrap/tool/i18n
+
 lang-gen-json: ## lang-gen-json
 	# generate full json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es -f
@@ -132,13 +140,12 @@ lang-gen-arb: ## lang-gen-arb
 	# generate arb files from json files
 	i18n flutter --dir $(I18N_TEMPLATE_DIR)
 
-
-
 ### ASTI
 
 # 1. dep
 # 2. build
 # 3. run (for the desktop your on)
+# 4. pack (for the desktop your on)
 
 go-desk-dep: ## go-desk-dep
 	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
@@ -163,9 +170,43 @@ go-desk-build: ## go-desk-build
 go-desk-run-lin: ## go-desk-run-lin
 	# SOMEONE on Linux fix this to be correct pathing style
 	./desktop/output/linux-amd64/ION\ Desktop\ App
+
+go-desk-pack-lin: ## go-desk-pack-lin
+	# debian
+	cd $(SAMPLE_FSPATH)packer/ && make go-pack-deb
+
+SIGN_KEY_ID_LINUX="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
+go-desk-sign-lin:
+	debsigs --sign=origin -k ${SIGN_KEY_ID_LINUX} $(SAMPLE_FSPATH)packer/build/linux-deb/*.deb
+	debsigs --verify -c $(SAMPLE_FSPATH)packer/build/linux-deb/*.deb
 	
 go-desk-run-mac: ## go-desk-run-mac
 	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
+
+go-desk-pack-mac:  ## go-desk-pack-mac
+
+	#darwin
+	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-bundle
+
+	# skaffold the file system with the pkg templates.
+	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-pkg
+
+	# inject out .app into it.
+	cp -rf $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app ./Applications/maintemplate.app
+
+	# 
+
+
+TARGET_MAC=$(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
+SIGNKEY_MAC="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
+# From: https://developer.apple.com/account
+# NOTE: waiting on Apple to approve me...
+go-desk-sign-mac: ## go-desk-sign-mac
+	# sign *after* packing
+	echo TARGET_MAC : $(TARGET_MAC)
+	echo SIGNKEY_MAC : $(SIGNKEY_MAC)
+	codesign --deep --force --verbose --sign ${SIGNKEY_MAC} "${TARGET}"
+	codesign --verify -vvvv "${TARGET}"
 	
 go-desk-run-win: ## go-desk-run-win
 	# SOMEONE on Windows fix this to be correct pathing style
@@ -178,4 +219,3 @@ go-desk-clean:
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_linux_amd64.go
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_windows_386.go
 	rm -rf $(SAMPLE_FSPATH)desktop/windows.syso
-
