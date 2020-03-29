@@ -1,6 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 
@@ -43,52 +44,53 @@ class _PaneWidgetState extends State {
   @override
   Widget build(BuildContext context) {
     rebuild = buildMessageStream().asBroadcastStream();
-    return ListView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.all(10),
-        itemCount: convos.length,
-        itemBuilder: (BuildContext ctxt, int i) {
-          return Card(
-            child: ListTile(
-              onLongPress: () {
-                if (!convos[i].messages.last.isRead)
-                  markRead(i);
-                else
-                  markUnread(i);
-              },
-              onTap: () {
-                current = ChatWidget(convos[i], convos);
-                if (independent) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => current),
-                  );
-                }
-              },
-              trailing: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(parse(DateTime.fromMicrosecondsSinceEpoch(
-                        convos[i].messages.last.timeProcessed))),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 2)),
-                    Icon(readSymbol(convos[i].messages.last))
-                  ]),
-              title: Text(
-                'ChatID:' + convos[i].chatid,
-                overflow: TextOverflow.ellipsis,
-              ),
-              contentPadding: EdgeInsets.all(10),
-              subtitle: Container(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                  child: Text(
-                    withAuthor(convos[i].messages.last,
-                        convos[i].messages.last.senderName),
+    return Container(
+        height: MediaQuery.of(context).size.height - 50,
+        child: ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: convos.length,
+            itemBuilder: (BuildContext ctxt, int i) {
+              return Card(
+                child: ListTile(
+                  onLongPress: () {
+                    if (!convos[i].messages.last.isRead)
+                      markRead(i);
+                    else
+                      markUnread(i);
+                  },
+                  onTap: () {
+                    current = ChatWidget(convos[i], convos);
+                    if (independent) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => current),
+                      );
+                    }
+                  },
+                  trailing: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(parse(DateTime.fromMicrosecondsSinceEpoch(
+                            convos[i].messages.last.timeProcessed))),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                        Icon(readSymbol(convos[i].messages.last))
+                      ]),
+                  title: Text(
+                    'ChatID:' + convos[i].chatid,
                     overflow: TextOverflow.ellipsis,
-                  )),
-            ),
-            color: isBold(convos[i].messages.last),
-          );
-        });
+                  ),
+                  contentPadding: EdgeInsets.all(10),
+                  subtitle: Container(
+                      padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Text(
+                        withAuthor(convos[i].messages.last,
+                            convos[i].messages.last.senderName),
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                ),
+                color: isBold(convos[i].messages.last),
+              );
+            }));
   }
 }
 

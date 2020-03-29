@@ -19,7 +19,8 @@ class _ChatWidgetState extends State {
   ChatRoom convo;
   final List<ChatRoom> all;
   TextEditingController control = TextEditingController();
-  var _formKey = new GlobalKey<FormState>();
+  //var _formKey = new GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   _ChatWidgetState(this.convo, this.all);
 
@@ -51,19 +52,11 @@ class _ChatWidgetState extends State {
                         message.inner, true, [message.isSelf, message.isRead]));
               })),
       Form(
-        key: _formKey,
         child: Row(children: <Widget>[
           // TextFormField; will be submitted by button to right
           Expanded(
               child: TextFormField(
-            key: _formKey,
             controller: control,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter a message...';
-              }
-              return null;
-            },
             decoration: const InputDecoration(
                 hintText: 'Send a message...',
                 // Rounded rectangle border.
@@ -83,7 +76,7 @@ class _ChatWidgetState extends State {
 
   // Submit message to local List, and then to Hive, if it's valid.
   void onPressSubmit() {
-    if (_formKey.currentState.validate()) {
+    if (control.text != '') {
       isChanged = true;
       all.remove(convo);
       convo.messages.add(Message(control.text, true, false,
@@ -91,6 +84,7 @@ class _ChatWidgetState extends State {
       setState(() {
         all.insert(0, convo);
         persist(all, hive);
+        control.text = '';
       });
     }
   }

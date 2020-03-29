@@ -27,15 +27,15 @@ Future<Box> createBox() async {
 }
 
 void genSampleData(Box hive) {
-  int chats = 5;
-  int msgsPerChat = 5;
+  int chats = 10;
+  int msgsPerChat = 10;
   var chatids = List.generate(chats, (index) => destiny.guid());
   for (var i = 0; i < chats; i++) {
     var user = destiny.maleName();
     var uid = destiny.guid();
     var msgs = List.generate(msgsPerChat, (index) {
       Random rand = Random();
-      var letters = (rand.nextDouble() * 20).ceil();
+      var letters = (rand.nextDouble() * 30).ceil();
       return destiny.letters(10) + ' ' + destiny.letters(letters);
     });
     var isRead = destiny.boolean();
