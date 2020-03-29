@@ -1,15 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
 
-//TODO: Uncomment when done.
-//import 'screens/screenwidget.dart';
+import 'screens/screenwidget.dart';
 
 class ModChatModule extends ChildModule {
-  Box messages;
-  Box groups;
-
-  ModChatModule(this.messages, this.groups);
-
   @override
   List<Bind> get binds => [];
 
@@ -21,8 +14,7 @@ class ModChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        //TODO: Uncomment when ChatScreen is built.
-        //Router("/", child: (context, args) => ChatScreen(messages, groups)),
+        Router("/", child: (context, args) => MessageLayout()),
       ];
 
   static Inject get to => Inject<ModChatModule>.of();
