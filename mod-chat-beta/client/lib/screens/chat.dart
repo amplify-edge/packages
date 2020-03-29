@@ -20,7 +20,6 @@ class _ChatWidgetState extends State {
   final List<ChatRoom> all;
   TextEditingController control = TextEditingController();
   //var _formKey = new GlobalKey<FormState>();
-  final _formKey = GlobalKey<FormState>();
 
   _ChatWidgetState(this.convo, this.all);
 
@@ -48,10 +47,21 @@ class _ChatWidgetState extends State {
                 if (!message.isSelf) message.isRead = true;
                 return Container(
                     padding: EdgeInsets.all(5),
-                    child: forgeBubble(
-                        message.inner, true, [message.isSelf, message.isRead]));
+                    child: Column(children: [
+                      Align(
+                          alignment: alignment(message.isSelf),
+                          child: Text(
+                            message.senderName,
+                            style: TextStyle(color: Colors.grey, fontSize: 10),
+                          )),
+                      Container(height: 2),
+                      forgeBubble(message.inner, true,
+                          [message.isSelf, message.isRead]),
+                    ]));
               })),
       Form(
+          child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
         child: Row(children: <Widget>[
           // TextFormField; will be submitted by button to right
           Expanded(
@@ -70,7 +80,7 @@ class _ChatWidgetState extends State {
             onPressed: onPressSubmit,
           )
         ]),
-      )
+      ))
     ]);
   }
 
@@ -105,11 +115,11 @@ class _ChatWidgetState extends State {
             textWidthBasis: TextWidthBasis.parent,
             textAlign: TextAlign.right,
           )),
-          Container(width: 10),
+          Container(width: 10, height: 0),
           Icon(
             CommunityMaterialIcons.check_all,
             color: Theme.of(context).accentColor,
-            size: 24,
+            size: 16,
           )
         ]);
       } else {
@@ -120,11 +130,11 @@ class _ChatWidgetState extends State {
             textWidthBasis: TextWidthBasis.parent,
             textAlign: TextAlign.right,
           )),
-          Container(width: 10),
+          Container(width: 10, height: 0),
           Icon(
             CommunityMaterialIcons.check,
             color: Theme.of(context).accentColor,
-            size: 24,
+            size: 16,
           )
         ]);
       }
@@ -138,6 +148,7 @@ class _ChatWidgetState extends State {
           textWidthBasis: TextWidthBasis.parent,
           textAlign: TextAlign.left,
         )),
+        Container(width: 0),
       ]);
     }
     if (!isNip) nip = BubbleNip.no;
@@ -161,5 +172,12 @@ class _ChatWidgetState extends State {
     } else {
       return BubbleEdges.only(left: w);
     }
+  }
+
+  Alignment alignment(bool self) {
+    if (self)
+      return Alignment.centerRight;
+    else
+      return Alignment.centerLeft;
   }
 }

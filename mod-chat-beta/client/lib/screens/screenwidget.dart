@@ -51,6 +51,7 @@ void genSampleData(Box hive) {
       data['content'] = msgs[j];
       data['isSelf'] = isSelf[j];
       data['isRead'] = isRead;
+      if (isSelf[j]) data['isRead'] = true;
       data['timeProcessed'] = times[j].microsecondsSinceEpoch;
       if (isSelf[j]) {
         data['senderId'] = deviceId;
