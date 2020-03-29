@@ -39,6 +39,7 @@ List<ChatRoom> parseAll(Box box) {
 
 /// Run this to persist your local list of conversation (with its edits) while
 /// also keeping new messages that are in Hive.
+
 void persist(List<ChatRoom> data, Box box) {
   for (var convo in data) {
     var hiveConvo = box.get(convo.chatid);

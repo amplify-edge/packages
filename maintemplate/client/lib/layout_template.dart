@@ -89,6 +89,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("Writer tapped");
           },
         ),
+        TabItem(
           title: Text("Maps"),
           icon: Icon(Icons.map),
           onTap: () {
