@@ -62,13 +62,14 @@ jobs:
           
           mkdir -p desktop/resources/app/
           cp -r build/web/* desktop/resources/app
-          cd desktop/ && astilectron-bundler -l
+          cd desktop/ && astilectron-bundler
         working-directory: maintemplate/client/
       - name: Packaging Linux App
         run: |
           export GOPATH=$HOME/go
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-          go run main.go -config=config/deb.json -version=1.0.0
+          go run main.go -pack=deb -config=config/deb.json -version=1.0.0
+          go run main.go -pack=win -config=config/win.json -version=1.0.0
         working-directory: maintemplate/client/packer
       - name: Sign Linux App
         env: 
@@ -87,40 +88,41 @@ jobs:
           debFile=$(ls packer/build/linux_deb/*.deb)
           debsigs --sign=origin -k $SIGN_KEY_ID ${debFile}
         working-directory: maintemplate/client/
-  build-package-sign-windows:
-    name: "Windows Build, Package, Sign and Deploy"
-    runs-on: [windows-latest]
-    env:
-      GO111MODULE: auto
-    steps:
-      - name: Install Go
-        run: |
-          powershell Invoke-WebRequest https://dl.google.com/go/go1.14.windows-amd64.msi -OutFile C:\temp\go-windows-amd64.msi
-          dir C:\temp
-          start /wait msiexec.exe /i C:\temp\go-windows-amd64.msi /q /norestart
-          echo "Done installing msi"
-      - name: Install Hover
-        run: |
-          go version
-          go get -u github.com/asticode/go-astilectron-bundler/...
-          go get -u github.com/asticode/go-astilectron-bootstrap
-      - name: Cloning repository
-        uses: actions/checkout@v2.0.0
-      - uses: subosito/flutter-action@v1.2.0
-        with:
-          channel: beta
-      - name: Setting Up Flutter SDK
-        run: flutter pub get
-        working-directory: maintemplate/client/
-      - name: Build Linux Application
-        run: astilectron-bundler -w
-        working-directory: maintemplate/client/
-      - name: Packaging Windows App
-        run: |
-          hover init-packaging windows-msi
-          hover build windows-msi
-        working-directory: maintemplate/client/
-      - name: Sign Linux App
-        run: echo "TODO Add signing for Windows using Sign Tool"
-        working-directory: maintemplate/client/
+  # build-package-sign-windows:
+  #   name: "Windows Build, Package, Sign and Deploy"
+  #   runs-on: [windows-latest]
+  #   env:
+  #     GO111MODULE: auto
+  #   steps:
+  #     - name: Install Go
+  #       run: |
+  #         powershell Invoke-WebRequest https://dl.google.com/go/go1.14.windows-amd64.msi -OutFile C:\temp\go-windows-amd64.msi
+  #         dir C:\temp
+  #         start /wait msiexec.exe /i C:\temp\go-windows-amd64.msi /q /norestart
+  #         echo "Done installing msi"
+  #     - name: Install Astilectron
+  #       run: |
+  #         go version
+  #         go get -u github.com/asticode/go-astilectron-bundler/...
+  #         go get -u github.com/asticode/go-astilectron-bootstrap
+  #     - name: Cloning repository
+  #       uses: actions/checkout@v2.0.0
+  #     - uses: subosito/flutter-action@v1.2.0
+  #       with:
+  #         channel: beta
+  #     - name: Setting Up Flutter SDK
+  #       run: flutter pub get
+  #       working-directory: maintemplate/client/
+  #     - name: Build Linux Application
+  #       run: astilectron-bundler -w
+  #       working-directory: maintemplate/client/
+  #     - name: Packaging Windows App
+  #       run: |
+  #         export GOPATH=$HOME/go
+  #         export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+  #         "TODO Add build for Windows using wix msi toolset"  
+  #       working-directory: maintemplate/client/packer
+  #     - name: Sign Linux App
+  #       run: echo "TODO Add signing for Windows using Sign Tool"
+  #       working-directory: maintemplate/client/
   

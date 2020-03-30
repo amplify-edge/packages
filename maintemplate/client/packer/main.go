@@ -4,7 +4,8 @@ import (
 	"flag"
 	"log"
 
-	deb "github.com/getcouragenow/bootstrap/tool/packager/linux"
+	deb "maintemplate/packer/linux"
+	win "maintemplate/packer/win"
 )
 
 func main() {
@@ -13,13 +14,15 @@ func main() {
 	configFile := ""
 
 	flag.StringVar(&pack, "pack", "deb", "package: deb, darwin, win...")
-	flag.StringVar(&configFile, "config", "", "json file path")
+	flag.StringVar(&configFile, "config", "config/win.json", "json file path")
 	flag.StringVar(&version, "version", "1.0", "version")
 	flag.Parse()
 
 	switch pack {
 	case "deb":
 		debian(configFile, version)
+	case "win":
+		windows(configFile, version)
 	default:
 		log.Println("Not yet implemented")
 	}
@@ -27,6 +30,15 @@ func main() {
 
 func debian(configFile, version string) {
 	p, err := deb.FromJSON(version, configFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p.Build()
+}
+
+func windows(configFile, version string) {
+
+	p, err := win.FromJSON(version, configFile)
 	if err != nil {
 		log.Fatal(err)
 	}

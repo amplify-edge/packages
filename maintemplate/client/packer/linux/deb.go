@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"maintemplate/packer/utils"
 	"os"
-	"os/exec"
 	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -38,15 +39,48 @@ func FromJSON(version, configFilePath string) (*DebianPack, error) {
 	return deb, nil
 }
 
-func (p *DebianPack) init() {
-	os.MkdirAll(p.getPath()+"/DEBIAN", 0755)
-	os.MkdirAll(p.getPath()+"/usr/bin", 0755)
-	os.MkdirAll(p.getPath()+"/usr/lib/"+p.AppName, 0755)
-	os.MkdirAll(p.getPath()+"/usr/share/applications", 0755)
+func (p *DebianPack) init() error {
+	err := os.MkdirAll(p.getPath()+"/DEBIAN", 0755)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(p.getPath()+"/usr/bin", 0755)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(p.getPath()+"/usr/lib/"+p.AppName, 0755)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(p.getPath()+"/usr/share/applications", 0755)
+	if err != nil {
+		return err
+	}
+
+	err = utils.WriteFile(path.Join(p.getPath(), "usr/bin", p.AppName), p.entrypoint())
+	if err != nil {
+		return err
+	}
+
+	err = utils.WriteFile(path.Join(p.getPath(), "DEBIAN/control"), p.Ctl.encode(p.version, p.AppName))
+	if err != nil {
+		return err
+	}
+
+	err = utils.WriteFile(path.Join(p.getPath(), "usr/share/applications", p.AppName+".desktop"), p.Desk.encode(p.version, p.AppName))
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
+// get absolute path
 func (p *DebianPack) getPath() string {
-	return path.Join(p.Path, p.DirName)
+	absPath, _ := filepath.Abs(path.Join(p.Path, p.DirName))
+	return absPath
 }
 
 func (p *DebianPack) entrypoint() []byte {
@@ -57,20 +91,20 @@ func (p *DebianPack) entrypoint() []byte {
 
 // Build deb
 func (p *DebianPack) Build() {
+	// create debian directory layout
 	p.init()
-	writeFile(path.Join(p.getPath(), "usr/bin", p.AppName), p.entrypoint())
-	writeFile(path.Join(p.getPath(), "DEBIAN/control"), p.Ctl.encode(p.version, p.AppName))
-	writeFile(path.Join(p.getPath(), "usr/share/applications", p.AppName+".desktop"), p.Desk.encode(p.version, p.AppName))
 
+	// copy all App file to debian directory layout
 	for k, v := range p.App {
 		v = parseData(v, p.version, p.AppName)
-		execute("cp", "-r", k, p.getPath()+"/"+v)
+		utils.Execute("cp", "-r", k, p.getPath()+"/"+v)
 	}
 
+	// build debian package
 	os.Chdir(p.getPath())
 	for k, v := range p.CMD {
 		v = parseData(v, p.version, p.AppName)
-		err := execute(k, strings.Split(v, " ")...)
+		err := utils.Execute(k, strings.Split(v, " ")...)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -106,24 +140,6 @@ func (d *Desktop) encode(version, appName string) []byte {
 	}
 	strings.TrimRight(out, "\n")
 	return []byte(out)
-}
-
-func execute(cmd string, args ...string) error {
-	c := exec.Command(cmd, args...)
-	c.Stdout = os.Stdout
-	c.Stderr = os.Stderr
-	return c.Run()
-}
-
-func writeFile(path string, data []byte) error {
-	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0755)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	_, err = f.Write(data)
-	return err
 }
 
 func parseData(v, version, appName string) string {
