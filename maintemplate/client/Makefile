@@ -146,6 +146,7 @@ lang-gen-arb: ## lang-gen-arb
 # 2. build
 # 3. run (for the desktop your on)
 # 4. pack (for the desktop your on)
+# 5. sign (for the desktop your on)
 
 go-desk-dep: ## go-desk-dep
 	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
@@ -156,8 +157,8 @@ go-desk-dep: ## go-desk-dep
 
 go-desk-build: ## go-desk-build
 	# build flutter web
-	flutter config --enable-web
-	cd $(SAMPLE_FSPATH) && flutter build web
+	# flutter config --enable-web
+	# cd $(SAMPLE_FSPATH) && flutter build web
 
 	# copy flutter web build to desktop/resources/app
 	rm -rf $(SAMPLE_FSPATH)desktop/resources/app
@@ -167,24 +168,38 @@ go-desk-build: ## go-desk-build
 	# -d is for darwin
 	cd $(SAMPLE_FSPATH)desktop && astilectron-bundler
 
+############## Linux ##############
 go-desk-run-lin: ## go-desk-run-lin
-	# SOMEONE on Linux fix this to be correct pathing style
-	./desktop/output/linux-amd64/ION\ Desktop\ App
+	cd $(SAMPLE_FSPATH) && desktop/output/linux-amd64/ION\ Desktop\ App
 
 go-desk-pack-lin: ## go-desk-pack-lin
-	# debian
+	# deb
 	cd $(SAMPLE_FSPATH)packer/ && make go-pack-deb
 
-SIGN_KEY_ID_LINUX="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
 go-desk-sign-lin:
-	debsigs --sign=origin -k ${SIGN_KEY_ID_LINUX} $(SAMPLE_FSPATH)packer/build/linux-deb/*.deb
-	debsigs --verify -c $(SAMPLE_FSPATH)packer/build/linux-deb/*.deb
+	# https://blog.packagecloud.io/eng/2014/10/28/howto-gpg-sign-verify-deb-packages-apt-repositories/
 	
+	# GPG_KEY_ID is the ID of gpg key
+	cd packer/build/linux-deb && dpkg-sig -k $(GPG_KEY_ID) --sign builder *.deb
+	cd packer/build/linux-deb && dpkg-sig --verify *.deb
+
+############## Windows ##############
+go-desk-run-win: ## go-desk-run-win
+	# SOMEONE on Windows fix this to be correct pathing style
+	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
+
+go-desk-pack-win:
+	cd $(SAMPLE_FSPATH)packer/ && make go-pack-win
+
+go-desk-sign-win:
+	# https://github.com/itchio/itch-setup/blob/master/scripts/ci-build.sh#L73
+	#TODO
+
+############## Windows ##############
 go-desk-run-mac: ## go-desk-run-mac
 	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
 
 go-desk-pack-mac:  ## go-desk-pack-mac
-
 	#darwin
 	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-bundle
 
@@ -193,8 +208,6 @@ go-desk-pack-mac:  ## go-desk-pack-mac
 
 	# inject out .app into it.
 	cp -rf $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app ./Applications/maintemplate.app
-
-	# 
 
 
 TARGET_MAC=$(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
@@ -207,10 +220,6 @@ go-desk-sign-mac: ## go-desk-sign-mac
 	echo SIGNKEY_MAC : $(SIGNKEY_MAC)
 	codesign --deep --force --verbose --sign ${SIGNKEY_MAC} "${TARGET}"
 	codesign --verify -vvvv "${TARGET}"
-	
-go-desk-run-win: ## go-desk-run-win
-	# SOMEONE on Windows fix this to be correct pathing style
-	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
 
 go-desk-clean:
 	rm -rf $(SAMPLE_FSPATH)desktop/resources/app
