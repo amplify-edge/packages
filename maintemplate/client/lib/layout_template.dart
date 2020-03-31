@@ -19,69 +19,83 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
   Widget build(BuildContext context) {
     return MaterialNavigationRail(
       currentIndex: _currentIndex,
-      drawerHeader:  Container(
-                width: MediaQuery.of(context).size.width * 0.85,
-                child: DrawerHeader(
-                  child: Text("Header"),
-                ),
-              ),
-      drawerFooterBuilder: (context){
+      drawerHeader: Container(
+        width: MediaQuery.of(context).size.width * 0.85,
+        child: DrawerHeader(
+          child: Text("Header"),
+        ),
+      ),
+      drawerFooterBuilder: (context) {
         return Column(
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.settings),
               title: Text(AppLocalizations.of(context).tabsettings()),
-              onTap: (){
-             //  Navigator.of(context).pushNamed(Router.settings);
-              // locator<NavigationService>().navigateTo( Router.settings);
-              Modular.to.pushNamed(Paths.settings);
+              onTap: () {
+                //  Navigator.of(context).pushNamed(Router.settings);
+                // locator<NavigationService>().navigateTo( Router.settings);
+                Modular.to.pushNamed(Paths.settings);
               },
             ),
           ],
         );
       },
       body: widget.body,
-      bottomNavigationBarSelectedColor:(Theme.of(context).brightness == Brightness.dark) ? Colors.tealAccent[200] : Theme.of(context).primaryColor,
+      bottomNavigationBarSelectedColor:
+          (Theme.of(context).brightness == Brightness.dark)
+              ? Colors.tealAccent[200]
+              : Theme.of(context).primaryColor,
       bottomNavigationBarUnselectedColor: Colors.grey,
-
       tabs: [
         TabItem(
-          title: Text(AppLocalizations.of(context).tabhome(),),
+          title: Text(
+            AppLocalizations.of(context).tabhome(),
+          ),
           icon: Icon(Icons.home),
           onTap: () {
-        
             Modular.to.pushNamed(Paths.modMain);
-            print("Home tapped");},
+            print("Home tapped");
+          },
         ),
-         TabItem(
+        TabItem(
           title: Text(AppLocalizations.of(context).tabchat()),
           icon: Icon(Icons.chat),
           onTap: () {
-              Modular.to.pushNamed(Paths.chat);
-            print("Chat tapped");},
+            Modular.to.pushNamed(Paths.chat);
+            print("Chat tapped");
+          },
+        ),
+        TabItem(
+          title: Text(AppLocalizations.of(context).tabchat() + ' Beta'),
+          icon: Icon(Icons.chat),
+          onTap: () {
+            Modular.to.pushNamed(Paths.chat_beta);
+            print("ChatBeta tapped");
+          },
         ),
         TabItem(
           title: Text(AppLocalizations.of(context).tabIon()),
           icon: Icon(Icons.video_call),
           onTap: () {
-          
-              Modular.to.pushNamed(Paths.ion);
-            print("ION tapped");},
+            Modular.to.pushNamed(Paths.ion);
+            print("ION tapped");
+          },
         ),
-         TabItem(
+        TabItem(
           title: Text(AppLocalizations.of(context).tabwriter()),
           icon: Icon(Icons.font_download),
           onTap: () {
-        
-           Modular.to.pushNamed(Paths.modWriter);
-            print("Writer tapped");},
+            Modular.to.pushNamed(Paths.modWriter);
+            print("Writer tapped");
+          },
         ),
-         TabItem(
-          title: Text(AppLocalizations.of(context).tabmap()),
+        TabItem(
+          title: Text("Maps"),
           icon: Icon(Icons.map),
           onTap: () {
-           Modular.to.pushNamed(Paths.modGeo);
-            print("Writer tapped");},
+            Modular.to.pushNamed(Paths.modGeo);
+            print("Writer tapped");
+          },
         ),
         // TabItem(
         //   title: Text("ModWriter"),

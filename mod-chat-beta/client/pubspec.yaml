@@ -26,11 +26,15 @@ dependencies:
   flutter_modular: any
   community_material_icon: ^3.5.95
   bubble: ^1.1.9+1
+  simple_animations: ^1.3.8
+  responsive_builder: ^0.1.5
+  responsive_grid: ^1.1.1
+  path_provider: any
+  destiny: any
 
   # Responsive Design
   # I'm keeping all of these for now, but I doubt I'll use all of them.
   navigation_rail: ^1.0.4
-  responsive_builder: 
   responsive_scaffold: ^1.3.0+2
   master_detail_scaffold: ^1.1.1+1
   grpc: ^2.1.3
@@ -38,6 +42,7 @@ dependencies:
   rxdart: ^0.20.0
   shimmer: ^1.0.0
   cupertino_icons: ^0.1.2
+
 
 dev_dependencies:
   flutter_test:

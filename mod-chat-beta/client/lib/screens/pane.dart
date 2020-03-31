@@ -1,23 +1,26 @@
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 
 import '../utils/hive_parse.dart';
+import 'chat.dart';
 
 class PaneWidget extends StatefulWidget {
-  final Box<List<Map<String, dynamic>>> hive;
+  final bool independent;
 
-  PaneWidget(this.hive);
+  PaneWidget(this.independent);
 
   @override
-  _PaneWidgetState createState() => _PaneWidgetState(hive);
+  _PaneWidgetState createState() => _PaneWidgetState(independent);
 }
 
 class _PaneWidgetState extends State {
-  Box<List<Map<String, dynamic>>> hive;
-  List<Conversation> convos;
+  bool independent;
 
-  _PaneWidgetState(this.hive);
+  _PaneWidgetState(this.independent);
 
   void markRead(int convoPos) {
     setState(() {
@@ -25,60 +28,74 @@ class _PaneWidgetState extends State {
         if (convos[convoPos].messages[i].isRead) break;
         convos[convoPos].messages[i].isRead = true;
       }
+      isChanged = true;
     });
   }
 
   void markUnread(int convoPos) {
-    if (!convos[convoPos].messages.last.self) {
+    if (!convos[convoPos].messages.last.isSelf) {
       setState(() {
         convos[convoPos].messages.last.isRead = false;
+        isChanged = true;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    convos ??= parseAll(hive);
-    persist(convos, hive);
-    return Center(
-      child: ListView.builder(
-          padding: EdgeInsets.all(10),
-          itemCount: convos.length,
-          itemBuilder: (BuildContext ctxt, int i) {
-            return Card(
-              child: ListTile(
-                onLongPress: () {
-                  if (!convos[i].messages.last.isRead)
-                    markRead(i);
-                  else
-                    markUnread(i);
-                },
-                trailing: Column(children: <Widget>[
-                  Text(parse(DateTime.fromMicrosecondsSinceEpoch(
-                      convos[i].messages.last.timeProcessed))),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 2)),
-                  Icon(readSymbol(convos[i].messages.last))
-                ]),
-                title: Text(
-                  convos[i].contact,
+    rebuild = buildMessageStream().asBroadcastStream();
+    return Container(
+        height: MediaQuery.of(context).size.height - 50,
+        child: ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: convos.length,
+            itemBuilder: (BuildContext ctxt, int i) {
+              return Card(
+                child: ListTile(
+                  onLongPress: () {
+                    if (!convos[i].messages.last.isRead)
+                      markRead(i);
+                    else
+                      markUnread(i);
+                  },
+                  onTap: () {
+                    current = ChatWidget(convos[i], convos);
+                    if (independent) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => current),
+                      );
+                    }
+                  },
+                  trailing: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(parse(DateTime.fromMicrosecondsSinceEpoch(
+                            convos[i].messages.last.timeProcessed))),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 2)),
+                        Icon(readSymbol(convos[i].messages.last))
+                      ]),
+                  title: Text(
+                    'ChatID:' + convos[i].chatid,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  contentPadding: EdgeInsets.all(10),
+                  subtitle: Container(
+                      padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Text(
+                        withAuthor(convos[i].messages.last,
+                            convos[i].messages.last.senderName),
+                        overflow: TextOverflow.ellipsis,
+                      )),
                 ),
-                contentPadding: EdgeInsets.all(10),
-                subtitle: Container(
-                    padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Text(
-                      withAuthor(convos[i].messages.last, convos[i].contact),
-                      overflow: TextOverflow.ellipsis,
-                    )),
-              ),
-              color: isBold(convos[i].messages.last),
-            );
-          }),
-    );
+                color: isBold(convos[i].messages.last),
+              );
+            }));
   }
 }
 
 Color isBold(Message latest) {
-  if (!latest.isRead) {
+  if (!latest.isRead && !latest.isSelf) {
     return Colors.white;
   } else {
     return Colors.grey[350];
@@ -99,7 +116,7 @@ String parse(DateTime original) {
       Duration(
           days:
               (now.weekday - 1 + now.hour / 24 + now.minute / 1440).round()))) {
-    return '${original.weekday}'.substring(0, 3) + '.';
+    return weekdays[original.weekday];
   } else if (now.year == original.year) {
     return '${original.month}/${original.day}';
   } else {
@@ -107,12 +124,22 @@ String parse(DateTime original) {
   }
 }
 
+final Map<int, String> weekdays = {
+  1: 'Mon.',
+  2: 'Tue.',
+  3: 'Wed.',
+  4: 'Thu.',
+  5: 'Fri.',
+  6: 'Sat.',
+  7: 'Sun.'
+};
+
 IconData readSymbol(Message latest) {
-  if (latest.isRead && !latest.self) {
-    return Icons.markunread;
-  } else if (!latest.self) {
+  if (latest.isRead && !latest.isSelf) {
     return Icons.mail_outline;
-  } else if (latest.self && !latest.isRead) {
+  } else if (!latest.isSelf) {
+    return Icons.markunread;
+  } else if (latest.isSelf && !latest.isRead) {
     return CommunityMaterialIcons.check;
   } else {
     return CommunityMaterialIcons.check_all;
@@ -120,9 +147,22 @@ IconData readSymbol(Message latest) {
 }
 
 String withAuthor(Message latest, String sender) {
-  if (latest.self) {
+  if (latest.isSelf) {
     return 'You: ' + latest.inner;
   } else {
     return sender + ': ' + latest.inner;
   }
 }
+
+Stream<String> buildMessageStream() async* {
+  while (true) {
+    await Future.delayed(Duration(seconds: 1));
+    if (isChanged) yield '';
+  }
+}
+
+ChatWidget current;
+List<ChatRoom> convos;
+bool isChanged = false;
+Stream rebuild;
+Box hive;
