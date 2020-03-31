@@ -4,7 +4,6 @@ Allows us to easily turn on Modules at runtime.
 
 This will make it safe to deploy stuff to production and then turn it on as needed.
 
-
 A great explanation of why and how.
 https://github.com/launchdarkly/featureflags?files=1
 
