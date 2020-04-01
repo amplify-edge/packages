@@ -5,11 +5,11 @@
 #   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
 #   * LINUX_SIGN_KEY_ID used to find the key.
 # To configure this workflow:
-name: Desktop Electron - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps using Electron
+name: Desktop Electron - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps using Electron 
 on:
-  #pull_request:
-    #branches:
-      #- master
+#   pull_request:
+  #   branches:
+  #     - master
     #paths:
       #- "maintemplate/client/**"
       #- ".github/workflows/build-sign-deploy-desktop-electron.yml"
@@ -23,54 +23,66 @@ on:
 jobs:
   build-package-sign-linux:
     name: "Linux Build, Package, Sign and Deploy"
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     env:
       GOROOT: /usr/local/go
-      GO111MODULE: auto
+      GO111MODULE: off
     steps:
-      - name: Install Go
-        run: |
-          sudo apt-get update
-          wget -q https://dl.google.com/go/go1.13.linux-amd64.tar.gz -O /tmp/go_install.tar.gz
-          sudo tar -C /usr/local -xzf /tmp/go_install.tar.gz
-          export GOPATH=$HOME/go
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-          go version
+      - name: Cloning repository
+        uses: actions/checkout@v2.0.0
+        
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14.1
+
       - name: Install asti
         run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
           sudo apt-get install gcc libc6-dev
           export GOPATH=$HOME/go
+          export GOBIN=$HOME/go/bin
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-          go version
           go get -u github.com/asticode/go-astilectron-bundler/...
           go get -u github.com/asticode/go-astilectron-bootstrap
-      - name: Cloning repository
-        uses: actions/checkout@v2.0.0
+          go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
+
       - uses: subosito/flutter-action@v1.2.0
         with:
           channel: beta
+
       - name: Setting Up Flutter SDK
         run: flutter pub get
         working-directory: maintemplate/client/
-      - name: Build Linux Application
+
+      - name: Build flutter Application
         run: |
-          export GOPATH=$HOME/go
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           flutter config --enable-web
           flutter build web
-          
           mkdir -p desktop/resources/app/
-          cp -r build/web/* desktop/resources/app
-          cd desktop/ && astilectron-bundler
-        working-directory: maintemplate/client/
-      - name: Packaging Linux App
+          cp -r build/web/* desktop/resources/app  
+        working-directory: maintemplate/client
+
+      - name: Build asti desktop Application
+        run:  |
+          export GOPATH=$HOME/go
+          export GOBIN=$HOME/go/bin
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          astilectron-bundler
+        shell: bash
+        working-directory: maintemplate/client/desktop      
+
+      - name: build packer  
         run: |
           export GOPATH=$HOME/go
+          export GOBIN=$HOME/go/bin
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-          go run main.go -pack=deb -config=config/deb.json -version=1.0.0
-          go run main.go -pack=win -config=config/win.json -version=1.0.0
+          go run main.go -pack=deb -config=config/deb.json -version=1.0
+        shell: bash
+        env:
+          GO111MODULE: auto 
         working-directory: maintemplate/client/packer
+
       - name: Sign Linux App
         env: 
           SIGN_KEY_BASE_64: ${{ secrets.LINUX_PRIVATE_SIGN_KEY_BASE_64 }}
@@ -88,41 +100,82 @@ jobs:
           debFile=$(ls packer/build/linux_deb/*.deb)
           debsigs --sign=origin -k $SIGN_KEY_ID ${debFile}
         working-directory: maintemplate/client/
-  # build-package-sign-windows:
-  #   name: "Windows Build, Package, Sign and Deploy"
-  #   runs-on: [windows-latest]
-  #   env:
-  #     GO111MODULE: auto
-  #   steps:
-  #     - name: Install Go
-  #       run: |
-  #         powershell Invoke-WebRequest https://dl.google.com/go/go1.14.windows-amd64.msi -OutFile C:\temp\go-windows-amd64.msi
-  #         dir C:\temp
-  #         start /wait msiexec.exe /i C:\temp\go-windows-amd64.msi /q /norestart
-  #         echo "Done installing msi"
-  #     - name: Install Astilectron
-  #       run: |
-  #         go version
-  #         go get -u github.com/asticode/go-astilectron-bundler/...
-  #         go get -u github.com/asticode/go-astilectron-bootstrap
-  #     - name: Cloning repository
-  #       uses: actions/checkout@v2.0.0
-  #     - uses: subosito/flutter-action@v1.2.0
-  #       with:
-  #         channel: beta
-  #     - name: Setting Up Flutter SDK
-  #       run: flutter pub get
-  #       working-directory: maintemplate/client/
-  #     - name: Build Linux Application
-  #       run: astilectron-bundler -w
-  #       working-directory: maintemplate/client/
-  #     - name: Packaging Windows App
-  #       run: |
-  #         export GOPATH=$HOME/go
-  #         export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-  #         "TODO Add build for Windows using wix msi toolset"  
-  #       working-directory: maintemplate/client/packer
-  #     - name: Sign Linux App
-  #       run: echo "TODO Add signing for Windows using Sign Tool"
-  #       working-directory: maintemplate/client/
+  build-package-sign-windows:
+    name: "Windows Build, Package, Sign and Deploy"
+    runs-on: windows-latest
+    env:
+      GO111MODULE: off
+    steps:
+      - name: Cloning repository
+        uses: actions/checkout@v2.0.0
+        
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14.1
+      
+      - name: Install Astilectron
+        run: |
+          export GOPATH=$HOME/go
+          export GOBIN=$HOME/go/bin
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          go get -u github.com/asticode/go-astilectron-bundler/...
+          go get -u github.com/asticode/go-astilectron-bootstrap
+          go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
+        shell: bash
+        working-directory: maintemplate/client
+         
+      
+      - uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+
+      - name: Setting Up Flutter SDK
+        run: flutter pub get
+        working-directory: maintemplate/client/
+      
+      - name: Build flutter Application
+        run: |
+          flutter config --enable-web
+          flutter build web
+          mkdir -p desktop/resources/app/
+          cp -r build/web/* desktop/resources/app  
+        working-directory: maintemplate/client/
+        
+      - name: Build asti desktop Application
+        run:  |
+          export GOPATH=$HOME/go
+          export GOBIN=$HOME/go/bin
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          astilectron-bundler.exe
+        shell: bash
+        working-directory: maintemplate/client/desktop
+            
+      - name: install wix msi toolset
+        run: |
+          powershell Invoke-WebRequest https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip -OutFile wix311.zip 
+          powershell Expand-Archive wix311.zip -DestinationPath wix311
+        working-directory: maintemplate/client
+      
+      - name: build packer  
+        run: |
+          export GOPATH=$HOME/go
+          export GOBIN=$HOME/go/bin
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          go run main.go -pack=win -config=config/win.json -version=1.0
+        shell: bash
+        env:
+          GO111MODULE: auto 
+        working-directory: maintemplate/client/packer
+      
+      - name: packaging windows msi
+        run: |
+          ./wix311/candle.exe -out packer/build/windows-msi/maintemplate.wixobj packer/build/windows-msi/maintemplate.wxs
+          ./wix311/light.exe -b . -ext WixUIExtension packer/build/windows-msi/maintemplate.wixobj -out packer/build/windows-msi/maintemplate.msi
+        shell: powershell
+        working-directory: maintemplate/client
+
+      - name: Sign Linux App
+        run: echo "TODO Add signing for Windows using Sign Tool"
+        working-directory: maintemplate/client/
   

@@ -62,8 +62,8 @@ func (p *WindowsPack) generateWXSFile() {
 	utils.WriteFile(p.getPath()+"/"+p.CMD["wixl"], []byte(out))
 
 	// build windows msi package
-	os.Chdir(path.Join(p.Path, p.DirName))
-	utils.Execute("wixl", "-v", p.CMD["wixl"])
+	// os.Chdir(path.Join(p.Path, p.DirName))
+	// utils.Execute("wixl", "-v", p.CMD["wixl"])
 }
 
 func (p *WindowsPack) parseTemplat() string {
