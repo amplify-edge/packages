@@ -7,7 +7,7 @@ var xml = `<?xml version="1.0" encoding='windows-1252'?>
         Language="1033"
         Version="1.0.0"
         Manufacturer="{{.AppName}} Company"
-        UpgradeCode="*">
+        UpgradeCode="58957637-ffe1-418c-8ab1-af42e036290d">
         
         <Package Id="*" InstallerVersion="100"
             Compressed="yes"
@@ -18,7 +18,7 @@ var xml = `<?xml version="1.0" encoding='windows-1252'?>
             Comments="(c) 2020 {{.AppName}} Company"/>
 
         <MediaTemplate EmbedCab="yes" />    
-        
+        <UIRef Id="WixUI_Minimal"/>
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
                 <Directory Id="{{.AppName}}" Name="{{.AppName}}" />
