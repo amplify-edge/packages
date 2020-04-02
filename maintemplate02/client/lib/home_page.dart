@@ -12,12 +12,12 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: Container(
-        height: 300,
-        width: 300,
+       
         color: Colors.teal,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text("HomePage"),
             SizedBox(
@@ -49,6 +49,11 @@ class HomePage extends StatelessWidget {
               child: Text("CustomMasterDetailPage specific item"),
               onPressed: () => Modular.to
                   .pushNamed("${Routes.customMasterDetail}/details/${Random().nextInt(19)}"),
+            ),
+             RaisedButton(
+              child: Text("Router Outlet"),
+              onPressed: () => Modular.to
+                  .pushNamed(Routes.routerOutlet),
             ),
           ],
         ),
