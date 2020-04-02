@@ -7,6 +7,11 @@ import 'package:maintemplate02/home_page.dart';
 import 'package:maintemplate02/login_page.dart';
 import 'package:maintemplate02/master_detail.dart';
 import 'package:maintemplate02/responsive_scaffold.dart';
+import 'package:maintemplate02/router_outlet/tab-modules/tab_module.dart';
+import 'router_outlet/nav_rail.dart';
+import 'router_outlet/tab-modules/mod-camera/camera_module.dart';
+import 'router_outlet/tab-modules/mod-folder/folder_module.dart';
+import 'router_outlet/tab-modules/mod-gallery/gallery_module.dart';
 
 class Routes {
   static final String home = "/";
@@ -14,6 +19,10 @@ class Routes {
   static final String responsiveScaffold = "/responsiveScaffold";
   static final String masterDetail = "/masterDetail";
   static final String customMasterDetail = "/customMasterDetail";
+  static final String routerOutlet = "/routerOutlet";
+  static final String folder = "/folder";
+  static final String gallery = "/gallery";
+  static final String camera = "/camera";
 }
 
 class AppModule extends MainModule {
@@ -55,6 +64,9 @@ class AppModule extends MainModule {
             id: args.params['id'],
           ),
         ),
+
+        Router(Routes.routerOutlet, module: TabsModule()),
+
       ];
 
 // add your main widget here
