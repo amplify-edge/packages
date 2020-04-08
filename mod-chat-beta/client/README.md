@@ -1,12 +1,7 @@
-# Mod-Chat-Beta
+# mod_chat_beta
 
-What's done:
-- UI for pane and for chat
-- Data structure and safe send to hive
-- Two-way Read Receipts implementation
-- Mark read and unread from message pane
+This is a Roadmap for the chat module. mod_chat is a stub for demos; this
+is where new work should take place.
 
-What's not (easiest to hardest):
-- Receive from hive and rebuild UI (easy)
-- i18n (should be a simple plug)
-- RTT (I have no idea how to implement)
+Features that need implementation:
+- 

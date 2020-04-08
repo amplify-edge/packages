@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto;
+
+message User {
+  string id = 1;
+  string name = 2;
+}
+
+message Message {
+  string id = 1;
+  string content = 2;
+  string timestamp = 3;
+  string groupId = 4; //id of group this message belongs to
+  string senderId = 5; //id of user who sent this message
+}
+
+message RTT {
+  string userId = 1; // Id of user whose RTT status has changed
+  bool isTyping = 2; // Whether associated user is typing
+}
+
+message ReadReceipt {
+  string messageId = 1; // id of message which has been read
+}
+
+message Connect {
+  User user = 1;
+}
+
+message Close {}
+
+service Broadcast {
+  rpc CreateStream(Connect) returns (stream Message);
+  rpc BroadcastMessage(Message) returns (Close);
+}
