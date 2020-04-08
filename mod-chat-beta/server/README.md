@@ -18,11 +18,21 @@ minikube ip
 ``` 
 
 
-# Test golang client/serveur
+# Test Client/Server With nats-streaming-server
+1. start nats-streaming-server:
+```
+make nss
+```
+2. start grpc server: 
+```
+make go-srv
+```
+3. start grpc client:
+```
+make go-cli
+```
+4. populate nats-streaming-server with fake data:
+```
+make faker
+```
 
-1. start nats server: `make nats`
-2. start liftbridge server: `make lift`
-3. start server: `make svr-go`
-4. start a go-client: `make cli-go`
-
-You can run many clients in different shells to test with.

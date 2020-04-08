@@ -1,12 +1,25 @@
-# Mod-Chat-Beta
+# mod_chat_beta
 
-What's done:
-- UI for pane and for chat
-- Data structure and safe send to hive
-- Two-way Read Receipts implementation
-- Mark read and unread from message pane
+This is a Roadmap for the chat module. mod_chat is a stub for demos; this
+is where new work should take place.
 
-What's not (easiest to hardest):
-- Receive from hive and rebuild UI (easy)
-- i18n (should be a simple plug)
-- RTT (I have no idea how to implement)
+Features that need implementation:
+- Real Time Typing
+- Read Receipts
+- Group / Sender ID's for every message
+
+Where we need to implement them:
+
+- [ ] Server Side
+- [x] Protocol Buffers (uncompiled)
+- [x] Dart Models
+- [ ] Flutter Frontend
+
+### Notes:
+- Protocol buffers have to be compiled into Dart and Go code. This still
+has to be done. View the source at `../server/api/service.proto`
+- Only the most basic of Dart models is done. All the hard work (tying
+boilerplate into flutter) is still TODO. See models at 
+`/lib/grpc_web_example/models/`
+- The Message model has been retrofitted with group and sender IDs. This
+is necessary for master-detail, but will probably break current code.
