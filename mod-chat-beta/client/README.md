@@ -11,6 +11,15 @@ Features that need implementation:
 Where we need to implement them:
 
 - [ ] Server Side
-- [x] Protocol Buffers
-- [ ] Dart Models
+- [x] Protocol Buffers (uncompiled)
+- [x] Dart Models
 - [ ] Flutter Frontend
+
+### Notes:
+- Protocol buffers have to be compiled into Dart and Go code. This still
+has to be done. View the source at `../server/api/service.proto`
+- Only the most basic of Dart models is done. All the hard work (tying
+boilerplate into flutter) is still TODO. See models at 
+`/lib/grpc_web_example/models/`
+- The Message model has been retrofitted with group and sender IDs. This
+is necessary for master-detail, but will probably break current code.
