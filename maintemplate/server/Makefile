@@ -54,8 +54,27 @@ gke-setup: check-env
 ## GKE cluster initialize
 gke-create: check-env
 	@echo GKECreate
-	@gcloud container clusters create ${GCP_PROJECT} --zone ${GCP_ZONE}
+	@gcloud container clusters create ${GCP_PROJECT} --zone ${GCP_ZONE} --enable-autoscaling
 	@gcloud compute addresses create ${GCP_PROJECT}-static-ip --region ${GCP_REGION}
+
+
+## GKE resize
+gke-resize:
+ifndef GCP_PROJECT
+	$(error define GCP_PROJECT environment variable)
+endif
+ifndef GCP_NODES_NUM
+	$(error define GCP_NODES_NUM environment variable)
+endif
+	@gcloud container clusters resize ${GCP_PROJECT} --node-pool default-pool --num-nodes ${GCP_NODES_NUM} --zone ${GCP_ZONE}
+
+## GKE destroy
+gke-destroy:
+ifndef GCP_PROJECT
+	$(error define GCP_PROJECT environment variable)
+endif
+	@gcloud container clusters delete ${GCP_PROJECT}
+
 
 ## GKE cluster variables
 gke-vars:
