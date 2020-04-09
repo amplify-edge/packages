@@ -39,8 +39,8 @@ dependencies:
     path: ../../mod-write/client
   mod_chat:
     path: ../../mod-chat/client
-  mod_chat_beta:
-    path: ../../mod-chat-beta/client
+  #mod_chat_beta:
+  #  path: ../../mod-chat-beta/client
   mod_ion:
     path: ../../mod-ion/client
   mod_geo:

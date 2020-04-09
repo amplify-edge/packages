@@ -65,6 +65,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             print("Chat tapped");
           },
         ),
+        /*
         TabItem(
           title: Text(AppLocalizations.of(context).tabchat() + ' Beta'),
           icon: Icon(Icons.chat),
@@ -72,7 +73,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
             Modular.to.pushNamed(Paths.chat_beta);
             print("ChatBeta tapped");
           },
-        ),
+        ), */
         TabItem(
           title: Text(AppLocalizations.of(context).tabIon()),
           icon: Icon(Icons.video_call),

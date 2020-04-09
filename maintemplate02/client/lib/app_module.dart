@@ -6,6 +6,7 @@ import 'package:maintemplate02/custom_master_detail.dart';
 import 'package:maintemplate02/home_page.dart';
 import 'package:maintemplate02/login_page.dart';
 import 'package:maintemplate02/master_detail.dart';
+import 'package:maintemplate02/official_nav.dart';
 import 'package:maintemplate02/responsive_scaffold.dart';
 import 'package:maintemplate02/router_outlet/tab-modules/tab_module.dart';
 import 'router_outlet/nav_rail.dart';
@@ -23,6 +24,7 @@ class Routes {
   static final String folder = "/folder";
   static final String gallery = "/gallery";
   static final String camera = "/camera";
+  static final String officialNav = "/officialNav";
 }
 
 class AppModule extends MainModule {
@@ -64,6 +66,11 @@ class AppModule extends MainModule {
             id: args.params['id'],
           ),
         ),
+
+        //  Router(
+        //   "${Routes.officialNav}",
+        //   child: (_, args) => OfficialNavRail(),
+        // ),
 
         Router(Routes.routerOutlet, module: TabsModule()),
 
