@@ -1,3 +1,7 @@
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
@@ -16,8 +20,9 @@ import 'modules/settings/settings_module.dart';
 
 class AppModule extends MainModule {
   final String url;
+  final String urlNative;
 
-  AppModule({this.url});
+  AppModule({this.url, this.urlNative});
 
   // here will be any class you want to inject into your project (eg bloc, dependency)
   @override
@@ -36,7 +41,7 @@ class AppModule extends MainModule {
         Router(Paths.modMain, module: MainAppModule(Paths.modMain)),
         Router(Paths.chat,
             module: ChatModule(Paths.chat,
-                deviceID: SessionModule.deviceID, url: url)),
+                deviceID: SessionModule.deviceID, url: url, urlNative: urlNative)),
         Router(Paths.ion,
             module: IonModule(Paths.ion,
                 deviceID: SessionModule.deviceID,
