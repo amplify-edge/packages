@@ -62,6 +62,35 @@ flu-web-build: ## flu-web-build
 	flutter config --enable-web
 	cd $(SAMPLE_FSPATH) && flutter build web
 
+
+flu-mob-fix:
+	# webrtc fix
+	# MIGHT have to apply this to CI also. Lets see.
+	cd $(SAMPLE_FSPATH) && rm ios/Podfile.lock
+	cd $(SAMPLE_FSPATH) && rm -rf ios/Pods
+	cd $(SAMPLE_FSPATH) && flutter clean
+	 
+
+
+
+	# sign for ios local
+
+	# 1. open https://developer.apple.com/account/resources/certificates/list
+	# - go to Identifiers and make an App ID ("org.getcourage.securesuite")
+	# - open xcode project 
+	# and GENERAL --> put in the BUNDLE ID
+	# and Signing & Capabilities -- Choose Team and put in the BUNDLE ID
+
+
+	# sign for ios public
+
+	# 1. get app id:
+	# open https://appstoreconnect.apple.com/
+
+	# 2. fuck knows..
+	# https://flutter.dev/docs/get-started/install/macos#deploy-to-ios-devices
+	#cd $(SAMPLE_FSPATH) && open ios/Runner.xcworkspace  
+
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
 
@@ -71,6 +100,9 @@ flu-mob-build: ## flu-mob-build
 	# change to ios 11 in xcode for runner and pods
 	cd $(SAMPLE_FSPATH)/ios && pod install
 	#cd $(SAMPLE_FSPATH) && flutter build ios
+
+	cd $(SAMPLE_FSPATH) && 	flutter build ios --release --no-codesign
+
 
 flu-desk-run: ## flu-desk-run
 	#cd $(SAMPLE_FSPATH) && hover init
