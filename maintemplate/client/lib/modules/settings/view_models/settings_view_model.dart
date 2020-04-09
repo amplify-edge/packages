@@ -49,19 +49,21 @@ class SettingsViewModel extends ChangeNotifier {
 class EnvVariables {
   final String channel;
   final String url;
+  final String urlNative;
   final String gitHash;
   final String flutterChannel;
 
-  EnvVariables({this.channel, this.url, this.gitHash, this.flutterChannel});
+  EnvVariables({this.channel, this.url, this.urlNative, this.gitHash, this.flutterChannel});
 
   factory EnvVariables.empty() =>
-      EnvVariables(channel: "", url: "", gitHash: "", flutterChannel: "");
+      EnvVariables(channel: "", url: "", urlNative: "", gitHash: "", flutterChannel: "");
 
   static EnvVariables fromJson(String jsonString) {
     var data = json.decode(jsonString);
     return EnvVariables(
       channel: data["channel"] ?? "-",
       url: data["url"] ?? "-",
+      urlNative: data["url_native"] ?? "-",
       gitHash: data["githash"] ?? "-",
       flutterChannel: data["flutter_channel"] ?? "",
     );

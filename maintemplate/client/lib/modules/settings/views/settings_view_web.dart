@@ -63,6 +63,10 @@ class SettingsViewWeb extends StatelessWidget {
           subtitle: Text(env.url),
         ),
         ListTile(
+          title: Text("UrlNative"),
+          subtitle: Text(env.urlNative),
+        ),
+        ListTile(
           title: Text("GitHash"),
           subtitle: Text(env.gitHash),
         ),
