@@ -1,10 +1,10 @@
 library mod_chat;
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
-import 'package:mod_chat/grpc_web_example/pages/home.dart';
+import 'package:mod_chat/grpc_web_example/pages/chat.dart';
+
 export 'package:mod_chat/chat_module.dart';
 
 class ChatModuleConfig {
@@ -57,7 +57,7 @@ class ChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        Router("/", child: (context, args) => HomePage()),
+        Router("/", child: (context, args) => ChatPage()),
       ];
 
   static Inject get to => Inject<ChatModule>.of();

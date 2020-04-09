@@ -1,10 +1,12 @@
-import 'dart:html';
 import 'dart:async';
-import 'package:grpc/grpc_web.dart';
+import 'dart:html';
 
+import 'package:grpc/grpc_web.dart';
+import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
-import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
+
+// TODO: Accommodate RTT and Read Receipts
 
 /// ChatService client implementation
 class ChatService {
@@ -35,8 +37,7 @@ class ChatService {
   /// Event is raised when message receiving is failed
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
-  final channel = GrpcWebClientChannel.xhr(
-      Uri.parse(window.location.origin));
+  final channel = GrpcWebClientChannel.xhr(Uri.parse(window.location.origin));
 
   /// Constructor
   ChatService(

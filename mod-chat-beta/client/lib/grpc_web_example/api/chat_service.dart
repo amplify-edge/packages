@@ -1,12 +1,13 @@
-import 'dart:isolate';
 import 'dart:io';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'dart:isolate';
+
 import 'package:grpc/grpc.dart';
+import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
-
-import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 import 'package:mod_chat/mod_chat.dart';
+
+// TODO: Accommodate RTT and Read Receipts
 
 /// CHANGE TO IP ADDRESS OF YOUR SERVER IF IT IS NECESSARY
 const serverPort = 433;
@@ -41,10 +42,11 @@ class ChatService {
   final void Function(MessageReceiveFailedEvent event) onMessageReceiveFailed;
 
   /// Constructor
-  ChatService({this.onMessageSent,
-    this.onMessageSendFailed,
-    this.onMessageReceived,
-    this.onMessageReceiveFailed})
+  ChatService(
+      {this.onMessageSent,
+      this.onMessageSendFailed,
+      this.onMessageReceived,
+      this.onMessageReceiveFailed})
       : _portSendStatus = ReceivePort(),
         _portReceiving = ReceivePort();
 
@@ -58,7 +60,7 @@ class ChatService {
   void _startSending() async {
     // start thread to send messages
     _isolateSending =
-    await Isolate.spawn(_sendingIsolate, _portSendStatus.sendPort);
+        await Isolate.spawn(_sendingIsolate, _portSendStatus.sendPort);
 
     // listen send status
     await for (var event in _portSendStatus) {
@@ -178,7 +180,7 @@ class ChatService {
     portReceive.send(newReceivePort.sendPort);
 
     //wait for host url and then go on!
-    await for (var message in newReceivePort){
+    await for (var message in newReceivePort) {
       if (message is ChatModuleConfig) {
         hostUrl = message.url;
         break;

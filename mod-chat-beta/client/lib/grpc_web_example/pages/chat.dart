@@ -1,32 +1,27 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
-import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
-
 import 'package:mod_chat/grpc_web_example/models/message.dart';
 import 'package:mod_chat/grpc_web_example/models/message_incoming.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
-
 import 'package:mod_chat/grpc_web_example/theme.dart';
-
 import 'package:mod_chat/grpc_web_example/widgets/chat_message.dart';
 import 'package:mod_chat/grpc_web_example/widgets/chat_message_incoming.dart';
 import 'package:mod_chat/grpc_web_example/widgets/chat_message_outgoing.dart';
 
 /// Host screen widget - main window
-class HomePage extends StatefulWidget {
+class ChatPage extends StatefulWidget {
   // Constructor
-  HomePage() : super(key: new ObjectKey("Main window"));
+  ChatPage() : super(key: new ObjectKey("Main window"));
 
   @override
-  State createState() => HomePageState();
+  State createState() => ChatPageState();
 }
 
 /// State for main window
-class HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   // BLoc for application
   GRPCWebBloc _appBloc;
 
