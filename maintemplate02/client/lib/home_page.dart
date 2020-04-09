@@ -55,6 +55,11 @@ class HomePage extends StatelessWidget {
               onPressed: () => Modular.to
                   .pushNamed(Routes.routerOutlet),
             ),
+            RaisedButton(
+              child: Text("Official Navigation"),
+              onPressed: () => Modular.to
+                  .pushNamed(Routes.officialNav),
+            ),
           ],
         ),
       )),
