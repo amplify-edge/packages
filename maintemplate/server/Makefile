@@ -47,7 +47,8 @@ gke-setup: check-env
 	@gcloud config set project ${GCP_PROJECT}
 	@gcloud iam service-accounts create ${GCP_PROJECT}-sa
 	@gcloud services enable container.googleapis.com
-	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com --role roles/container.admin --role roles/storage.admin
+	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com --role roles/container.admin
+	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com --role roles/storage.admin
 	@gcloud iam service-accounts keys create ~/.getcouragenow/${GCP_PROJECT}.json --iam-account ${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com 
 
 ## GKE cluster initialize
