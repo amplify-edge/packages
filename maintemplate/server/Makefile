@@ -54,7 +54,7 @@ gke-setup: check-env
 ## GKE cluster initialize
 gke-create: check-env
 	@echo GKECreate
-	@gcloud container clusters create ${GCP_PROJECT} --zone ${GCP_ZONE}
+	@gcloud container clusters create ${GCP_PROJECT} --zone ${GCP_ZONE} --enable-autoscaling
 	@gcloud compute addresses create ${GCP_PROJECT}-static-ip --region ${GCP_REGION}
 
 ## GKE cluster variables
