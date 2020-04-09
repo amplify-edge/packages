@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
 import 'package:maintemplate/modules/startup/views/startup_view.dart';
 import 'package:mod_chat/mod_chat.dart';
-import 'package:mod_chat_beta/mod_chat.dart' as chatBeta;
+//import 'package:mod_chat_beta/mod_chat.dart' as chatBeta;
 import 'package:mod_geo/mod_geo.dart';
 import 'package:mod_ion/ion_module.dart';
 import 'package:mod_main/modules/mod_main.dart';
@@ -41,7 +41,7 @@ class AppModule extends MainModule {
             module: IonModule(Paths.ion,
                 deviceID: SessionModule.deviceID,
                 userAgent: SessionModule.deviceUserAgent)),
-        Router(Paths.chat_beta, module: chatBeta.ModChatModule()),
+        //Router(Paths.chat_beta, module: chatBeta.ModChatModule()),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
         Router(Paths.modGeo, module: GeoModule(Paths.modGeo)),
         Router(Paths.settings, module: SettingsModule()),
