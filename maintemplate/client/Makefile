@@ -70,9 +70,6 @@ flu-mob-fix:
 	cd $(SAMPLE_FSPATH) && rm -rf ios/Pods
 	cd $(SAMPLE_FSPATH) && flutter clean
 	 
-
-
-
 	# sign for ios local
 
 	# 1. open https://developer.apple.com/account/resources/certificates/list
@@ -81,15 +78,16 @@ flu-mob-fix:
 	# and GENERAL --> put in the BUNDLE ID
 	# and Signing & Capabilities -- Choose Team and put in the BUNDLE ID
 
+	# sign for CI
+	#	* IOS_APP_BUNDLER_ID refer the iOS application bundle identifier, which can be found in the Info.plist.
+		# Was done above...
+	#	* IOS_P12_SIGN_KEY_BASE_64 refer to the p12 certificate encoded as base 64 which will be used to sign the build and archive.
+	#   * IOS_P12_SIGN_KEY_PASSWORD refer to the p12 certificate password.
+	#   * IOS_SIGNING_TYPE refer to the type of signing key that should be used, IOS_APP_DEVELOPMENT or IOS_APP_STORE.
+	#   * IOS_SIGN_KEY_ISSUER_ID refer to the id of the certificate issuer.
+	#   * IOS_SIGN_KEY_ID refer to id of private key of the certificate.
+	#   * APP_STORE_CONNECT_PRIVATE_KEY refer to private key used to access app store connect api.
 
-	# sign for ios public
-
-	# 1. get app id:
-	# open https://appstoreconnect.apple.com/
-
-	# 2. fuck knows..
-	# https://flutter.dev/docs/get-started/install/macos#deploy-to-ios-devices
-	#cd $(SAMPLE_FSPATH) && open ios/Runner.xcworkspace  
 
 flu-mob-run: ## flu-mob-run
 	cd $(SAMPLE_FSPATH) && flutter run -d all
