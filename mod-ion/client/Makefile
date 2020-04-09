@@ -1,14 +1,5 @@
 
 
-# Orig: https://github.com/memspace/zefyr
-# Our Fork: https://github.com/winwisely99/zefyr
-# Use flutter beta channel !!!
-
-##LIB_NAME=zefyr
-##LIB=github.com/winwisely99/$(LIB_NAME)
-##LIB_BRANCH=master
-##LIB_FSPATH=$(GOPATH)/src/$(LIB)
-
 GO111MODULE=on
 
 SAMPLE_NAME=example
@@ -19,34 +10,30 @@ help:  ## Display this help
 
 
 print: ## print
-	#@echo
-	#@echo LIB_NAME: $(LIB_NAME)
-	#@echo LIB: $(LIB)
-	#@echo LIB_BRANCH: $(LIB_BRANCH)
-	#@echo LIB_FSPATH: $(LIB_FSPATH)
-	#@echo
 
 	@echo
 	@echo SAMPLE_NAME: $(SAMPLE_NAME)
 	@echo SAMPLE_FSPATH: $(SAMPLE_FSPATH)
 	@echo
 
-#git-clone:
-#	mkdir -p $(LIB_FSPATH)
-#	cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
-#	cd $(LIB_FSPATH) && git checkout $(LIB_BRANCH)
-#git-pull:
-#	cd $(LIB_FSPATH) && git pull
-#git-clean:
-#	rm -rf $(LIB_FSPATH)
-#
-code:
-#	code $(LIB_FSPATH)
-#
-os-dep:
-	# Assume hover make file has ben run 
-
 ### FLU
+
+flu-fix: ## flu-fix
+	# https://github.com/flutter/flutter/issues/20685
+
+	# 1
+	# open xcode
+	#cd $(SAMPLE_FSPATH)/ios && open Runner.xcodeproj
+	# File > Project Settings : Build System: "New Build System(Default)
+
+	# 2
+	# edit pod file to include this: https://github.com/flutter/flutter/blob/master/examples/platform_view/ios/Podfile#L78
+	# Add:
+	# install! 'cocoapods', :disable_input_output_paths => true
+	#cd $(SAMPLE_FSPATH)/ios && code Podfile
+
+	# 3
+	#cd $(SAMPLE_FSPATH)/ios && pod install
 
 flu-config: ## flu-config
 	flutter channel beta
