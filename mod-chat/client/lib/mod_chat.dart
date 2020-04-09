@@ -9,8 +9,9 @@ export 'package:mod_chat/chat_module.dart';
 
 class ChatModuleConfig {
   final String url;
+  final String urlNative;
 
-  ChatModuleConfig(this.url);
+  ChatModuleConfig(this.url, this.urlNative);
 
   @override
   String toString() {
@@ -34,14 +35,15 @@ class ChatModule extends ChildModule {
         route.indexOf(baseRoute) + baseRoute.length, route.length);
   }
 
-  ChatModule(String baseRoute, {@required deviceID, @required url}) {
+  ChatModule(String baseRoute, {@required deviceID, @required url, @required urlNative}) {
     assert(deviceID != null);
     assert(baseRoute != null);
     assert(url != null);
+    assert(urlNative != null);
     ChatModule.baseRoute = baseRoute;
     ChatModule.deviceID = deviceID;
 
-    ChatModule.chatModuleConfig = ChatModuleConfig(url);
+    ChatModule.chatModuleConfig = ChatModuleConfig(url, urlNative);
   }
 
   @override

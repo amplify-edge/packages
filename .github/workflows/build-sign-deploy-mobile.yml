@@ -18,9 +18,10 @@
 #   * IOS_SIGN_KEY_ID refer to id of private key of the certificate.
 #   * IOS_APP_BUNDLER_ID refer the iOS application bundle identifier, which can be found in the Info.plist.
 #   * APP_STORE_CONNECT_PRIVATE_KEY refer to private key used to access app store connect api.
+#       https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api
 # iOS Resources:
 #   * https://support.magplus.com/hc/en-us/articles/203808748-iOS-Creating-a-Distribution-Certificate-and-p12-File
-#   * https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api
+
 #   * https://developer.apple.com/documentation/appstoreconnectapi/certificates
 #   * https://github.com/flutter/flutter/issues/13065
 
