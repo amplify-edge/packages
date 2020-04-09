@@ -1,5 +1,5 @@
 # This workflow will build, package and Sign windows, MacOs, Linux App and Deploy it.
-# 
+#  
 # 1. Set up secrets in your workspace:
 #   * LINUX_PUBLIC_SIGN_KEY the public key of your secret gpg signing key.
 #   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
