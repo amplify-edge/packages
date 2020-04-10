@@ -16,18 +16,18 @@ class MessageOutgoing extends Message {
   /// Constructor
   MessageOutgoing(
       {String id,
-      @required String senderId,
+      @required String senderName,
       @required String groupId,
       @required String text,
       MessageOutgoingStatus status = MessageOutgoingStatus.NEW})
       : this.status = status,
-        super(id: id, senderId: senderId, groupId: groupId, text: text);
+        super(id: id, senderName: senderName, groupId: groupId, text: text);
 
   MessageOutgoing.copy(MessageOutgoing original)
       : this.status = original.status,
         super(
             id: original.id,
-            senderId: original.senderId,
+            senderName: original.senderName,
             groupId: original.groupId,
             text: original.text);
 }

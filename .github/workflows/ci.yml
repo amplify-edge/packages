@@ -13,11 +13,12 @@ env:
   GITHUB_REF: ${{ github.ref }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   IMAGE: maintemplate
+  PROJECT: maintemplate
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
   RELEASE_CHANNEL: ci
   FLUTTER_CHANNEL: beta
-  CHANNEL_URL: getcouragenow.org
+  URL: getcouragenow.org
 
 jobs:
 
@@ -61,7 +62,8 @@ jobs:
         sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
 
         sed -i s/#\{channel_name\}/$RELEASE_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
-        sed -i s/#\{channel_url\}/$CHANNEL_URL/g maintemplate/client/build/web/assets/assets/env.json
+        sed -i s/#\{channel_url\}/$PROJECT.$RELEASE_CHANNEL.$URL/g maintemplate/client/build/web/assets/assets/env.json
+        sed -i s/#\{channel_url_native\}/grpc.$PROJECT.$RELEASE_CHANNEL.$URL/g maintemplate/client/build/web/assets/assets/env.json
         sed -i s/#\{channel_githash\}/$GITHUB_SHA/g maintemplate/client/build/web/assets/assets/env.json
         sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
 

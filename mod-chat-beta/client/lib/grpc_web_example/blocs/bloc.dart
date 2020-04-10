@@ -3,11 +3,10 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:mod_chat/grpc_web_example/api/chat_service.dart'
     if (dart.library.html) 'package:mod_chat/grpc_web_example/api/chat_service_web.dart';
-import 'package:rxdart/rxdart.dart';
-
 import 'package:mod_chat/grpc_web_example/models/message.dart';
 import 'package:mod_chat/grpc_web_example/models/message_incoming.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'bloc_provider.dart';
 import 'message_events.dart';
@@ -119,7 +118,8 @@ class GRPCWebBloc implements BlocBase {
   /// Handle event: message received from the server
   void _onMessageReceived(MessageReceivedEvent event) {
     debugPrint('Message received from the server: ${event.text}');
-    _messages.add(MessageIncoming(text: event.text));
+    _messages.add(MessageIncoming(
+        text: event.text, groupId: event.groupId, senderName: event.senderId));
     _notify();
   }
 
