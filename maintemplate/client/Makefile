@@ -73,10 +73,10 @@ flu-mob-fix:
 	# sign for ios local
 
 	# 1. open https://developer.apple.com/account/resources/certificates/list
-	# - go to Identifiers and make an App ID ("org.getcourage.securesuite")
+	# - go to Identifiers and make an BUNDLE ID ("org.getcouragenow.securesuite")
 	# - open xcode project 
-	# and GENERAL --> put in the BUNDLE ID
-	# and Signing & Capabilities -- Choose Team and put in the BUNDLE ID
+	# and GENERAL --> put in the BUNDLE ID (org.getcouragenow.securesuite)
+	# and Signing & Capabilities -- Choose Team and put in the BUNDLE ID also
 
 	# sign for CI
 	#	* IOS_APP_BUNDLER_ID refer the iOS application bundle identifier, which can be found in the Info.plist.
