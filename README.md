@@ -1,55 +1,15 @@
 # Packages
 
-This contains the Functional modules with:
+This contains the Functional modules and runner
 
-- GUI
-- Business Logic
-- Data schema
+# Development
 
-The functional spec for each is here for now:
+Install what you need
 
-https://drive.google.com/drive/folders/1X0sMEOxYP_zoBVl_E0SbZs6MMfZlnvEs
+https://github.com/getcouragenow/bootstrap/tree/master/os
 
-In each folder there is:
-
-- Flutter
-- Makefile.
-
-## Docs
-
-Use the same structure as here for this repo, so its easy to publish and easy for others to use.
-
-https://github.com/rodydavis/plugins
-
-Its uses: https://github.com/flutter/plugin_tools
+Instal hover
 
 
 
-## IO
 
-IO is GRPC to the embed golang layer running on the device.
-
-See the embed repo.
-
-
-## Modularity and IOC
-
-Use the inside out approach so things dont get monolithic.
-
-
-Also we want it to be easy for others to use a Module and compose it how they want with their app.
-Flutter does not have Modular Routing yet but the following does the same:
-
-https://pub.dev/packages/flutter_modular
-
-Examples:
-
-- https://github.com/Flutterando/github_search
-
-- https://github.com/felipewom/flutter_app_modular
-
-- https://github.com/VictorOchoaS/ToDo-App
-
-## maintemplate
-
-To run the maintemplate app on web, just use command  **flutter run -d chrome**
