@@ -25,23 +25,28 @@ jobs:
     name: "Linux Build, Package, Sign and Deploy"
     runs-on: [ubuntu-latest]
     env:
-      GOROOT: /usr/local/go
+#      GOROOT: /usr/local/go
       GO111MODULE: auto
     steps:
-      - name: Install Go
-        run: |
-          sudo apt-get update
-          wget -q https://dl.google.com/go/go1.13.linux-amd64.tar.gz -O /tmp/go_install.tar.gz
-          sudo tar -C /usr/local -xzf /tmp/go_install.tar.gz
-          export GOPATH=$HOME/go
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-          go version
+      # - name: Install Go
+      #   run: |
+      #     sudo apt-get update
+      #     wget -q https://dl.google.com/go/go1.13.linux-amd64.tar.gz -O /tmp/go_install.tar.gz
+      #     sudo tar -C /usr/local -xzf /tmp/go_install.tar.gz
+      #     export GOPATH=$HOME/go
+      #     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+      #     go version
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14.1
+
       - name: Install Hover
         run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
           sudo apt-get install gcc libc6-dev
-          export GOPATH=$HOME/go
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go version
           go get -u github.com/go-flutter-desktop/hover
       - name: Cloning repository
@@ -54,14 +59,14 @@ jobs:
         working-directory: maintemplate/client/
       - name: Build Linux Application
         run: |
-          export GOPATH=$HOME/go
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           hover build linux
         working-directory: maintemplate/client/
       - name: Packaging Linux App
         run: |
-          export GOPATH=$HOME/go
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           hover init-packaging linux-appimage
           hover init-packaging linux-deb
           hover init-packaging linux-snap
@@ -153,4 +158,3 @@ jobs:
       - name: Sign Mac App
         run: echo "TODO Add signing for Mac using Sign Tool"
         working-directory: maintemplate/client/
-  
