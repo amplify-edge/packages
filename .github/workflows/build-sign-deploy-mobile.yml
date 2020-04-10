@@ -36,9 +36,9 @@ on:
   push:
     branches: 
       - master
-    paths:
-      - "maintemplate/client/**"
-      - ".github/workflows/build-sign-deploy-mobile.yml"
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-mobile.yml"
 
 jobs:
   build-sign-deploy-android:
