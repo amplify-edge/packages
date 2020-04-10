@@ -10,7 +10,7 @@ Install what you need per OS:
 
 https://github.com/getcouragenow/bootstrap/tree/master/os
 
-Instal hover:
+Install hover, so you can compile the Desktop version:
 
 https://github.com/getcouragenow/bootstrap/tree/master/tool/hover
 
