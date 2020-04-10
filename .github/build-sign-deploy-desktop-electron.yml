@@ -25,7 +25,7 @@ jobs:
     name: "Linux Build, Package, Sign and Deploy"
     runs-on: ubuntu-latest
     env:
-      GOROOT: /usr/local/go
+#      GOROOT: /usr/local/go
       GO111MODULE: off
     steps:
       - name: Cloning repository
@@ -40,9 +40,9 @@ jobs:
         run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
           sudo apt-get install gcc libc6-dev
-          export GOPATH=$HOME/go
-          export GOBIN=$HOME/go/bin
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export GOBIN=$HOME/go/bin
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go get -u github.com/asticode/go-astilectron-bundler/...
           go get -u github.com/asticode/go-astilectron-bootstrap
           go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
@@ -65,18 +65,18 @@ jobs:
 
       - name: Build asti desktop Application
         run:  |
-          export GOPATH=$HOME/go
-          export GOBIN=$HOME/go/bin
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export GOBIN=$HOME/go/bin
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           astilectron-bundler
         shell: bash
         working-directory: maintemplate/client/desktop      
 
       - name: build packer  
         run: |
-          export GOPATH=$HOME/go
-          export GOBIN=$HOME/go/bin
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export GOBIN=$HOME/go/bin
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go run main.go -pack=deb -config=config/deb.json -version=1.0
         shell: bash
         env:
@@ -116,9 +116,9 @@ jobs:
       
       - name: Install Astilectron
         run: |
-          export GOPATH=$HOME/go
-          export GOBIN=$HOME/go/bin
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export GOBIN=$HOME/go/bin
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go get -u github.com/asticode/go-astilectron-bundler/...
           go get -u github.com/asticode/go-astilectron-bootstrap
           go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
@@ -144,9 +144,9 @@ jobs:
         
       - name: Build asti desktop Application
         run:  |
-          export GOPATH=$HOME/go
-          export GOBIN=$HOME/go/bin
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export GOBIN=$HOME/go/bin
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           astilectron-bundler.exe
         shell: bash
         working-directory: maintemplate/client/desktop
@@ -159,9 +159,9 @@ jobs:
       
       - name: build packer  
         run: |
-          export GOPATH=$HOME/go
-          export GOBIN=$HOME/go/bin
-          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#          export GOPATH=$HOME/go
+#          export GOBIN=$HOME/go/bin
+#          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go run main.go -pack=win -config=config/win.json -version=1.0
         shell: bash
         env:
