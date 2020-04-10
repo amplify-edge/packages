@@ -98,7 +98,7 @@ flu-gen: ## flu-gen
 	$(MAKE) gen-icons
 	$(MAKE) gen-hive
 	$(MAKE) gen-proto
-	cd $(SAMPLE_FSPATH) && flutter analyze 
+	cd $(SAMPLE_FSPATH) && flutter analyze
 
 gen-icons:
 	# mobile and web
