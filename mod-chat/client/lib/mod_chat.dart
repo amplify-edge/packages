@@ -39,7 +39,7 @@ class ChatModule extends ChildModule {
     assert(deviceID != null);
     assert(baseRoute != null);
     assert(url != null);
-    assert(urlNative != null);
+    //assert(urlNative != null);
     ChatModule.baseRoute = baseRoute;
     ChatModule.deviceID = deviceID;
 
