@@ -7,12 +7,12 @@
 # To configure this workflow:
 name: Desktop - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
 on:
-  #pull_request:
-    #branches:
-      #- master
-    #paths:
-      #- "maintemplate/client/**"
-      #- ".github/workflows/build-sign-deploy-desktop.yml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "maintemplate/client/**"
+      - ".github/workflows/build-sign-deploy-desktop.yml"
   push:
     branches: 
       - master
@@ -25,7 +25,7 @@ env:
 jobs:
   build-packages:
     name: "Linux Build, Package, Sign and Deploy"
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     env:
       GOROOT: /usr/local/go
       GO111MODULE: auto
