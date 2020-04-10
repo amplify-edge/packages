@@ -28,7 +28,9 @@ void main() async {
           module: AppModule(
               // not convinced if this is the right place to do this url config ...
               url:
-                  "maintemplate.${settingsViewModel.envVariables.channel}.getcouragenow.org"),
+                settingsViewModel.envVariables.url,
+            urlNative:
+                settingsViewModel.envVariables.urlNative,
         )),
   );
 }
