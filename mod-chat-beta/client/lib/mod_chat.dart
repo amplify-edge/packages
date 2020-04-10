@@ -57,7 +57,9 @@ class ChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        Router("/", child: (context, args) => ChatPage()),
+        Router("/",
+            child: (context, args) =>
+                ChatPage('global test', 'User ${deviceID.substring(0, 6)}')),
       ];
 
   static Inject get to => Inject<ChatModule>.of();

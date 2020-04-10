@@ -5,6 +5,8 @@ import 'package:grpc/grpc.dart';
 import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/models/readreceipts.dart';
+import 'package:mod_chat/grpc_web_example/models/rtt.dart';
 import 'package:mod_chat/mod_chat.dart';
 
 // TODO: Accommodate RTT and Read Receipts
@@ -117,13 +119,18 @@ class ChatService {
           try {
             // try to send
             var msg = grpc.Message.create();
-            msg.id = "0";
+            msg.id = message.id;
             msg.content = message.text;
             msg.timestamp = DateTime.now().toString();
+            msg.groupId = message.groupId;
+            msg.senderName = message.senderName;
             await grpc.BroadcastClient(client).broadcastMessage(msg);
 
             // sent successfully
-            portSendStatus.send(MessageSentEvent(id: message.id));
+            portSendStatus.send(MessageSentEvent(
+                id: message.id,
+                groupId: message.groupId,
+                senderId: message.senderName));
             sent = true;
           } catch (e) {
             // sent failed
@@ -139,6 +146,10 @@ class ChatService {
             sleep(Duration(seconds: 5));
           }
         } while (!sent);
+      } else if (message is ReadReceipt) {
+        // TODO: Implement RR sending
+      } else if (message is RealTime) {
+        // TODO: Implement RTT sending
       }
     }
   }
@@ -204,7 +215,17 @@ class ChatService {
 
         try {
           await for (var message in stream) {
-            portReceive.send(MessageReceivedEvent(text: message.content));
+            if (message is grpc.Message) {
+              portReceive.send(MessageReceivedEvent(
+                  text: message.content,
+                  id: message.id,
+                  groupId: message.groupId,
+                  senderId: message.senderName));
+            } else if (message is grpc.ReadReceipt) {
+              //TODO: implement RR
+            } else if (message is grpc.RTT) {
+              //TODO: implement RTT
+            }
           }
         } catch (e) {
           // notify caller

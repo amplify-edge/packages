@@ -13,8 +13,12 @@ import 'package:mod_chat/grpc_web_example/widgets/chat_message_outgoing.dart';
 
 /// Host screen widget - main window
 class ChatPage extends StatefulWidget {
+  final String id;
+
+  final String username;
+
   // Constructor
-  ChatPage() : super(key: new ObjectKey("Main window"));
+  ChatPage(this.id, this.username) : super(key: new ObjectKey("Main window"));
 
   @override
   State createState() => ChatPageState();
@@ -159,8 +163,9 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     _textController.clear();
     _isComposing = false;
 
-    _appBloc.inNewMessageCreated
-        .add(MessageNewCreatedEvent(message: MessageOutgoing(text: text)));
+    _appBloc.inNewMessageCreated.add(MessageNewCreatedEvent(
+        message: MessageOutgoing(
+            text: text, id: widget.id, senderName: widget.username)));
   }
 
   /// this methods is called to display new (outgoing or incoming) message or

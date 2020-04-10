@@ -5,6 +5,7 @@ import 'package:grpc/grpc_web.dart';
 import 'package:mod_chat/grpc_web_example/api/v1/service.pbgrpc.dart' as grpc;
 import 'package:mod_chat/grpc_web_example/blocs/message_events.dart';
 import 'package:mod_chat/grpc_web_example/models/message_outgoing.dart';
+import 'package:mod_chat/grpc_web_example/models/readreceipts.dart';
 
 // TODO: Accommodate RTT and Read Receipts
 
@@ -61,7 +62,11 @@ class ChatService {
       try {
         // create new client
         await for (var message in stream) {
-          onMessageReceived(MessageReceivedEvent(text: message.content));
+          onMessageReceived(MessageReceivedEvent(
+              text: message.content,
+              id: message.id,
+              groupId: message.groupId,
+              senderId: message.senderName));
         }
       } catch (e) {
         onMessageReceiveFailed(MessageReceiveFailedEvent(error: e.toString()));
@@ -79,11 +84,32 @@ class ChatService {
     //request.value = message.text;
 
     var msg = grpc.Message.create();
-    msg.id = "0";
+    msg.id = message.id;
     msg.content = message.text;
     msg.timestamp = DateTime.now().toString();
+    msg.groupId = message.groupId;
+    msg.senderName = message.senderName;
 
     grpc.BroadcastClient(channel).broadcastMessage(msg);
-    onMessageSent(MessageSentEvent(id: message.id));
+    onMessageSent(MessageSentEvent(
+        id: message.id,
+        groupId: message.groupId,
+        senderId: message.senderName));
+  }
+
+  /// Send message to the server
+  void sendRTT(ReadReceipt message) {
+    //var request = StringValue.create();
+    //request.value = message.text;
+
+    // TODO: Implement Web send of RTT
+  }
+
+  /// Send message to the server
+  void sendRR(ReadReceipt message) {
+    //var request = StringValue.create();
+    //request.value = message.text;
+
+    // TODO: Implement Web send of RR
   }
 }

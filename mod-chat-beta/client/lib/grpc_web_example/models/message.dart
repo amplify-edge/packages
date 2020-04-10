@@ -6,7 +6,7 @@ class Message {
   final String id;
 
   /// unique ID of message's sender
-  final String senderId;
+  final String senderName;
 
   /// unique ID of message's group
   final String groupId;
@@ -17,7 +17,7 @@ class Message {
   /// Class constructor
   Message(
       {String id,
-      @required this.senderId,
+      @required this.senderName,
       @required this.groupId,
       @required String text})
       : this.id = id ?? UniqueKey().toString(),
