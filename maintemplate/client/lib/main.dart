@@ -29,7 +29,7 @@ void main() async {
               // not convinced if this is the right place to do this url config ...
               url:
                 settingsViewModel.envVariables.url,
-            urlNative:
+              urlNative:
                 settingsViewModel.envVariables.urlNative,
         )),
   );
