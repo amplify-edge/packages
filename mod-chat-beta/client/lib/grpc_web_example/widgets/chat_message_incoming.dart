@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:mod_chat/grpc_web_example/models/message_incoming.dart';
 
 import 'chat_message.dart';
-
-/// Incoming message author name
-const String _server = "Server";
 
 /// ChatMessageIncoming is widget to display incoming from server message
 class ChatMessageIncoming extends StatelessWidget implements ChatMessage {
@@ -34,7 +30,8 @@ class ChatMessageIncoming extends StatelessWidget implements ChatMessage {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Text(_server, style: Theme.of(context).textTheme.subhead),
+                  Text(message.senderName,
+                      style: Theme.of(context).textTheme.subtitle1),
                   Container(
                     margin: EdgeInsets.only(top: 5.0),
                     child: Text(message.text),
@@ -45,8 +42,9 @@ class ChatMessageIncoming extends StatelessWidget implements ChatMessage {
             Container(
               margin: EdgeInsets.only(left: 16.0),
               child: CircleAvatar(
-                  backgroundColor: Colors.pink.shade600,
-                  child: Text(_server[0])),
+                backgroundColor: Colors.pink.shade600,
+                child: Text(message.senderName[0]),
+              ),
             ),
           ],
         ),

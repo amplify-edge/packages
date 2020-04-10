@@ -12,7 +12,7 @@ message Message {
   string content = 2;
   string timestamp = 3;
   string groupId = 4; //id of group this message belongs to
-  string senderId = 5; //id of user who sent this message
+  string senderName = 5; //Name of user who sent this message
 }
 
 message RTT {
