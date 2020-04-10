@@ -97,7 +97,7 @@ class ChatService {
     // waiting messages to send
     await for (var message in portSendMessages) {
       if (message is ChatModuleConfig) {
-        hostUrl = message.url;
+        hostUrl = message.urlNative;
       } else if (message is MessageOutgoing) {
         var sent = false;
         do {

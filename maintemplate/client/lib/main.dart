@@ -21,18 +21,15 @@ void main() async {
   var settingsViewModel = SettingsViewModel();
   // get env.json from assets
   await settingsViewModel.fetchEnvVariables();
-  runApp(
-    provider.ChangeNotifierProvider<SettingsViewModel>(
-        create: (context) => settingsViewModel,
-        child: ModularApp(
-          module: AppModule(
-              // not convinced if this is the right place to do this url config ...
-              url:
-                settingsViewModel.envVariables.url,
-              urlNative:
-                settingsViewModel.envVariables.urlNative,
-        )),
-  );
+  runApp(provider.ChangeNotifierProvider<SettingsViewModel>(
+    create: (context) => settingsViewModel,
+    child: ModularApp(
+        module: AppModule(
+      // not convinced if this is the right place to do this url config ...
+      url: settingsViewModel.envVariables.url,
+      urlNative: settingsViewModel.envVariables.urlNative,
+    )),
+  ));
 }
 
 class App extends StatefulWidget {
