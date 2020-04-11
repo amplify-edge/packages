@@ -139,17 +139,21 @@ class OrgDetailView extends StatelessWidget {
         ),
         const SizedBox(height: 16.0),
         ButtonBar(children: [
-            FlatButton(
+          FlatButton(
             onPressed: () {
-              Modular.to.pushNamed(Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
+              Modular.to.pushNamed(
+                  Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
             },
             child: Text("Not Ready"),
           ),
           RaisedButton(
-            onPressed: () {},
+            onPressed: () {
+              behaviorBus.fire(this.org);
+              Modular.to.pushNamed(
+                  Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
+            },
             child: Text("Ready"),
           ),
-        
         ]),
         const SizedBox(height: 8.0),
       ],
