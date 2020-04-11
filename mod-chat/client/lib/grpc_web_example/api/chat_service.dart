@@ -180,7 +180,7 @@ class ChatService {
     //wait for host url and then go on!
     await for (var message in newReceivePort){
       if (message is ChatModuleConfig) {
-        hostUrl = message.url;
+        hostUrl = message.urlNative;
         break;
       }
     }
