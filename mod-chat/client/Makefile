@@ -25,7 +25,7 @@ print: ## print
 
 git-clone:
 	mkdir -p $(LIB_FSPATH)
-cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
+	cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
 	cd $(LIB_FSPATH) && git checkout $(LIB_BRANCH)
 git-pull:
 	cd $(LIB_FSPATH) && git pull
@@ -40,9 +40,15 @@ os-dep:
 
 ### FLU
 
+
+
+
 flu-config: ## flu-config
 	flutter channel beta
 	flutter upgrade --force
+
+flu-check: ## flu-check
+	cd $(SAMPLE_FSPATH) && flutter analyze --no-pub
 
 flu-web-run: ## flu-web-run
 	# WORKS :)

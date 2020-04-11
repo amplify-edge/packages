@@ -39,6 +39,9 @@ flu-config: ## flu-config
 	flutter channel beta
 	flutter upgrade
 
+flu-check: ## flu-check
+	cd $(SAMPLE_FSPATH) && flutter analyze --no-pub
+
 flu-web-run: ## flu-web-run
 	# WORKS :)
 	flutter config --enable-web
