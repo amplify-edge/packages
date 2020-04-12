@@ -100,6 +100,7 @@ class ChatService {
         hostUrl = message.urlNative;
       } else if (message is MessageOutgoing) {
         var sent = false;
+         print("Sending Isolate : HOST URL -> $hostUrl");
         do {
           // create new client
           client ??= ClientChannel(
@@ -107,10 +108,12 @@ class ChatService {
             port: serverPort,
             options: ChannelOptions(
               //TODO: Change to secure with server certificates
-              credentials: ChannelCredentials.insecure(),
+              credentials: ChannelCredentials.secure(),
               idleTimeout: Duration(seconds: 1),
             ),
           );
+
+          print("Sending Isolate : Client Port  -> ${client.port}");
 
           try {
             // try to send
@@ -180,23 +183,29 @@ class ChatService {
     //wait for host url and then go on!
     await for (var message in newReceivePort){
       if (message is ChatModuleConfig) {
-        hostUrl = message.url;
+        hostUrl = message.urlNative;
         break;
       }
     }
 
     do {
       // create new client
+      print("Receiving Isolate : HOST URL -> $hostUrl");
+      
       if (hostUrl != null) {
+       
         client ??= ClientChannel(
           hostUrl, // Your IP here or localhost
           port: serverPort,
           options: ChannelOptions(
             //TODO: Change to secure with server certificates
-            credentials: ChannelCredentials.insecure(),
+            credentials: ChannelCredentials.secure(),
             idleTimeout: Duration(seconds: 1),
           ),
         );
+
+         print("Receiving Isolate : Client Port  -> ${client.port}");
+          print("Receiving Isolate : Client isSecure?  -> ${client.options.credentials.isSecure}");
 
         var stream = grpc.BroadcastClient(client).createStream(grpc.Connect());
 
