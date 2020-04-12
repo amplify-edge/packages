@@ -64,6 +64,7 @@ dependencies:
   equatable:
   meta:
   flutter_modular: ^0.5.5
+  event_bus: ^1.1.1
   #font_awesome_flutter:
 
   cupertino_icons: ^0.1.2
