@@ -97,6 +97,8 @@ gen-proto:
 	pub global activate protoc_plugin
 	mkdir -p $(SAMPLE_FSPATH)/lib/api/v1/google/protobuf
 
+	# The code below is just example.
+
 ifeq ($(GO_OS), windows)
 	@echo Windows detected
 	protoc empty.proto timestamp.proto wrappers.proto --proto_path=$(LIB_FSPATH)/server/third_party/google/protobuf/ --plugin=$(HOME_PATH)/AppData/Roaming/Pub/Cache/bin/protoc-gen-dart.bat --dart_out=grpc:"$(PROTO_OUTPUT)/client/lib/chat_view/api/v1/google/protobuf"
