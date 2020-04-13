@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:mod_main/modules/orgs/data/org_model.dart';
-import 'package:maintemplate/core/events/event_bus.dart';
-import 'package:maintemplate/core/events/org_event.dart';
 import '../../../core/core.dart';
 
 class OrgDetailView extends StatelessWidget {
@@ -150,19 +148,15 @@ class OrgDetailView extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: () {
-              behaviorBus.fire(OrgEvent(this.org));
-              // TODO: Require help on this one, couldn't figure out why the paths aren't recognised...
-              // Modular.to.pushNamed(Modular.get<Paths>().login);
-<<<<<<< HEAD
-            //  Navigator.of(context).pushNamed("/login");
-=======
-              // Navigator.of(context).pushNamed("/login");
->>>>>>> upstream/master
+             
+            Modular.to.pushNamed('/account/signup');
+           
             },
             child: Text("Ready"),
           ),
         ]),
         const SizedBox(height: 8.0),
+
       ],
     );
   }

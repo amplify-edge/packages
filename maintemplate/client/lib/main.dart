@@ -6,6 +6,7 @@ import 'package:maintemplate/layout_template.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '././core/core.dart';
+import 'core/events/event_listener.dart';
 import 'modules/settings/settings.dart';
 
 // Bottom Up approach .....
@@ -13,14 +14,13 @@ import 'package:mod_geo/core/core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  /*
-      init settings view model before starting app
-   */
-
+  
+  // init settings view model before starting app
   var settingsViewModel = SettingsViewModel();
   // get env.json from assets
   await settingsViewModel.fetchEnvVariables();
+
+
   runApp(provider.ChangeNotifierProvider<SettingsViewModel>(
     create: (context) => settingsViewModel,
     child: ModularApp(
@@ -40,6 +40,13 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   AppLocalizationsDelegate _delegate;
   ModGeoAppLocalizationsDelegate _modGeoADelegate;
+
+  @override
+  void initState() {
+    super.initState();
+    
+
+  }
 
   @override
   Widget build(BuildContext context) {
