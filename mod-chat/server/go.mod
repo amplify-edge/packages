@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/golang/protobuf v1.3.3
+	github.com/johnsiilver/getcert v0.0.0-20190816170103-14357049f896 // indirect
 	github.com/liftbridge-io/go-liftbridge v1.0.0-alpha // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/nats-io/stan.go v0.6.0

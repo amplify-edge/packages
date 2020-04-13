@@ -7,6 +7,7 @@ YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
 RESET  := $(shell tput -Txterm sgr0)
 
+
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
 
@@ -30,13 +31,27 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
+## print
+print:
+	@echo GCP_PROJECT: 	$(GCP_PROJECT)
+	@echo GCP_USER: 	$(GCP_USER)
+	@echo GCP_ZONE: 	$(GCP_ZONE)
+	@echo GCP_REGION: 	$(GCP_REGION)
+
+## gcloud-print
+gcloud-print:
+	gcloud config configurations list
+
+## gcloud-print
+gcloud-set:
+	gcloud config configurations activate $(GCP_PROJECT)
 
 check-env:
 ifndef GCP_PROJECT
 	$(error define GCP_PROJECT environment variable)
 endif
 ifndef GCP_USER
-	$(error define GCP_PROJECT environment variable)
+	$(error define GCP_USER environment variable)
 endif
 
 ## GCP configuration
