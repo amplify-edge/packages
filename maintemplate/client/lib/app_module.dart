@@ -14,6 +14,7 @@ import 'package:mod_main/modules/mod_main.dart';
 import 'package:mod_session/mod_session.dart';
 import 'package:mod_write/mod_write.dart';
 import 'package:mod_write/writer_module.dart';
+import 'package:mod_account/modules/mod_account.dart';
 
 import 'core/core.dart';
 import 'modules/settings/settings_module.dart';
@@ -38,6 +39,7 @@ class AppModule extends MainModule {
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
         Router(Paths.startup, child: (_, args) => StartupView()),
+        Router(Paths.modAccount, module: AccountModule(Paths.modAccount)),
         Router(Paths.modMain, module: MainAppModule(Paths.modMain)),
         Router(Paths.chat,
             module: ChatModule(Paths.chat,

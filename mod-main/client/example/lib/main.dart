@@ -1,11 +1,28 @@
-import 'package:mod_main/app_module.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'core/core.dart';
+import 'package:mod_main/modules/main_module.dart';
+
 
 void main(){
   runApp(ModularApp(module : AppModule()));
+}
+
+
+class AppModule extends MainModule{
+  @override
+  List<Bind> get binds => [];
+
+  
+  @override
+  Widget get bootstrap => App();
+  
+  @override
+  List<Router> get routers => [
+    Router("/", module: MainAppModule("/")),
+  ];
+
 }
 
 class App extends StatelessWidget {

@@ -16,6 +16,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.6.0 <3.0.0"
 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -49,6 +50,8 @@ dependencies:
     path: ../../mod-session/client
   mod_main:
     path: ../../mod-main/client
+  mod_account:
+    path: ../../mod-account/client
  
 
   # Architectural packages
@@ -64,8 +67,8 @@ dependencies:
   equatable:
   meta:
   flutter_modular: ^0.5.5
-  event_bus: ^1.1.1
-  #font_awesome_flutter:
+  # event_bus: ^1.1.1
+  # font_awesome_flutter:
 
   cupertino_icons: ^0.1.2
 
@@ -107,6 +110,7 @@ flutter:
     - assets/london_strike.png
     - assets/pipeline.png
     - assets/env.json
+    - assets/icon/placeholder.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
