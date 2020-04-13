@@ -5,5 +5,4 @@
 	"githash": "#{channel_githash}",
 	"flutter_channel": "#{flutter_channel}",
 	"locales": #{locales}
-	]
 }
