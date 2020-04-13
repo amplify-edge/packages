@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:mod_main/modules/orgs/data/org_model.dart';
+import 'package:maintemplate/core/events/event_bus.dart';
+import 'package:maintemplate/core/events/org_event.dart';
 import '../../../core/core.dart';
 
 class OrgDetailView extends StatelessWidget {
@@ -139,17 +141,21 @@ class OrgDetailView extends StatelessWidget {
         ),
         const SizedBox(height: 16.0),
         ButtonBar(children: [
-            FlatButton(
+          FlatButton(
             onPressed: () {
-              Modular.to.pushNamed(Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
+              Modular.to.pushNamed(
+                  Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
             },
             child: Text("Not Ready"),
           ),
           RaisedButton(
-            onPressed: () {},
+            onPressed: () {
+              behaviorBus.fire(OrgEvent(this.org));
+              // TODO: Require help on this one, couldn't figure out why the paths aren't recognised...
+              Modular.to.pushNamed(Modular.get<Paths>().login);
+            },
             child: Text("Ready"),
           ),
-        
         ]),
         const SizedBox(height: 8.0),
       ],

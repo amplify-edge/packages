@@ -9,6 +9,7 @@ class Paths{
   String myNeeds;
   String splash;
   String dashboard;
+  String login;
 
   Paths(this.baseRoute) : 
    dashboard  = '$baseRoute/dashboard',
@@ -17,5 +18,6 @@ class Paths{
    ready = '$baseRoute/ready',
    supportRoles = '$baseRoute/supportRoles/orgs/:id',
    myNeeds = '$baseRoute/myneeds/orgs/:id',
-   splash = '$baseRoute/';
+   splash = '$baseRoute/',
+   login = '$baseRoute/login';
 }
