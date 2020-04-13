@@ -13,4 +13,6 @@ class StartUpViewModel extends BaseModel {
       Modular.to.pushNamed(Paths.login);
     }
   }
+
+  
 }

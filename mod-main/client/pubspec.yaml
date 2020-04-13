@@ -25,11 +25,12 @@ dependencies:
   floating_search_bar: ^0.3.0
 
   # ours
-  maintemplate:
-    path: ../../maintemplate/client
+  # maintemplate:
+  #  path: ../../maintemplate/client
 
   
   # Architectural packages
+  # protobuf: ^1.0.1
   provider: ^4.0.4
   provider_architecture: ^1.0.6
   equatable:
