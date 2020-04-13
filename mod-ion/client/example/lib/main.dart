@@ -14,7 +14,9 @@ class AppModule extends MainModule {
   List<Router> get routers => [
         Router(
           "/",
-          module: IonModule("/module"),
+          module: IonModule("/module", 
+            deviceID: "deviceid", 
+            userAgent: "uuid"),
         ),
       ];
 

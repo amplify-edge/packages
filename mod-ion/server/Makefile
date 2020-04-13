@@ -1,6 +1,6 @@
 
 
-# https://https://github.com/pion/ion
+# https://github.com/pion/ion
 
 GO_OS 		:= $(shell go env GOOS)
 GO_ARCH		:= $(shell go env GOARCH)
@@ -19,7 +19,7 @@ LIB_BIN_NAME=$(LIB_NAME)
 LIB_BIN_FSPATH=$(GOPATH)/bin/$(LIB_BIN_NAME)
 
 # Not needed for this proj, but left for others
-SAMPLE_NAME=
+SAMPLE_NAME=sdk/flutter/example
 SAMPLE_GOPATH=$(LIB)/$(SAMPLE_NAME)
 SAMPLE_FSPATH=$(LIB_FSPATH)/$(SAMPLE_NAME)
 
@@ -66,7 +66,6 @@ git-clean: ## git-clean
 code: ## code
 	code $(LIB_FSPATH)
 
-
 docker-run: ## docker-run
 	cd $(LIB_FSPATH) && docker-compose up
 
@@ -78,6 +77,13 @@ else
 	@echo Darwin detected
 	open http://127.0.0.1:8080/
 endif
-	
 
+# connect: https://github.com/pion/ion/blob/master/sdk/flutter/example/lib/helper/ion_helper.dart#L14	
+
+flu-web-run: ## flu-web-run
+	# init
+	cd $(SAMPLE_FSPATH) && flutter create .
+	# run
+	flutter config --enable-web
+	cd $(SAMPLE_FSPATH) && flutter run -d chrome
 
