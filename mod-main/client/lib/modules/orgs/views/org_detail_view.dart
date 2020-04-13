@@ -153,7 +153,7 @@ class OrgDetailView extends StatelessWidget {
               behaviorBus.fire(OrgEvent(this.org));
               // TODO: Require help on this one, couldn't figure out why the paths aren't recognised...
               // Modular.to.pushNamed(Modular.get<Paths>().login);
-              Navigator.of(context).pushNamed("/login");
+            //  Navigator.of(context).pushNamed("/login");
             },
             child: Text("Ready"),
           ),

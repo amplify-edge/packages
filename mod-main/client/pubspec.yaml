@@ -30,6 +30,7 @@ dependencies:
 
   
   # Architectural packages
+  # protobuf: ^1.0.1
   provider: ^4.0.4
   provider_architecture: ^1.0.6
   equatable:
