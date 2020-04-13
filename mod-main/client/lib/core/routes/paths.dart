@@ -19,5 +19,6 @@ class Paths{
    supportRoles = '$baseRoute/supportRoles/orgs/:id',
    myNeeds = '$baseRoute/myneeds/orgs/:id',
    splash = '$baseRoute/',
-   login = '$baseRoute/login';
+   login = '/login';
+  
 }
