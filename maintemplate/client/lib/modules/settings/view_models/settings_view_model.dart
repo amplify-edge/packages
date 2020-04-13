@@ -18,7 +18,7 @@ class SettingsViewModel extends ChangeNotifier {
     String data = await rootBundle.loadString("assets/env.json");
     _envVariables = EnvVariables.fromJson(data);
 
-    //this.loadLocalesFromEnvVariables(_envVariables);
+    this.loadLocalesFromEnvVariables(_envVariables);
 
     print("alec data : ${_envVariables.channel}");
     notifyListeners();
@@ -81,16 +81,14 @@ class EnvVariables {
       urlNative: data["url_native"] ?? "-",
       gitHash: data["githash"] ?? "-",
       flutterChannel: data["flutter_channel"] ?? "",
-      //locales: _buildLocalesFromJsonMap(data["locales"]),
+      locales: _buildLocalesFromList(data["locales"] ?? []),
     );
   }
 
   /// Accepts a Map from the jsonDecode() and puts its values in a list.
   /// Note: If the list is empty, we will return the default list
-  static List<Locale> _buildLocalesFromJsonMap(Map<String, dynamic> _locales) {
-    List<Locale> locales = [];
-
-    _locales.forEach((key, value) => locales.add(value));
+  static List<Locale> _buildLocalesFromList(List<dynamic> _locales) {
+    List<Locale> locales = _locales.map((value) => Locale(value)).toList();
 
     return locales.isEmpty ? EnvVariableDefaults.locales : locales;
   }
