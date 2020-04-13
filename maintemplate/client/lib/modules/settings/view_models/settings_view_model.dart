@@ -27,12 +27,11 @@ class SettingsViewModel extends ChangeNotifier {
   void loadLocalesFromEnvVariables(EnvVariables _envVariables) {
     this.supportedLocales = _envVariables.locales;
     this._locale = _envVariables.locales.first;
-    print("here");
   }
 
   ThemeMode _themeMode = ThemeMode.system;
   Locale _locale = Locale('system');
-  List<Locale> supportedLocales = [Locale('system')];
+  List<Locale> supportedLocales = EnvVariableDefaults.locales;
 
   Locale get locale => _locale;
 
