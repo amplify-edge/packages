@@ -20,9 +20,12 @@ class AppModule extends MainModule{
   
   @override
   List<Router> get routers => [
-    Router("/", module: MainAppModule("/")),
+    Router("/", module: MainAppModule(
+      baseRoute: '/',
+      url: "http://[::1]:61146/#",
+      urlNative: "http://[::1]:61146/#"
+    )),
   ];
-
 }
 
 class App extends StatelessWidget {

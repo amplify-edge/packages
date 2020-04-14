@@ -40,7 +40,7 @@ class UserNeedsViewModel extends BaseModel {
   void navigateNext() {
     showActionDialogBox(
       onPressedNo: (){
-        
+        Modular.to.pushNamed('/account/signup');
       },
       onPressedYes: (){
         Modular.to.pop();
