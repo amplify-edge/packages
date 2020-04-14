@@ -1,0 +1,1 @@
+https://github.com/oschwald/geoip2-golang
