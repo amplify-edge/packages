@@ -11,7 +11,7 @@ import (
 	"os/signal"
 	"syscall"
 )
-
+// TODO need environment vars 
 func main() {
 	logger := glog.NewLoggerV2(os.Stdout, os.Stdout, os.Stdout)
 
