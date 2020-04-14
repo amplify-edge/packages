@@ -23,6 +23,7 @@ type Server struct {
 	logger glog.LoggerV2
 }
 
+// TODO client shouldnt' know anything about minio or buckets
 // New creates new instance of Svc,
 func New(ctx context.Context, bucketName string, logger glog.LoggerV2) (*Server, error) {
 	cfg, err := config.NewCfg()

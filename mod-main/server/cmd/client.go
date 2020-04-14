@@ -15,6 +15,7 @@ import (
 	"log"
 )
 
+// TODO extend for env vars needed
 var (
 	envFile = flag.String("c", "./env.sample", "path to config file")
 )
