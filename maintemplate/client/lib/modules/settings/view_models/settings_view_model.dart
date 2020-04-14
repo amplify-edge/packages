@@ -17,19 +17,21 @@ class SettingsViewModel extends ChangeNotifier {
     //await DefaultAssetBundle.of(context).loadString("assets/env.json");
     String data = await rootBundle.loadString("assets/env.json");
     _envVariables = EnvVariables.fromJson(data);
+
+    this.loadLocalesFromEnvVariables(_envVariables);
+
     print("alec data : ${_envVariables.channel}");
     notifyListeners();
   }
 
+  void loadLocalesFromEnvVariables(EnvVariables _envVariables) {
+    this.supportedLocales = _envVariables.locales;
+    this._locale = _envVariables.locales.first;
+  }
+
   ThemeMode _themeMode = ThemeMode.system;
   Locale _locale = Locale('system');
-  List<Locale> supportedLocales = [
-    Locale('system'),
-    Locale('en'),
-    Locale('es'),
-    Locale('fr'),
-    Locale('ur'),
-  ];
+  List<Locale> supportedLocales = EnvVariableDefaults.locales;
 
   Locale get locale => _locale;
 
@@ -52,11 +54,23 @@ class EnvVariables {
   final String urlNative;
   final String gitHash;
   final String flutterChannel;
+  final List<Locale> locales;
 
-  EnvVariables({this.channel, this.url, this.urlNative, this.gitHash, this.flutterChannel});
+  EnvVariables(
+      {this.channel,
+      this.url,
+      this.urlNative,
+      this.gitHash,
+      this.flutterChannel,
+      this.locales});
 
-  factory EnvVariables.empty() =>
-      EnvVariables(channel: "", url: "", urlNative: "", gitHash: "", flutterChannel: "");
+  factory EnvVariables.empty() => EnvVariables(
+      channel: "",
+      url: "",
+      urlNative: "",
+      gitHash: "",
+      flutterChannel: "",
+      locales: []);
 
   static EnvVariables fromJson(String jsonString) {
     var data = json.decode(jsonString);
@@ -66,6 +80,26 @@ class EnvVariables {
       urlNative: data["url_native"] ?? "-",
       gitHash: data["githash"] ?? "-",
       flutterChannel: data["flutter_channel"] ?? "",
+      locales: _buildLocalesFromList(data["locales"] ?? []),
     );
   }
+
+  /// Accepts a Map from the jsonDecode() and puts its values in a list.
+  /// Note: If the list is empty, we will return the default list
+  static List<Locale> _buildLocalesFromList(List<dynamic> _locales) {
+    List<Locale> locales = _locales.map((value) => Locale(value)).toList();
+
+    return locales.isEmpty ? EnvVariableDefaults.locales : locales;
+  }
+}
+
+// System Defaults
+class EnvVariableDefaults {
+  static final List<Locale> locales = [
+    Locale('system'),
+    Locale('en'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('ur'),
+  ];
 }
