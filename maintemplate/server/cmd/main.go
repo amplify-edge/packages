@@ -19,6 +19,10 @@ import (
 
 	modchat_pb "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
 	modchat_srv "github.com/getcouragenow/packages/mod-chat/server/pkg/service"
+
+	// Add more services here that you want k8 to run for yoo
+	// mod-main
+	// mod-account (auth)
 )
 
 type FileSystem struct {
