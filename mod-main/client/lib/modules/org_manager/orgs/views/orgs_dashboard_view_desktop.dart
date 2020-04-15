@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_main/core/core.dart';
 import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_view_model.dart';
 import 'package:mod_main/modules/org_manager/orgs/widgets/data_pane/data_pane.dart';
 
@@ -13,23 +16,44 @@ class OrgDashboardDesktopView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("Desktop ");
-    return Scaffold(
-      body: ResponsiveBuilder(
+    return ResponsiveBuilder(
         builder: (context, sizingInfo) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              FilterPane(sizingInfo: sizingInfo),
-              SizedBox(width: 16),
-              Expanded(
-                  child: DataPane(
-                sizingInfo: sizingInfo,
-                model: model,
-              )),
-            ],
+          return Scaffold(
+              appBar: AppBar(
+              elevation: 0,
+             // iconTheme: Theme.of(context).iconTheme,  
+              automaticallyImplyLeading:(sizingInfo.screenSize.width > 1100) ? false : true,
+              title: Text("London Tax Strike"),
+              actions: <Widget>[
+                 IconButton(
+                              tooltip: "Copy Link",
+                              icon: Icon(Icons.link), onPressed: () async {
+                                String link = "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "1")}";
+                                // ${Modular.get<Paths>().org.replaceAll(":id", "$index")
+                                print(Modular.get<Paths>().baseRoute);
+                              await Clipboard.setData(new ClipboardData(text: link));
+                              print(link);
+                              print(Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "1"));
+                            })
+              ],
+            ),
+          drawer:(sizingInfo.screenSize.width > 1100) ? null : Drawer(
+              child: FilterPane(sizingInfo: sizingInfo)),
+                      body: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                FilterPane(sizingInfo: sizingInfo),
+                SizedBox(width: 16),
+                Expanded(
+                    child: DataPane(
+                  sizingInfo: sizingInfo,
+                  model: model,
+                )),
+              ],
+            ),
           );
         },
-      ),
+      
     );
   }
 }

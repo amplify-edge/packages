@@ -9,6 +9,6 @@ class Paths {
   static const String settings = '/settings';
   static const String modWriter = '/modWriter';
   static const String modGeo = '/geo';
-  static const String modMain = '/enrollement';
+  static const String modMain = '/';
   static const String modAccount = '/account';
 }

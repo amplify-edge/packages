@@ -24,7 +24,7 @@ class OrgManagerView extends StatelessWidget {
       builder: (context,OrgsViewModel model, child) => Scaffold(
         body: ResponsiveBuilder(
           builder: (context, sizingInfo){
-            if(sizingInfo.screenSize.width > 720){
+            if(sizingInfo.screenSize.width >= 720){
               return OrgManagerViewDesktop(model: model,);
             }
 
