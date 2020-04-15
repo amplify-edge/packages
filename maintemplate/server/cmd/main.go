@@ -17,11 +17,11 @@ import (
 	"github.com/nats-io/nats.go"
 	stan "github.com/nats-io/stan.go"
 
-	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
-	authz "github.com/getcouragenow/packages/mod-account/server/authz_server"
 	modchat_pb "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
 	modchat_srv "github.com/getcouragenow/packages/mod-chat/server/pkg/service"
-	healthpb "google.golang.org/grpc/health/grpc_health_v1"
+	// auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
+	// authz "github.com/getcouragenow/packages/mod-account/server/authz_server"
+	// healthpb "google.golang.org/grpc/health/grpc_health_v1"
 )
 
 type FileSystem struct {
@@ -77,10 +77,10 @@ func main() {
 	modchat_pb.RegisterBroadcastServer(grpcServer, server)
 
 	// authz server
-	auth.RegisterAuthorizationServer(grpcServer, &authz.AuthorizationServer{})
+	// auth.RegisterAuthorizationServer(grpcServer, &authz.AuthorizationServer{})
 
 	// health check server
-	healthpb.RegisterHealthServer(grpcServer, &authz.HealthServer{})
+	// healthpb.RegisterHealthServer(grpcServer, &authz.HealthServer{})
 
 	if *local {
 		fileServer := http.FileServer(FileSystem{http.Dir(*directory)})
