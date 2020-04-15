@@ -19,6 +19,7 @@ import (
 )
 
 // TODO extend for env vars needed
+// Env vars should be in the k8s deployment (i.e. helm charts via secrets)
 var (
 	envFile = flag.String("c", "./env.sample", "path to config file")
 )

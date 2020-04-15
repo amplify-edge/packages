@@ -102,6 +102,12 @@ message SupportRoles {
     repeated SupportRole support_roles = 1;
 }
 
+message ListAnswersRequest {
+    string support_role_id = 1;
+    string campaign_id = 2;
+}
+
+
 service Question {
 //    rpc GetOrg(GetOrgRequest) returns (Org);
 //    rpc ListOrg(ListOrgRequest) returns (Orgs);
@@ -110,4 +116,5 @@ service Question {
     rpc NewAnswer(NewAnswerRequest) returns (NewAnswerResponse);
     rpc GetAnswer(AnswerIdRequest) returns (Answer);
     rpc DeleteAnswer(AnswerIdRequest) returns (DeleteAnswerResponse);
+    rpc ListAnswers(ListAnswersRequest) returns (Answers);
 }
