@@ -2,6 +2,9 @@ import 'package:mod_main/core/core.dart';
 import 'package:mod_main/modules/org_manager/orgs/data/org_model.dart';
 
 class OrgsViewModel extends BaseModel {
+
+  // This all is to manage orgs, please change it to match the users data model.
+  
   List<Org> _orgs = mockOrgs;
   int _rowsPerPage = 10;
   int _firstRowIndex = 0;

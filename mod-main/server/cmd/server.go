@@ -11,7 +11,7 @@ import (
 	"os/signal"
 	"syscall"
 )
-
+// TODO need environment vars 
 func main() {
 	logger := glog.NewLoggerV2(os.Stdout, os.Stdout, os.Stdout)
 
@@ -24,7 +24,7 @@ func main() {
 	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
 	defer signal.Stop(interrupt)
 
-	srv, err := service.New(ctx, "answers", logger)
+	srv, err := service.New(ctx, logger)
 	if err != nil {
 		logger.Fatal("Error when creating mod-main server: %s", err.Error())
 	}

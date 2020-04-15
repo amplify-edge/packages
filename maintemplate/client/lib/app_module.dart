@@ -40,7 +40,7 @@ class AppModule extends MainModule {
         //     transition: TransitionType.fadeIn),
         Router(Paths.startup, child: (_, args) => StartupView()),
         Router(Paths.modAccount, module: AccountModule(Paths.modAccount)),
-        Router(Paths.modMain, module: MainAppModule(Paths.modMain)),
+        Router(Paths.modMain, module: MainAppModule(baseRoute: Paths.modMain)),
         Router(Paths.chat,
             module: ChatModule(Paths.chat,
                 deviceID: SessionModule.deviceID, url: url, urlNative: urlNative)),

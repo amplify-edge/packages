@@ -68,6 +68,7 @@ func main() {
 
 	id := sha256.Sum256([]byte(timestamp.String() + *name))
 
+	// TODO: Add environment vars from top
 	tlsCert, _, err := getcert.FromTLSServer("grpc.maintemplate.ci.getcouragenow.org:443", false)
 
 	config := &tls.Config{

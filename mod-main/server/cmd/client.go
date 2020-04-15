@@ -6,6 +6,9 @@ import (
 	"flag"
 	pb "github.com/getcouragenow/packages/mod-main/server/pkg/api"
 	"time"
+	"os"
+	"path/filepath"
+	"fmt"
 
 	// pb "github.com/getcouragenow/packages/mod-main/server/pkg/api"
 	"github.com/johnsiilver/getcert"
@@ -15,11 +18,15 @@ import (
 	"log"
 )
 
+// TODO extend for env vars needed
+// Env vars should be in the k8s deployment (i.e. helm charts via secrets)
 var (
 	envFile = flag.String("c", "./env.sample", "path to config file")
 )
 
 func main() {
+	printTestDataFiles()
+
 	flag.Parse()
 	err := godotenv.Load(*envFile)
 	if err != nil {
@@ -60,4 +67,20 @@ func main() {
 	}
 	
 	log.Printf("Got: %v", ans)
+}
+
+func printTestDataFiles() {
+	var files []string
+
+    root := "../data/outputs/datadump/"
+    err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+        files = append(files, path)
+        return nil
+    })
+    if err != nil {
+        panic(err)
+    }
+    for _, file := range files {
+        fmt.Println(file)
+    }
 }

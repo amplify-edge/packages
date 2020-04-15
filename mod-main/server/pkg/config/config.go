@@ -24,6 +24,7 @@ type ConnCfg struct {
 	Location string
 	UseSSL bool
 	Timeout time.Duration
+	BucketName string
 }
 
 // NewCfg creates new instance of ModMainCfg
@@ -41,6 +42,7 @@ func NewCfg() (*ModMainCfg, error) {
 			Location:  os.Getenv("MINIO_LOCATION"),
 			UseSSL:    usesSSL,
 			Timeout:   time.Millisecond * time.Duration(validateUintEnv("MINIO_TIMEOUT")),
+			BucketName: os.Getenv("BUCKET_NAME"),
 		},
 	}
 	err := c.validate()
