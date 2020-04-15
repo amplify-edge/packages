@@ -55,11 +55,11 @@ class Org {
     @required this.alreadyPledged,
     @required this.backingOrg,
     @required this.campaignName,
-    @required this.campaignStill,
+    this.campaignStill,
     @required this.category,
     @required this.contact,
-    @required this.crgIdsMany,
-    @required this.crgQuantityMany,
+    this.crgIdsMany,
+    this.crgQuantityMany,
     @required this.goal,
     @required this.histPrecedents,
     @required this.id,
@@ -70,7 +70,7 @@ class Org {
     @required this.organization,
     @required this.strategy,
     @required this.uom,
-    @required this.videoURL,
+    this.videoURL,
     @required this.actionTime,
     @required this.actionLocation,
   })  : assert(id != null),
@@ -82,7 +82,8 @@ class Org {
         assert(actionLocation != null),
         assert(alreadyPledged != null),
         assert(logoUrl != null),
-        assert(crgQuantityMany != null),
+        //assert(crgQuantityMany != null),
+        //assert(crgIdsMany != null),
         assert(actionLength != null),
         assert(actionType != null),
         assert(backingOrg != null),
@@ -92,42 +93,6 @@ class Org {
         assert(histPrecedents != null),
         assert(organization != null),
         assert(strategy != null),
-        assert(videoURL != null),
-        assert(uom != null),
-        assert(crgIdsMany != null);
+        //assert(videoURL != null),
+        assert(uom != null);
 }
-
-List<Org> mockOrgs = [
-  Org(
-    actionLength: "1",
-    actionType: "NVDA",
-    alreadyPledged: "29738",
-    backingOrg: [
-      "Org 1",
-      "Org 2",
-      "Org 3",
-
-    ],
-    campaignName: "NY State Pipeline Shutdown",
-    campaignStill: "NY State Pipeline Shutdown",
-    category: "Climate",
-    contact: "climate@xr.org",
-    crgIdsMany: [],
-    crgQuantityMany: [],
-    goal: "We will state a peaceful NVDA at the NYC Pipeline with the demand to have it shut down.",
-    histPrecedents: "TBA",
-    id: "1",
-    logoUrl: "https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/wp-cms/uploads/2019/10/i-2-90414932-extinction-rebellion-symbol.jpg",
-    minPioneers: "50",
-    minRebelsForMedia: "5000",
-    minRebelsToWin: "50,000",
-    organization: "Extinction Rebellion XR",
-    strategy: "TBA",
-    uom: "uom",
-    videoURL: [
-   
-    ],
-    actionLocation: "NYC Pipeline, NY, USA",
-    actionTime: DateTime(2020,4,4,11,04),
-  ),
-];

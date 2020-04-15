@@ -1,20 +1,21 @@
-
-
 import 'package:mod_main/modules/orgs/data/org_model.dart';
+import 'package:mod_main/core/shared_repositories/org_repository.dart';
 
-class OrgsService{
+class OrgsService {
+  final OrgRepository _repository;
 
-  List<Org> _orgs = mockOrgs;
+  OrgsService({repository}): this._repository = repository;
 
-  Org getOrgById(String id){
-    for(var org in _orgs){
-      if(org.id == id){
-        return org;
-      }
-    }
+  Org getOrgById(String id) {
+    return this._repository.getById(id);
   }
 
-  List<Org> getOrgs(){
-    return _orgs;
+  List<Org> getOrgsByName(String name) {
+    return this._repository.getByName(name);
+  }
+
+  List<Org> getAll(){
+    // TODO Pull data from go client
+    return this._repository.getAll();
   }
 }

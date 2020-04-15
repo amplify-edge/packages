@@ -7,7 +7,7 @@ import '../service/orgs_service.dart';
 class OrgViewModel extends BaseModel{
   final OrgsService orgService = Modular.get<OrgsService>();
 
-  List<Org> get orgs => orgService.getOrgs();
+  List<Org> get orgs => orgService.getAll();
 
   void navigateToReady(){
     Modular.to.pushNamed(Modular.get<Paths>().ready);
