@@ -15,7 +15,7 @@ help:  ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 
-print:
+print: ## print
 	@echo
 	@echo LIB_NAME: $(LIB_NAME)
 	@echo LIB: $(LIB)
@@ -43,19 +43,19 @@ code:
 os-dep: ## os-dep
 
 
-build:
+go-build: ## go-build
 	# into its bin
 	cd $(LIB_FSPATH) && make rebuild
 
 
 # https://developers.nextzen.org/keys
 export NEXTZEN_APIKEY=WamxgmroS--FvYBcvVRM6A
-run:	
+go-run: ## go-run
 	mkdir -p $(LIB_FSPATH)/./cache/
 	cd $(LIB_FSPATH) && ./bin/rasterd -fs-cache -fs-root $(LIB_FSPATH)/./cache/ -nextzen-apikey $(NEXTZEN_APIKEY) -www
 
 
-seed:
+go-seed: ## go-seed
 	#cd $(LIB_FSPATH) && 	./bin/rasterd -fs-cache -fs-root ./cache/ -nextzen-apikey {NEXTZEN_API} -www
 
 	cd $(LIB_FSPATH) && ./bin/rasterzen-seed -fs-cache -fs-root cache -nextzen-apikey $(NEXTZEN_APIKEY) -mode extent -extent '-73.9475518701 45.4145906777 -73.4761975429 45.7037982616' -min-zoom 10 -max-zoom 12 -seed-png -www

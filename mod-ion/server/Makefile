@@ -69,6 +69,10 @@ code: ## code
 docker-run: ## docker-run
 	cd $(LIB_FSPATH) && docker-compose up
 
+docker-stop: ## docker-stop
+	cd $(LIB_FSPATH) && docker-compose down
+
+
 browser-run: ## browser-run
 ifeq ($(GO_OS), windows)
 	@echo Windows detected
