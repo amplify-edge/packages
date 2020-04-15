@@ -7,26 +7,22 @@ GIT_VERSION	:= $(shell git describe --tags)
 current_dir = $(shell pwd)
 
 
-# https://github.com/oschwald/geoip2-golang
+# https://github.com/FrankSantoso/lamat
 
-LIB_NAME=geoip2-golang
-LIB=github.com/oschwald/$(LIB_NAME)
+LIB_NAME=lamat
+LIB=github.com/FrankSantoso/$(LIB_NAME)
 LIB_BRANCH=master
 LIB_FSPATH=$(GOPATH)/src/$(LIB)
+LIB_BIN_FSPATH=$(GOPATH)/bin/$(LIB_NAME)
 
 GO111MODULE=on
 
 
-SAMPLE_NAME = 
+SAMPLE_NAME = example
 SAMPLE_FSPATH = $(PWD)/$(SAMPLE_NAME)
 
 # Absolute File path to Server
 SERVER_FSPATH=$(current_dir)/../server
-
-I18N_TEMPLATE_DIR = $(current_dir)/i18n/
-I18N_TEMPLATE_NAME = "intl.arb"
-I18N_TEMPLATE_PATH = $(I18N_TEMPLATE_DIR)/$(I18N_TEMPLATE_NAME)
-I18N_PREFIX_OUT_FILES = "stock"
 
 help: ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
@@ -36,7 +32,7 @@ print: ## print
 	@echo GO_OS: $(GO_OS)
 	@echo GO_ARCH: $(GO_ARCH)
 	@echo GIT_VERSION: $(GIT_VERSION)
-	@echo LIB_FSPATH: $(LIB_FSPATH)
+	
 	@echo
 
 
@@ -45,6 +41,7 @@ print: ## print
 	@echo LIB: $(LIB)
 	@echo LIB_BRANCH: $(LIB_BRANCH)
 	@echo LIB_FSPATH: $(LIB_FSPATH)
+	@echo LIB_BIN_FSPATH: $(LIB_BIN_FSPATH)
 	@echo
 
 	@echo SAMPLE
@@ -75,10 +72,7 @@ code:
 
 
 os-dep:
-	# Get maxmin db
-	cd $(LIB_FSPATH) && git submodule init
-	cd $(LIB_FSPATH) && git submodule update
-
+	# Assume hover make file has ben run
 
 ### FLU
 
@@ -143,9 +137,36 @@ endif
 
 ## GO
 
-go-run: ## go-run
+## nominatim
+## API registration: https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register
+## Key: https://developer.mapquest.com/user/me/apps
+go-config:
+	stat ./config.toml
 
-	go run main.go
+go-build:
+	cd $(LIB_FSPATH)/cmd && go build -o $(LIB_BIN_FSPATH)
 
+go-run-rev: ## go-run-rev
+	# Reverse Geocoding
+	# https://www.latlong.net/
+	# Berlin: Lat; 52.520008, LONG: 13.404954
+	#lamat rev -- 13.404954 52.520008
+	lamat rev -- 52.520008 13.404954 
 
+go-run-for: ## go-run-for
+	# Forward Geocoding
+	#lamat find -- "Berlin, Germany"
+
+	# WORKS
+	#lamat find -- "30 Unter den Eichen, 14478 Potsdam, DE"
+
+	# FAILS
+	lamat find -- "27 Old Gloucester Street, Monomark House, London, WC1N 3AX, GB"
+
+	lamat find -- "27 Old Gloucester Street, London, WC1N 3AX, GB"
+	# RESULT: Tutorially, 27, Old Gloucester Street, Holborn, St Giles, London Borough of Camden, London, Greater London, England, WC1N 3AX, United Kingdom
+
+	
+
+	
 
