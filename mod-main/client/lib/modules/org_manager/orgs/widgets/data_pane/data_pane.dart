@@ -46,10 +46,10 @@ class DataPane extends StatelessWidget {
       },
       rowCountApproximate: true,
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.info_outline),
-          onPressed: () {},
-        ),
+        // IconButton(
+        //   icon: Icon(Icons.info_outline),
+        //   onPressed: () {},
+        // ),
       ],
       selectedActions: <Widget>[
         IconButton(
@@ -57,6 +57,7 @@ class DataPane extends StatelessWidget {
           onPressed: () {},
         ),
       ],
+
       itemBuilder: (int index) {
         final org = model.orgs[index];
         return DataRow.byIndex(

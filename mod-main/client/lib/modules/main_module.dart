@@ -43,12 +43,14 @@ class MainAppModule extends ChildModule{
   @override
   List<Router> get routers => [
     Router("/", child: (_, args) => SplashView()),
-    Router("/dashboard", child: (_, args) => OrgManagerView()),
+    /// Non-Admin Dashboard Routes
     Router("/userInfo", child: (_, args) => UserInfoView()),
     Router("/orgs", child: (_, args) => OrgView()),
     Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
-     Router("/orgs/:id", child: (_, args) => OrgsDetailViewMobile(orgID: args.params['id'], model : args.data,)),
+    /// Admin Dashboard Routes
+    Router("/dashboard", child: (_, args) => OrgManagerView()),
+    Router("/dashboard/orgs/:id", child: (_, args) => OrgsDetailViewMobile(orgID: args.params['id'],)),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();

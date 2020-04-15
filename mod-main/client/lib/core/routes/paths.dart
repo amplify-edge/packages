@@ -12,13 +12,13 @@ class Paths{
   String org;
 
   Paths(this.baseRoute) : 
-   dashboard  = '$baseRoute/dashboard',
-   userInfo = '$baseRoute/userInfo',
+   dashboard  = '$baseRoute/dashboard', // Admin dashboard routes
+   org = '$baseRoute/dashboard/orgs/:id', // Admin dashboard routes
+   userInfo = '$baseRoute/userInfo',// Non-Admin routes
    orgs = '$baseRoute/orgs',
    ready = '$baseRoute/ready',
    supportRoles = '$baseRoute/supportRoles/orgs/:id',
    myNeeds = '$baseRoute/myneeds/orgs/:id',
-   org = '$baseRoute/orgs/:id',
    splash = '$baseRoute/';
   
 }
