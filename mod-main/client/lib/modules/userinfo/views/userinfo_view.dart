@@ -34,7 +34,7 @@ class UserInfoView extends StatelessWidget {
                   hintText: 'Zip Code',
                 ),
               ),
-            
+            /*
               const SizedBox(height: 48.0),
               Text(
                 '2. Travel distance you can afford?',
@@ -71,7 +71,7 @@ class UserInfoView extends StatelessWidget {
                   model.changeAffiliation(value);
                 }, model.selectedCampaignAffiliation,
                     model.campaignAffiliations),
-            
+              */
               const SizedBox(height: 48.0),
                ButtonBar(
                   children: <Widget>[
