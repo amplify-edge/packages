@@ -2,16 +2,18 @@ package main
 
 import (
 	"context"
-	api "github.com/getcouragenow/packages/mod-main/server/pkg/api"
-	"github.com/getcouragenow/packages/mod-main/server/pkg/service"
-	"google.golang.org/grpc"
-	glog "google.golang.org/grpc/grpclog"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
+
+	api "github.com/getcouragenow/packages/mod-main/server/pkg/api"
+	"github.com/getcouragenow/packages/mod-main/server/pkg/service"
+	"google.golang.org/grpc"
+	glog "google.golang.org/grpc/grpclog"
 )
-// TODO need environment vars 
+
+// TODO need environment vars
 func main() {
 	logger := glog.NewLoggerV2(os.Stdout, os.Stdout, os.Stdout)
 
