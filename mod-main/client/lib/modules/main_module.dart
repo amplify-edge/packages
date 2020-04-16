@@ -49,8 +49,9 @@ class MainAppModule extends ChildModule{
     Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
-    Router("/dashboard", child: (_, args) => OrgManagerView()),
-    Router("/dashboard/orgs/:id", child: (_, args) => OrgsDetailViewMobile(orgID: args.params['id'],)),
+    /// Router("/dashboard/orgs", child: (_, args) => MaterPage()),
+    Router("/dashboard/orgs/:id", child: (_, args) => OrgManagerView(orgID: args.params['id'],)),
+   // Router("/dashboard/orgs/:id", child: (_, args) => OrgsDetailViewMobile(orgID: args.params['id'],)),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();
