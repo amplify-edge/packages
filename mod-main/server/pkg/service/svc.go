@@ -7,6 +7,7 @@ import (
 	"github.com/getcouragenow/packages/mod-main/server/pkg/config"
 	"github.com/getcouragenow/packages/mod-main/server/pkg/store/minio"
 	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/ptypes/empty"
 	glog "google.golang.org/grpc/grpclog"
 	"io"
 	"io/ioutil"
@@ -229,6 +230,14 @@ func (s *Server) ListCampaigns(ctx context.Context, req *pb.ListCampaignRequest)
 		return nil, err
 	}
 	return &campaigns, nil
+}
+
+// TODO: need to secure this
+func (s *Server) Migrate(ctx context.Context, req *pb.MigrateRequest) (*empty.Empty, error) {
+	if err := s.store.Migrate(ctx, req.GetDatapath()); err != nil {
+		return nil, err
+	}
+	return &empty.Empty{}, nil
 }
 
 func readSeekerProto(f io.ReadSeeker) (*pb.Answer, error) {

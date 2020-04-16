@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 package proto;
-
 
 message ListSupportRoleRequest {
 }
@@ -127,7 +127,12 @@ message Users {
     repeated User users = 1;
 }
 
+message MigrateRequest {
+    string datapath = 1;
+}
+
 service Question {
+    rpc Migrate(MigrateRequest) returns (google.protobuf.Empty);
     rpc GetUser (GetUserRequest) returns (User);
     rpc ListUsers (ListUserRequest) returns (Users);
     rpc GetCampaign (GetCampaignRequest) returns (Campaign);

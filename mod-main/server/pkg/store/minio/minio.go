@@ -9,6 +9,8 @@ import (
 	"github.com/minio/minio-go/v6/pkg/s3utils"
 	"io"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 	"regexp"
 )
 
@@ -115,6 +117,47 @@ func New(ctx context.Context, cfg config.ConnCfg) (*Ministore, error) {
 			sse:    sse,
 		},
 	}, nil
+}
+
+func (m *Ministore) Migrate(ctx context.Context, datapath string) error {
+	filenames, err := getCsvFilenames(datapath)
+	if err != nil {
+		return err
+	}
+	for _, v := range filenames {
+		file, err  := os.OpenFile(datapath + "/" + v, os.O_RDONLY, 0644)
+		if err != nil {
+			return err
+		}
+		_, err  = m.Put(ctx, v, file)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func getCsvFilenames(datapath string) ([]string, error) {
+	var matches []string
+	err := filepath.Walk(datapath, func(csvpath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		// json dir inside csv output, just abandon it
+		if info.IsDir() {
+			return nil
+		}
+		if matched, err := filepath.Match("*.csv", filepath.Base(csvpath)); err != nil {
+			return err
+		} else if matched {
+			matches = append(matches, csvpath)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return matches, nil
 }
 
 // Put will 'put' the object under the name to minio store
