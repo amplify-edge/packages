@@ -26,9 +26,6 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type ListSupportRoleRequest struct {
-	// optionally adds org_id to get all support roles
-	// in that org.
-	OrgId                string   `protobuf:"bytes,1,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -58,13 +55,6 @@ func (m *ListSupportRoleRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ListSupportRoleRequest proto.InternalMessageInfo
-
-func (m *ListSupportRoleRequest) GetOrgId() string {
-	if m != nil {
-		return m.OrgId
-	}
-	return ""
-}
 
 type GetSupportRoleRequest struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -105,109 +95,109 @@ func (m *GetSupportRoleRequest) GetId() string {
 	return ""
 }
 
-type Orgs struct {
-	Orgs                 []*Org   `protobuf:"bytes,1,rep,name=orgs,proto3" json:"orgs,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type Campaigns struct {
+	Campaigns            []*Campaign `protobuf:"bytes,1,rep,name=campaigns,proto3" json:"campaigns,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
 }
 
-func (m *Orgs) Reset()         { *m = Orgs{} }
-func (m *Orgs) String() string { return proto.CompactTextString(m) }
-func (*Orgs) ProtoMessage()    {}
-func (*Orgs) Descriptor() ([]byte, []int) {
+func (m *Campaigns) Reset()         { *m = Campaigns{} }
+func (m *Campaigns) String() string { return proto.CompactTextString(m) }
+func (*Campaigns) ProtoMessage()    {}
+func (*Campaigns) Descriptor() ([]byte, []int) {
 	return fileDescriptor_a0b84a42fa06f626, []int{2}
 }
 
-func (m *Orgs) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Orgs.Unmarshal(m, b)
+func (m *Campaigns) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Campaigns.Unmarshal(m, b)
 }
-func (m *Orgs) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Orgs.Marshal(b, m, deterministic)
+func (m *Campaigns) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Campaigns.Marshal(b, m, deterministic)
 }
-func (m *Orgs) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Orgs.Merge(m, src)
+func (m *Campaigns) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Campaigns.Merge(m, src)
 }
-func (m *Orgs) XXX_Size() int {
-	return xxx_messageInfo_Orgs.Size(m)
+func (m *Campaigns) XXX_Size() int {
+	return xxx_messageInfo_Campaigns.Size(m)
 }
-func (m *Orgs) XXX_DiscardUnknown() {
-	xxx_messageInfo_Orgs.DiscardUnknown(m)
+func (m *Campaigns) XXX_DiscardUnknown() {
+	xxx_messageInfo_Campaigns.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Orgs proto.InternalMessageInfo
+var xxx_messageInfo_Campaigns proto.InternalMessageInfo
 
-func (m *Orgs) GetOrgs() []*Org {
+func (m *Campaigns) GetCampaigns() []*Campaign {
 	if m != nil {
-		return m.Orgs
+		return m.Campaigns
 	}
 	return nil
 }
 
-type ListOrgRequest struct {
+type ListCampaignRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ListOrgRequest) Reset()         { *m = ListOrgRequest{} }
-func (m *ListOrgRequest) String() string { return proto.CompactTextString(m) }
-func (*ListOrgRequest) ProtoMessage()    {}
-func (*ListOrgRequest) Descriptor() ([]byte, []int) {
+func (m *ListCampaignRequest) Reset()         { *m = ListCampaignRequest{} }
+func (m *ListCampaignRequest) String() string { return proto.CompactTextString(m) }
+func (*ListCampaignRequest) ProtoMessage()    {}
+func (*ListCampaignRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_a0b84a42fa06f626, []int{3}
 }
 
-func (m *ListOrgRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListOrgRequest.Unmarshal(m, b)
+func (m *ListCampaignRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListCampaignRequest.Unmarshal(m, b)
 }
-func (m *ListOrgRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListOrgRequest.Marshal(b, m, deterministic)
+func (m *ListCampaignRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListCampaignRequest.Marshal(b, m, deterministic)
 }
-func (m *ListOrgRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListOrgRequest.Merge(m, src)
+func (m *ListCampaignRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListCampaignRequest.Merge(m, src)
 }
-func (m *ListOrgRequest) XXX_Size() int {
-	return xxx_messageInfo_ListOrgRequest.Size(m)
+func (m *ListCampaignRequest) XXX_Size() int {
+	return xxx_messageInfo_ListCampaignRequest.Size(m)
 }
-func (m *ListOrgRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListOrgRequest.DiscardUnknown(m)
+func (m *ListCampaignRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListCampaignRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListOrgRequest proto.InternalMessageInfo
+var xxx_messageInfo_ListCampaignRequest proto.InternalMessageInfo
 
-type GetOrgRequest struct {
+type GetCampaignRequest struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetOrgRequest) Reset()         { *m = GetOrgRequest{} }
-func (m *GetOrgRequest) String() string { return proto.CompactTextString(m) }
-func (*GetOrgRequest) ProtoMessage()    {}
-func (*GetOrgRequest) Descriptor() ([]byte, []int) {
+func (m *GetCampaignRequest) Reset()         { *m = GetCampaignRequest{} }
+func (m *GetCampaignRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCampaignRequest) ProtoMessage()    {}
+func (*GetCampaignRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_a0b84a42fa06f626, []int{4}
 }
 
-func (m *GetOrgRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetOrgRequest.Unmarshal(m, b)
+func (m *GetCampaignRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCampaignRequest.Unmarshal(m, b)
 }
-func (m *GetOrgRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetOrgRequest.Marshal(b, m, deterministic)
+func (m *GetCampaignRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCampaignRequest.Marshal(b, m, deterministic)
 }
-func (m *GetOrgRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetOrgRequest.Merge(m, src)
+func (m *GetCampaignRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCampaignRequest.Merge(m, src)
 }
-func (m *GetOrgRequest) XXX_Size() int {
-	return xxx_messageInfo_GetOrgRequest.Size(m)
+func (m *GetCampaignRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCampaignRequest.Size(m)
 }
-func (m *GetOrgRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetOrgRequest.DiscardUnknown(m)
+func (m *GetCampaignRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCampaignRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetOrgRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetCampaignRequest proto.InternalMessageInfo
 
-func (m *GetOrgRequest) GetId() string {
+func (m *GetCampaignRequest) GetId() string {
 	if m != nil {
 		return m.Id
 	}
@@ -389,26 +379,125 @@ func (m *Answers) GetAnswers() []*Answer {
 	return nil
 }
 
+type User struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	FirstName            string   `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName             string   `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Email                string   `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
+	DisplayName          string   `protobuf:"bytes,5,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
+	Avatar               string   `protobuf:"bytes,6,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	Url                  string   `protobuf:"bytes,7,opt,name=url,proto3" json:"url,omitempty"`
+	ChatgroupIds         string   `protobuf:"bytes,8,opt,name=chatgroup_ids,json=chatgroupIds,proto3" json:"chatgroup_ids,omitempty"`
+	Campaign             string   `protobuf:"bytes,9,opt,name=campaign,proto3" json:"campaign,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *User) Reset()         { *m = User{} }
+func (m *User) String() string { return proto.CompactTextString(m) }
+func (*User) ProtoMessage()    {}
+func (*User) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{8}
+}
+
+func (m *User) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_User.Unmarshal(m, b)
+}
+func (m *User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_User.Marshal(b, m, deterministic)
+}
+func (m *User) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_User.Merge(m, src)
+}
+func (m *User) XXX_Size() int {
+	return xxx_messageInfo_User.Size(m)
+}
+func (m *User) XXX_DiscardUnknown() {
+	xxx_messageInfo_User.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_User proto.InternalMessageInfo
+
+func (m *User) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *User) GetFirstName() string {
+	if m != nil {
+		return m.FirstName
+	}
+	return ""
+}
+
+func (m *User) GetLastName() string {
+	if m != nil {
+		return m.LastName
+	}
+	return ""
+}
+
+func (m *User) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *User) GetDisplayName() string {
+	if m != nil {
+		return m.DisplayName
+	}
+	return ""
+}
+
+func (m *User) GetAvatar() string {
+	if m != nil {
+		return m.Avatar
+	}
+	return ""
+}
+
+func (m *User) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+func (m *User) GetChatgroupIds() string {
+	if m != nil {
+		return m.ChatgroupIds
+	}
+	return ""
+}
+
+func (m *User) GetCampaign() string {
+	if m != nil {
+		return m.Campaign
+	}
+	return ""
+}
+
 type SupportRole struct {
-	Id        string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Comment   string `protobuf:"bytes,3,opt,name=comment,proto3" json:"comment,omitempty"`
-	Mandatory bool   `protobuf:"varint,4,opt,name=mandatory,proto3" json:"mandatory,omitempty"`
-	Uom       string `protobuf:"bytes,5,opt,name=uom,proto3" json:"uom,omitempty"`
-	MinHours  string `protobuf:"bytes,6,opt,name=min_hours,json=minHours,proto3" json:"min_hours,omitempty"`
-	// org campaign id
-	CampaignId           string               `protobuf:"bytes,7,opt,name=campaign_id,json=campaignId,proto3" json:"campaign_id,omitempty"`
-	CreatedAt            *timestamp.Timestamp `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Comment              string   `protobuf:"bytes,3,opt,name=comment,proto3" json:"comment,omitempty"`
+	Mandatory            bool     `protobuf:"varint,4,opt,name=mandatory,proto3" json:"mandatory,omitempty"`
+	Uom                  string   `protobuf:"bytes,5,opt,name=uom,proto3" json:"uom,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *SupportRole) Reset()         { *m = SupportRole{} }
 func (m *SupportRole) String() string { return proto.CompactTextString(m) }
 func (*SupportRole) ProtoMessage()    {}
 func (*SupportRole) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{8}
+	return fileDescriptor_a0b84a42fa06f626, []int{9}
 }
 
 func (m *SupportRole) XXX_Unmarshal(b []byte) error {
@@ -464,240 +553,260 @@ func (m *SupportRole) GetUom() string {
 	return ""
 }
 
-func (m *SupportRole) GetMinHours() string {
-	if m != nil {
-		return m.MinHours
-	}
-	return ""
+type Campaign struct {
+	CampaignId        string               `protobuf:"bytes,1,opt,name=campaign_id,json=campaignId,proto3" json:"campaign_id,omitempty"`
+	CampaignName      string               `protobuf:"bytes,2,opt,name=campaign_name,json=campaignName,proto3" json:"campaign_name,omitempty"`
+	LogoUrl           string               `protobuf:"bytes,3,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Goal              string               `protobuf:"bytes,4,opt,name=goal,proto3" json:"goal,omitempty"`
+	CrgQuantityMany   []string             `protobuf:"bytes,5,rep,name=crg_quantity_many,json=crgQuantityMany,proto3" json:"crg_quantity_many,omitempty"`
+	CrgIdsMany        []string             `protobuf:"bytes,6,rep,name=crg_ids_many,json=crgIdsMany,proto3" json:"crg_ids_many,omitempty"`
+	AlreadyPledged    string               `protobuf:"bytes,7,opt,name=already_pledged,json=alreadyPledged,proto3" json:"already_pledged,omitempty"`
+	ActionTime        *timestamp.Timestamp `protobuf:"bytes,8,opt,name=action_time,json=actionTime,proto3" json:"action_time,omitempty"`
+	ActionLocation    string               `protobuf:"bytes,9,opt,name=action_location,json=actionLocation,proto3" json:"action_location,omitempty"`
+	CampaignStill     string               `protobuf:"bytes,10,opt,name=campaign_still,json=campaignStill,proto3" json:"campaign_still,omitempty"`
+	MinPioneers       string               `protobuf:"bytes,11,opt,name=min_pioneers,json=minPioneers,proto3" json:"min_pioneers,omitempty"`
+	MinRebelsForMedia string               `protobuf:"bytes,12,opt,name=min_rebels_for_media,json=minRebelsForMedia,proto3" json:"min_rebels_for_media,omitempty"`
+	MinRebelsToWin    string               `protobuf:"bytes,13,opt,name=min_rebels_to_win,json=minRebelsToWin,proto3" json:"min_rebels_to_win,omitempty"`
+	ActionType        string               `protobuf:"bytes,15,opt,name=action_type,json=actionType,proto3" json:"action_type,omitempty"`
+	BackingOrg        []string             `protobuf:"bytes,16,rep,name=backing_org,json=backingOrg,proto3" json:"backing_org,omitempty"`
+	Category          string               `protobuf:"bytes,17,opt,name=category,proto3" json:"category,omitempty"`
+	Contact           string               `protobuf:"bytes,18,opt,name=contact,proto3" json:"contact,omitempty"`
+	HistPrecedents    string               `protobuf:"bytes,19,opt,name=hist_precedents,json=histPrecedents,proto3" json:"hist_precedents,omitempty"`
+	Organization      string               `protobuf:"bytes,20,opt,name=organization,proto3" json:"organization,omitempty"`
+	Strategy          string               `protobuf:"bytes,21,opt,name=strategy,proto3" json:"strategy,omitempty"`
+	VideoUrl          []string             `protobuf:"bytes,22,rep,name=video_url,json=videoUrl,proto3" json:"video_url,omitempty"`
+	Uom               string               `protobuf:"bytes,23,opt,name=uom,proto3" json:"uom,omitempty"`
+	// Types that are valid to be assigned to ActionLength:
+	//	*Campaign_ActionLengthString
+	//	*Campaign_ActionLengthInt
+	ActionLength         isCampaign_ActionLength `protobuf_oneof:"action_length"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
+	XXX_unrecognized     []byte                  `json:"-"`
+	XXX_sizecache        int32                   `json:"-"`
 }
 
-func (m *SupportRole) GetCampaignId() string {
+func (m *Campaign) Reset()         { *m = Campaign{} }
+func (m *Campaign) String() string { return proto.CompactTextString(m) }
+func (*Campaign) ProtoMessage()    {}
+func (*Campaign) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{10}
+}
+
+func (m *Campaign) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Campaign.Unmarshal(m, b)
+}
+func (m *Campaign) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Campaign.Marshal(b, m, deterministic)
+}
+func (m *Campaign) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Campaign.Merge(m, src)
+}
+func (m *Campaign) XXX_Size() int {
+	return xxx_messageInfo_Campaign.Size(m)
+}
+func (m *Campaign) XXX_DiscardUnknown() {
+	xxx_messageInfo_Campaign.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Campaign proto.InternalMessageInfo
+
+func (m *Campaign) GetCampaignId() string {
 	if m != nil {
 		return m.CampaignId
 	}
 	return ""
 }
 
-func (m *SupportRole) GetCreatedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.CreatedAt
-	}
-	return nil
-}
-
-type Org struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CampaignName         string               `protobuf:"bytes,2,opt,name=campaign_name,json=campaignName,proto3" json:"campaign_name,omitempty"`
-	LogoUrl              string               `protobuf:"bytes,3,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Goal                 string               `protobuf:"bytes,4,opt,name=goal,proto3" json:"goal,omitempty"`
-	CrgQuantityMany      []string             `protobuf:"bytes,5,rep,name=crg_quantity_many,json=crgQuantityMany,proto3" json:"crg_quantity_many,omitempty"`
-	CrgIdsMany           []string             `protobuf:"bytes,6,rep,name=crg_ids_many,json=crgIdsMany,proto3" json:"crg_ids_many,omitempty"`
-	AlreadyPledged       string               `protobuf:"bytes,7,opt,name=already_pledged,json=alreadyPledged,proto3" json:"already_pledged,omitempty"`
-	ActionTime           *timestamp.Timestamp `protobuf:"bytes,8,opt,name=action_time,json=actionTime,proto3" json:"action_time,omitempty"`
-	ActionLocation       string               `protobuf:"bytes,9,opt,name=action_location,json=actionLocation,proto3" json:"action_location,omitempty"`
-	CampaignStill        string               `protobuf:"bytes,10,opt,name=campaign_still,json=campaignStill,proto3" json:"campaign_still,omitempty"`
-	MinPioneers          string               `protobuf:"bytes,11,opt,name=min_pioneers,json=minPioneers,proto3" json:"min_pioneers,omitempty"`
-	MinRebelsForMedia    string               `protobuf:"bytes,12,opt,name=min_rebels_for_media,json=minRebelsForMedia,proto3" json:"min_rebels_for_media,omitempty"`
-	MinRebelsToWin       string               `protobuf:"bytes,13,opt,name=min_rebels_to_win,json=minRebelsToWin,proto3" json:"min_rebels_to_win,omitempty"`
-	ActionLength         string               `protobuf:"bytes,14,opt,name=action_length,json=actionLength,proto3" json:"action_length,omitempty"`
-	ActionType           string               `protobuf:"bytes,15,opt,name=action_type,json=actionType,proto3" json:"action_type,omitempty"`
-	BackingOrg           []string             `protobuf:"bytes,16,rep,name=backing_org,json=backingOrg,proto3" json:"backing_org,omitempty"`
-	Category             string               `protobuf:"bytes,17,opt,name=category,proto3" json:"category,omitempty"`
-	Contact              string               `protobuf:"bytes,18,opt,name=contact,proto3" json:"contact,omitempty"`
-	HistPrecedents       string               `protobuf:"bytes,19,opt,name=hist_precedents,json=histPrecedents,proto3" json:"hist_precedents,omitempty"`
-	Organization         string               `protobuf:"bytes,20,opt,name=organization,proto3" json:"organization,omitempty"`
-	Strategy             string               `protobuf:"bytes,21,opt,name=strategy,proto3" json:"strategy,omitempty"`
-	VideoUrl             []string             `protobuf:"bytes,22,rep,name=video_url,json=videoUrl,proto3" json:"video_url,omitempty"`
-	Uom                  string               `protobuf:"bytes,23,opt,name=uom,proto3" json:"uom,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *Org) Reset()         { *m = Org{} }
-func (m *Org) String() string { return proto.CompactTextString(m) }
-func (*Org) ProtoMessage()    {}
-func (*Org) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{9}
-}
-
-func (m *Org) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Org.Unmarshal(m, b)
-}
-func (m *Org) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Org.Marshal(b, m, deterministic)
-}
-func (m *Org) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Org.Merge(m, src)
-}
-func (m *Org) XXX_Size() int {
-	return xxx_messageInfo_Org.Size(m)
-}
-func (m *Org) XXX_DiscardUnknown() {
-	xxx_messageInfo_Org.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Org proto.InternalMessageInfo
-
-func (m *Org) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Org) GetCampaignName() string {
+func (m *Campaign) GetCampaignName() string {
 	if m != nil {
 		return m.CampaignName
 	}
 	return ""
 }
 
-func (m *Org) GetLogoUrl() string {
+func (m *Campaign) GetLogoUrl() string {
 	if m != nil {
 		return m.LogoUrl
 	}
 	return ""
 }
 
-func (m *Org) GetGoal() string {
+func (m *Campaign) GetGoal() string {
 	if m != nil {
 		return m.Goal
 	}
 	return ""
 }
 
-func (m *Org) GetCrgQuantityMany() []string {
+func (m *Campaign) GetCrgQuantityMany() []string {
 	if m != nil {
 		return m.CrgQuantityMany
 	}
 	return nil
 }
 
-func (m *Org) GetCrgIdsMany() []string {
+func (m *Campaign) GetCrgIdsMany() []string {
 	if m != nil {
 		return m.CrgIdsMany
 	}
 	return nil
 }
 
-func (m *Org) GetAlreadyPledged() string {
+func (m *Campaign) GetAlreadyPledged() string {
 	if m != nil {
 		return m.AlreadyPledged
 	}
 	return ""
 }
 
-func (m *Org) GetActionTime() *timestamp.Timestamp {
+func (m *Campaign) GetActionTime() *timestamp.Timestamp {
 	if m != nil {
 		return m.ActionTime
 	}
 	return nil
 }
 
-func (m *Org) GetActionLocation() string {
+func (m *Campaign) GetActionLocation() string {
 	if m != nil {
 		return m.ActionLocation
 	}
 	return ""
 }
 
-func (m *Org) GetCampaignStill() string {
+func (m *Campaign) GetCampaignStill() string {
 	if m != nil {
 		return m.CampaignStill
 	}
 	return ""
 }
 
-func (m *Org) GetMinPioneers() string {
+func (m *Campaign) GetMinPioneers() string {
 	if m != nil {
 		return m.MinPioneers
 	}
 	return ""
 }
 
-func (m *Org) GetMinRebelsForMedia() string {
+func (m *Campaign) GetMinRebelsForMedia() string {
 	if m != nil {
 		return m.MinRebelsForMedia
 	}
 	return ""
 }
 
-func (m *Org) GetMinRebelsToWin() string {
+func (m *Campaign) GetMinRebelsToWin() string {
 	if m != nil {
 		return m.MinRebelsToWin
 	}
 	return ""
 }
 
-func (m *Org) GetActionLength() string {
-	if m != nil {
-		return m.ActionLength
-	}
-	return ""
-}
-
-func (m *Org) GetActionType() string {
+func (m *Campaign) GetActionType() string {
 	if m != nil {
 		return m.ActionType
 	}
 	return ""
 }
 
-func (m *Org) GetBackingOrg() []string {
+func (m *Campaign) GetBackingOrg() []string {
 	if m != nil {
 		return m.BackingOrg
 	}
 	return nil
 }
 
-func (m *Org) GetCategory() string {
+func (m *Campaign) GetCategory() string {
 	if m != nil {
 		return m.Category
 	}
 	return ""
 }
 
-func (m *Org) GetContact() string {
+func (m *Campaign) GetContact() string {
 	if m != nil {
 		return m.Contact
 	}
 	return ""
 }
 
-func (m *Org) GetHistPrecedents() string {
+func (m *Campaign) GetHistPrecedents() string {
 	if m != nil {
 		return m.HistPrecedents
 	}
 	return ""
 }
 
-func (m *Org) GetOrganization() string {
+func (m *Campaign) GetOrganization() string {
 	if m != nil {
 		return m.Organization
 	}
 	return ""
 }
 
-func (m *Org) GetStrategy() string {
+func (m *Campaign) GetStrategy() string {
 	if m != nil {
 		return m.Strategy
 	}
 	return ""
 }
 
-func (m *Org) GetVideoUrl() []string {
+func (m *Campaign) GetVideoUrl() []string {
 	if m != nil {
 		return m.VideoUrl
 	}
 	return nil
 }
 
-func (m *Org) GetUom() string {
+func (m *Campaign) GetUom() string {
 	if m != nil {
 		return m.Uom
 	}
 	return ""
+}
+
+type isCampaign_ActionLength interface {
+	isCampaign_ActionLength()
+}
+
+type Campaign_ActionLengthString struct {
+	ActionLengthString string `protobuf:"bytes,24,opt,name=action_length_string,json=actionLengthString,proto3,oneof"`
+}
+
+type Campaign_ActionLengthInt struct {
+	ActionLengthInt uint32 `protobuf:"varint,25,opt,name=action_length_int,json=actionLengthInt,proto3,oneof"`
+}
+
+func (*Campaign_ActionLengthString) isCampaign_ActionLength() {}
+
+func (*Campaign_ActionLengthInt) isCampaign_ActionLength() {}
+
+func (m *Campaign) GetActionLength() isCampaign_ActionLength {
+	if m != nil {
+		return m.ActionLength
+	}
+	return nil
+}
+
+func (m *Campaign) GetActionLengthString() string {
+	if x, ok := m.GetActionLength().(*Campaign_ActionLengthString); ok {
+		return x.ActionLengthString
+	}
+	return ""
+}
+
+func (m *Campaign) GetActionLengthInt() uint32 {
+	if x, ok := m.GetActionLength().(*Campaign_ActionLengthInt); ok {
+		return x.ActionLengthInt
+	}
+	return 0
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Campaign) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Campaign_ActionLengthString)(nil),
+		(*Campaign_ActionLengthInt)(nil),
+	}
 }
 
 type NewAnswerResponse struct {
@@ -712,7 +821,7 @@ func (m *NewAnswerResponse) Reset()         { *m = NewAnswerResponse{} }
 func (m *NewAnswerResponse) String() string { return proto.CompactTextString(m) }
 func (*NewAnswerResponse) ProtoMessage()    {}
 func (*NewAnswerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{10}
+	return fileDescriptor_a0b84a42fa06f626, []int{11}
 }
 
 func (m *NewAnswerResponse) XXX_Unmarshal(b []byte) error {
@@ -758,7 +867,7 @@ func (m *DeleteAnswerResponse) Reset()         { *m = DeleteAnswerResponse{} }
 func (m *DeleteAnswerResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteAnswerResponse) ProtoMessage()    {}
 func (*DeleteAnswerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{11}
+	return fileDescriptor_a0b84a42fa06f626, []int{12}
 }
 
 func (m *DeleteAnswerResponse) XXX_Unmarshal(b []byte) error {
@@ -797,7 +906,7 @@ func (m *AnswerIdRequest) Reset()         { *m = AnswerIdRequest{} }
 func (m *AnswerIdRequest) String() string { return proto.CompactTextString(m) }
 func (*AnswerIdRequest) ProtoMessage()    {}
 func (*AnswerIdRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{12}
+	return fileDescriptor_a0b84a42fa06f626, []int{13}
 }
 
 func (m *AnswerIdRequest) XXX_Unmarshal(b []byte) error {
@@ -836,7 +945,7 @@ func (m *SupportRoles) Reset()         { *m = SupportRoles{} }
 func (m *SupportRoles) String() string { return proto.CompactTextString(m) }
 func (*SupportRoles) ProtoMessage()    {}
 func (*SupportRoles) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{13}
+	return fileDescriptor_a0b84a42fa06f626, []int{14}
 }
 
 func (m *SupportRoles) XXX_Unmarshal(b []byte) error {
@@ -876,7 +985,7 @@ func (m *ListAnswersRequest) Reset()         { *m = ListAnswersRequest{} }
 func (m *ListAnswersRequest) String() string { return proto.CompactTextString(m) }
 func (*ListAnswersRequest) ProtoMessage()    {}
 func (*ListAnswersRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{14}
+	return fileDescriptor_a0b84a42fa06f626, []int{15}
 }
 
 func (m *ListAnswersRequest) XXX_Unmarshal(b []byte) error {
@@ -911,22 +1020,135 @@ func (m *ListAnswersRequest) GetCampaignId() string {
 	return ""
 }
 
+type ListUserRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListUserRequest) Reset()         { *m = ListUserRequest{} }
+func (m *ListUserRequest) String() string { return proto.CompactTextString(m) }
+func (*ListUserRequest) ProtoMessage()    {}
+func (*ListUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{16}
+}
+
+func (m *ListUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListUserRequest.Unmarshal(m, b)
+}
+func (m *ListUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListUserRequest.Marshal(b, m, deterministic)
+}
+func (m *ListUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListUserRequest.Merge(m, src)
+}
+func (m *ListUserRequest) XXX_Size() int {
+	return xxx_messageInfo_ListUserRequest.Size(m)
+}
+func (m *ListUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListUserRequest proto.InternalMessageInfo
+
+type GetUserRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetUserRequest) Reset()         { *m = GetUserRequest{} }
+func (m *GetUserRequest) String() string { return proto.CompactTextString(m) }
+func (*GetUserRequest) ProtoMessage()    {}
+func (*GetUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{17}
+}
+
+func (m *GetUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetUserRequest.Unmarshal(m, b)
+}
+func (m *GetUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetUserRequest.Marshal(b, m, deterministic)
+}
+func (m *GetUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetUserRequest.Merge(m, src)
+}
+func (m *GetUserRequest) XXX_Size() int {
+	return xxx_messageInfo_GetUserRequest.Size(m)
+}
+func (m *GetUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetUserRequest proto.InternalMessageInfo
+
+func (m *GetUserRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type Users struct {
+	Users                []*User  `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Users) Reset()         { *m = Users{} }
+func (m *Users) String() string { return proto.CompactTextString(m) }
+func (*Users) ProtoMessage()    {}
+func (*Users) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{18}
+}
+
+func (m *Users) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Users.Unmarshal(m, b)
+}
+func (m *Users) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Users.Marshal(b, m, deterministic)
+}
+func (m *Users) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Users.Merge(m, src)
+}
+func (m *Users) XXX_Size() int {
+	return xxx_messageInfo_Users.Size(m)
+}
+func (m *Users) XXX_DiscardUnknown() {
+	xxx_messageInfo_Users.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Users proto.InternalMessageInfo
+
+func (m *Users) GetUsers() []*User {
+	if m != nil {
+		return m.Users
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*ListSupportRoleRequest)(nil), "proto.ListSupportRoleRequest")
 	proto.RegisterType((*GetSupportRoleRequest)(nil), "proto.GetSupportRoleRequest")
-	proto.RegisterType((*Orgs)(nil), "proto.Orgs")
-	proto.RegisterType((*ListOrgRequest)(nil), "proto.ListOrgRequest")
-	proto.RegisterType((*GetOrgRequest)(nil), "proto.GetOrgRequest")
+	proto.RegisterType((*Campaigns)(nil), "proto.Campaigns")
+	proto.RegisterType((*ListCampaignRequest)(nil), "proto.ListCampaignRequest")
+	proto.RegisterType((*GetCampaignRequest)(nil), "proto.GetCampaignRequest")
 	proto.RegisterType((*NewAnswerRequest)(nil), "proto.NewAnswerRequest")
 	proto.RegisterType((*Answer)(nil), "proto.Answer")
 	proto.RegisterType((*Answers)(nil), "proto.Answers")
+	proto.RegisterType((*User)(nil), "proto.User")
 	proto.RegisterType((*SupportRole)(nil), "proto.SupportRole")
-	proto.RegisterType((*Org)(nil), "proto.Org")
+	proto.RegisterType((*Campaign)(nil), "proto.Campaign")
 	proto.RegisterType((*NewAnswerResponse)(nil), "proto.NewAnswerResponse")
 	proto.RegisterType((*DeleteAnswerResponse)(nil), "proto.DeleteAnswerResponse")
 	proto.RegisterType((*AnswerIdRequest)(nil), "proto.AnswerIdRequest")
 	proto.RegisterType((*SupportRoles)(nil), "proto.SupportRoles")
 	proto.RegisterType((*ListAnswersRequest)(nil), "proto.ListAnswersRequest")
+	proto.RegisterType((*ListUserRequest)(nil), "proto.ListUserRequest")
+	proto.RegisterType((*GetUserRequest)(nil), "proto.GetUserRequest")
+	proto.RegisterType((*Users)(nil), "proto.Users")
 }
 
 func init() {
@@ -934,68 +1156,83 @@ func init() {
 }
 
 var fileDescriptor_a0b84a42fa06f626 = []byte{
-	// 972 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x55, 0xdd, 0x6e, 0x1b, 0x45,
-	0x14, 0x96, 0xed, 0xc4, 0xb1, 0x8f, 0x7f, 0x33, 0x4d, 0xd2, 0xad, 0x8b, 0x88, 0xbb, 0x88, 0x26,
-	0x20, 0xe1, 0x20, 0x73, 0x01, 0x08, 0x81, 0x54, 0x15, 0x11, 0x22, 0xb5, 0x4d, 0xea, 0x16, 0x71,
-	0x85, 0x56, 0x93, 0xdd, 0xd3, 0xcd, 0x88, 0xdd, 0x99, 0xed, 0xcc, 0xb8, 0x91, 0x79, 0x1b, 0x2e,
-	0x78, 0x25, 0x9e, 0x84, 0x5b, 0x24, 0x34, 0x3f, 0xbb, 0x5d, 0xc7, 0x8d, 0x54, 0xee, 0x7a, 0xb5,
-	0x73, 0xbe, 0xf9, 0x76, 0xe6, 0x9c, 0xef, 0xfc, 0x0c, 0x0c, 0x14, 0xca, 0x37, 0x2c, 0xc6, 0x59,
-	0x21, 0x85, 0x16, 0x64, 0xdb, 0x7e, 0x26, 0x87, 0xa9, 0x10, 0x69, 0x86, 0x27, 0xd6, 0xba, 0x5c,
-	0xbe, 0x3a, 0xd1, 0x2c, 0x47, 0xa5, 0x69, 0x5e, 0x38, 0x5e, 0x78, 0x02, 0x07, 0x4f, 0x98, 0xd2,
-	0x2f, 0x96, 0x45, 0x21, 0xa4, 0x5e, 0x88, 0x0c, 0x17, 0xf8, 0x7a, 0x89, 0x4a, 0x93, 0x7d, 0x68,
-	0x0b, 0x99, 0x46, 0x2c, 0x09, 0x1a, 0xd3, 0xc6, 0x71, 0x77, 0xb1, 0x2d, 0x64, 0x7a, 0x96, 0x84,
-	0x47, 0xb0, 0x7f, 0x8a, 0xef, 0xe2, 0x0f, 0xa1, 0x59, 0x71, 0x9b, 0x2c, 0x09, 0x1f, 0xc2, 0xd6,
-	0xb9, 0x4c, 0x15, 0xf9, 0x18, 0xb6, 0x84, 0x4c, 0x55, 0xd0, 0x98, 0xb6, 0x8e, 0x7b, 0x73, 0x70,
-	0xf7, 0xce, 0xce, 0x65, 0xba, 0xb0, 0x78, 0x38, 0x86, 0xa1, 0xf1, 0xc0, 0x00, 0xee, 0xa4, 0xf0,
-	0x10, 0x06, 0xa7, 0x58, 0x03, 0x36, 0x8e, 0xfe, 0xab, 0x01, 0xe3, 0x67, 0x78, 0xfd, 0x88, 0xab,
-	0x6b, 0x94, 0xb7, 0x90, 0xc8, 0x17, 0x70, 0x47, 0x61, 0x16, 0x29, 0xe7, 0x69, 0x24, 0x45, 0x86,
-	0x26, 0x98, 0xa6, 0x25, 0x8c, 0x15, 0x66, 0xb5, 0x18, 0xce, 0x12, 0xf2, 0x10, 0x46, 0x86, 0x1e,
-	0xd3, 0xbc, 0xa0, 0x2c, 0xe5, 0x86, 0xda, 0xb2, 0xd4, 0x81, 0xc2, 0xec, 0xb1, 0x47, 0xcf, 0x12,
-	0xf2, 0x39, 0xec, 0xe6, 0x8c, 0x47, 0x57, 0x62, 0x29, 0x55, 0x54, 0x64, 0x98, 0xa4, 0x98, 0x04,
-	0x5b, 0x96, 0x39, 0xca, 0x19, 0xff, 0xd9, 0xe0, 0x17, 0x0e, 0x0e, 0xff, 0x6e, 0x40, 0xdb, 0x39,
-	0xf9, 0x01, 0x7a, 0x47, 0xbe, 0x05, 0x88, 0x25, 0x52, 0x8d, 0x49, 0x44, 0x75, 0xb0, 0x3d, 0x6d,
-	0x1c, 0xf7, 0xe6, 0x93, 0x99, 0x2b, 0x98, 0x59, 0x59, 0x30, 0xb3, 0x97, 0x65, 0xc1, 0x2c, 0xba,
-	0x9e, 0xfd, 0x48, 0x87, 0x73, 0xd8, 0x71, 0x71, 0x29, 0x72, 0x04, 0x3b, 0xd4, 0x2d, 0x7d, 0x86,
-	0x07, 0x3e, 0xc3, 0x3e, 0x3b, 0xe5, 0x6e, 0xf8, 0x4f, 0x03, 0x7a, 0xb5, 0xa0, 0x36, 0x14, 0x21,
-	0xb0, 0xc5, 0x69, 0x8e, 0x5e, 0x02, 0xbb, 0x26, 0x01, 0xec, 0xc4, 0x22, 0xcf, 0x91, 0x6b, 0x1f,
-	0x6e, 0x69, 0x92, 0x8f, 0xa0, 0x9b, 0x53, 0x9e, 0x50, 0x2d, 0xe4, 0xca, 0x06, 0xd8, 0x59, 0xbc,
-	0x05, 0xc8, 0x18, 0x5a, 0x4b, 0x91, 0xdb, 0x98, 0xba, 0x0b, 0xb3, 0x24, 0xf7, 0xa1, 0x5b, 0x09,
-	0x13, 0xb4, 0x2d, 0xde, 0x29, 0x05, 0x21, 0x87, 0xd0, 0xab, 0x2b, 0xbb, 0x63, 0xb7, 0x21, 0x7e,
-	0x2b, 0xeb, 0xba, 0x54, 0x9d, 0xff, 0x23, 0xd5, 0x9f, 0x6d, 0x68, 0x9d, 0xcb, 0x74, 0x23, 0xdc,
-	0x4f, 0x60, 0x50, 0xdd, 0x59, 0x8b, 0xbb, 0x5f, 0x82, 0xcf, 0x4c, 0xfc, 0xf7, 0xa0, 0x93, 0x89,
-	0x54, 0x44, 0x4b, 0x99, 0x95, 0x02, 0x18, 0xfb, 0x17, 0x99, 0x19, 0xb9, 0x52, 0x41, 0x33, 0x9f,
-	0x5c, 0xbb, 0x36, 0xd9, 0x8f, 0x65, 0x1a, 0xbd, 0x5e, 0x52, 0xae, 0x99, 0x5e, 0x45, 0x39, 0xe5,
-	0xab, 0x60, 0x7b, 0xda, 0x32, 0xd9, 0x8f, 0x65, 0xfa, 0xdc, 0xe3, 0x4f, 0x29, 0x5f, 0x91, 0x29,
-	0xf4, 0x63, 0xdb, 0xde, 0xca, 0xd1, 0xda, 0x96, 0x06, 0xb1, 0x69, 0x72, 0x65, 0x19, 0x47, 0x30,
-	0xa2, 0x99, 0x44, 0x9a, 0xac, 0xaa, 0x4a, 0x72, 0xca, 0x0c, 0x3d, 0x5c, 0x16, 0xd2, 0x77, 0xd0,
-	0xa3, 0xb1, 0x66, 0x82, 0x47, 0x66, 0xba, 0xbc, 0x87, 0x3c, 0xe0, 0xe8, 0x06, 0xb0, 0xb7, 0xb8,
-	0x9f, 0x33, 0x11, 0x53, 0xb3, 0x08, 0xba, 0xfe, 0x16, 0x0b, 0x3f, 0xf1, 0x28, 0xf9, 0x14, 0x86,
-	0x95, 0x60, 0x4a, 0xb3, 0x2c, 0x0b, 0xc0, 0x75, 0x40, 0x89, 0xbe, 0x30, 0x20, 0x79, 0x00, 0x7d,
-	0x93, 0xe8, 0x82, 0x09, 0x8e, 0xa6, 0x28, 0x7b, 0x96, 0xd4, 0xcb, 0x19, 0xbf, 0xf0, 0x10, 0x39,
-	0x81, 0x3d, 0x43, 0x91, 0x78, 0x89, 0x99, 0x8a, 0x5e, 0x09, 0x19, 0xe5, 0x98, 0x30, 0x1a, 0xf4,
-	0x2d, 0xd5, 0x34, 0xd0, 0xc2, 0x6e, 0xfd, 0x24, 0xe4, 0x53, 0xb3, 0x41, 0x3e, 0x73, 0x5d, 0xe5,
-	0x7f, 0xd0, 0x22, 0xba, 0x66, 0x3c, 0x18, 0x38, 0x2f, 0x2b, 0xf6, 0x4b, 0xf1, 0x2b, 0xe3, 0x26,
-	0xad, 0x65, 0x38, 0xc8, 0x53, 0x7d, 0x15, 0x0c, 0x5d, 0x5a, 0x7d, 0x30, 0x16, 0x33, 0xf5, 0x56,
-	0x0a, 0xb6, 0x2a, 0x30, 0x18, 0xb9, 0x7a, 0xf3, 0xa2, 0xac, 0x0a, 0x34, 0x84, 0x4b, 0x1a, 0xff,
-	0xce, 0x78, 0x1a, 0x09, 0x99, 0x06, 0x63, 0x97, 0x1b, 0x0f, 0x99, 0x6a, 0x9a, 0x40, 0x27, 0xa6,
-	0x1a, 0x53, 0x53, 0xfd, 0xbb, 0xae, 0x9a, 0x4b, 0xdb, 0x35, 0x0d, 0xd7, 0x34, 0xd6, 0x01, 0x29,
-	0x9b, 0xc6, 0x9a, 0x46, 0xeb, 0x2b, 0xa6, 0x74, 0x54, 0x48, 0x8c, 0x31, 0x41, 0xae, 0x55, 0x70,
-	0xc7, 0x45, 0x61, 0xe0, 0x8b, 0x0a, 0x25, 0x21, 0xf4, 0x85, 0x4c, 0x29, 0x67, 0x7f, 0xb8, 0x8c,
-	0xec, 0xb9, 0x20, 0xea, 0x98, 0x71, 0x41, 0x69, 0x69, 0x2e, 0x5d, 0x05, 0xfb, 0xce, 0x85, 0xd2,
-	0x36, 0xdd, 0xf6, 0x86, 0x25, 0xe8, 0x0a, 0xf7, 0xc0, 0x7a, 0xdf, 0xb1, 0x80, 0xa9, 0x5c, 0xdf,
-	0x9c, 0x77, 0xab, 0xe6, 0x0c, 0xbf, 0x87, 0xdd, 0xda, 0x38, 0x57, 0x85, 0xe0, 0xca, 0xf6, 0xbe,
-	0x5a, 0xc6, 0x31, 0x2a, 0x65, 0xbb, 0xa6, 0xb3, 0x28, 0x4d, 0xdf, 0x4a, 0xcd, 0xea, 0x39, 0xf8,
-	0x12, 0xf6, 0x7e, 0xc4, 0x0c, 0x35, 0xbe, 0xef, 0x09, 0xe1, 0x03, 0x18, 0x39, 0xee, 0x59, 0x72,
-	0xdb, 0x1b, 0x73, 0x0a, 0xfd, 0xda, 0xb4, 0x52, 0xe4, 0x6b, 0x18, 0xd4, 0x87, 0x75, 0x39, 0xed,
-	0x88, 0x9f, 0x76, 0xf5, 0x07, 0xb1, 0xaf, 0x6a, 0x3f, 0x86, 0xbf, 0x01, 0x31, 0xef, 0x9b, 0x9f,
-	0x97, 0xe5, 0x75, 0x66, 0xa0, 0xdf, 0x98, 0xfd, 0x0d, 0x3f, 0xd0, 0xd7, 0x06, 0xff, 0x8d, 0xd1,
-	0xd4, 0xbc, 0x39, 0x9a, 0xe6, 0xff, 0x36, 0xa0, 0xf3, 0xdc, 0x1c, 0x69, 0x72, 0xf2, 0x03, 0x74,
-	0x2b, 0x21, 0xc9, 0x5d, 0xef, 0xda, 0xcd, 0x97, 0x72, 0x12, 0x6c, 0x6e, 0x78, 0xc5, 0xe6, 0xd0,
-	0x3d, 0x45, 0xef, 0x2a, 0x39, 0x58, 0x1b, 0xe4, 0x95, 0x52, 0x93, 0xf5, 0x01, 0x4f, 0x1e, 0x43,
-	0xbf, 0xae, 0xfe, 0xad, 0xbf, 0xdd, 0xf7, 0xf8, 0x3b, 0x53, 0xf5, 0x0d, 0xf4, 0x6a, 0x22, 0x91,
-	0x7b, 0x9e, 0xbb, 0x29, 0xdc, 0x64, 0xb8, 0x76, 0xbc, 0xba, 0x6c, 0x5b, 0xf3, 0xab, 0xff, 0x02,
-	0x00, 0x00, 0xff, 0xff, 0x07, 0x86, 0x26, 0xc4, 0x00, 0x09, 0x00, 0x00,
+	// 1214 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x56, 0xdd, 0x72, 0x13, 0x37,
+	0x14, 0xc6, 0x49, 0x1c, 0xdb, 0xc7, 0xbf, 0x51, 0x7e, 0x10, 0x06, 0x06, 0xb3, 0xfd, 0x21, 0x65,
+	0x4a, 0x68, 0xdd, 0x8b, 0x96, 0x76, 0xe8, 0x0c, 0xd0, 0x21, 0x78, 0x06, 0x28, 0x18, 0x98, 0x5e,
+	0x75, 0x76, 0x94, 0x5d, 0xb1, 0xd1, 0x74, 0x77, 0xb5, 0x48, 0x72, 0x32, 0x6e, 0xaf, 0xfb, 0x28,
+	0x7d, 0xa5, 0xbe, 0x41, 0x5f, 0xa1, 0xd7, 0x1d, 0xfd, 0xd9, 0xeb, 0x75, 0xd2, 0xe9, 0x65, 0xaf,
+	0x76, 0xf5, 0x9d, 0x4f, 0xd2, 0x39, 0x3a, 0xdf, 0xd1, 0x11, 0x74, 0x25, 0x15, 0x67, 0x2c, 0xa2,
+	0x47, 0x85, 0xe0, 0x8a, 0xa3, 0xba, 0xf9, 0x0c, 0x6f, 0x25, 0x9c, 0x27, 0x29, 0xbd, 0x6f, 0x46,
+	0x27, 0xb3, 0xf7, 0xf7, 0x15, 0xcb, 0xa8, 0x54, 0x24, 0x2b, 0x2c, 0x2f, 0xc0, 0x70, 0xf0, 0x9c,
+	0x49, 0xf5, 0x66, 0x56, 0x14, 0x5c, 0xa8, 0x29, 0x4f, 0xe9, 0x94, 0x7e, 0x98, 0x51, 0xa9, 0x82,
+	0x3b, 0xb0, 0x7f, 0x4c, 0x2f, 0x30, 0xa0, 0x1e, 0x6c, 0xb0, 0x18, 0xd7, 0x46, 0xb5, 0xc3, 0xd6,
+	0x74, 0x83, 0xc5, 0xc1, 0xb7, 0xd0, 0x7a, 0x42, 0xb2, 0x82, 0xb0, 0x24, 0x97, 0xe8, 0x1e, 0xb4,
+	0x22, 0x3f, 0xc0, 0xb5, 0xd1, 0xe6, 0x61, 0x7b, 0xdc, 0xb7, 0x5b, 0x1d, 0x79, 0xd2, 0x74, 0xc9,
+	0x08, 0xf6, 0x61, 0x57, 0x6f, 0xbf, 0x30, 0xb9, 0xbd, 0x3f, 0x06, 0x74, 0x4c, 0xab, 0xe8, 0xda,
+	0xc6, 0x7f, 0xd4, 0x60, 0xf0, 0x92, 0x9e, 0x3f, 0xca, 0xe5, 0x39, 0x15, 0x97, 0x90, 0xd0, 0x3d,
+	0xd8, 0x95, 0x34, 0x0d, 0xa5, 0x8d, 0x23, 0x14, 0x3c, 0xa5, 0x21, 0x8b, 0xf1, 0x86, 0x21, 0x0c,
+	0x24, 0x4d, 0x4b, 0x11, 0x4e, 0x62, 0xf4, 0x29, 0xf4, 0x35, 0xdd, 0x7b, 0xa8, 0xa9, 0x9b, 0x86,
+	0xda, 0x95, 0x34, 0xf5, 0x0e, 0x4d, 0x62, 0x74, 0x17, 0x76, 0x32, 0x96, 0x87, 0xa7, 0x7c, 0x26,
+	0x64, 0x58, 0xa4, 0x34, 0x4e, 0x68, 0x8c, 0xb7, 0x0c, 0xb3, 0x9f, 0xb1, 0xfc, 0x99, 0xc6, 0x5f,
+	0x59, 0x38, 0xf8, 0xb3, 0x06, 0xdb, 0xd6, 0xc9, 0xff, 0xa1, 0x77, 0xe8, 0x01, 0x40, 0x24, 0x28,
+	0x51, 0x34, 0x0e, 0x89, 0xc2, 0xf5, 0x51, 0xed, 0xb0, 0x3d, 0x1e, 0x1e, 0x59, 0xdd, 0x1c, 0x79,
+	0xdd, 0x1c, 0xbd, 0xf5, 0xba, 0x99, 0xb6, 0x1c, 0xfb, 0x91, 0x0a, 0xc6, 0xd0, 0xb0, 0x71, 0x49,
+	0x74, 0x07, 0x1a, 0xc4, 0xfe, 0xba, 0xac, 0x77, 0x5d, 0xd6, 0x5d, 0x76, 0xbc, 0x35, 0xf8, 0xbb,
+	0x06, 0x5b, 0xef, 0xe4, 0x05, 0x47, 0x71, 0x13, 0xe0, 0x3d, 0x13, 0x52, 0x85, 0x39, 0xc9, 0xa8,
+	0x3b, 0x81, 0x96, 0x41, 0x5e, 0x92, 0x8c, 0xa2, 0xeb, 0xd0, 0x4a, 0x89, 0xb7, 0xda, 0xa0, 0x9b,
+	0x1a, 0x30, 0xc6, 0x3d, 0xa8, 0xd3, 0x8c, 0xb0, 0xd4, 0xc5, 0x68, 0x07, 0xe8, 0x36, 0x74, 0x62,
+	0x26, 0x8b, 0x94, 0xcc, 0xed, 0xac, 0xba, 0x31, 0xb6, 0x1d, 0x66, 0x26, 0x1e, 0xc0, 0x36, 0x39,
+	0x23, 0x8a, 0x08, 0xbc, 0x6d, 0x8c, 0x6e, 0x84, 0x06, 0xb0, 0x39, 0x13, 0x29, 0x6e, 0x18, 0x50,
+	0xff, 0xa2, 0x8f, 0xa0, 0x1b, 0x9d, 0x12, 0x95, 0x08, 0x3e, 0x2b, 0x42, 0x16, 0x4b, 0xdc, 0x34,
+	0xb6, 0xce, 0x02, 0x9c, 0xc4, 0x12, 0x0d, 0xa1, 0xe9, 0x73, 0x83, 0x5b, 0xd6, 0x47, 0x3f, 0x0e,
+	0x7e, 0x83, 0x76, 0x29, 0x99, 0x6b, 0xe1, 0x23, 0xd8, 0x2a, 0x05, 0x6e, 0xfe, 0x11, 0x86, 0x46,
+	0xc4, 0xb3, 0x8c, 0xe6, 0xca, 0x45, 0xec, 0x87, 0xe8, 0x06, 0xb4, 0x32, 0x92, 0xc7, 0x44, 0x71,
+	0x31, 0x37, 0x41, 0x37, 0xa7, 0x4b, 0xc0, 0x78, 0xcf, 0x33, 0x17, 0xaf, 0xfe, 0x0d, 0x7e, 0x6f,
+	0x40, 0xd3, 0xeb, 0x03, 0xdd, 0x82, 0x76, 0x59, 0x41, 0xd6, 0x07, 0x88, 0x96, 0xf2, 0xd1, 0xb1,
+	0x7a, 0x42, 0xc9, 0xa9, 0x8e, 0x07, 0xcd, 0xd1, 0x5d, 0x83, 0x66, 0xca, 0x13, 0x1e, 0xea, 0x73,
+	0x72, 0xde, 0xe9, 0xf1, 0x3b, 0x91, 0xea, 0x58, 0x12, 0x4e, 0x7c, 0x36, 0xcc, 0xbf, 0x96, 0x64,
+	0x24, 0x92, 0xf0, 0xc3, 0x8c, 0xe4, 0x8a, 0xa9, 0x79, 0x98, 0x91, 0x7c, 0x8e, 0xeb, 0xa3, 0x4d,
+	0x2d, 0xc9, 0x48, 0x24, 0xaf, 0x1d, 0xfe, 0x82, 0xe4, 0x73, 0x34, 0x82, 0x8e, 0xe6, 0xb2, 0x58,
+	0x5a, 0xda, 0xb6, 0xa1, 0x41, 0x24, 0x92, 0x49, 0x2c, 0x0d, 0xe3, 0x0e, 0xf4, 0x49, 0x2a, 0x28,
+	0x89, 0xe7, 0x0b, 0x79, 0xdb, 0x5c, 0xf5, 0x1c, 0xec, 0xd5, 0xfd, 0x1d, 0xb4, 0x49, 0xa4, 0x18,
+	0xcf, 0x43, 0x7d, 0xf3, 0x99, 0xa4, 0xfd, 0xbb, 0xbc, 0xc1, 0xd2, 0x35, 0x60, 0x76, 0xb1, 0x93,
+	0x53, 0x1e, 0x11, 0xfd, 0xe3, 0xb2, 0xda, 0xb3, 0xf0, 0x73, 0x87, 0xa2, 0x4f, 0xa0, 0xb7, 0x38,
+	0x30, 0xa9, 0x58, 0x9a, 0x62, 0xb0, 0x65, 0xe9, 0xd1, 0x37, 0x1a, 0xd4, 0x82, 0xd4, 0x65, 0x59,
+	0x30, 0x9e, 0x53, 0x5d, 0x29, 0x6d, 0x2b, 0xc8, 0x8c, 0xe5, 0xaf, 0x1c, 0x84, 0xee, 0xc3, 0x9e,
+	0xa6, 0x08, 0x7a, 0x42, 0x53, 0x19, 0xbe, 0xe7, 0x22, 0xcc, 0x68, 0xcc, 0x08, 0xee, 0x18, 0xaa,
+	0xae, 0xea, 0xa9, 0x31, 0x3d, 0xe5, 0xe2, 0x85, 0x36, 0xa0, 0xcf, 0x6c, 0xa9, 0xbb, 0x09, 0x8a,
+	0x87, 0xe7, 0x2c, 0xc7, 0x5d, 0xeb, 0xe5, 0x82, 0xfd, 0x96, 0xff, 0xc4, 0x4c, 0xde, 0xfd, 0x59,
+	0xcc, 0x0b, 0x8a, 0xfb, 0x36, 0xef, 0x2e, 0xde, 0x79, 0x41, 0x35, 0xe1, 0x84, 0x44, 0xbf, 0xb0,
+	0x3c, 0x09, 0xb9, 0x48, 0xf0, 0xc0, 0x1e, 0xbb, 0x83, 0x7e, 0x14, 0x89, 0xd5, 0xb7, 0xa2, 0x89,
+	0x56, 0xdd, 0x8e, 0xd7, 0xb7, 0x1d, 0x5b, 0xb1, 0xe6, 0x8a, 0x44, 0x0a, 0x23, 0x2f, 0x56, 0x33,
+	0xd4, 0xc7, 0x78, 0xca, 0xa4, 0x0a, 0x0b, 0x41, 0x23, 0x1a, 0xd3, 0x5c, 0x49, 0xbc, 0x6b, 0x1d,
+	0xd4, 0xf0, 0xab, 0x05, 0x8a, 0x02, 0xe8, 0x70, 0x91, 0x90, 0x9c, 0xfd, 0x6a, 0x0f, 0x7b, 0xcf,
+	0xca, 0xae, 0x8c, 0x69, 0x17, 0xa4, 0x12, 0x7a, 0xd3, 0x39, 0xde, 0xb7, 0x2e, 0xf8, 0xb1, 0xbe,
+	0x23, 0xce, 0x58, 0x4c, 0xad, 0x26, 0x0f, 0x8c, 0xf7, 0x4d, 0x03, 0x68, 0x51, 0xba, 0xa2, 0xb8,
+	0xba, 0x28, 0x0a, 0x34, 0x86, 0x3d, 0x9f, 0x5e, 0x9a, 0x27, 0xea, 0x34, 0x94, 0x4a, 0xb0, 0x3c,
+	0xc1, 0x58, 0x53, 0x9e, 0x5d, 0x99, 0x22, 0x97, 0x65, 0x63, 0x7c, 0x63, 0x6c, 0xe8, 0x73, 0xd8,
+	0x59, 0x9d, 0xc3, 0x72, 0x85, 0xaf, 0x8d, 0x6a, 0x87, 0xdd, 0x67, 0x57, 0xa6, 0xfd, 0xf2, 0x84,
+	0x49, 0xae, 0x1e, 0xf7, 0xa1, 0xbb, 0xc2, 0x0e, 0x1e, 0xc2, 0x4e, 0xa9, 0x63, 0xc9, 0x82, 0xe7,
+	0xd2, 0x94, 0xb9, 0x9c, 0x45, 0x11, 0x95, 0xd2, 0xd4, 0x62, 0x73, 0xea, 0x87, 0xee, 0x92, 0xd8,
+	0x58, 0x74, 0xbc, 0x2f, 0x60, 0xef, 0x07, 0x9a, 0x52, 0x45, 0xff, 0xeb, 0x0a, 0xc1, 0x6d, 0xe8,
+	0x5b, 0xee, 0x24, 0xbe, 0xac, 0x8d, 0x1e, 0x43, 0xa7, 0x74, 0x31, 0x49, 0xf4, 0x35, 0x74, 0xcb,
+	0xfd, 0xc8, 0x5f, 0xe8, 0xc8, 0x5d, 0xe8, 0xe5, 0x17, 0x41, 0x47, 0x96, 0x26, 0x06, 0x3f, 0x03,
+	0xd2, 0xcd, 0xdc, 0xb5, 0x04, 0xbf, 0x9d, 0xee, 0x59, 0x95, 0xf6, 0x56, 0x73, 0x3d, 0x6b, 0xa5,
+	0xb7, 0x55, 0x6e, 0xa5, 0x8d, 0xea, 0xad, 0x14, 0xec, 0x40, 0x5f, 0x2f, 0xaf, 0x9b, 0x87, 0x7f,
+	0x27, 0x8c, 0xa0, 0x77, 0x4c, 0xcb, 0xc8, 0x5a, 0x70, 0x77, 0xa1, 0xae, 0xcd, 0x12, 0xdd, 0x86,
+	0xfa, 0x4c, 0x2e, 0xdb, 0x53, 0xdb, 0x45, 0x63, 0xe6, 0x5a, 0xcb, 0xf8, 0xaf, 0x2d, 0x68, 0xbe,
+	0xd6, 0xab, 0x68, 0x9d, 0xdd, 0x83, 0x86, 0x5b, 0x1a, 0xed, 0x3b, 0xee, 0xea, 0x56, 0xc3, 0xf2,
+	0x12, 0xe8, 0x4b, 0x68, 0x79, 0xe7, 0x24, 0x3a, 0x70, 0x96, 0x8a, 0xbb, 0xc3, 0x4e, 0x69, 0x86,
+	0x44, 0x0f, 0xa0, 0x5d, 0x7a, 0xe4, 0xa0, 0x6b, 0xcb, 0x5d, 0x2a, 0x0f, 0x9f, 0x61, 0xf5, 0x05,
+	0x85, 0x1e, 0x42, 0xb7, 0xfc, 0x6c, 0x92, 0x68, 0x58, 0xda, 0xb1, 0x3a, 0x7b, 0x50, 0x99, 0x2d,
+	0xd1, 0x63, 0x73, 0x6c, 0xe5, 0x6e, 0x74, 0x63, 0xb9, 0xf9, 0xfa, 0x8b, 0x6f, 0x78, 0x41, 0xea,
+	0xd1, 0x53, 0x18, 0x54, 0x1e, 0x8e, 0x12, 0xdd, 0x2c, 0x79, 0x71, 0xc1, 0x32, 0xbb, 0xeb, 0xcb,
+	0x48, 0xf4, 0x3d, 0xb4, 0x16, 0x15, 0x81, 0xae, 0x3a, 0x46, 0xf5, 0x55, 0x37, 0xc4, 0xeb, 0x06,
+	0x27, 0xfd, 0x31, 0xb4, 0x8e, 0xa9, 0xd3, 0xdc, 0xe2, 0xe0, 0x2b, 0x92, 0x1f, 0xae, 0x3e, 0x46,
+	0xd0, 0x13, 0xe8, 0x94, 0xcb, 0xe8, 0xd2, 0x69, 0xd7, 0x1d, 0x7e, 0x61, 0xcd, 0x7d, 0x03, 0xed,
+	0x92, 0xda, 0x17, 0xe9, 0x5b, 0xaf, 0x80, 0x61, 0x6f, 0x65, 0x79, 0x79, 0xb2, 0x6d, 0x86, 0x5f,
+	0xfd, 0x13, 0x00, 0x00, 0xff, 0xff, 0x5d, 0x01, 0xd1, 0x42, 0xb3, 0x0b, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1010,10 +1247,12 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QuestionClient interface {
-	//    rpc GetOrg(GetOrgRequest) returns (Org);
-	//    rpc ListOrg(ListOrgRequest) returns (Orgs);
-	//    rpc GetSupportRole(GetSupportRoleRequest) returns (SupportRoles);
-	//    rpc ListSupportRole(ListSupportRoleRequest) returns (SupportRoles);
+	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*User, error)
+	ListUsers(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*Users, error)
+	GetCampaign(ctx context.Context, in *GetCampaignRequest, opts ...grpc.CallOption) (*Campaign, error)
+	ListCampaigns(ctx context.Context, in *ListCampaignRequest, opts ...grpc.CallOption) (*Campaigns, error)
+	GetSupportRole(ctx context.Context, in *GetSupportRoleRequest, opts ...grpc.CallOption) (*SupportRole, error)
+	ListSupportRoles(ctx context.Context, in *ListSupportRoleRequest, opts ...grpc.CallOption) (*SupportRoles, error)
 	NewAnswer(ctx context.Context, in *NewAnswerRequest, opts ...grpc.CallOption) (*NewAnswerResponse, error)
 	GetAnswer(ctx context.Context, in *AnswerIdRequest, opts ...grpc.CallOption) (*Answer, error)
 	DeleteAnswer(ctx context.Context, in *AnswerIdRequest, opts ...grpc.CallOption) (*DeleteAnswerResponse, error)
@@ -1026,6 +1265,60 @@ type questionClient struct {
 
 func NewQuestionClient(cc grpc.ClientConnInterface) QuestionClient {
 	return &questionClient{cc}
+}
+
+func (c *questionClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/proto.Question/GetUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionClient) ListUsers(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*Users, error) {
+	out := new(Users)
+	err := c.cc.Invoke(ctx, "/proto.Question/ListUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionClient) GetCampaign(ctx context.Context, in *GetCampaignRequest, opts ...grpc.CallOption) (*Campaign, error) {
+	out := new(Campaign)
+	err := c.cc.Invoke(ctx, "/proto.Question/GetCampaign", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionClient) ListCampaigns(ctx context.Context, in *ListCampaignRequest, opts ...grpc.CallOption) (*Campaigns, error) {
+	out := new(Campaigns)
+	err := c.cc.Invoke(ctx, "/proto.Question/ListCampaigns", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionClient) GetSupportRole(ctx context.Context, in *GetSupportRoleRequest, opts ...grpc.CallOption) (*SupportRole, error) {
+	out := new(SupportRole)
+	err := c.cc.Invoke(ctx, "/proto.Question/GetSupportRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionClient) ListSupportRoles(ctx context.Context, in *ListSupportRoleRequest, opts ...grpc.CallOption) (*SupportRoles, error) {
+	out := new(SupportRoles)
+	err := c.cc.Invoke(ctx, "/proto.Question/ListSupportRoles", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *questionClient) NewAnswer(ctx context.Context, in *NewAnswerRequest, opts ...grpc.CallOption) (*NewAnswerResponse, error) {
@@ -1066,10 +1359,12 @@ func (c *questionClient) ListAnswers(ctx context.Context, in *ListAnswersRequest
 
 // QuestionServer is the server API for Question service.
 type QuestionServer interface {
-	//    rpc GetOrg(GetOrgRequest) returns (Org);
-	//    rpc ListOrg(ListOrgRequest) returns (Orgs);
-	//    rpc GetSupportRole(GetSupportRoleRequest) returns (SupportRoles);
-	//    rpc ListSupportRole(ListSupportRoleRequest) returns (SupportRoles);
+	GetUser(context.Context, *GetUserRequest) (*User, error)
+	ListUsers(context.Context, *ListUserRequest) (*Users, error)
+	GetCampaign(context.Context, *GetCampaignRequest) (*Campaign, error)
+	ListCampaigns(context.Context, *ListCampaignRequest) (*Campaigns, error)
+	GetSupportRole(context.Context, *GetSupportRoleRequest) (*SupportRole, error)
+	ListSupportRoles(context.Context, *ListSupportRoleRequest) (*SupportRoles, error)
 	NewAnswer(context.Context, *NewAnswerRequest) (*NewAnswerResponse, error)
 	GetAnswer(context.Context, *AnswerIdRequest) (*Answer, error)
 	DeleteAnswer(context.Context, *AnswerIdRequest) (*DeleteAnswerResponse, error)
@@ -1080,6 +1375,24 @@ type QuestionServer interface {
 type UnimplementedQuestionServer struct {
 }
 
+func (*UnimplementedQuestionServer) GetUser(ctx context.Context, req *GetUserRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (*UnimplementedQuestionServer) ListUsers(ctx context.Context, req *ListUserRequest) (*Users, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUsers not implemented")
+}
+func (*UnimplementedQuestionServer) GetCampaign(ctx context.Context, req *GetCampaignRequest) (*Campaign, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCampaign not implemented")
+}
+func (*UnimplementedQuestionServer) ListCampaigns(ctx context.Context, req *ListCampaignRequest) (*Campaigns, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCampaigns not implemented")
+}
+func (*UnimplementedQuestionServer) GetSupportRole(ctx context.Context, req *GetSupportRoleRequest) (*SupportRole, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSupportRole not implemented")
+}
+func (*UnimplementedQuestionServer) ListSupportRoles(ctx context.Context, req *ListSupportRoleRequest) (*SupportRoles, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSupportRoles not implemented")
+}
 func (*UnimplementedQuestionServer) NewAnswer(ctx context.Context, req *NewAnswerRequest) (*NewAnswerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NewAnswer not implemented")
 }
@@ -1095,6 +1408,114 @@ func (*UnimplementedQuestionServer) ListAnswers(ctx context.Context, req *ListAn
 
 func RegisterQuestionServer(s *grpc.Server, srv QuestionServer) {
 	s.RegisterService(&_Question_serviceDesc, srv)
+}
+
+func _Question_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Question/GetUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Question_ListUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServer).ListUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Question/ListUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServer).ListUsers(ctx, req.(*ListUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Question_GetCampaign_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCampaignRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServer).GetCampaign(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Question/GetCampaign",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServer).GetCampaign(ctx, req.(*GetCampaignRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Question_ListCampaigns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCampaignRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServer).ListCampaigns(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Question/ListCampaigns",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServer).ListCampaigns(ctx, req.(*ListCampaignRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Question_GetSupportRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSupportRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServer).GetSupportRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Question/GetSupportRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServer).GetSupportRole(ctx, req.(*GetSupportRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Question_ListSupportRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSupportRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServer).ListSupportRoles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Question/ListSupportRoles",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServer).ListSupportRoles(ctx, req.(*ListSupportRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Question_NewAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1173,6 +1594,30 @@ var _Question_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.Question",
 	HandlerType: (*QuestionServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUser",
+			Handler:    _Question_GetUser_Handler,
+		},
+		{
+			MethodName: "ListUsers",
+			Handler:    _Question_ListUsers_Handler,
+		},
+		{
+			MethodName: "GetCampaign",
+			Handler:    _Question_GetCampaign_Handler,
+		},
+		{
+			MethodName: "ListCampaigns",
+			Handler:    _Question_ListCampaigns_Handler,
+		},
+		{
+			MethodName: "GetSupportRole",
+			Handler:    _Question_GetSupportRole_Handler,
+		},
+		{
+			MethodName: "ListSupportRoles",
+			Handler:    _Question_ListSupportRoles_Handler,
+		},
 		{
 			MethodName: "NewAnswer",
 			Handler:    _Question_NewAnswer_Handler,

@@ -120,6 +120,117 @@ func (s *Server) ListAnswers(ctx context.Context, listreq *pb.ListAnswersRequest
 	return &pb.Answers{Answers: answers}, nil
 }
 
+func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {
+	var user pb.User
+	userQuery := minio.NewSingleQuery(`
+	SELECT _id AS 'id', firstName, 
+	lastName, email, displayName, avatar, url, chatgroupIds, campaigns 
+	from s3object WHERE _id =	
+	`, req.GetId(), "user[0-9]{3}")
+	resp, err := s.store.GetSingle(ctx, userQuery, "users.csv")
+	if err != nil {
+		return nil, err
+	}
+	if err := proto.Unmarshal(resp, &user); err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (s *Server) ListUsers(ctx context.Context, _ *pb.ListUserRequest) (*pb.Users, error) {
+	var users pb.Users
+	usersQuery := minio.NewListQuery(`
+	SELECT _id AS 'id', firstName, lastName, email, displayName,  
+	avatar, url, chatgroupIds, campaign
+	FROM s3object`)
+	resp, err := s.store.GetMultiple(ctx, usersQuery, "users.csv")
+	if err != nil {
+		return nil, err
+	}
+	if err := proto.Unmarshal(resp, &users); err != nil {
+		return nil, err
+	}
+	return &users, nil
+}
+
+func (s *Server) GetSupportRole(ctx context.Context, req *pb.GetSupportRoleRequest) (*pb.SupportRole, error) {
+	var supportRole pb.SupportRole
+	roleQuery := minio.NewSingleQuery(
+		`
+			GSELECT id, name, comment, mandatory, uom from s3object
+			WHERE id =
+		`,
+		req.GetId(), "crg[0-9]{3}",
+	)
+	resp, err := s.store.GetSingle(ctx, roleQuery, "roles.csv")
+	if err != nil {
+		return nil, err
+	}
+	if err := proto.Unmarshal(resp, &supportRole); err != nil {
+		return nil, err
+	}
+	return &supportRole, nil
+}
+
+func (s *Server) ListSupportRoles(ctx context.Context, req *pb.ListSupportRoleRequest) (*pb.SupportRoles, error) {
+	var supportRoles pb.SupportRoles
+	rolesQuery := minio.NewListQuery(
+		`SELECT id, name, comment, mandatory, uom from s3object`,
+	)
+	resp, err := s.store.GetMultiple(ctx, rolesQuery, "roles.csv")
+	if err != nil {
+		return nil, err
+	}
+	if err := proto.Unmarshal(resp, &supportRoles); err != nil {
+		return nil, err
+	}
+	return &supportRoles, nil
+}
+
+func (s *Server) GetCampaign(ctx context.Context, req *pb.GetCampaignRequest) (*pb.Campaign, error) {
+	var campaign pb.Campaign
+	campaignQuery := minio.NewSingleQuery(
+		`
+		SELECT campaign_id, cmaign_name AS campaign_name, logo_url, goal, crg_quantity_many, 
+		crg_ids_many, already_pledged, action_time, location AS action_location, start AS min_pioneers,
+		media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
+		contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
+		action_length FROM s3object WHERE campaign_id = 
+		`,
+		req.GetId(),
+		"campaign_[0-9]{3}",
+	)
+	resp, err := s.store.GetSingle(ctx, campaignQuery, "campaign.csv")
+	if err != nil {
+		return nil, err
+	}
+	if err := proto.Unmarshal(resp, &campaign); err != nil {
+		return nil, err
+	}
+	return &campaign, nil
+}
+
+func (s *Server) ListCampaigns(ctx context.Context, req *pb.ListCampaignRequest) (*pb.Campaigns, error) {
+	var campaigns pb.Campaigns
+	campaignsQuery := minio.NewListQuery(
+		`
+				SELECT campaign_id, cmaign_name AS campaign_name, logo_url, goal, crg_quantity_many, 
+		crg_ids_many, already_pledged, action_time, location AS action_location, start AS min_pioneers,
+		media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
+		contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
+		action_length FROM s3object 
+		`,
+	)
+	resp, err := s.store.GetMultiple(ctx, campaignsQuery, "campaigns.csv")
+	if err != nil {
+		return nil, err
+	}
+	if err := proto.Unmarshal(resp, &campaigns); err != nil {
+		return nil, err
+	}
+	return &campaigns, nil
+}
+
 func readSeekerProto(f io.ReadSeeker) (*pb.Answer, error) {
 	var ans pb.Answer
 	res, err := ioutil.ReadAll(f)

@@ -2,22 +2,84 @@ package minio
 
 import (
 	"context"
+	"errors"
 	"github.com/getcouragenow/packages/mod-main/server/pkg/config"
 	mn "github.com/minio/minio-go/v6"
 	"github.com/minio/minio-go/v6/pkg/encrypt"
 	"github.com/minio/minio-go/v6/pkg/s3utils"
 	"io"
+	"io/ioutil"
+	"regexp"
 )
 
-type Ministore struct {
-	*mstore
+type (
+	Ministore struct {
+		*mstore
+	}
+	mstore struct {
+		bucket string
+		mc     *mn.Client
+		sse    encrypt.ServerSide
+	}
+	Valider interface {
+		getParams() string
+		getQuery() string
+		validateParam() bool
+	}
+	listQuery struct {
+		query string
+	}
+	singleQuery struct {
+		query string
+		param string
+		regexString string
+	}
+)
+
+func NewListQuery(query string) *listQuery {
+	return &listQuery{
+		query,
+	}
+}
+
+func NewSingleQuery(query, param, regexString string) *singleQuery {
+	return &singleQuery{
+		query,
+		param,
+		regexString,
+	}
+}
+
+func (s *singleQuery) getParams() string {
+	return s.param
+}
+
+func (s *singleQuery) getQuery() string {
+	return s.query
+}
+
+func (s *singleQuery) validateParam() bool {
+	re := regexp.MustCompile(s.regexString)
+	return re.MatchString(s.param)
+}
+
+func (l *listQuery) getParams() string {
+	return ""
+}
+
+func (l *listQuery) getQuery() string {
+	return l.query
+}
+
+func (l *listQuery) validateParam() bool {
+	return true
 }
 
 // mstore contains minio bucket and client
-type mstore struct {
-	bucket string
-	mc     *mn.Client
-	sse    encrypt.ServerSide
+
+func validateQuery(param, regex string) bool {
+	re := regexp.MustCompile(regex)
+	return re.MatchString(param)
 }
 
 // New creates new instance of mstore
@@ -104,4 +166,54 @@ func (m *Ministore) List(ctx context.Context, prefix string) ([]io.ReadSeeker, e
 	}
 
 	return objContents, nil
+}
+
+func (m *Ministore) selectObject(ctx context.Context, query, objName string) ([]byte, error) {
+	opts := mn.SelectObjectOptions{
+		ServerSideEncryption: m.sse,
+		Expression:           query,
+		ExpressionType:       mn.QueryExpressionTypeSQL,
+		InputSerialization: mn.SelectObjectInputSerialization{
+			CompressionType: mn.SelectCompressionGZIP,
+			CSV: &mn.CSVInputOptions{
+				FileHeaderInfo:  mn.CSVFileHeaderInfoUse,
+				RecordDelimiter: "\n",
+				FieldDelimiter:  ",",
+			},
+		},
+		OutputSerialization: mn.SelectObjectOutputSerialization{
+			JSON: &mn.JSONOutputOptions{
+				RecordDelimiter: "\r\n",
+			},
+		},
+	}
+	reader, err := m.mc.SelectObjectContent(ctx, m.bucket, objName, opts)
+	if err != nil {
+		return nil, err
+	}
+	defer reader.Close()
+	body, err := ioutil.ReadAll(reader)
+	return body, nil
+}
+
+func (m *Ministore) GetSingle(ctx context.Context, v Valider, objName string) ([]byte, error) {
+	match := v.validateParam()
+	if !match {
+		return nil, errors.New("param(s) are not valid")
+	}
+	sq := v.getQuery() + v.getParams()
+	byteres, err := m.selectObject(ctx, sq, objName)
+	if err != nil {
+		return nil, err
+	}
+	return byteres, nil
+}
+
+func (m *Ministore) GetMultiple(ctx context.Context, v Valider, objName string) ([]byte, error) {
+	lq := v.getQuery()
+	byteres, err := m.selectObject(ctx, lq, objName)
+	if err != nil {
+		return nil, err
+	}
+	return byteres, nil
 }
