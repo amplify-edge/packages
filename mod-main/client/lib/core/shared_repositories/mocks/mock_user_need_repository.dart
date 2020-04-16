@@ -58,7 +58,7 @@ class MockUserNeedRepository extends BaseRepository implements UserNeedRepositor
     UserNeed(
       id: '004',
       prod: '1',
-      refOrgId: '001',
+      refOrgId: '004',
       group: '2',
       name: 'USER-DEMAND-LEGAL',
       isTextBox: 'no',
