@@ -16,7 +16,7 @@ class UserNeedAnswerRepository extends BaseRepository {
   }
 
   // Returns a list of Orgs via a matching name
-  List<UserNeedAnswer> getByQuestionId(String $questionId) {
+  List<UserNeedAnswer> getByQuestionId(String questionId) {
     return [];
   }
 }
