@@ -17,7 +17,7 @@ class OrgsDashboardView extends StatelessWidget {
     return ResponsiveBuilder(
       builder: (context, sizingInfo) {
         if (sizingInfo.screenSize.width >= 1100.0) {
-          return OrgDashboardDesktopView(model: model);
+        //  return OrgDashboardDesktopView(model: model);
       
         }
         return  OrgDashboardMobileView(model: model);
