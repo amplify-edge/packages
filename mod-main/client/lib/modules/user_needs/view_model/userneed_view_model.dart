@@ -29,7 +29,6 @@ class UserNeedsViewModel extends BaseModel {
     setBuzy(true);
     _orgId = id;
     _org = orgService.getOrgById(id);
-    print(_org);
     setBuzy(false);
   }
 
