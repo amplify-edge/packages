@@ -148,15 +148,12 @@ class OrgDetailView extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: () {
-             
-            Modular.to.pushNamed('/account/signup');
-           
+              Modular.to.pushNamed('/account/signup');
             },
             child: Text("Ready"),
           ),
         ]),
         const SizedBox(height: 8.0),
-
       ],
     );
   }

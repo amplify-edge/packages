@@ -30,7 +30,7 @@ class OrgView extends StatelessWidget {
             },
             nullItems: Center(child: CircularProgressIndicator()),
             emptyItems: Center(child: Text("No Campaigns")),
-            itemCount: 1,
+            itemCount: model.orgs.length,
             slivers: <Widget>[
               const SliverPadding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
