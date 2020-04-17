@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'master_detail_utils.dart';
-import 'master_page.dart';
 
-class MasterDetailContainer extends StatelessWidget {
+
+class MasterPageWrapper extends StatelessWidget {
   final Widget masterPage;
 
-  const MasterDetailContainer({Key key, this.masterPage}) : super(key: key);
+  const MasterPageWrapper({Key key, this.masterPage}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(

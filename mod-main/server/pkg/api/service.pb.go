@@ -1192,9 +1192,7 @@ func init() {
 	proto.RegisterType((*MigrateRequest)(nil), "proto.MigrateRequest")
 }
 
-func init() {
-	proto.RegisterFile("service.proto", fileDescriptor_a0b84a42fa06f626)
-}
+func init() { proto.RegisterFile("service.proto", fileDescriptor_a0b84a42fa06f626) }
 
 var fileDescriptor_a0b84a42fa06f626 = []byte{
 	// 1263 bytes of a gzipped FileDescriptorProto
@@ -1281,11 +1279,11 @@ var fileDescriptor_a0b84a42fa06f626 = []byte{
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConnInterface
+var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion4
 
 // QuestionClient is the client API for Question service.
 //
@@ -1305,10 +1303,10 @@ type QuestionClient interface {
 }
 
 type questionClient struct {
-	cc grpc.ClientConnInterface
+	cc *grpc.ClientConn
 }
 
-func NewQuestionClient(cc grpc.ClientConnInterface) QuestionClient {
+func NewQuestionClient(cc *grpc.ClientConn) QuestionClient {
 	return &questionClient{cc}
 }
 
