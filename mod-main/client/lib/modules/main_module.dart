@@ -1,12 +1,9 @@
-
-
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:meta/meta.dart';
 import 'package:mod_main/core/core.dart';
-
 import 'package:mod_main/core/shared_repositories/mocks/mock_org_repository.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_support_role_repository.dart';
-import 'org_manager/orgs/views/orgs_manager_view_mobile.dart';
+import 'org_manager/orgs/views/org_manager_detail_view.dart';
+import 'org_manager/orgs/views/orgs_manager_master_view.dart';
 import 'orgs/service/orgs_service.dart';
 import 'orgs/views/org_view.dart';
 import 'splash/views/splash_view.dart';
@@ -14,7 +11,6 @@ import 'support_roles/services/support_role_service.dart';
 import 'support_roles/views/support_role_view.dart';
 import 'user_needs/views/user_need_view.dart';
 import 'userinfo/views/userinfo_view.dart';
-import '../modules/org_manager/orgs/views/orgs_manager_view.dart';
 
 
 class MainAppModule extends ChildModule{
@@ -51,9 +47,8 @@ class MainAppModule extends ChildModule{
     Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
-    /// Router("/dashboard/orgs", child: (_, args) => MaterPage()),
-    Router("/dashboard/orgs/:id", child: (_, args) => OrgManagerView(orgID: args.params['id'],)),
-   // Router("/dashboard/orgs/:id", child: (_, args) => OrgsDetailViewMobile(orgID: args.params['id'],)),
+    Router("/dashboard/orgs", child: (_, args) => OrgManagerMasterView()),
+    Router("/dashboard/orgs/:id", child: (_, args) => OrgManagerDetailView()),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();
