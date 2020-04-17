@@ -13,9 +13,9 @@ on:
     #paths:
       #- "maintemplate/client/**"
       #- ".github/workflows/build-sign-deploy-desktop.yml"
-  push:
-    branches: 
-      - master
+  # push:
+  #   branches: 
+  #     - master
     #paths:
       #- "maintemplate/client/**"
       #- ".github/workflows/build-sign-deploy-desktop-hover.yml"
