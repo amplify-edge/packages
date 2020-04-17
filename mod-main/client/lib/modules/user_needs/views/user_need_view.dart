@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mod_main/core/shared_services/widget_service.dart';
 import 'package:mod_main/modules/orgs/data/org_model.dart';
 import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
 import 'package:mod_main/modules/user_needs/view_model/userneed_view_model.dart';
@@ -10,33 +11,39 @@ class UserNeedsView extends StatelessWidget {
 
   UserNeedsView({Key key, this.orgID}) : super(key: key);
 
-  List<Widget> buildWidgetList(UserNeedsViewModel model, List<List<UserNeed>> userNeedsByGroup, SizedBox spacer) {
+  List<Widget> buildWidgetList(UserNeedsViewModel model,
+      List<List<UserNeed>> userNeedsByGroup, SizedBox spacer) {
 
+    int questionCount = 1;
     List<Widget> _dynamicFormWidgets = [];
 
     userNeedsByGroup.forEach((userNeedGroup) {
-
       if (userNeedGroup.length > 1) {
         // Drop down list for multiple items
 
-        List<DropdownMenuItem<String>> dropdownItems = userNeedGroup.map((userNeed) {
+        List<DropdownMenuItem<String>> dropdownItems =
+            userNeedGroup.map((userNeed) {
           return new DropdownMenuItem(
             child: Text(userNeed.description),
             value: userNeed.id,
           );
         }).toList();
 
-        _dynamicFormWidgets.add(
-          new DropdownButton(
-            hint: Text('Please Select One'),
-            items: dropdownItems,
-            icon: Icon(Icons.arrow_downward),
-            iconSize: 24,
-            onChanged: ((String newValue) {
-              print(newValue);
-            }),
-          ));
-      } else if(userNeedGroup.first.isTextBox == "yes") {
+        _dynamicFormWidgets.add(Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 25, 0),
+            child: DropdownButton(
+              hint: Text((questionCount++).toString() + ". " + 'Please Select One'),
+              items: dropdownItems,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              isExpanded: true,
+              
+              onChanged: ((String newValue) {
+                print(newValue);
+                
+              }),
+            )));
+      } else if (userNeedGroup.first.isTextBox == "yes") {
         // If there is only 1 and it's a textbox
 
       } else {
@@ -44,16 +51,14 @@ class UserNeedsView extends StatelessWidget {
 
         UserNeed _userNeed = userNeedGroup.first;
 
-        _dynamicFormWidgets.add(
-          CheckboxListTile(
-            title: Text(_userNeed.description),
-            value: model.value["1"],
-            onChanged: (bool value) {
-              model.selectNeed("1", value);
-            },
-            //secondary: const Icon(FontAwesomeIcons.peopleCarry),
-          )
-        );
+        _dynamicFormWidgets.add(CheckboxListTile(
+          title: Text((questionCount++).toString() + '. ' + _userNeed.description),
+          value: model.value[_userNeed.id] ?? false,
+          onChanged: (bool value) {
+            model.selectNeed(_userNeed.id, value);
+          },
+          //secondary: const Icon(FontAwesomeIcons.peopleCarry),
+        ));
       }
 
       // Add the spacer
@@ -110,7 +115,8 @@ class UserNeedsView extends StatelessWidget {
                   const SizedBox(height: 8.0),
 
                   //...this._dynamicFormWidgets,
-                  ...this.buildWidgetList(model, model.userNeedsByGroup, const SizedBox(height: 8.0)),
+                  ...this.buildWidgetList(model, model.userNeedsByGroup,
+                      const SizedBox(height: 8.0)),
 
                   Padding(
                     padding: const EdgeInsets.all(16.0),

@@ -14,17 +14,7 @@ class UserNeedsViewModel extends BaseModel {
   get org => _org;
   get userNeedsByGroup => _userNeedsByGroup;
 
-  Map<String, dynamic> _value = <String, dynamic>{
-    "1": false,
-    "2": false,
-    "3": false,
-    "4": false,
-    "5": false,
-    "6": false,
-    "7": false,
-    "8": false,
-    "9": ''
-  };
+  Map<String, dynamic> _value = <String, dynamic>{};
 
   Map<String, dynamic> get value => _value;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:mod_main/core/shared_services/widget_service.dart';
 import '../view_model/userinfo_view_model.dart';
 
 class UserInfoView extends StatelessWidget {
@@ -20,11 +21,11 @@ class UserInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8.0),
              
-              _select((value) {
+              WidgetService.createSelectBox((value) {
                 model.changeCountry(value);
               }, model.selectedCountry, model.countries),
             
-              _select((value) {
+              WidgetService.createSelectBox((value) {
                 model.changeCity(value);
               }, model.selectedCity, model.cities),
              
