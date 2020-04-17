@@ -2,7 +2,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_org_repository.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_support_role_repository.dart';
+import 'org_manager/orgs/views/org_detail_page.dart';
 import 'org_manager/orgs/views/org_manager_detail_view.dart';
+import 'org_manager/orgs/views/org_master_page.dart';
 import 'org_manager/orgs/views/orgs_manager_master_view.dart';
 import 'orgs/service/orgs_service.dart';
 import 'orgs/views/org_view.dart';
@@ -48,7 +50,10 @@ class MainAppModule extends ChildModule{
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
     Router("/dashboard/orgs", child: (_, args) => OrgManagerMasterView()),
-    Router("/dashboard/orgs/:id", child: (_, args) => OrgManagerDetailView()),
+    Router("/dashboard/orgs/:id", child: (_, args) => OrgManagerDetailView(
+      masterWidget: OrgMasterPage(orgID: args.params['id'],),
+      detailWidget: OrgDetailPage(orgID: args.params['id'],),
+    )),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();

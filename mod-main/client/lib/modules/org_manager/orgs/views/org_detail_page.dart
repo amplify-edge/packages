@@ -28,7 +28,7 @@ class OrgDetailPage extends StatelessWidget {
               // iconTheme: Theme.of(context).iconTheme,
               automaticallyImplyLeading:
                   (sizingInfo.screenSize.width > 1100) ? false : true,
-              title: Text("London Tax Strike $orgID"),
+              title: Text("$orgID"),
               actions: <Widget>[
                 IconButton(
                     tooltip: "Copy Link",
@@ -57,7 +57,7 @@ class OrgDetailPage extends StatelessWidget {
                     ? IconButton(
                         icon: Icon(Icons.arrow_back),
                         onPressed: () {
-                          model.routePushed(false);
+                         
                           return Modular.to.pop(false);
                         },
                       )
