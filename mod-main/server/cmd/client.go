@@ -28,7 +28,7 @@ var (
 
 func main() {
 	// printTestDataFiles()
-	local := flag.Bool("local", true, "connect with local server")
+	local := flag.Bool("local", false, "connect with local server")
 	flag.Parse()
 	err := godotenv.Load(*envFile)
 	if err != nil {
