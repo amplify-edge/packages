@@ -66,7 +66,7 @@ class OrgDetailPage extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      (sizingInfo.screenSize.width > 768)
+                      (sizingInfo.screenSize.width > 1100)
                           ? FilterPane(sizingInfo: sizingInfo)
                           : Offstage(),
                       SizedBox(width: 16),
