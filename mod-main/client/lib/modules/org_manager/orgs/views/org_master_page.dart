@@ -9,9 +9,9 @@ import 'org_detail_page.dart';
 import 'org_manager_detail_view.dart';
 
 class OrgMasterPage extends StatelessWidget {
-  final int selectedIndex;
+  final String orgID;
 
-  const OrgMasterPage({Key key, this.selectedIndex})
+  const OrgMasterPage({Key key, this.orgID})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -50,23 +50,26 @@ class OrgMasterPage extends StatelessWidget {
         (context, int index) {
           return ListTile(
             title: Text(model.orgs[index]),
-            selected: index == selectedIndex,
+            selected: model.orgs[index] == orgID, /// Later it can be like [model.orgs(index).id]
             onTap: () {
               /// select org here [await model.selectOrg(model.orgs[index])]
               /// and then pass selected org id .i.e. [model.selectedOrg.orgId]
               
-              Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                return OrgManagerDetailView(
-                  masterWidget: OrgMasterPage(selectedIndex: index,),
-                  detailWidget: OrgDetailPage(orgID: (index+1).toString(),),
-                );
-              },
-              settings: RouteSettings(
-                name : Modular.get<Paths>().org.replaceAll(":id", "orgDetail?id=${index+1}")
-              )
-              ),
+              Modular.to.pushNamed(Modular.get<Paths>().org.replaceAll(":id", "${model.orgs[index]}")); /// Later u can pass org id [model.orgs(index).id]
               
-              );
+              
+              // Navigator.of(context).push(MaterialPageRoute(builder: (context){
+              //   return OrgManagerDetailView(
+              //     masterWidget: OrgMasterPage(orgID: index,),
+              //     detailWidget: OrgDetailPage(orgID: (index+1).toString(),),
+              //   );
+              // },
+              // settings: RouteSettings(
+              //   name : Modular.get<Paths>().org.replaceAll(":id", "orgDetail?id=${index+1}")
+              // )
+              // ),
+              
+              // );
            
             },
           );
