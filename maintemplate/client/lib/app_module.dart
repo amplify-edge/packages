@@ -39,7 +39,8 @@ class AppModule extends MainModule {
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
         Router(Paths.startup, child: (_, args) => StartupView()),
-        Router(Paths.modAccount, module: AccountModule(Paths.modAccount)),
+        Router(Paths.modAccount, module: AccountModule(Paths.modAccount),),
+       
         Router(Paths.modMain, module: MainAppModule(baseRoute: Paths.modMain, url: url, urlNative: urlNative)),
         Router(Paths.chat,
             module: ChatModule(Paths.chat,

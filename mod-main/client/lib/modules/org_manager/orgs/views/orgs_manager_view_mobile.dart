@@ -21,24 +21,26 @@ class OrgManagerViewMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);
     return Scaffold(
-        body: CustomScrollView(
-      slivers: <Widget>[
-        const SliverPadding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          sliver: SliverFloatingBar(
-            elevation: 1.0,
-            floating: true,
-            pinned: true,
-            automaticallyImplyLeading: false,
-            title: TextField(
-              decoration:
-                  InputDecoration.collapsed(hintText: 'Search Campaigns'),
+      body: 
+      CustomScrollView(
+        slivers: <Widget>[
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            sliver: SliverFloatingBar(
+              elevation: 1.0,
+              floating: true,
+              pinned: true,
+              automaticallyImplyLeading: false,
+              title: TextField(
+                decoration:
+                    InputDecoration.collapsed(hintText: 'Search Campaigns'),
+              ),
             ),
           ),
-        ),
-        _buildOrgsList(model)
-      ],
-    ));
+          _buildOrgsList(model)
+        ],
+      ),
+    );
   }
 
   SliverList _buildOrgsList(OrgsViewModel model) {

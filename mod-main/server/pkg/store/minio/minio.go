@@ -3,15 +3,16 @@ package minio
 import (
 	"context"
 	"errors"
-	"github.com/getcouragenow/packages/mod-main/server/pkg/config"
-	mn "github.com/minio/minio-go/v6"
-	"github.com/minio/minio-go/v6/pkg/encrypt"
-	"github.com/minio/minio-go/v6/pkg/s3utils"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/getcouragenow/packages/mod-main/server/pkg/config"
+	mn "github.com/minio/minio-go/v6"
+	"github.com/minio/minio-go/v6/pkg/encrypt"
+	"github.com/minio/minio-go/v6/pkg/s3utils"
 )
 
 type (
@@ -32,8 +33,8 @@ type (
 		query string
 	}
 	singleQuery struct {
-		query string
-		param string
+		query       string
+		param       string
 		regexString string
 	}
 )
@@ -125,11 +126,12 @@ func (m *Ministore) Migrate(ctx context.Context, datapath string) error {
 		return err
 	}
 	for _, v := range filenames {
-		file, err  := os.OpenFile(datapath + "/" + v, os.O_RDONLY, 0644)
+
+		file, err := os.OpenFile(datapath+"/"+v, os.O_RDONLY, 0644)
 		if err != nil {
 			return err
 		}
-		_, err  = m.Put(ctx, v, file)
+		_, err = m.Put(ctx, v, file)
 		if err != nil {
 			return err
 		}
@@ -150,7 +152,7 @@ func getCsvFilenames(datapath string) ([]string, error) {
 		if matched, err := filepath.Match("*.csv", filepath.Base(csvpath)); err != nil {
 			return err
 		} else if matched {
-			matches = append(matches, csvpath)
+			matches = append(matches, info.Name())
 		}
 		return nil
 	})
@@ -217,7 +219,7 @@ func (m *Ministore) selectObject(ctx context.Context, query, objName string) ([]
 		Expression:           query,
 		ExpressionType:       mn.QueryExpressionTypeSQL,
 		InputSerialization: mn.SelectObjectInputSerialization{
-			CompressionType: mn.SelectCompressionGZIP,
+			CompressionType: mn.SelectCompressionNONE,
 			CSV: &mn.CSVInputOptions{
 				FileHeaderInfo:  mn.CSVFileHeaderInfoUse,
 				RecordDelimiter: "\n",
@@ -226,7 +228,8 @@ func (m *Ministore) selectObject(ctx context.Context, query, objName string) ([]
 		},
 		OutputSerialization: mn.SelectObjectOutputSerialization{
 			JSON: &mn.JSONOutputOptions{
-				RecordDelimiter: "\r\n",
+				RecordDelimiter: ",\n",
+				// RecordDelimiter: "\r\n",
 			},
 		},
 	}
@@ -235,8 +238,7 @@ func (m *Ministore) selectObject(ctx context.Context, query, objName string) ([]
 		return nil, err
 	}
 	defer reader.Close()
-	body, err := ioutil.ReadAll(reader)
-	return body, nil
+	return ioutil.ReadAll(reader)
 }
 
 func (m *Ministore) GetSingle(ctx context.Context, v Valider, objName string) ([]byte, error) {
@@ -246,6 +248,10 @@ func (m *Ministore) GetSingle(ctx context.Context, v Valider, objName string) ([
 	}
 	sq := v.getQuery() + v.getParams()
 	byteres, err := m.selectObject(ctx, sq, objName)
+
+	// a hack fix should find better solution: allows to delete the coma from the end
+	byteres = byteres[:len(byteres)-2]
+
 	if err != nil {
 		return nil, err
 	}
@@ -255,6 +261,12 @@ func (m *Ministore) GetSingle(ctx context.Context, v Valider, objName string) ([
 func (m *Ministore) GetMultiple(ctx context.Context, v Valider, objName string) ([]byte, error) {
 	lq := v.getQuery()
 	byteres, err := m.selectObject(ctx, lq, objName)
+
+	// a hack fix should find better solution: allows to add list brackets
+	// and delete coma from the end.
+	byteres = append([]byte("[\n"), byteres...)
+	byteres = append(byteres[:len(byteres)-2], byte(']'))
+
 	if err != nil {
 		return nil, err
 	}

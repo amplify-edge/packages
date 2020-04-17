@@ -17,6 +17,6 @@ class SplashViewModel extends BaseModel{
   }
 
   void navigateToOrgManagement(){
-    Modular.to.pushNamed(Modular.get<Paths>().dashboard);
+    Modular.to.pushNamed(Modular.get<Paths>().org.replaceAll(":id", "1"),);
   }
 }
