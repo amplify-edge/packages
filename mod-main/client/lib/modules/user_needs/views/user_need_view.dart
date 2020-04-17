@@ -11,8 +11,6 @@ class UserNeedsView extends StatelessWidget {
 
   UserNeedsView({Key key, this.orgID}) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
@@ -59,7 +57,7 @@ class UserNeedsView extends StatelessWidget {
                   const SizedBox(height: 8.0),
 
                   //...this._dynamicFormWidgets,
-                  ...model.buildWidgetList(),
+                  ...model.buildWidgetList(context),
 
                   Padding(
                     padding: const EdgeInsets.all(16.0),

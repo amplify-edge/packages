@@ -7,8 +7,7 @@ class DynamicWidgetService {
 }
 
 class DynamicDropdownButton extends StatelessWidget {
-  String _key;
-  String _selected;
+  final String _selected;
   final Map<String, String> _data;
   final CallbackInjection _callbackInjection;
 
@@ -39,8 +38,6 @@ class DynamicDropdownButton extends StatelessWidget {
   }
 
   void onChangedCallback(String selected) {
-    this._selected = selected;
-
     if (this._callbackInjection != null) {
       this._callbackInjection(this._data ,selected);
     }

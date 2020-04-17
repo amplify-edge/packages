@@ -30,24 +30,28 @@ class UserNeedsViewModel extends BaseModel {
     _org = orgService.getOrgById(orgId);
     _userNeedsByGroup = userNeedService.getGroupedUserNeedsByOrgId(orgId);
 
-    // We need to track which option of the dropdown was selected
-    _userNeedsByGroup.forEach((group) {
-      if (group.length > 1) {
-        String key = generateDropdownKey(group);
-        this.dwService.selectedDropdownOptions[key] = '';
-      }
-    });
-
-    this.buildWidgetList();
+    this.initializeDropdownSelectionData(_userNeedsByGroup);
 
     setBuzy(false);
   }
 
   void selectNeed(String key, value, {bool deferNotify: false}) {
     _value[key] = value;
-    print(_value);
+
     if (!deferNotify) {
       notifyListeners();
+    }
+  }
+
+  void initializeDropdownSelectionData(List<List<UserNeed>> userNeedsByGroup) {
+    if (this.dwService.selectedDropdownOptions.length == 0) {
+      // We need to track which option of the dropdown was selected
+      userNeedsByGroup.forEach((group) {
+        if (group.length > 1) {
+          String key = generateDropdownKey(group);
+          this.dwService.selectedDropdownOptions[key] = null;
+        }
+      });
     }
   }
 
@@ -75,10 +79,9 @@ class UserNeedsViewModel extends BaseModel {
     );
   }
 
-  List<Widget> buildWidgetList() {
+  List<Widget> buildWidgetList(BuildContext context) {
     int questionCount = 1;
     const SizedBox spacer = SizedBox(height: 8.0);
-
     List<Widget> viewWidgetList = [];
 
     this.userNeedsByGroup.forEach((userNeedGroup) {
@@ -87,14 +90,18 @@ class UserNeedsViewModel extends BaseModel {
         userNeedGroup
             .forEach((userNeed) => data[userNeed.description] = userNeed.id);
 
-        String key = generateDropdownKey(userNeedGroup);
+        String dropdownOptionKey = generateDropdownKey(userNeedGroup);
+
         DynamicDropdownButton ddb = DynamicDropdownButton(
             data: data,
-            selectedOption: this.dwService.selectedDropdownOptions[key],
+            selectedOption:
+                this.dwService.selectedDropdownOptions[dropdownOptionKey],
             callbackInjection: (data, selected) {
               data.forEach((key, value) {
                 if (key == selected) {
                   this.selectNeed(value, true, deferNotify: true);
+                  this.dwService.selectedDropdownOptions[dropdownOptionKey] =
+                      selected;
                 } else {
                   this.selectNeed(value, false, deferNotify: true);
                 }
@@ -102,7 +109,21 @@ class UserNeedsViewModel extends BaseModel {
               notifyListeners();
             });
 
-        viewWidgetList.add(ddb);
+        viewWidgetList.add(Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    (questionCount++).toString() +
+                        '. ' +
+                        'Help us understand your needs',
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  spacer,
+                  ddb,
+                ])));
+
       } else if (userNeedGroup.first.isTextBox == "yes") {
         // If there is only 1 and it's a textbox
 
