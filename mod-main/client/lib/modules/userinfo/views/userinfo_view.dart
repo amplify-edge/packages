@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:mod_main/core/shared_services/widget_service.dart';
 import '../view_model/userinfo_view_model.dart';
 
 class UserInfoView extends StatelessWidget {
