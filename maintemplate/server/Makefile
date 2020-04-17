@@ -11,6 +11,18 @@ RESET  := $(shell tput -Txterm sgr0)
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
 
+MINIKUBE_VMDRIVER :=
+ifeq ($(OS),Windows_NT)
+    MINIKUBE_VMDRIVER += virtualbox
+else
+    OSNAME := $(shell uname -s)
+    ifeq ($(OSNAME), Linux)
+        MINIKUBE_VMDRIVER += kvm2
+    else
+        MINIKUBE_VMDRIVER += virtualbox
+    endif
+endif
+
 .PHONY: help build prepare flu-web-run flu-mob-run clean
 
 ## Show help
@@ -57,7 +69,7 @@ endif
 ## GCP configuration
 gke-setup: check-env
 	@echo GKEConf
-	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member user:${GCP_USER} --role roles/iam.serviceAccountKeyAdmin
+	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member user:${GCP_USER} --role roles/iam.serviceAccountKeyOPS
 	@mkdir -p ~/.getcouragenow/
 	@gcloud config set project ${GCP_PROJECT}
 	@gcloud iam service-accounts create ${GCP_PROJECT}-sa
@@ -106,7 +118,7 @@ gke-vars:
 
 ## Configure minikube vm-driver
 minikube-config: 
-	minikube config set vm-driver virtualbox
+	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
 	$(MAKE) minikube-clean
 
 minikube-clean:

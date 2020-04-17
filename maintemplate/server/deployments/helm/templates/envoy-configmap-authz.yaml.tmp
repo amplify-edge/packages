@@ -91,7 +91,7 @@ data:
                 address:
                   socket_address:
                     address: 0.0.0.0
-                    port_value: 9074
+                    port_value: 9075
         common_lb_config:
           healthy_panic_threshold:
             value: 50.0   
