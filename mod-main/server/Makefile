@@ -29,6 +29,8 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
+
+
 ## Pull down gsheets data
 get-data:
 	@echo ''
@@ -47,7 +49,7 @@ del-data:
 	@echo '${GREEN}Data Removed${RESET}'
 	@echo 'Run ${YELLOW}make get-data${RESET} to regenerate the data'
 
-go-srv:
+go-srv: ## go-srv
 	cd cmd && go run server.go
 
 go-cli:

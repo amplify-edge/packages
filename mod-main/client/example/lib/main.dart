@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+
 import 'package:mod_main/modules/main_module.dart';
 
 
 void main(){
-  runApp(ModularApp(module : AppModule()));
+   runApp(ModularApp(module : AppModule()));
+ 
 }
 
 
@@ -33,9 +35,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      onGenerateRoute: Modular.generateRoute,
-      navigatorKey: Modular.navigatorKey,
+     
+     initialRoute: "/",
+     onGenerateRoute: Modular.generateRoute,
+     navigatorKey: Modular.navigatorKey,
     );
   }
 }

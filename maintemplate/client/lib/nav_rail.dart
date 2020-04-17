@@ -36,7 +36,7 @@ class MaterialNavigationRail extends StatelessWidget {
       this.drawerHeaderBuilder,
       this.drawerFooterBuilder,
       this.bottomNavigationBarColor,
-      this.tabletBreakpoint = 720.0,
+      this.tabletBreakpoint = 768.0,
       this.desktopBreakpoint = 1400,
       this.minHeight = 400.0,
       this.drawerWidth = 304.0,

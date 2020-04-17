@@ -18,13 +18,9 @@ https://github.com/getcouragenow/bootstrap/tree/master/tool/hover
 
 See MainTemplate folder for Client and Server makefiles.
 
-## Testing
-
-Desktop and Mobile releaes coming out of CI: https://github.com/getcouragenow/packages/releases
-
-Web out of CI: https://maintemplate.ci.getcouragenow.org/
+## Demo
 
 
+Web CI: https://maintemplate.ci.getcouragenow.org/
 
-
-
+Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/packages/releases

@@ -23,12 +23,12 @@ import (
 // TODO extend for env vars needed
 // Env vars should be in the k8s deployment (i.e. helm charts via secrets)
 var (
-	envFile = flag.String("c", "../env.sample", "path to config file")
+	envFile = flag.String("c", "./env.sample", "path to config file")
 )
 
 func main() {
 	// printTestDataFiles()
-	local := flag.Bool("local", true, "connect with local server")
+	local := flag.Bool("local", false, "connect with local server")
 	flag.Parse()
 	err := godotenv.Load(*envFile)
 	if err != nil {
