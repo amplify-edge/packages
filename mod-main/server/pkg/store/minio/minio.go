@@ -249,9 +249,6 @@ func (m *Ministore) GetSingle(ctx context.Context, v Valider, objName string) ([
 	sq := v.getQuery() + v.getParams()
 	byteres, err := m.selectObject(ctx, sq, objName)
 
-	// a hack fix should find better solution: allows to delete the coma from the end
-	byteres = byteres[:len(byteres)-2]
-
 	if err != nil {
 		return nil, err
 	}
@@ -261,11 +258,6 @@ func (m *Ministore) GetSingle(ctx context.Context, v Valider, objName string) ([
 func (m *Ministore) GetMultiple(ctx context.Context, v Valider, objName string) ([]byte, error) {
 	lq := v.getQuery()
 	byteres, err := m.selectObject(ctx, lq, objName)
-
-	// a hack fix should find better solution: allows to add list brackets
-	// and delete coma from the end.
-	byteres = append([]byte("[\n"), byteres...)
-	byteres = append(byteres[:len(byteres)-2], byte(']'))
 
 	if err != nil {
 		return nil, err
