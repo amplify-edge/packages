@@ -21,11 +21,11 @@ class UserInfoView extends StatelessWidget {
               ),
               const SizedBox(height: 8.0),
              
-              WidgetService.createSelectBox((value) {
+              _select((value) {
                 model.changeCountry(value);
               }, model.selectedCountry, model.countries),
             
-              WidgetService.createSelectBox((value) {
+              _select((value) {
                 model.changeCity(value);
               }, model.selectedCity, model.cities),
              
