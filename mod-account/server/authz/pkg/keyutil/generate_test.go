@@ -1,6 +1,7 @@
-package keyutil
+package keyutil_test
 
 import (
+	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil"
 	"os"
 	"testing"
 )
@@ -17,22 +18,27 @@ func TestJwtKeys(t *testing.T) {
 func testGenKey(t *testing.T) {
 	t.Log("\tShould generate key for RSA")
 	{
-		var r KeyType = RSA
+		var r keyutil.KeyType = keyutil.RSA
 		err := r.GenSigningKeys("./")
 		if err != nil {
 			t.Fatalf("\t%s\tShould be able to generate RSA keys: %v", failed, err)
 		}
-		os.Remove("*.json")
+		removeGeneratedKeys("./")
 		t.Logf("\t%s\tShould be able to generate RSA keys", success)
 	}
 	t.Log("\tShould generate key for ECC/Ed25519")
 	{
-		var e KeyType = ECC
+		var e keyutil.KeyType = keyutil.ECC
 		err := e.GenSigningKeys("./")
 		if err != nil {
 			t.Fatalf("\t%s\tShould be able to generate Ed25519 keys: %v", failed, err)
 		}
-		os.Remove("./*.json")
+		removeGeneratedKeys("./")
 		t.Logf("\t%s\tShould be able to generate Ed25519 keys", success)
 	}
+}
+
+func removeGeneratedKeys(path string) {
+	os.Remove(path + "/jwk-sig-private.json")
+	os.Remove(path + "/jwk-sig-public.json")
 }

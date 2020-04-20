@@ -1,10 +1,15 @@
 package main
 
 import (
-	"encoding/json"
+	envoy_core "github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
+	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/filters"
+	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/metadata"
 	"log"
 	"net"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -14,22 +19,18 @@ import (
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/status"
 
-	rpcstatus "google.golang.org/genproto/googleapis/rpc/status"
-
-	core "github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
-	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
-	envoy_type "github.com/envoyproxy/go-control-plane/envoy/type"
-	"github.com/gogo/googleapis/google/rpc"
+	envoy_auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
+	glog "google.golang.org/grpc/grpclog"
 )
 
 var (
-	conn     *grpc.ClientConn
-	hs       *health.Server
+	conn *grpc.ClientConn
+	hs   *health.Server
 )
 
 const (
 	// hardcoded as of now , following envoy's config in the maintemplate (envoy-configmap-authz.yaml.tmp)
-	ADDRESS string = ":9075"
+	ADDRESS     string = ":9075"
 	AUTH_HEADER string = "Authorization"
 )
 
@@ -47,19 +48,7 @@ func (s *healthServer) Watch(in *healthpb.HealthCheckRequest, srv healthpb.Healt
 
 type AuthorizationServer struct{}
 
-func (a *AuthorizationServer) Check(ctx context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
-	b, err := json.MarshalIndent(req.Attributes.Request.Http.Headers, "", "  ")
-	if err == nil {
-		log.Println("Inbound Headers: ")
-		log.Println((string(b)))
-	}
-
-	ct, err := json.MarshalIndent(req.Attributes.ContextExtensions, "", "  ")
-	if err == nil {
-		log.Println("Context Extensions: ")
-		log.Println((string(ct)))
-	}
-
+func (a *AuthorizationServer) Check(ctx context.Context, req *envoy_auth.CheckRequest) (*envoy_auth.CheckResponse, error) {
 	authHeader, ok := req.Attributes.Request.Http.Headers[AUTH_HEADER]
 	var splitToken []string
 
@@ -68,62 +57,50 @@ func (a *AuthorizationServer) Check(ctx context.Context, req *auth.CheckRequest)
 	}
 	if len(splitToken) == 2 {
 		token := splitToken[1]
-
-		if token == "foo" {
-			return &auth.CheckResponse{
-				Status: &rpcstatus.Status{
-					Code: int32(rpc.OK),
-				},
-				HttpResponse: &auth.CheckResponse_OkResponse{
-					OkResponse: &auth.OkHttpResponse{
-						Headers: []*core.HeaderValueOption{
-							{
-								Header: &core.HeaderValue{
-									Key:   "x-custom-header-from-authz",
-									Value: "some value",
-								},
-							},
-						},
-					},
-				},
-			}, nil
-		} else {
-			return &auth.CheckResponse{
-				Status: &rpcstatus.Status{
-					Code: int32(rpc.PERMISSION_DENIED),
-				},
-				HttpResponse: &auth.CheckResponse_DeniedResponse{
-					DeniedResponse: &auth.DeniedHttpResponse{
-						Status: &envoy_type.HttpStatus{
-							Code: envoy_type.StatusCode_Unauthorized,
-						},
-						Body: "PERMISSION_DENIED",
-					},
-				},
-			}, nil
-
+		if ok, err := filters.FilterJWT(token); !ok {
+			return guestResponse(), nil
+		} else if err != nil {
+			return guestResponse(), nil
 		}
-
-	}
-	return &auth.CheckResponse{
-		Status: &rpcstatus.Status{
-			Code: int32(rpc.UNAUTHENTICATED),
-		},
-		HttpResponse: &auth.CheckResponse_DeniedResponse{
-			DeniedResponse: &auth.DeniedHttpResponse{
-				Status: &envoy_type.HttpStatus{
-					Code: envoy_type.StatusCode_Unauthorized,
+		res := filters.OKResponse(
+			[]*envoy_core.HeaderValueOption{
+				{
+					Header: &envoy_core.HeaderValue{
+						Key:   metadata.HEADER_CLIENT_NAME,
+						Value: "authorized",
+					},
 				},
-				Body: "Authorization Header malformed or not provided",
+				{
+					Header: &envoy_core.HeaderValue{
+						Key:   metadata.HEADER_IS_LOGGED_IN,
+						Value: "1",
+					},
+				},
 			},
-		},
-	}, nil
+		)
+		return res, nil
+	}
+	return guestResponse(), nil
+}
+
+func guestResponse() *envoy_auth.CheckResponse {
+	return filters.OKResponse(filters.GenGuestUser())
 }
 
 func main() {
+	logger := glog.NewLoggerV2(os.Stdout, os.Stdout, os.Stdout)
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	// graceful shutdown as always
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
+	defer signal.Stop(interrupt)
+
 	lis, err := net.Listen("tcp", ADDRESS)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		logger.Fatalf("failed to listen: %v", err)
 	}
 
 	opts := []grpc.ServerOption{grpc.MaxConcurrentStreams(10)}
@@ -131,9 +108,21 @@ func main() {
 
 	s := grpc.NewServer(opts...)
 
-	auth.RegisterAuthorizationServer(s, &AuthorizationServer{})
+	envoy_auth.RegisterAuthorizationServer(s, &AuthorizationServer{})
 	healthpb.RegisterHealthServer(s, &healthServer{})
 
-	log.Printf("Starting gRPC Server at %s", ADDRESS)
-	s.Serve(lis)
+	logger.Infof("Starting gRPC Server at %s", ADDRESS)
+	go s.Serve(lis)
+
+	select {
+	case <-ctx.Done():
+		break
+	case <-interrupt:
+		break
+	}
+	cancel()
+	logger.Warningln("Received termination signal")
+
+	s.GracefulStop()
+
 }

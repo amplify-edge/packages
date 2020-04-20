@@ -8,15 +8,41 @@ import (
 	"encoding/base64"
 	"fmt"
 	jose "github.com/square/go-jose/v3"
-	"io"
 	"os"
+	"text/template"
 )
 
 type KeyType int
 
+// EncodedKeyPairs contains keypairs for signing JWTs.
+type encodedKeyPairs struct {
+	Pub  string
+	Priv string
+}
+
+func newEncodedKeyPairs(pub, priv []byte) *encodedKeyPairs {
+	return &encodedKeyPairs{
+		Pub:  base64.StdEncoding.EncodeToString(pub),
+		Priv: base64.StdEncoding.EncodeToString(priv),
+	}
+}
+
 const (
 	RSA KeyType = iota
 	ECC
+)
+
+var (
+	filename        = "keypair-secrets"
+	secretsTemplate = `apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: signing-keys
+data:
+    publicKey: {{ .Pub }}
+    privateKey: {{ .Priv }}
+`
 )
 
 func (k *KeyType) String() string {
@@ -26,27 +52,31 @@ func (k *KeyType) String() string {
 func (k *KeyType) generateAlgo() string {
 	switch *k {
 	case RSA:
-		return string(jose.RS384)
+		return string(jose.HS512)
 	case ECC:
 		return string(jose.EdDSA)
 	default:
-		return string(jose.RS256)
+		return string(jose.HS512)
 	}
 }
 
+
 func (k *KeyType) GenSigningKeys(path string) error {
-	pubKey, privKey, err := genSigningKey(k.String())
+	pubKey, privKey, err := k.genSigningKey()
 	if err != nil {
 		return err
 	}
 	alg := k.generateAlgo()
+	// private keys
 	priv := jose.JSONWebKey{Key: privKey, KeyID: "", Algorithm: alg, Use: "sig"}
 	fprint, err := priv.Thumbprint(crypto.SHA256)
 	if err != nil {
 		return err
 	}
+	// kid
 	kid := base64.URLEncoding.EncodeToString(fprint)
 	priv.KeyID = kid
+	// public keys
 	pub := jose.JSONWebKey{Key: pubKey, KeyID: kid, Algorithm: alg, Use: "sig"}
 	jpriv, err := priv.MarshalJSON()
 	if err != nil {
@@ -56,45 +86,25 @@ func (k *KeyType) GenSigningKeys(path string) error {
 	if err != nil {
 		return err
 	}
-	return writeJsonKeys(jpriv, jpub, path, kid)
+	t := template.Must(template.New(filename).Parse(secretsTemplate))
+	ekp := newEncodedKeyPairs(jpub, jpriv)
+	return writeSecrets(t, ekp, path)
 }
 
-func writeJsonKeys(priv []byte, pub []byte, path string, kid string) error {
-	basefilename := fmt.Sprintf("%s/jwk-%s-%s", path, "sig", kid)
-	pubFile := fmt.Sprintf("%s-public.json", basefilename)
-	privFile := fmt.Sprintf("%s-private.json", basefilename)
-
-	err := writeToFile(pub, pubFile, 0444)
+func writeSecrets(tpl *template.Template, ekp *encodedKeyPairs, path string) error {
+	fname := fmt.Sprintf("%s/%s.yaml", path, filename)
+	file, err := os.OpenFile(fname, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
 		return err
 	}
-	err = writeToFile(priv, privFile, 0400)
-	if err != nil {
-		return err
-	}
-	return nil
+	return tpl.Execute(file, ekp)
 }
 
-func writeToFile(bytedata []byte, name string, filemode os.FileMode) error {
-	file, err := os.OpenFile(name, os.O_WRONLY|os.O_CREATE|os.O_EXCL, filemode)
-	if err != nil {
-		return err
-	}
-	n, err := file.Write(bytedata)
-	if err == nil && n < len(bytedata) {
-		err = io.ErrShortWrite
-	}
-	if errClose := file.Close(); err == nil {
-		err = errClose
-	}
-	return err
-}
-
-func genSigningKey(alg string) (crypto.PublicKey, crypto.PrivateKey, error) {
-	switch alg {
-	case "ECC":
+func (k *KeyType) genSigningKey() (crypto.PublicKey, crypto.PrivateKey, error) {
+	switch *k {
+	case ECC:
 		return ed25519.GenerateKey(rand.Reader)
-	case "RSA":
+	case RSA:
 		// we opt for 4096, even though 2048 may suffice.
 		priv, err := rsa.GenerateKey(rand.Reader, 4096)
 		if err != nil {
@@ -102,6 +112,6 @@ func genSigningKey(alg string) (crypto.PublicKey, crypto.PrivateKey, error) {
 		}
 		return priv.Public(), priv, err
 	default:
-		return nil, nil, fmt.Errorf("Unknown alg specified: %s", alg)
+		return nil, nil, fmt.Errorf("unknown alg specified: %s", k.String())
 	}
 }
