@@ -97,3 +97,73 @@ class DynamicMultilineTextFormField extends StatelessWidget {
     );
   }
 }
+
+class DynamicSlider extends StatelessWidget {
+  final StandardCallbackInjection _callbackInjection;
+  final String _title, _question;
+  final double _min, _max, _current;
+
+  DynamicSlider(
+      {String title,
+      String question,
+      double current,
+      double min,
+      double max,
+      StandardCallbackInjection callbackInjection})
+      : this._question = question,
+        this._title = title,
+        this._current = current,
+        this._min = min,
+        this._max = max,
+        this._callbackInjection = callbackInjection;
+
+  Widget build(BuildContext context) {
+    return Container(
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+               ListTile(
+                title: Text(
+                  this._title,
+                  style: Theme.of(context).textTheme.title,
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  this._question,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              ListTile(
+                title: Text(
+                  'Minimum hours you can dedicate  : ',
+                  style: Theme.of(context).textTheme.subtitle,
+                ),
+                trailing: Text(
+                  '${this._current} hr',
+                  style: Theme.of(context)
+                      .textTheme
+                      .body1
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Slider(
+                    label: this._current.toString(),
+                    divisions: this._max.toInt(),
+                    min: this._min,
+                    max: this._max,
+                    value: this._current,
+                    onChanged: (double value) {
+                      this._callbackInjection(value.toString());
+                    }),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

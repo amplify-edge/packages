@@ -10,24 +10,15 @@ class SupportRoleViewModel extends BaseModel {
   final orgService = Modular.get<OrgsService>();
   Org _org;
 
-  List<bool> _values = List<bool>.generate(
-      Modular.get<SupportRoleService>().getAll().length, (index) => false);
-
   List<double> _minHours = List<double>.generate(
-      Modular.get<SupportRoleService>().getAll().length, (index) => 0);
+      Modular.get<SupportRoleService>().getAll().length, (index) => 0.0);
 
   List<SupportRole> get supportRoles => supportRoleService.getAll();
-  List<bool> get values => _values;
   List<double> get minHours => _minHours;
   Org get org => _org;
 
   void selectMinHours(double value, int index) {
     _minHours[index] = value;
-    notifyListeners();
-  }
-
-  void selectRole(value, int index) {
-    _values[index] = true;
     notifyListeners();
   }
 
