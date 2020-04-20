@@ -79,6 +79,7 @@ class UserNeedsViewModel extends BaseModel {
     );
   }
 
+  /// Builds all of the dynamic questions from the userNeed objects
   List<Widget> buildWidgetList(BuildContext context) {
     int questionCount = 1;
     const SizedBox spacer = SizedBox(height: 8.0);
@@ -92,18 +93,25 @@ class UserNeedsViewModel extends BaseModel {
 
         String dropdownOptionKey = generateDropdownKey(userNeedGroup);
 
+        // Create new button
         DynamicDropdownButton ddb = DynamicDropdownButton(
             data: data,
-            selectedOption:
-                this.dwService.selectedDropdownOptions[dropdownOptionKey],
+            selectedOption: this.dwService.selectedDropdownOptions[
+                dropdownOptionKey], // The selected description
             callbackInjection: (data, selected) {
-              data.forEach((key, value) {
-                if (key == selected) {
-                  this.selectNeed(value, true, deferNotify: true);
+              // the onChangedCallback
+              // Because each dropdown option is technically a "question" in the db
+              // We need to set each option/question as true/false based on its relative selection
+              data.forEach((userNeedDesc, userNeedId) {
+                // Needs to go through each "option" in the dropdown
+                if (userNeedDesc == selected) {
+                  // If we selected it this time set that question id to true
+                  this.selectNeed(userNeedId, true, deferNotify: true);
                   this.dwService.selectedDropdownOptions[dropdownOptionKey] =
                       selected;
                 } else {
-                  this.selectNeed(value, false, deferNotify: true);
+                  // Otherwise set the others to false
+                  this.selectNeed(userNeedId, false, deferNotify: true);
                 }
               });
               notifyListeners();
@@ -118,23 +126,30 @@ class UserNeedsViewModel extends BaseModel {
                     (questionCount++).toString() +
                         '. ' +
                         'Help us understand your needs',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   spacer,
                   ddb,
                 ])));
-
       } else if (userNeedGroup.first.isTextBox == "yes") {
         // If there is only 1 and it's a textbox
+        UserNeed _userNeed = userNeedGroup.first;
 
+        viewWidgetList.add(DynamicMultilineTextFormField(
+          question: (questionCount++).toString() + '. ' + _userNeed.description,
+          callbackInjection: (String value) {
+            this.selectNeed(_userNeed.id, value);
+          },
+        ));
       } else {
         // If there is only 1 and it is NOT a textbox
-
         UserNeed _userNeed = userNeedGroup.first;
 
         viewWidgetList.add(CheckboxListTile(
-          title:
-              Text((questionCount++).toString() + '. ' + _userNeed.description),
+          title: Text(
+            (questionCount++).toString() + '. ' + _userNeed.description,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
           value: this.value[_userNeed.id] ?? false,
           onChanged: (bool value) {
             this.selectNeed(_userNeed.id, value);
