@@ -22,7 +22,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
         .toList();
   }
 
-  bool _createUserNeedAnswer(
+  bool createUserNeedAnswer(
       {String prod,
       String refQuestionId,
       String refUserId,
@@ -34,7 +34,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
         value = int.parse(value.id) > int.parse(element.id) ? value : element);
 
     String newId = (int.parse(largestId.id) + 1).toString().padLeft(2, '0');
-    
+
     UserNeedAnswer userNeedAnswer = UserNeedAnswer(
         id: newId,
         prod: prod,
@@ -48,7 +48,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
     return true;
   }
 
-  bool _updateUserNeedAnswer(UserNeedAnswer userNeedAnswer) {
+  bool updateUserNeedAnswer(UserNeedAnswer userNeedAnswer) {
     int index = this
         ._mockUserNeedAnswers
         .indexWhere((_una) => _una.id == userNeedAnswer.id ? true : false);
