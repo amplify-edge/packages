@@ -19,12 +19,19 @@ import (
 	glog "google.golang.org/grpc/grpclog"
 )
 
+// Server struct
 type Server struct {
 	store  *minio.Ministore
 	logger glog.LoggerV2
 }
 
+// TODO: There are some fields generate errors when marshaling like fields
+// of type:
+// 1- time
+// 2- list string([]string)
+
 // TODO client shouldnt' know anything about minio or buckets
+
 // New creates new instance of Svc,
 func New(ctx context.Context, logger glog.LoggerV2) (*Server, error) {
 	cfg, err := config.NewCfg()
@@ -32,6 +39,19 @@ func New(ctx context.Context, logger glog.LoggerV2) (*Server, error) {
 		return nil, err
 	}
 
+	store, err := minio.New(ctx, cfg.ConnOpt)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Server{
+		store,
+		logger,
+	}, nil
+}
+
+// NewWithCfg creates new instance of Svc with configs.
+func NewWithCfg(ctx context.Context, logger glog.LoggerV2, cfg *config.ModMainCfg) (*Server, error) {
 	store, err := minio.New(ctx, cfg.ConnOpt)
 	if err != nil {
 		return nil, err
@@ -53,25 +73,26 @@ var (
 )
 
 var (
-	errInvalidSupportRoleId = errors.New("selected SupportRole is invalid")
-	errInvalidOrgId         = errors.New("selected Org is invalid")
+	errInvalidSupportRoleID = errors.New("selected SupportRole is invalid")
+	errInvalidOrgID         = errors.New("selected Org is invalid")
 )
 
+// NewAnswer create a new answer
 func (s *Server) NewAnswer(ctx context.Context, newreq *pb.NewAnswerRequest) (*pb.NewAnswerResponse, error) {
 	// Manual validation for both campaign/ org id and SupportRole id for now
-	supRoleId, err := strconv.Atoi(newreq.SelSupportRoleId)
+	supRoleID, err := strconv.Atoi(newreq.SelSupportRoleId)
 	if err != nil {
-		return nil, errInvalidSupportRoleId
+		return nil, errInvalidSupportRoleID
 	}
-	if _, ok := validSupportRoles[supRoleId]; !ok {
-		return nil, errInvalidSupportRoleId
+	if _, ok := validSupportRoles[supRoleID]; !ok {
+		return nil, errInvalidSupportRoleID
 	}
-	orgId, err := strconv.Atoi(newreq.SelCampaignId)
+	orgID, err := strconv.Atoi(newreq.SelCampaignId)
 	if err != nil {
-		return nil, errInvalidOrgId
+		return nil, errInvalidOrgID
 	}
-	if _, ok := validOrgIds[orgId]; !ok {
-		return nil, errInvalidOrgId
+	if _, ok := validOrgIds[orgID]; !ok {
+		return nil, errInvalidOrgID
 	}
 	temp, err := ioutil.TempFile("/tmp", "answers-"+newreq.Id)
 	if err != nil {
@@ -90,6 +111,7 @@ func (s *Server) NewAnswer(ctx context.Context, newreq *pb.NewAnswerRequest) (*p
 	}, nil
 }
 
+// GetAnswer get an answer
 func (s *Server) GetAnswer(ctx context.Context, getreq *pb.AnswerIdRequest) (*pb.Answer, error) {
 	f, err := s.store.Open(ctx, getreq.Id)
 	if err != nil {
@@ -102,6 +124,7 @@ func (s *Server) GetAnswer(ctx context.Context, getreq *pb.AnswerIdRequest) (*pb
 	return ans, nil
 }
 
+// DeleteAnswer delete an answer
 func (s *Server) DeleteAnswer(ctx context.Context, delreq *pb.AnswerIdRequest) (*pb.DeleteAnswerResponse, error) {
 	err := s.store.Remove(delreq.GetId())
 	if err != nil {
@@ -112,6 +135,7 @@ func (s *Server) DeleteAnswer(ctx context.Context, delreq *pb.AnswerIdRequest) (
 	}, nil
 }
 
+// ListAnswers list all answers
 func (s *Server) ListAnswers(ctx context.Context, listreq *pb.ListAnswersRequest) (*pb.Answers, error) {
 	var answers []*pb.Answer
 	prefix := listreq.GetCampaignId() + "-" + listreq.GetSupportRoleId()
@@ -129,128 +153,207 @@ func (s *Server) ListAnswers(ctx context.Context, listreq *pb.ListAnswersRequest
 	return &pb.Answers{Answers: answers}, nil
 }
 
+// GetUser get a user by id
 func (s *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {
-	var user pb.User
 	userQuery := minio.NewSingleQuery(`
-	SELECT _id AS 'id', firstName, 
-	lastName, email, displayName, avatar, url, chatgroupIds, campaigns 
-	from s3object WHERE _id =	
-	`, req.GetId(), "user[0-9]{3}")
+	SELECT _id AS id, firstName AS first_name, lastName AS last_name, email,
+	displayName AS display_name, avatar_url AS avatar, chatgroup_ids AS chatgroup_ids,
+	campaigns AS campaign from s3object WHERE _id =	
+	`,
+		fmt.Sprintf("'%v'", req.GetId()),
+		"user[0-9]{3}",
+	)
+
 	resp, err := s.store.GetSingle(ctx, userQuery, "users.csv")
 	if err != nil {
 		return nil, err
 	}
-	if err := proto.Unmarshal(resp, &user); err != nil {
+	resp = fixBytesSingle(resp)
+
+	var user pb.User
+	// if err := proto.Unmarshal(resp, &user); err != nil {
+	// 	return nil, err
+	// }
+	if err := json.Unmarshal(resp, &user); err != nil {
 		return nil, err
 	}
+
 	return &user, nil
 }
 
+// ListUsers list all users
 func (s *Server) ListUsers(ctx context.Context, _ *pb.ListUserRequest) (*pb.Users, error) {
-	var users pb.Users
 	usersQuery := minio.NewListQuery(`
-	SELECT _id AS 'id', firstName, lastName, email, displayName,  
-	avatar, url, chatgroupIds, campaign
-	FROM s3object`)
+	SELECT _id AS id, firstName AS first_name, lastName AS last_name, email,
+	displayName AS display_name, avatar_url AS avatar, chatgroup_ids AS chatgroup_ids,
+	campaigns AS campaign from s3object`,
+	)
 	resp, err := s.store.GetMultiple(ctx, usersQuery, "users.csv")
 	if err != nil {
 		return nil, err
 	}
-	if err := proto.Unmarshal(resp, &users); err != nil {
+	resp = fixBytesList(resp, "users")
+
+	var users pb.Users
+	// if err := proto.Unmarshal(resp, &users); err != nil {
+	// 	return nil, err
+	// }
+	if err := json.Unmarshal(resp, &users); err != nil {
 		return nil, err
 	}
+
 	return &users, nil
 }
 
+// GetSupportRole get supported roles
 func (s *Server) GetSupportRole(ctx context.Context, req *pb.GetSupportRoleRequest) (*pb.SupportRole, error) {
-	var supportRole pb.SupportRole
+	// roleQuery := minio.NewSingleQuery(
+	// 	`
+	// 		SELECT id, name, comment, mandatory, uom from s3object
+	// 		WHERE id =
+	// 	`,
+	// 	fmt.Sprintf("'%v'", req.GetId()), "crg[0-9]{3}",
+	// )
+
 	roleQuery := minio.NewSingleQuery(
 		`
-			GSELECT id, name, comment, mandatory, uom from s3object
+			SELECT id, name, comment, uom from s3object
 			WHERE id =
-		`,
-		req.GetId(), "crg[0-9]{3}",
+			`,
+		fmt.Sprintf("'%v'", req.GetId()), "crg[0-9]{3}",
 	)
+
 	resp, err := s.store.GetSingle(ctx, roleQuery, "roles.csv")
 	if err != nil {
 		return nil, err
 	}
-	if err := proto.Unmarshal(resp, &supportRole); err != nil {
+
+	resp = fixBytesSingle(resp)
+
+	var supportRole pb.SupportRole
+	// if err := proto.Unmarshal(resp, &supportRole); err != nil {
+	// 	return nil, err
+	// }
+	if err := json.Unmarshal(resp, &supportRole); err != nil {
 		return nil, err
 	}
 	return &supportRole, nil
 }
 
+// ListSupportRoles list all supported roles
 func (s *Server) ListSupportRoles(ctx context.Context, req *pb.ListSupportRoleRequest) (*pb.SupportRoles, error) {
-	var supportRoles pb.SupportRoles
+
+	// rolesQuery := minio.NewListQuery(
+	// 	`SELECT id, name, comment, mandatory, uom from s3object`,
+	// )
+
 	rolesQuery := minio.NewListQuery(
-		`SELECT id, name, comment, mandatory, uom from s3object`,
+		`SELECT id, name, comment, uom from s3object`,
 	)
+
 	resp, err := s.store.GetMultiple(ctx, rolesQuery, "roles.csv")
 	if err != nil {
 		return nil, err
 	}
-	if err := proto.Unmarshal(resp, &supportRoles); err != nil {
+
+	resp = fixBytesList(resp, "support_roles")
+
+	var supportRoles pb.SupportRoles
+	// if err := proto.Unmarshal(resp, &supportRoles); err != nil {
+	// 	return nil, err
+	// }
+	if err := json.Unmarshal(resp, &supportRoles); err != nil {
 		return nil, err
 	}
 	return &supportRoles, nil
 }
 
+// GetCampaign get a campaign by id.
 func (s *Server) GetCampaign(ctx context.Context, req *pb.GetCampaignRequest) (*pb.Campaign, error) {
-	campaignQuery := minio.NewSingleQuery(
-		`
-		SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many, 
-		crg_ids_many, already_pledged, datetime, location AS action_location, start AS min_pioneers,
-		mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
-		contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
-		action_length FROM s3object WHERE campaign_id= 
+	// campaignQuery := minio.NewSingleQuery(
+	// 	`
+	// 	SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many,
+	// 	crg_ids_many, already_pledged, datetime, location AS action_location, start AS min_pioneers,
+	// 	mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
+	// 	contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
+	// 	action_length FROM s3object WHERE campaign_id=
+	// 	`,
+	// 	fmt.Sprintf("'%v'", req.GetId()),
+	// 	"campaign_[0-9]{3}",
+	// )
+
+	campaignQuery := minio.NewSingleQuery(`
+			SELECT campaign_id, campaign_name, logo_url, goal,
+			already_pledged, location AS action_location, start AS min_pioneers,
+			mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, category,
+			contact, historical_precedents AS hist_precedents, organization, strategy, uom,
+			action_length FROM s3object WHERE campaign_id=
 		`,
 		fmt.Sprintf("'%v'", req.GetId()),
 		"campaign_[0-9]{3}",
 	)
+
 	resp, err := s.store.GetSingle(ctx, campaignQuery, "campaign.csv")
 	if err != nil {
 		return nil, err
 	}
+	resp = fixBytesSingle(resp)
+
 	var campaign pb.Campaign
 	// TODO fix error EOF using proto.Unmarshal
 	// if err := proto.Unmarshal(resp, &campaign); err != nil {
 	// 	return nil, err
 	// }
-
 	if err := json.Unmarshal(resp, &campaign); err != nil {
 		return nil, err
 	}
+
 	return &campaign, nil
 }
 
+// ListCampaigns list all available campaigns
 func (s *Server) ListCampaigns(ctx context.Context, req *pb.ListCampaignRequest) (*pb.Campaigns, error) {
+	// campaignsQuery := minio.NewListQuery(
+	// 	`
+	// 			SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many,
+	// 			crg_ids_many, already_pledged, datetime AS action_time, location AS action_location, start AS min_pioneers,
+	// 			mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
+	// 			contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
+	// 			action_length FROM s3object
+	// 			`,
+	// )
+
 	campaignsQuery := minio.NewListQuery(
 		`
-				SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many, 
-				crg_ids_many, already_pledged, datetime, location AS action_location, start AS min_pioneers,
-				mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
-				contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
+				SELECT campaign_id, campaign_name, logo_url, goal,
+				already_pledged, location AS action_location, start AS min_pioneers,
+				mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, category,
+				contact, historical_precedents AS hist_precedents, organization, strategy, uom,
 				action_length FROM s3object
 				`,
 	)
+
 	resp, err := s.store.GetMultiple(ctx, campaignsQuery, "campaign.csv")
 	if err != nil {
 		return nil, err
 	}
+	resp = fixBytesList(resp, "campaigns")
+
 	var campaigns pb.Campaigns
-	// if err := proto.Unmarshal(resp, &campaigns); err != nil {
+	// TODO fix error EOF using proto.Unmarshal
+	// if err := proto.Unmarshal(resp, &campaigns); err.Error() != "unexpected EOF" {
 	// 	return nil, err
 	// }
-
-	if err := json.Unmarshal(resp, &campaigns.Campaigns); err != nil {
+	if err := json.Unmarshal(resp, &campaigns); err != nil {
 		return nil, err
 	}
+
 	return &campaigns, nil
 }
 
-// TODO: need to secure this
+// Migrate migrate csv files to minio.
 func (s *Server) Migrate(ctx context.Context, req *pb.MigrateRequest) (*empty.Empty, error) {
+	// TODO: need to secure this
 	if err := s.store.Migrate(ctx, req.GetDatapath()); err != nil {
 		return nil, err
 	}
@@ -267,4 +370,17 @@ func readSeekerProto(f io.ReadSeeker) (*pb.Answer, error) {
 		return nil, err
 	}
 	return &ans, nil
+}
+
+func fixBytesSingle(data []byte) []byte {
+	// a hack fix should find better solution: allows to delete the coma from the end
+	return data[:len(data)-2]
+}
+
+func fixBytesList(data []byte, name string) []byte {
+	// a hack fix should find better solution: allows to add list brackets
+	// and delete coma from the end.
+	data = append([]byte(fmt.Sprintf("{\"%v\":[\n", name)), data...)
+	data = append(data[:len(data)-2], []byte("]}")...)
+	return data
 }

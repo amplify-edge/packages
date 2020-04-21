@@ -15,28 +15,19 @@ import (
 	// pb "github.com/getcouragenow/packages/mod-main/server/pkg/api"
 	"log"
 
-	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
 
 // TODO extend for env vars needed
 // Env vars should be in the k8s deployment (i.e. helm charts via secrets)
-var (
-	envFile = flag.String("c", "../env.sample", "path to config file")
-)
 
 func main() {
 	// printTestDataFiles()
 	local := flag.Bool("local", true, "connect with local server")
-	flag.Parse()
-	err := godotenv.Load(*envFile)
-	if err != nil {
-		log.Fatalf("Couldn't open config file: %v", err)
-	}
 
 	var conn *grpc.ClientConn
-
+	var err error
 	if *local {
 		// Connect with local server
 		conn, err = grpc.Dial("127.0.0.1:8081", grpc.WithInsecure())
@@ -65,29 +56,61 @@ func main() {
 	defer cancel()
 
 	// Migrate csv's to minio
-	_, err = c.Migrate(ctx, &pb.MigrateRequest{Datapath: "../data/outputs/datadump/"})
+	_, err = c.Migrate(ctx, &pb.MigrateRequest{Datapath: "data/outputs/datadump/"})
 	if err != nil {
 		log.Fatalf("Error while creating new answer: %v", err)
 	}
 
-	// res, err := c.NewAnswer(ctx, &pb.NewAnswerRequest{
-	// 	Id:               "ThisIsFirstOne",
-	// 	SelSupportRoleId: "1",
-	// 	SelCampaignId:    "1",
-	// 	MinHoursPledged:  "5",
-	// })
-	// ans, err := c.GetAnswer(ctx, &pb.AnswerIdRequest{Id: res.Id})
-	// if err != nil {
-	// 	log.Fatalf("Error while getting answer: %v", err)
-	// }
-
 	campaings, err := c.ListCampaigns(ctx, &pb.ListCampaignRequest{})
-	// campaing, err := c.GetCampaign(ctx, &pb.GetCampaignRequest{Id: "campaign_001"})
+	if err != nil {
+		log.Fatalf("Error while getting answer: %v", err)
+	}
+	log.Println("----------------All Campaigns---------------------")
+	log.Println(campaings)
+	log.Printf("-------------------------------------")
+
+	campaing, err := c.GetCampaign(ctx, &pb.GetCampaignRequest{Id: "campaign_001"})
+	if err != nil {
+		log.Fatalf("Error while getting answer: %v", err)
+	}
+	log.Println("----------------Campaign ID 001---------------------")
+	log.Println(campaing)
+	log.Printf("-------------------------------------")
+
+	supRol, err := c.GetSupportRole(context.Background(),
+		&pb.GetSupportRoleRequest{Id: "crg001"})
+	if err != nil {
+		log.Fatalf("Error while getting roles: %v", err)
+	}
+
+	log.Println("----------------All Supported Role id crg001---------------------")
+	log.Println(supRol)
+	log.Printf("-------------------------------------")
+
+	roles, err := c.ListSupportRoles(context.Background(), &pb.ListSupportRoleRequest{})
 	if err != nil {
 		log.Fatalf("Error while getting answer: %v", err)
 	}
 
-	log.Printf("Got: %v", campaings)
+	log.Println("----------------All Supported Roles---------------------")
+	log.Println(roles)
+	log.Printf("-------------------------------------")
+
+	user, err := c.GetUser(context.Background(), &pb.GetUserRequest{Id: "user001"})
+	if err != nil {
+		log.Fatalf("Error while getting user: %v", err)
+	}
+	log.Println("----------------user id 001---------------------")
+	log.Println(user)
+	log.Printf("-------------------------------------")
+
+	users, err := c.ListUsers(context.Background(), &pb.ListUserRequest{})
+	if err != nil {
+		log.Fatalf("Error while getting users: %v", err)
+	}
+	log.Println("----------------All users---------------------")
+	log.Println(users)
+	log.Printf("-------------------------------------")
 }
 
 func printTestDataFiles() {

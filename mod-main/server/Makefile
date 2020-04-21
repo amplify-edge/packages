@@ -9,6 +9,12 @@ RESET  := $(shell tput -Txterm sgr0)
 
 RANDTAG := $(shell head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 
+
+# minio
+MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+MINIO_PORT=9000
+
 #.PHONY: help build prepare flu-web-run flu-mob-run clean
 
 ## Show help
@@ -29,6 +35,22 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
+# steps:
+# 1- make i18n : install i18n tool 
+# 2- make get-data : download dumy data from googlesheet
+# 3- make minio: start docker minio container
+#  run tests
+# 4- make go-test : run mod-main server tests
+#  or 
+# 4- make go-srv : run server
+# 5- make go-cli : run client
+
+i18n:
+	# install i18n tool 
+	GO111MODULE=off go get -u -v github.com/getcouragenow/bootstrap
+	cd ${GOPATH}/src/github.com/getcouragenow/bootstrap/tool/i18n && make build 
+	i18n
+
 ## Pull down gsheets data
 get-data:
 	@echo ''
@@ -48,7 +70,23 @@ del-data:
 	@echo 'Run ${YELLOW}make get-data${RESET} to regenerate the data'
 
 go-srv:
-	cd cmd && go run server.go
+	go run cmd/server.go
 
 go-cli:
-	cd cmd && go run client.go
+	go run cmd/client.go
+
+go-test:
+	go test -v ./...
+
+minio:
+	sudo rm -rf ${HOME}/minio_volume
+	sudo mkdir -p ${HOME}/minio_volume
+
+	docker run -p ${MINIO_PORT}:${MINIO_PORT} --name minio4 \
+	-e "MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}" \
+	-e "MINIO_SECRET_KEY=${MINIO_SECRET_KEY}" \
+	-v ${HOME}/minio_volume:/minio_volume \
+	minio/minio server /minio_volume
+
+open-minio:
+	open http://127.0.0.1:${MINIO_PORT}

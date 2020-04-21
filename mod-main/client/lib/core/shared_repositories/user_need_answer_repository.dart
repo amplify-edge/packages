@@ -1,5 +1,6 @@
 import 'package:mod_main/modules/user_needs/data/user_need_answer_model.dart';
 import 'package:mod_main/core/shared_repositories/base_repository.dart';
+import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
 
 class UserNeedAnswerRepository extends BaseRepository {
   List<UserNeedAnswer> getAll() {
@@ -19,4 +20,13 @@ class UserNeedAnswerRepository extends BaseRepository {
   List<UserNeedAnswer> getByQuestionId(String questionId) {
     return [];
   }
+
+  bool updateUserNeedAnswer(UserNeedAnswer userNeedAnswer) {}
+
+  bool createUserNeedAnswer(
+      {String prod,
+      String refQuestionId,
+      String refUserId,
+      String answer,
+      String comment}) {}
 }

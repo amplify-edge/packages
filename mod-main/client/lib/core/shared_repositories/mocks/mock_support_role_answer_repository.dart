@@ -22,6 +22,45 @@ class MockSupportRoleAnswerRepository extends BaseRepository
     return this._mockSupportRoleAnswers.where((_supportRoleAnswer) => _supportRoleAnswer.refQuestionId == questionId);
   }
 
+  bool createSupportRoleAnswer(
+      {String prod,
+      String refQuestionId,
+      String refUserId,
+      String answer,
+      String comment}) {
+
+    SupportRoleAnswer largestId = this._mockSupportRoleAnswers.reduce((value,
+            element) =>
+        value = int.parse(value.id) > int.parse(element.id) ? value : element);
+
+    String newId = (int.parse(largestId.id) + 1).toString().padLeft(2, '0');
+
+    SupportRoleAnswer supportRoleAnswer = SupportRoleAnswer(
+        id: newId,
+        prod: prod,
+        answer: answer,
+        refQuestionId: refQuestionId,
+        refUserId: refUserId);
+
+    this._mockSupportRoleAnswers.add(supportRoleAnswer);
+
+    return true;
+  }
+
+  bool updateSupportRoleAnswer(SupportRoleAnswer supportRoleAnswer) {
+    int index = this
+        ._mockSupportRoleAnswers
+        .indexWhere((_una) => _una.id == supportRoleAnswer.id ? true : false);
+
+    if (index < 0) {
+      this._mockSupportRoleAnswers[index] = supportRoleAnswer;
+
+      return true;
+    }
+
+    return false;
+  }
+
   List<SupportRoleAnswer> _mockSupportRoleAnswers = [
     SupportRoleAnswer(
       id: "001",
