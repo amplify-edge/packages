@@ -81,7 +81,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
         ), */
         TabItem(
           title: Text(
-            AppLocalizations.of(context).tabIon()?? 
+            AppLocalizations.of(context).tabIon()
             ),
           icon: Icon(Icons.video_call),
           onTap: () {
@@ -90,7 +90,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           },
         ),
         TabItem(
-          title: Text(AppLocalizations.of(context).tabwriter()?? 
+          title: Text(AppLocalizations.of(context).tabwriter()
           ),
           icon: Icon(Icons.font_download),
           onTap: () {
@@ -99,7 +99,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           },
         ),
         TabItem(
-          title: Text(AppLocalizations.of(context).tabmap()?? 
+          title: Text(AppLocalizations.of(context).tabmap()
           ),
           icon: Icon(Icons.map),
           onTap: () {
