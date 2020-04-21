@@ -131,6 +131,21 @@ message MigrateRequest {
     string datapath = 1;
 }
 
+message File{
+    string name = 1;
+    uint64 total_chunks = 3;
+}
+
+message Chunk{
+    uint64 id = 1;
+    string data = 2;
+    File file = 3;
+}
+
+message Ack{
+    bool status = 1;
+}
+
 service Question {
     rpc Migrate(MigrateRequest) returns (google.protobuf.Empty);
     rpc GetUser (GetUserRequest) returns (User);
@@ -143,4 +158,6 @@ service Question {
     rpc GetAnswer (AnswerIdRequest) returns (Answer);
     rpc DeleteAnswer (AnswerIdRequest) returns (DeleteAnswerResponse);
     rpc ListAnswers (ListAnswersRequest) returns (Answers);
+    rpc NewFile (stream Chunk) returns (stream Ack);
 }
+
