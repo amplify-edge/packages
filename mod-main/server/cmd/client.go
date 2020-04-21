@@ -62,16 +62,16 @@ func main() {
 	defer cancel()
 
 	// upload a file to server
-	err = newFile(ctx, c, "data/outputs/datadump/json/campaign/1at5cSl3cvQM59r4f_acwZ7Tl6HUwK4So.png", true)
-	if err != nil {
-		log.Fatalln("Got an error when upload the file", err)
-	}
+	// err = newFile(ctx, c, "data/outputs/datadump/json/campaign/1at5cSl3cvQM59r4f_acwZ7Tl6HUwK4So.png", true)
+	// if err != nil {
+	// 	log.Fatalln("Got an error when upload the file", err)
+	// }
 
 	// Migrate csv's to minio
-	_, err = c.Migrate(ctx, &pb.MigrateRequest{Datapath: "data/outputs/datadump/"})
-	if err != nil {
-		log.Fatalf("Error while Migrate data: %v", err)
-	}
+	// _, err = c.Migrate(ctx, &pb.MigrateRequest{Datapath: "data/outputs/datadump/"})
+	// if err != nil {
+	// 	log.Fatalf("Error while Migrate data: %v", err)
+	// }
 
 	campaings, err := c.ListCampaigns(ctx, &pb.ListCampaignRequest{})
 	if err != nil {
@@ -108,21 +108,21 @@ func main() {
 	log.Println(roles)
 	log.Printf("-------------------------------------")
 
-	user, err := c.GetUser(context.Background(), &pb.GetUserRequest{Id: "user001"})
-	if err != nil {
-		log.Fatalf("Error while getting user: %v", err)
-	}
-	log.Println("----------------user id 001---------------------")
-	log.Println(user)
-	log.Printf("-------------------------------------")
+	// user, err := c.GetUser(context.Background(), &pb.GetUserRequest{Id: "user001"})
+	// if err != nil {
+	// 	log.Fatalf("Error while getting user: %v", err)
+	// }
+	// log.Println("----------------user id 001---------------------")
+	// log.Println(user)
+	// log.Printf("-------------------------------------")
 
-	users, err := c.ListUsers(context.Background(), &pb.ListUserRequest{})
-	if err != nil {
-		log.Fatalf("Error while getting users: %v", err)
-	}
-	log.Println("----------------All users---------------------")
-	log.Println(users)
-	log.Printf("-------------------------------------")
+	// users, err := c.ListUsers(context.Background(), &pb.ListUserRequest{})
+	// if err != nil {
+	// 	log.Fatalf("Error while getting users: %v", err)
+	// }
+	// log.Println("----------------All users---------------------")
+	// log.Println(users)
+	// log.Printf("-------------------------------------")
 }
 
 func printTestDataFiles() {
