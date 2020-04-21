@@ -54,6 +54,7 @@ class SupportRoleView extends StatelessWidget {
                 ButtonBar(children: [
                   RaisedButton(
                     onPressed: () {
+                      model.save();
                       Modular.to.pushNamed('/account/signup');
                     },
                     child: Text("Next"),
@@ -75,11 +76,11 @@ class SupportRoleView extends StatelessWidget {
           child: DynamicSlider(
             title: sp.name,
             question: sp.description,
-            current: model.minHours[index] ?? 0.0,
+            current: model.minHours[sp.id] ?? 0.0,
             min: 0.0,
             max: 8.0,
             callbackInjection: (String value) {
-              model.selectMinHours(double.tryParse(value) ?? 0.0, index);
+              model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
             },
           ),
         );

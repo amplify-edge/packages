@@ -1,8 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_org_repository.dart';
+import 'package:mod_main/core/shared_repositories/mocks/mock_support_role_answer_repository.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_support_role_repository.dart';
+import 'package:mod_main/core/shared_repositories/mocks/mock_user_need_answer_repository.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_user_need_repository.dart';
+import 'package:mod_main/modules/support_roles/services/support_role_answer_service.dart';
+import 'package:mod_main/modules/user_needs/services/user_need_answer_service.dart';
 import 'org_manager/orgs/views/org_detail_page.dart';
 import 'org_manager/orgs/views/org_manager_detail_view.dart';
 import 'org_manager/orgs/views/org_master_page.dart';
@@ -40,7 +44,9 @@ class MainAppModule extends ChildModule{
       Bind((i) => EnvConfig(url , urlNative)),
       Bind((i) => OrgsService(repository: MockOrgRepository())), // TODO Replace this later with OrgRepository
       Bind((i) => UserNeedService(repository: MockUserNeedRepository())), // TODO Replace this later with UserNeedRepository
-      Bind((i) => SupportRoleService(repository: MockSupportRoleRepository())) // TODO Replace this later with SupportRoleRepository
+      Bind((i) => UserNeedAnswerService(repository: MockUserNeedAnswerRepository())), // TODO Replace this later with UserNeedAnswerRepository      
+      Bind((i) => SupportRoleService(repository: MockSupportRoleRepository())), // TODO Replace this later with SupportRoleRepository
+      Bind((i) => SupportRoleAnswerService(repository: MockSupportRoleAnswerRepository())), // TODO Replace this later with SupportRoleRepository
   ];
   
   @override
