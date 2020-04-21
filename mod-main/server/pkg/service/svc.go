@@ -209,21 +209,21 @@ func (s *Server) ListUsers(ctx context.Context, _ *pb.ListUserRequest) (*pb.User
 
 // GetSupportRole get supported roles
 func (s *Server) GetSupportRole(ctx context.Context, req *pb.GetSupportRoleRequest) (*pb.SupportRole, error) {
-	// roleQuery := minio.NewSingleQuery(
-	// 	`
-	// 		SELECT id, name, comment, mandatory, uom from s3object
-	// 		WHERE id =
-	// 	`,
-	// 	fmt.Sprintf("'%v'", req.GetId()), "crg[0-9]{3}",
-	// )
-
 	roleQuery := minio.NewSingleQuery(
 		`
-			SELECT id, name, comment, uom from s3object
+			SELECT id, name, comment, mandatory, uom from s3object
 			WHERE id =
-			`,
+		`,
 		fmt.Sprintf("'%v'", req.GetId()), "crg[0-9]{3}",
 	)
+
+	// roleQuery := minio.NewSingleQuery(
+	// 	`
+	// 		SELECT id, name, comment, uom from s3object
+	// 		WHERE id =
+	// 		`,
+	// 	fmt.Sprintf("'%v'", req.GetId()), "crg[0-9]{3}",
+	// )
 
 	resp, err := s.store.GetSingle(ctx, roleQuery, "roles.csv")
 	if err != nil {
@@ -232,26 +232,32 @@ func (s *Server) GetSupportRole(ctx context.Context, req *pb.GetSupportRoleReque
 
 	resp = fixBytesSingle(resp)
 
-	var supportRole pb.SupportRole
+	// var supportRole pb.SupportRole
 	// if err := proto.Unmarshal(resp, &supportRole); err != nil {
 	// 	return nil, err
 	// }
-	if err := json.Unmarshal(resp, &supportRole); err != nil {
+
+	supportRole, err := pb.SupportRoleFromBytes(resp)
+	if err != nil {
 		return nil, err
 	}
-	return &supportRole, nil
+
+	// if err := json.Unmarshal(resp, &supportRole); err != nil {
+	// 	return nil, err
+	// }
+	return supportRole, nil
 }
 
 // ListSupportRoles list all supported roles
 func (s *Server) ListSupportRoles(ctx context.Context, req *pb.ListSupportRoleRequest) (*pb.SupportRoles, error) {
 
-	// rolesQuery := minio.NewListQuery(
-	// 	`SELECT id, name, comment, mandatory, uom from s3object`,
-	// )
-
 	rolesQuery := minio.NewListQuery(
-		`SELECT id, name, comment, uom from s3object`,
+		`SELECT id, name, comment, mandatory, uom from s3object`,
 	)
+
+	// rolesQuery := minio.NewListQuery(
+	// 	`SELECT id, name, comment, uom from s3object`,
+	// )
 
 	resp, err := s.store.GetMultiple(ctx, rolesQuery, "roles.csv")
 	if err != nil {
@@ -260,36 +266,31 @@ func (s *Server) ListSupportRoles(ctx context.Context, req *pb.ListSupportRoleRe
 
 	resp = fixBytesList(resp, "support_roles")
 
-	var supportRoles pb.SupportRoles
+	// var supportRoles pb.SupportRoles
 	// if err := proto.Unmarshal(resp, &supportRoles); err != nil {
 	// 	return nil, err
 	// }
-	if err := json.Unmarshal(resp, &supportRoles); err != nil {
+
+	supportRoles, err := pb.ListSupportRolesFromBytes(resp)
+	if err != nil {
 		return nil, err
 	}
-	return &supportRoles, nil
+
+	// if err := json.Unmarshal(resp, &supportRoles); err != nil {
+	// 	return nil, err
+	// }
+	return supportRoles, nil
 }
 
 // GetCampaign get a campaign by id.
 func (s *Server) GetCampaign(ctx context.Context, req *pb.GetCampaignRequest) (*pb.Campaign, error) {
-	// campaignQuery := minio.NewSingleQuery(
-	// 	`
-	// 	SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many,
-	// 	crg_ids_many, already_pledged, datetime, location AS action_location, start AS min_pioneers,
-	// 	mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
-	// 	contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
-	// 	action_length FROM s3object WHERE campaign_id=
-	// 	`,
-	// 	fmt.Sprintf("'%v'", req.GetId()),
-	// 	"campaign_[0-9]{3}",
-	// )
-
-	campaignQuery := minio.NewSingleQuery(`
-			SELECT campaign_id, campaign_name, logo_url, goal,
-			already_pledged, location AS action_location, start AS min_pioneers,
-			mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, category,
-			contact, historical_precedents AS hist_precedents, organization, strategy, uom,
-			action_length FROM s3object WHERE campaign_id=
+	campaignQuery := minio.NewSingleQuery(
+		`
+		SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many,
+		crg_ids_many, already_pledged, datetime, location AS action_location, start AS min_pioneers,
+		mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
+		contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
+		action_length FROM s3object WHERE campaign_id=
 		`,
 		fmt.Sprintf("'%v'", req.GetId()),
 		"campaign_[0-9]{3}",
@@ -301,36 +302,31 @@ func (s *Server) GetCampaign(ctx context.Context, req *pb.GetCampaignRequest) (*
 	}
 	resp = fixBytesSingle(resp)
 
-	var campaign pb.Campaign
+	// var campaign pb.Campaign
 	// TODO fix error EOF using proto.Unmarshal
 	// if err := proto.Unmarshal(resp, &campaign); err != nil {
 	// 	return nil, err
 	// }
-	if err := json.Unmarshal(resp, &campaign); err != nil {
+
+	campaign, err := pb.CampaignFromBytes(resp)
+	if err != nil {
 		return nil, err
 	}
+	// if err := json.Unmarshal(resp, &campaign); err != nil {
+	// 	return nil, err
+	// }
 
-	return &campaign, nil
+	return campaign, nil
 }
 
 // ListCampaigns list all available campaigns
 func (s *Server) ListCampaigns(ctx context.Context, req *pb.ListCampaignRequest) (*pb.Campaigns, error) {
-	// campaignsQuery := minio.NewListQuery(
-	// 	`
-	// 			SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many,
-	// 			crg_ids_many, already_pledged, datetime AS action_time, location AS action_location, start AS min_pioneers,
-	// 			mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
-	// 			contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
-	// 			action_length FROM s3object
-	// 			`,
-	// )
-
 	campaignsQuery := minio.NewListQuery(
 		`
-				SELECT campaign_id, campaign_name, logo_url, goal,
-				already_pledged, location AS action_location, start AS min_pioneers,
-				mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, category,
-				contact, historical_precedents AS hist_precedents, organization, strategy, uom,
+				SELECT campaign_id, campaign_name, logo_url, goal, crg_quantity_many,
+				crg_ids_many, already_pledged, datetime AS action_time, location AS action_location, start AS min_pioneers,
+				mass_media AS min_rebels_for_media, win AS min_rebels_to_win, action_type, backing_org, category,
+				contact, historical_precedents AS hist_precedents, organization, strategy, video_url, uom,
 				action_length FROM s3object
 				`,
 	)
@@ -341,16 +337,22 @@ func (s *Server) ListCampaigns(ctx context.Context, req *pb.ListCampaignRequest)
 	}
 	resp = fixBytesList(resp, "campaigns")
 
-	var campaigns pb.Campaigns
+	// var campaigns pb.Campaigns
 	// TODO fix error EOF using proto.Unmarshal
 	// if err := proto.Unmarshal(resp, &campaigns); err.Error() != "unexpected EOF" {
 	// 	return nil, err
 	// }
-	if err := json.Unmarshal(resp, &campaigns); err != nil {
+
+	campaigns, err := pb.ListCampaignsFromBytes(resp)
+	if err != nil {
 		return nil, err
 	}
 
-	return &campaigns, nil
+	// if err := json.Unmarshal(resp, &campaigns); err != nil {
+	// 	return nil, err
+	// }
+
+	return campaigns, nil
 }
 
 // Migrate migrate csv files to minio.
