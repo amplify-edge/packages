@@ -58,33 +58,7 @@ class UserNeedsView extends StatelessWidget {
 
                   //...this._dynamicFormWidgets,
                   ...model.buildWidgetList(context),
-
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextFormField(
-                      initialValue: model.value["9"],
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                        labelText: 'I need something else...',
-                        alignLabelWithHint: true,
-                        hintText: 'I need something else...',
-                        fillColor:
-                            Theme.of(context).inputDecorationTheme.fillColor,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: const BorderSide(),
-                        ),
-                      ),
-                      onSaved: (String value) {
-                        model.selectNeed("9", value);
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
+                  
                   ButtonBar(
                     children: <Widget>[
                       RaisedButton(

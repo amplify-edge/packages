@@ -41,13 +41,25 @@ data:
               - name: envoy.grpc_web
               - name: envoy.cors
               - name: envoy.router
-              - name: envoy.ext_authz
+              - name: envoy.filters.http.jwt_authn
                 config:
-                  grpc_service:
-                    envoy_grpc:
-                      cluster_name: ext-authz
-                    timeout: 0.5s
-
+                  providers:
+                    account-jwt-provider:
+                      issuer: {{ printf "%s:%s" .Values.jwkIssuerUrl .Values.jwkIssuerPort }}
+                      forward: true
+                      forward_payload_header: x-token-payload
+                      remote_jwks:
+                        http_uri:
+                          uri: {{ printf "%s:%s" .Values.jwkIssuerUrl .Values.jwkIssuerPort }}
+                          cluster: ext-authz
+                          timeout: 5s
+                        cache_duration:
+                          seconds: 300
+                rules:
+                - match:
+                    prefix: "/auth"
+                  requires:
+                    provider_name: "account-jwt-provider"
               - name: envoy.lua
                 config:
                   inline_code: |
@@ -90,8 +102,8 @@ data:
             - endpoint:
                 address:
                   socket_address:
-                    address: 0.0.0.0
-                    port_value: 9074
+                    address: {{ .Release.Name }}-authz.default.svc.cluster.local 
+                    port_value: 9075
         common_lb_config:
           healthy_panic_threshold:
             value: 50.0   

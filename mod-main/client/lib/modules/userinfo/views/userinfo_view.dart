@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mod_timespace/mod_timespace.dart';
+
 import 'package:provider_architecture/provider_architecture.dart';
 import '../view_model/userinfo_view_model.dart';
 
@@ -19,11 +21,19 @@ class UserInfoView extends StatelessWidget {
                 style: Theme.of(context).textTheme.title,
               ),
               const SizedBox(height: 8.0),
+              Row(
+                children: <Widget>[
+                  Text("Country",),
+                  Spacer(),
+                  CountryPickerWidget(
+                    onCountryChanged: (countryCode){
+                      model.changeCountry(countryCode.name);
+                      print("New Country selected: " + countryCode.toString() + countryCode.name);
+                    }
+                  ),
+                ],
+              ),
              
-              _select((value) {
-                model.changeCountry(value);
-              }, model.selectedCountry, model.countries),
-            
               _select((value) {
                 model.changeCity(value);
               }, model.selectedCity, model.cities),

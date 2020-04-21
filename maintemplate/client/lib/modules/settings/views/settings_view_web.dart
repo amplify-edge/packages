@@ -14,13 +14,17 @@ class SettingsViewWeb extends StatelessWidget {
     final env = model.envVariables;
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).tabSettings()),
+        title: Text(
+          AppLocalizations.of(context).tabSettings()
+          ),
       ),
       body: Column(children: [
        
         ListTile(
           leading: Icon(Icons.palette),
-          title: Text(AppLocalizations.of(context).changeThemeSet()),
+          title: Text(
+            AppLocalizations.of(context).changeThemeSet()
+            ),
           trailing: DropdownButton<ThemeMode>(
             value: model.themeMode,
             onChanged: (ThemeMode value) {
@@ -38,7 +42,9 @@ class SettingsViewWeb extends StatelessWidget {
         ),
          ListTile(
           leading: Icon(Icons.language),
-          title:  Text(AppLocalizations.of(context).changeLanguageSet()),
+          title:  Text(
+            AppLocalizations.of(context).changeLanguageSet()
+            ),
           trailing: DropdownButton<Locale>(
             value: model.locale,
             onChanged: (Locale value) {

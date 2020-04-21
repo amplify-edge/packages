@@ -91,8 +91,6 @@ class MapsView extends StatelessWidget {
                         children: <Widget>[
                           Text(ModGeoLocalizations.of(context) == null ? "String to be tested" : ModGeoLocalizations.of(context).test()  ),
                           for (var campaign in model.campaigns) ...[
-
-
                             // InkWell(
                             //   onTap: () {
                             //     _mapController.move(
