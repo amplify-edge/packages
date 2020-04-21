@@ -30,7 +30,8 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text(AppLocalizations.of(context).tabsettings()),
+              title: Text(AppLocalizations.of(context).tabsettings()
+              ),
               onTap: () {
                 //  Navigator.of(context).pushNamed(Router.settings);
                 // locator<NavigationService>().navigateTo( Router.settings);
@@ -49,7 +50,8 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
       tabs: [
         TabItem(
           title: Text(
-            AppLocalizations.of(context).tabhome(),
+            AppLocalizations.of(context).tabhome() 
+             ,
           ),
           icon: Icon(Icons.home),
           onTap: () {
@@ -58,7 +60,10 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           },
         ),
         TabItem(
-          title: Text(AppLocalizations.of(context).tabchat()),
+          title: Text(
+            AppLocalizations.of(context).tabchat() 
+          
+          ),
           icon: Icon(Icons.chat),
           onTap: () {
             Modular.to.pushNamed(Paths.chat);
@@ -75,7 +80,9 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           },
         ), */
         TabItem(
-          title: Text(AppLocalizations.of(context).tabIon()),
+          title: Text(
+            AppLocalizations.of(context).tabIon()?? 
+            ),
           icon: Icon(Icons.video_call),
           onTap: () {
             Modular.to.pushNamed(Paths.ion);
@@ -83,7 +90,8 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           },
         ),
         TabItem(
-          title: Text(AppLocalizations.of(context).tabwriter()),
+          title: Text(AppLocalizations.of(context).tabwriter()?? 
+          ),
           icon: Icon(Icons.font_download),
           onTap: () {
             Modular.to.pushNamed(Paths.modWriter);
@@ -91,7 +99,8 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           },
         ),
         TabItem(
-          title: Text("Maps"),
+          title: Text(AppLocalizations.of(context).tabmap()?? 
+          ),
           icon: Icon(Icons.map),
           onTap: () {
             Modular.to.pushNamed(Paths.modGeo);
