@@ -2,18 +2,64 @@ import 'package:mod_main/core/shared_repositories/base_repository.dart';
 import 'package:mod_main/core/shared_repositories/user_need_answer_repository.dart';
 import 'package:mod_main/modules/user_needs/data/user_need_answer_model.dart';
 
-class MockUserNeedAnswerRepository extends BaseRepository implements UserNeedAnswerRepository {
+class MockUserNeedAnswerRepository extends BaseRepository
+    implements UserNeedAnswerRepository {
   @override
   List<UserNeedAnswer> getAll() {
     return this._mockUserNeedAnswers;
   }
 
   UserNeedAnswer getById(String id) {
-    return this._mockUserNeedAnswers.singleWhere((_userNeedAnswer) => _userNeedAnswer.id == id);
+    return this
+        ._mockUserNeedAnswers
+        .singleWhere((_userNeedAnswer) => _userNeedAnswer.id == id);
   }
 
   List<UserNeedAnswer> getByQuestionId(String questionId) {
-    return this._mockUserNeedAnswers.where((_userNeedAnswer) => _userNeedAnswer.refQuestionId == questionId).toList();
+    return this
+        ._mockUserNeedAnswers
+        .where((_userNeedAnswer) => _userNeedAnswer.refQuestionId == questionId)
+        .toList();
+  }
+
+  bool createUserNeedAnswer(
+      {String prod,
+      String refQuestionId,
+      String refUserId,
+      String answer,
+      String comment}) {
+
+    UserNeedAnswer largestId = this._mockUserNeedAnswers.reduce((value,
+            element) =>
+        value = int.parse(value.id) > int.parse(element.id) ? value : element);
+
+    String newId = (int.parse(largestId.id) + 1).toString().padLeft(2, '0');
+
+    UserNeedAnswer userNeedAnswer = UserNeedAnswer(
+        id: newId,
+        prod: prod,
+        answer: answer,
+        comment: comment,
+        refQuestionId: refQuestionId,
+        refUserId: refUserId);
+
+    this._mockUserNeedAnswers.add(userNeedAnswer);
+
+    return true;
+  }
+
+  bool updateUserNeedAnswer(UserNeedAnswer userNeedAnswer) {
+    int index = this
+        ._mockUserNeedAnswers
+        .indexWhere((_una) => _una.id == userNeedAnswer.id ? true : false);
+
+    if (index < 0) {
+      this._mockUserNeedAnswers[index] = userNeedAnswer;
+
+      return true;
+    }
+
+    return false;
   }
 
   // Because of the size of the data, I will put the attribute at the
@@ -25,7 +71,8 @@ class MockUserNeedAnswerRepository extends BaseRepository implements UserNeedAns
       refQuestionId: '001',
       refUserId: '001',
       answer: '1',
-      comment: 'I will commit to stop paying my rent once 5000 other people have also stopped paying their rent.',
+      comment:
+          'I will commit to stop paying my rent once 5000 other people have also stopped paying their rent.',
     ),
     UserNeedAnswer(
       id: '002',
@@ -73,7 +120,8 @@ class MockUserNeedAnswerRepository extends BaseRepository implements UserNeedAns
       refQuestionId: '002',
       refUserId: '002',
       answer: '1',
-      comment: 'I will commit to stop paying my rent once 10000 other people have also stopped paying their rent.',
+      comment:
+          'I will commit to stop paying my rent once 10000 other people have also stopped paying their rent.',
     ),
     UserNeedAnswer(
       id: '008',
@@ -89,7 +137,8 @@ class MockUserNeedAnswerRepository extends BaseRepository implements UserNeedAns
       refQuestionId: '004',
       refUserId: '002',
       answer: '1',
-      comment: 'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
+      comment:
+          'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
     ),
     UserNeedAnswer(
       id: '010',
@@ -129,7 +178,8 @@ class MockUserNeedAnswerRepository extends BaseRepository implements UserNeedAns
       refQuestionId: '004',
       refUserId: '003',
       answer: '1',
-      comment: 'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
+      comment:
+          'I need to be more confident that I will be able to recieve the necessary legal defence if I am evicted from my home as a consequence of the rent strike.',
     ),
     UserNeedAnswer(
       id: '015',
