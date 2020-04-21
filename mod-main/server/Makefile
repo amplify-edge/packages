@@ -82,7 +82,7 @@ minio:
 	sudo rm -rf ${HOME}/minio_volume
 	sudo mkdir -p ${HOME}/minio_volume
 
-	docker run -p ${MINIO_PORT}:${MINIO_PORT} --name minio4 \
+	sudo docker run -p ${MINIO_PORT}:${MINIO_PORT} --name minio4 \
 	-e "MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}" \
 	-e "MINIO_SECRET_KEY=${MINIO_SECRET_KEY}" \
 	-v ${HOME}/minio_volume:/minio_volume \

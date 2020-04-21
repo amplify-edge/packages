@@ -1,7 +1,9 @@
 package service
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -354,10 +356,78 @@ func (s *Server) ListCampaigns(ctx context.Context, req *pb.ListCampaignRequest)
 // Migrate migrate csv files to minio.
 func (s *Server) Migrate(ctx context.Context, req *pb.MigrateRequest) (*empty.Empty, error) {
 	// TODO: need to secure this
+	// Migrate csv's
 	if err := s.store.Migrate(ctx, req.GetDatapath()); err != nil {
 		return nil, err
 	}
+
+	// Migrate Images
+	// if err := s.store.MigrateImages(ctx, req.GetDatapath()+"/json"); err != nil {
+	// 	return nil, err
+	// }
 	return &empty.Empty{}, nil
+}
+
+// NewFile new file upload
+func (s *Server) NewFile(stream pb.Question_NewFileServer) error {
+	ctx := stream.Context()
+	chunckFileInfo, err := stream.Recv()
+	if err != nil {
+		return err
+	}
+
+	fileInfo := pb.File{
+		Name:        chunckFileInfo.File.Name,
+		TotalChunks: chunckFileInfo.File.TotalChunks,
+	}
+	fmt.Println("-------------------------------------")
+	fmt.Println("New Request to upload a file received")
+	fmt.Println("File Name: ", fileInfo.Name)
+	fmt.Println("-------------------------------------")
+	fmt.Println("Total Chunks: ", fileInfo.TotalChunks)
+
+	ack := &pb.Ack{Status: true}
+	err = stream.Send(ack)
+	if err != nil {
+		return err
+	}
+	chunks := make([]string, fileInfo.TotalChunks)
+
+	for {
+		c, err := stream.Recv()
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("New Chunk received id:%v\n", c.Id)
+
+		// send ack to client
+		ack.Status = true
+		err = stream.Send(ack)
+		if err != nil && err != io.EOF {
+			return err
+		}
+
+		chunks = append(chunks, c.Data)
+		if fileInfo.TotalChunks == c.Id {
+			break
+		}
+	}
+
+	buf := []byte{}
+	for _, chu := range chunks {
+		// decode base64
+		des, err := base64.StdEncoding.DecodeString(chu)
+		if err != nil {
+			return err
+		}
+		buf = append(buf, des...)
+	}
+
+	obj := bytes.NewReader(buf)
+	_, err = s.store.Put(ctx, fileInfo.Name, obj)
+
+	return err
 }
 
 func readSeekerProto(f io.ReadSeeker) (*pb.Answer, error) {
