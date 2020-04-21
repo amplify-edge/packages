@@ -38,7 +38,6 @@ type healthServer struct{}
 
 func (s *healthServer) Check(ctx context.Context, in *healthpb.HealthCheckRequest) (*healthpb.HealthCheckResponse, error) {
 	log.Printf("Handling grpc Check request")
-	// yeah, right, open 24x7, like 7-11
 	return &healthpb.HealthCheckResponse{Status: healthpb.HealthCheckResponse_SERVING}, nil
 }
 

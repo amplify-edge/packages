@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="77b7d466-c877-4fb4-8bd3-6e500e4c07a8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/ENV-template.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/ENV-template.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/deployments/helm/templates/envoy-configmap-authz.yaml.tmp" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/deployments/helm/templates/envoy-configmap-authz.yaml.tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/deployments/helm/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/deployments/helm/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maintemplate/server/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../maintemplate/server/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authz/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/server/authz/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/authz/cmd/authorization/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/authz/cmd/authorization/server.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="/usr/lib/golang" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="59rbz3ds" />
+  </component>
+  <component name="ProjectId" id="1ad9NdPyTTDWUo3WWwS8Bd8NQBJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Gits/wmf-api-gateway" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RunManager" selected="Go Test.TestAppClaims in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil">
+    <configuration name="TestAppClaims in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="mod-account" />
+      <working_directory value="$PROJECT_DIR$/server/authz/pkg/keyutil" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestAppClaims$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestAppClaims/Test_Generate_JWT in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="mod-account" />
+      <working_directory value="$PROJECT_DIR$/server/authz/pkg/keyutil" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestAppClaims$/^Test_Generate_JWT$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestAppClaims/Test_Reading_Key in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="mod-account" />
+      <working_directory value="$PROJECT_DIR$/server/authz/pkg/keyutil" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestAppClaims$/^Test_Reading_Key$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestJwtKeys/Test_Generating_Keys in github.com/getcouragenow/packages/mod-account/server/authz/pkg/jwtkey" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="mod-account" />
+      <working_directory value="$PROJECT_DIR$/server/authz/pkg/jwtkey" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/getcouragenow/packages/mod-account/server/authz/pkg/jwtkey" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestJwtKeys$/^Test_Generating_Keys$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestAppClaims in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" />
+        <item itemvalue="Go Test.TestAppClaims/Test_Generate_JWT in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" />
+        <item itemvalue="Go Test.TestAppClaims/Test_Reading_Key in github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil" />
+        <item itemvalue="Go Test.TestJwtKeys/Test_Generating_Keys in github.com/getcouragenow/packages/mod-account/server/authz/pkg/jwtkey" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="760" y="391" key="#Go_Modules" timestamp="1587054579287">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="760" y="391" key="#Go_Modules/0.0.1920.1080@0.0.1920.1080" timestamp="1587054579287" />
+    <state x="1655" y="853" key="FileChooserDialogImpl" timestamp="1587205682251">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state x="748" y="313" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1587121202298" />
+    <state x="1655" y="853" key="FileChooserDialogImpl/0.0.3840.2160@0.0.3840.2160" timestamp="1587205682251" />
+    <state width="1860" height="665" key="GridCell.Tab.0.bottom" timestamp="1587370539743">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1860" height="665" key="GridCell.Tab.0.bottom/0.0.3840.2160@0.0.3840.2160" timestamp="1587370539743" />
+    <state width="1860" height="665" key="GridCell.Tab.0.center" timestamp="1587370539743">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1860" height="665" key="GridCell.Tab.0.center/0.0.3840.2160@0.0.3840.2160" timestamp="1587370539743" />
+    <state width="1860" height="665" key="GridCell.Tab.0.left" timestamp="1587370539743">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1860" height="665" key="GridCell.Tab.0.left/0.0.3840.2160@0.0.3840.2160" timestamp="1587370539743" />
+    <state width="1860" height="665" key="GridCell.Tab.0.right" timestamp="1587370539743">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1860" height="665" key="GridCell.Tab.0.right/0.0.3840.2160@0.0.3840.2160" timestamp="1587370539743" />
+    <state x="1379" y="715" key="SettingsEditor" timestamp="1587195242643">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state x="449" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1587120900915" />
+    <state x="1379" y="715" key="SettingsEditor/0.0.3840.2160@0.0.3840.2160" timestamp="1587195242643" />
+    <state x="1322" y="671" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1587365845500">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state x="606" y="233" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1587121256502" />
+    <state x="1322" y="671" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.3840.2160@0.0.3840.2160" timestamp="1587365845500" />
+    <state x="1636" y="1001" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1587364660490">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state x="1636" y="1001" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.3840.2160@0.0.3840.2160" timestamp="1587364660490" />
+  </component>
+</project>

@@ -59,6 +59,14 @@ gen-keys: gen-secrets
 gen-secrets:
 	go run cmd/jwtkey/jwtkey.go -a ECC -p keys
 
+encrypt-secrets:
+	@gcloud kms encrypt --location=${KMS_REGION} \
+		--keyring=${KEYRING_NAME} \
+		--key=${KEY_NAME} \
+		--ciphertext-file=keys/keypair-secrets.yaml \
+		--plaint
+
+
 ## Run unit tests on keyutil library
 run-unit-tests:
 	@echo '${GREEN}Running unit tests{RESET}'
@@ -77,3 +85,7 @@ init-kms:
 	# Create key-ring
 	@gcloud kms keyrings create ${KEYRING_NAME} --location global
 	@gcloud kms keys create ${KEY_NAME} --location  global --keyring ${KEYRING_NAME} --purpose encryption --project $(gcloud config get-value project)
+	@gcloud kms keys add-iam-policy-binding ${KEY_NAME} --location ${KMS_REGION} \
+		--keyring ${KEYRING_NAME} --member serviceAccount:${GCP_USER} \
+		--role roles/cloudkms.cryptoKeyEncrypterDecrypter \
+		--project ${GCP_PROJECT}
