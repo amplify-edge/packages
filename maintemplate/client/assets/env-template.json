@@ -4,5 +4,5 @@
 	"url_native": "#{channel_url_native}",
 	"githash": "#{channel_githash}",
 	"flutter_channel": "#{flutter_channel}",
-	"locales": #{locales}
+	"locales": "#{locales}"
 }

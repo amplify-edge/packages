@@ -4,7 +4,7 @@ import 'package:mod_main/core/core.dart';
 class UserInfoViewModel extends BaseModel {
 
 
-  String _selectedCountry = "United Kingdom";
+  String _selectedCountry;
   String _selectedCity = "London";
   //String _selectedAge = "16-20";
   //String _selectedCampaignAffiliation = "Fridays for future";
