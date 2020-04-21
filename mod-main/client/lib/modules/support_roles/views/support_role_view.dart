@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mod_main/modules/orgs/data/org_model.dart';
 import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
-import 'package:provider_architecture/viewmodel_provider.dart';
+import 'package:provider_architecture/_viewmodel_provider.dart';
 import 'package:mod_main/core/shared_services/dynamic_widget_service.dart';
 
 import '../view_model/supportRole_view_model.dart';

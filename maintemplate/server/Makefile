@@ -10,6 +10,22 @@ RESET  := $(shell tput -Txterm sgr0)
 
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
+KEYRING_NAME ?= authz_keyring
+KEY_NAME ?= authz_key
+KMS_REGION ?= global
+MAX_NODES ?= 15
+
+MINIKUBE_VMDRIVER :=
+ifeq ($(OS),Windows_NT)
+    MINIKUBE_VMDRIVER += virtualbox
+else
+    OSNAME := $(shell uname -s)
+    ifeq ($(OSNAME), Linux)
+        MINIKUBE_VMDRIVER += kvm2
+    else ifeq ($(OSNAME), Darwin)
+        MINIKUBE_VMDRIVER += hyperkit
+    endif
+endif
 
 .PHONY: help build prepare flu-web-run flu-mob-run clean
 
@@ -69,7 +85,7 @@ gke-setup: check-env
 ## GKE cluster initialize
 gke-create: check-env
 	@echo GKECreate
-	@gcloud container clusters create ${GCP_PROJECT} --zone ${GCP_ZONE} --enable-autoscaling
+	@gcloud container clusters create ${GCP_PROJECT} --zone ${GCP_ZONE} --enable-autoscaling --max-nodes ${MAX_NODES} 
 	@gcloud compute addresses create ${GCP_PROJECT}-static-ip --region ${GCP_REGION}
 
 
@@ -103,10 +119,26 @@ gke-vars:
 	@echo "GKE_KEY: "
 	@echo echo $$(cat  ~/.getcouragenow/${GCP_PROJECT}.json | base64 -w0)
 
+## quick fixes for ci error on issue
+gke-clean-services:
+	@kubectl delete service ci-flutter
+	@kubectl delete service ci-envoy
+	@kubectl delete service ci-maintemplate
+
+## GKE Cloud-KMS init
+gke-cloud-kms-init:
+	@echo "${WHITE} Set up Cloud KMS ${RESET}"
+	@gcloud kms keyrings create ${KEYRING_NAME} --location global
+	@gcloud kms keys create ${KEY_NAME} --location global --keyring ${KEYRING_NAME} \
+		--purpose encryption --project ${GCP_PROJECT}
+	@gcloud kms keys add-iam-policy-binding ${KEY_NAME} --location ${KMS_REGION} \
+    		--keyring ${KEYRING_NAME} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com \
+    		--role roles/cloudkms.cryptoKeyEncrypterDecrypter \
+    		--project ${GCP_PROJECT}
 
 ## Configure minikube vm-driver
 minikube-config: 
-	minikube config set vm-driver virtualbox
+	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
 	$(MAKE) minikube-clean
 
 minikube-clean:
