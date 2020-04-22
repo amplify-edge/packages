@@ -7,12 +7,16 @@ import (
 	"os"
 	"time"
 )
-
-type AppClaims struct {
-	ClientID string `json:"cid"`
-	UserID   string `json:"uid"`
-	jwt.Claims
-}
+type (
+	// Wrapper for jose.Signer
+	Signer jose.Signer
+	// Claims
+	AppClaims struct {
+		ClientID string `json:"cid"`
+		UserID   string `json:"uid"`
+		jwt.Claims
+	}
+)
 
 func (k *KeyType) ReadSignerKey() (jose.Signer, error) {
 	return k.readPrivateSigner()
@@ -59,8 +63,9 @@ func NewAppClaims(cid, uid, iss string, aud []string, dur time.Duration) *AppCla
 	}
 }
 
+
 // CreateJwtClaims creates jwt claims with specified Issuer, Audience, and Duration
-func (a *AppClaims) CreateJwtClaims(signer jose.Signer) (string, error) {
+func (a *AppClaims) CreateJwtClaims(signer Signer) (string, error) {
 	return jwt.Signed(signer).Claims(*a).CompactSerialize()
 }
 
