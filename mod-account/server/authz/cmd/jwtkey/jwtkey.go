@@ -5,7 +5,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil"
+	keyutil "github.com/getcouragenow/getcourage-packages/mod-account/server/keyutils"
 	"os"
 )
 

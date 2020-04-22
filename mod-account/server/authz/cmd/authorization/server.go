@@ -61,6 +61,10 @@ func (a *AuthorizationServer) Check(ctx context.Context, req *envoy_auth.CheckRe
 		} else if err != nil {
 			return guestResponse(), nil
 		}
+		uid, err := filters.GetClaim(token)
+		if err != nil {
+			return guestResponse(), nil
+		}
 		res := filters.OKResponse(
 			[]*envoy_core.HeaderValueOption{
 				{
@@ -73,6 +77,19 @@ func (a *AuthorizationServer) Check(ctx context.Context, req *envoy_auth.CheckRe
 					Header: &envoy_core.HeaderValue{
 						Key:   metadata.HEADER_IS_LOGGED_IN,
 						Value: "1",
+					},
+				},
+				{
+					Header: &envoy_core.HeaderValue{
+						Key:   metadata.HEADER_USER_ID,
+						Value: *uid,
+					},
+				},
+				{
+					// Passes original token
+					Header: &envoy_core.HeaderValue{
+						Key:   metadata.ORIGINAL_TOKEN,
+						Value: token,
 					},
 				},
 			},
