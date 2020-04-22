@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "ebb06763-2e42-4eb9-9ff4-72804c90d163",
+      "role": "guest",
+      "email": "guest@example.com",
+      "password": ""
+    },
+    {
+      "id": "4ff5a3e3-6163-43fb-9f8b-a14e2e5c6dfb",
+      "role": "user",
+      "email": "gotest@example.com",
+      "password": "gotest"
+    },
+    {
+      "id": "253ad2b8-0e62-4855-b58c-f82a70dc2046",
+      "role": "admin",
+      "email": "gotest2@example.com",
+      "password": "gotest2"
+    }
+  ]
+}
