@@ -1,7 +1,7 @@
 package keyutil_test
 
 import (
-	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil"
+	"github.com/getcouragenow/getcourage-packages/mod-account/server/keyutils"
 	"os"
 	"testing"
 )
