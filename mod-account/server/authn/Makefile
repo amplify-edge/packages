@@ -1,6 +1,7 @@
 .DEFAULT_GOAL       := help
 VERSION             := v0.0.0
 TARGET_MAX_CHAR_NUM := 20
+SHELL := /usr/bin/env bash
 
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
@@ -13,7 +14,7 @@ KEYRING_NAME ?= authz_keyring
 KEY_NAME ?= authz_key_$(uuidgen -t)
 KMS_REGION ?= global
 
-#.PHONY: help build prepare flu-web-run flu-mob-run clean
+.PHONY: help
 
 ## Show help
 help:
@@ -51,41 +52,16 @@ del-data:
 	@echo '${GREEN}Data Removed${RESET}'
 	@echo 'Run ${YELLOW}make get-data${RESET} to regenerate the data'
 
-## Generate keypair (public and private) in json format
-gen-keys: gen-secrets
-	@echo '${GREEN}generating keys based on Ed25519${RESET}'
-#	@kubectl apply -f keys/keypair-secrets.yaml
+proto-init:
+	@type -p protoc > /dev/null 2>&1 || echo 'Please install protobuf first according to your package manager'
+	@go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 
-gen-secrets:
-	go run cmd/jwtkey/jwtkey.go -a ECC -p keys
+modules-install:
+	@go mod tidy
+	@go mod vendor
 
-encrypt-secrets:
-	@gcloud kms encrypt --location=${KMS_REGION} \
-		--keyring=${KEYRING_NAME} \
-		--key=${KEY_NAME} \
-		--ciphertext-file=keys/keypair-secrets.yaml \
-		--plaint
+## Compiles protobuf
+proto-go: proto-init modules-install
+	protoc -I vendor/ -I api/ api/*.proto --go_out=pkg/api/
 
-
-## Run unit tests on keyutil library
-run-unit-tests:
-	@echo '${GREEN}Running unit tests{RESET}'
-	go test -v pkg/keyutil/*_test.go
-
-## Generate sample jwt token
-create-jwt-token:
-	@echo '${YELLOW}ONLY IN DEVELOPMENT${RESET}'
-	@echo '${GREEN} generating sample jwt token${RESET}'
-	go run cmd/claims/claims.go -a ECC -k ./keys/jwk-sigs-private.json
-
-## Cloud-KMS setup
-init-kms:
-	@echo '${YELLOW}Make sure both GCP_PROJECT and GCP_USER env is valid${RESET}'
-	@echo '${YELLOW}and `gcloud init` is correctly setup${RESET}'
-	# Create key-ring
-	@gcloud kms keyrings create ${KEYRING_NAME} --location global
-	@gcloud kms keys create ${KEY_NAME} --location  global --keyring ${KEYRING_NAME} --purpose encryption --project $(gcloud config get-value project)
-	@gcloud kms keys add-iam-policy-binding ${KEY_NAME} --location ${KMS_REGION} \
-		--keyring ${KEYRING_NAME} --member serviceAccount:${GCP_USER} \
-		--role roles/cloudkms.cryptoKeyEncrypterDecrypter \
-		--project ${GCP_PROJECT}
+## Generate protoc
