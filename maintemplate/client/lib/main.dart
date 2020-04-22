@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
 import 'package:maintemplate/layout_template.dart';
+import 'package:mod_main/core/i18n/mod_main_localization.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '././core/core.dart';
@@ -14,12 +15,11 @@ import 'package:mod_geo/core/core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // init settings view model before starting app
   var settingsViewModel = SettingsViewModel();
   // get env.json from assets
   await settingsViewModel.fetchEnvVariables();
-
 
   runApp(provider.ChangeNotifierProvider<SettingsViewModel>(
     create: (context) => settingsViewModel,
@@ -40,12 +40,11 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   AppLocalizationsDelegate _delegate;
   ModGeoAppLocalizationsDelegate _modGeoADelegate;
+  ModMainLocalizationsDelegate _modMainDelegate;
 
   @override
   void initState() {
     super.initState();
-    
-
   }
 
   @override
@@ -53,9 +52,11 @@ class _AppState extends State<App> {
     final model = provider.Provider.of<SettingsViewModel>(context);
     _delegate = AppLocalizationsDelegate(model.locale);
     _modGeoADelegate = ModGeoAppLocalizationsDelegate(model.locale);
+    _modMainDelegate = ModMainLocalizationsDelegate(model.locale);
 
     print("${_delegate.overriddenLocale} delegate");
     print("${_modGeoADelegate.overriddenLocale} delegate");
+
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -71,6 +72,7 @@ class _AppState extends State<App> {
       localizationsDelegates: [
         _delegate,
         _modGeoADelegate,
+        _modMainDelegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
