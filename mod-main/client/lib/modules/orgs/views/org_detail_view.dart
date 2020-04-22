@@ -16,7 +16,7 @@ class OrgDetailView extends StatelessWidget {
         //   CarouselWithIndicator(imgList: campaign.videoURL),
         ListTile(
           title: Text(
-            ModMainLocalizations.of(context)?.translate('category') ?? 'Category',
+            ModMainLocalizations.of(context).translate('category'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.category),
