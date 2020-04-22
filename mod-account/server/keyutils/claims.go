@@ -15,6 +15,7 @@ type (
 	AppClaims struct {
 		ClientID string `json:"cid"`
 		UserID   string `json:"uid"`
+		Role string `json:"role"`
 		jwt.Claims
 	}
 )
@@ -48,12 +49,13 @@ func (k *KeyType) readPrivateSigner() (jose.Signer, error) {
 }
 
 // NewAppClaims creates new app claims
-func NewAppClaims(cid, uid, iss string, aud []string, dur time.Duration) *AppClaims {
+func NewAppClaims(cid, uid, iss, role string, aud []string, dur time.Duration) *AppClaims {
 	currentTime := jwt.NewNumericDate(time.Now())
 	expiry := jwt.NewNumericDate(currentTime.Time().Add(dur))
 	return &AppClaims{
 		cid,
 		uid,
+		role,
 		jwt.Claims{
 			Issuer:    iss,
 			Audience:  aud,
