@@ -24,7 +24,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Type of Action',
+            ModMainLocalizations.of(context).translate('actionType'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.actionType),
@@ -32,7 +32,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Action Location / Time',
+            ModMainLocalizations.of(context).translate('actionLocation') + ' / ' + ModMainLocalizations.of(context).translate('time'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(
@@ -41,7 +41,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Length of the Action',
+            ModMainLocalizations.of(context).translate('lengthOfTheAction'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text('${org.actionLength} ${org.uom}'),
@@ -49,7 +49,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Goal',
+            ModMainLocalizations.of(context).translate('goal'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.goal),
@@ -57,7 +57,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Strategy',
+            ModMainLocalizations.of(context).translate('strategy'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.strategy),
@@ -65,7 +65,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Historical Precedents',
+          ModMainLocalizations.of(context).translate('historicalPrecedents'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.histPrecedents),
@@ -73,7 +73,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Backing/Endorsing Organizations',
+            ModMainLocalizations.of(context).translate('backingEndorsingOrganizations'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.backingOrg.join('\n')),
@@ -81,7 +81,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'People already pledged',
+            ModMainLocalizations.of(context).translate('peopleAlreadyPledged'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.alreadyPledged.toString()),
@@ -96,30 +96,30 @@ class OrgDetailView extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    'We Need :',
+                    ModMainLocalizations.of(context).translate('weNeed') + ' :',
                     style: Theme.of(context).textTheme.title,
                   ),
-                  subtitle: const Text(
-                    'The following figures are extrapolated from similar past actions that both succeeded and failed',
+                  subtitle: Text(
+                    ModMainLocalizations.of(context).translate('extrapolatedSimilarPastActions'),
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
                 ListTile(
-                  title: const Text('Pioneers needed to start'),
+                  title: Text(ModMainLocalizations.of(context).translate('pioneersToStart')),
                   trailing: Text(
                     '${org.minPioneers}',
                     style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
                 ListTile(
-                  title: const Text('Rebels needed to trigger media'),
+                  title: Text(ModMainLocalizations.of(context).translate('rebelsMedia')),
                   trailing: Text(
                     '${org.minRebelsForMedia}',
                     style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
                 ListTile(
-                  title: const Text('Rebels needed to win'),
+                  title: Text(ModMainLocalizations.of(context).translate('rebelsWin')),
                   trailing: Text(
                     '${org.minRebelsToWin}',
                     style: TextStyle(color: Theme.of(context).accentColor),
@@ -132,7 +132,7 @@ class OrgDetailView extends StatelessWidget {
         const SizedBox(height: 16.0),
         ListTile(
           title: Text(
-            'Contact Details',
+        ModMainLocalizations.of(context).translate('contactDetails'),
             style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(org.contact),
@@ -144,13 +144,13 @@ class OrgDetailView extends StatelessWidget {
               Modular.to.pushNamed(
                   Modular.get<Paths>().myNeeds.replaceAll(':id', org.id));
             },
-            child: Text("Not Ready"),
+            child: Text(ModMainLocalizations.of(context).translate("notReady")),
           ),
           RaisedButton(
             onPressed: () {
               Modular.to.pushNamed('/account/signup');
             },
-            child: Text("Ready"),
+            child: Text(ModMainLocalizations.of(context).translate("ready")),
           ),
         ]),
         const SizedBox(height: 8.0),

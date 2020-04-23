@@ -1,8 +1,116 @@
 {
-  "@@last_modified": "2020-04-22T16:58:23.568866",
+  "@@last_modified": "2020-04-22T17:53:59.073020",
   "category": "Category",
   "@category": {
     "description": "Category",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noCampaigns": "No Campaigns",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionType": "Type of Action",
+  "@actionType": {
+    "description": "Type of Action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionLocation": "Action Location",
+  "@actionLocation": {
+    "description": "Action Location",
+    "type": "text",
+    "placeholders": {}
+  },
+  "time": "Time",
+  "@time": {
+    "description": "Time",
+    "type": "text",
+    "placeholders": {}
+  },
+  "lengthOfTheAction": "Length of the Action",
+  "@lengthOfTheAction": {
+    "description": "Length of the Action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "goal": "Goal",
+  "@goal": {
+    "description": "Goal",
+    "type": "text",
+    "placeholders": {}
+  },
+  "strategy": "Strategy",
+  "@strategy": {
+    "description": "strategy",
+    "type": "text",
+    "placeholders": {}
+  },
+  "historicalPrecedents": "Historical Precedents",
+  "@historicalPrecedents": {
+    "description": "Historical Precedents",
+    "type": "text",
+    "placeholders": {}
+  },
+  "backingEndorsingOrganizations": "Backing/Endorsing Organizations",
+  "@backingEndorsingOrganizations": {
+    "description": "Backing/Endorsing Organizations",
+    "type": "text",
+    "placeholders": {}
+  },
+  "peopleAlreadyPledged": "People already pledged",
+  "@peopleAlreadyPledged": {
+    "description": "People already pledged",
+    "type": "text",
+    "placeholders": {}
+  },
+  "weNeed": "We Need",
+  "@weNeed": {
+    "description": "We Need",
+    "type": "text",
+    "placeholders": {}
+  },
+  "extrapolatedSimilarPastActions": "The following figures are extrapolated from similar past actions that both succeeded and failed",
+  "@extrapolatedSimilarPastActions": {
+    "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "pioneersToStart": "Pioneers needed to start",
+  "@pioneersToStart": {
+    "description": "Pioneers needed to start",
+    "type": "text",
+    "placeholders": {}
+  },
+  "rebelsMedia": "Rebels needed to trigger media",
+  "@rebelsMedia": {
+    "description": "Rebels needed to trigger media",
+    "type": "text",
+    "placeholders": {}
+  },
+  "rebelsWin": "Rebels needed to win",
+  "@rebelsWin": {
+    "description": "Rebels needed to win",
+    "type": "text",
+    "placeholders": {}
+  },
+  "contactDetails": "Contact Details",
+  "@contactDetails": {
+    "description": "Contact Details",
+    "type": "text",
+    "placeholders": {}
+  },
+  "notReady": "Not Ready",
+  "@notReady": {
+    "description": "Not Ready",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ready": "Ready",
+  "@ready": {
+    "description": "Ready",
     "type": "text",
     "placeholders": {}
   }

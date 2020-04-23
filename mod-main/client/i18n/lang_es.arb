@@ -1,8 +1,116 @@
 {
-  "@@last_modified": "2020-04-22T16:58:23.568866",
+  "@@last_modified": "2020-04-22T17:53:59.073020",
   "category": "Categoría",
   "@category": {
     "description": "Category",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "Sin campañas",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "actionType": "Tipo de acción",
+  "@actionType": {
+    "description": "Type of Action",
+    "placeholders": {},
+    "type": "text"
+  },
+  "actionLocation": "Ubicación de la acción",
+  "@actionLocation": {
+    "description": "Action Location",
+    "placeholders": {},
+    "type": "text"
+  },
+  "time": "Tiempo",
+  "@time": {
+    "description": "Time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "lengthOfTheAction": "Duración de la acción",
+  "@lengthOfTheAction": {
+    "description": "Length of the Action",
+    "placeholders": {},
+    "type": "text"
+  },
+  "goal": "Objetivo",
+  "@goal": {
+    "description": "Goal",
+    "placeholders": {},
+    "type": "text"
+  },
+  "strategy": "Estrategia",
+  "@strategy": {
+    "description": "strategy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "historicalPrecedents": "Antecedentes históricos",
+  "@historicalPrecedents": {
+    "description": "Historical Precedents",
+    "placeholders": {},
+    "type": "text"
+  },
+  "backingEndorsingOrganizations": "Organizaciones de respaldo / respaldo",
+  "@backingEndorsingOrganizations": {
+    "description": "Backing/Endorsing Organizations",
+    "placeholders": {},
+    "type": "text"
+  },
+  "peopleAlreadyPledged": "Personas ya comprometidas",
+  "@peopleAlreadyPledged": {
+    "description": "People already pledged",
+    "placeholders": {},
+    "type": "text"
+  },
+  "weNeed": "Necesitamos",
+  "@weNeed": {
+    "description": "We Need",
+    "placeholders": {},
+    "type": "text"
+  },
+  "extrapolatedSimilarPastActions": "Las siguientes cifras se extrapolan de acciones pasadas similares que tuvieron éxito y fracasaron",
+  "@extrapolatedSimilarPastActions": {
+    "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pioneersToStart": "Los pioneros necesitaban comenzar",
+  "@pioneersToStart": {
+    "description": "Pioneers needed to start",
+    "placeholders": {},
+    "type": "text"
+  },
+  "rebelsMedia": "Los rebeldes necesitaban activar los medios",
+  "@rebelsMedia": {
+    "description": "Rebels needed to trigger media",
+    "placeholders": {},
+    "type": "text"
+  },
+  "rebelsWin": "Los rebeldes necesitaban ganar",
+  "@rebelsWin": {
+    "description": "Rebels needed to win",
+    "placeholders": {},
+    "type": "text"
+  },
+  "contactDetails": "Detalles de contacto",
+  "@contactDetails": {
+    "description": "Contact Details",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notReady": "No listo",
+  "@notReady": {
+    "description": "Not Ready",
+    "placeholders": {},
+    "type": "text"
+  },
+  "ready": "Listo",
+  "@ready": {
+    "description": "Ready",
     "placeholders": {},
     "type": "text"
   }

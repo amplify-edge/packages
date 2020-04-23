@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mod_main/modules/orgs/view_model/org_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_scaffold/responsive_scaffold.dart';
+import 'package:mod_main/core/core.dart';
 
 import 'org_detail_view.dart';
 
@@ -29,7 +30,7 @@ class OrgView extends StatelessWidget {
               );
             },
             nullItems: Center(child: CircularProgressIndicator()),
-            emptyItems: Center(child: Text("No Campaigns")),
+            emptyItems: Center(child: Text(ModMainLocalizations.of(context).noCampaigns())),
             itemCount: model.orgs.length,
             slivers: <Widget>[
               const SliverPadding(

@@ -1,8 +1,116 @@
 {
-  "@@last_modified": "2020-04-22T16:58:23.568866",
-  "category": "قسم",
+  "@@last_modified": "2020-04-22T17:53:59.073020",
+  "category": "زمرہ",
   "@category": {
     "description": "Category",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "مہمات نہیں",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "actionType": "ایکشن کی قسم",
+  "@actionType": {
+    "description": "Type of Action",
+    "placeholders": {},
+    "type": "text"
+  },
+  "actionLocation": "ایکشن مقام",
+  "@actionLocation": {
+    "description": "Action Location",
+    "placeholders": {},
+    "type": "text"
+  },
+  "time": "وقت",
+  "@time": {
+    "description": "Time",
+    "placeholders": {},
+    "type": "text"
+  },
+  "lengthOfTheAction": "ایکشن کی لمبائی",
+  "@lengthOfTheAction": {
+    "description": "Length of the Action",
+    "placeholders": {},
+    "type": "text"
+  },
+  "goal": "مقصد",
+  "@goal": {
+    "description": "Goal",
+    "placeholders": {},
+    "type": "text"
+  },
+  "strategy": "حکمت عملی",
+  "@strategy": {
+    "description": "strategy",
+    "placeholders": {},
+    "type": "text"
+  },
+  "historicalPrecedents": "تاریخی مثال",
+  "@historicalPrecedents": {
+    "description": "Historical Precedents",
+    "placeholders": {},
+    "type": "text"
+  },
+  "backingEndorsingOrganizations": "پشت پناہی / حمایت کی تنظیمیں",
+  "@backingEndorsingOrganizations": {
+    "description": "Backing/Endorsing Organizations",
+    "placeholders": {},
+    "type": "text"
+  },
+  "peopleAlreadyPledged": "لوگوں نے پہلے ہی وعدہ کیا تھا",
+  "@peopleAlreadyPledged": {
+    "description": "People already pledged",
+    "placeholders": {},
+    "type": "text"
+  },
+  "weNeed": "ہمیں ضرورت",
+  "@weNeed": {
+    "description": "We Need",
+    "placeholders": {},
+    "type": "text"
+  },
+  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعدادوشمار گذشتہ گذشتہ اعمال سے ماخوذ ہیں جو کامیاب اور ناکام دونوں ہی تھے",
+  "@extrapolatedSimilarPastActions": {
+    "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
+    "placeholders": {},
+    "type": "text"
+  },
+  "pioneersToStart": "شروع کرنے کے لئے سرخیل درکار تھے",
+  "@pioneersToStart": {
+    "description": "Pioneers needed to start",
+    "placeholders": {},
+    "type": "text"
+  },
+  "rebelsMedia": "میڈیا کو متحرک کرنے کے لئے باغیوں کی ضرورت",
+  "@rebelsMedia": {
+    "description": "Rebels needed to trigger media",
+    "placeholders": {},
+    "type": "text"
+  },
+  "rebelsWin": "جیتنے کے لئے باغیوں کی ضرورت",
+  "@rebelsWin": {
+    "description": "Rebels needed to win",
+    "placeholders": {},
+    "type": "text"
+  },
+  "contactDetails": "رابطہ کی تفصیلات",
+  "@contactDetails": {
+    "description": "Contact Details",
+    "placeholders": {},
+    "type": "text"
+  },
+  "notReady": "تیار نہیں",
+  "@notReady": {
+    "description": "Not Ready",
+    "placeholders": {},
+    "type": "text"
+  },
+  "ready": "تیار",
+  "@ready": {
+    "description": "Ready",
     "placeholders": {},
     "type": "text"
   }

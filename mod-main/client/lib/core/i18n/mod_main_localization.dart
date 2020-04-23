@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import './translations.dart';
 
-class ModMainLocalizations {
+class ModMainLocalizations extends Translations {
   final Locale locale;
   Map<String, String> _localizedStrings;
 
@@ -33,15 +34,6 @@ class ModMainLocalizations {
   static ModMainLocalizations of(BuildContext context) {
     return Localizations.of<ModMainLocalizations>(
         context, ModMainLocalizations);
-  }
-
-  String category() {
-    return Intl.message(
-      'Category',
-      name: 'category',
-      desc: 'Category',
-      locale: locale.toString(),
-    );
   }
 }
 
