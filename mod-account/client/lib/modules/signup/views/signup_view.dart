@@ -55,7 +55,7 @@ class SignUpViewState extends State<SignUpView> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      '* ' + ModAccountLocalizations.of(context).translate('needProtonMail '),
+                      '* ' + ModAccountLocalizations.of(context).translate('needProtonMail'),
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                     InkWell(
@@ -125,7 +125,7 @@ class SignUpViewState extends State<SignUpView> {
               },
             ),
             ListTile(
-              title: Text(ModAccountLocalizations.of(context).translate('civilDisobedienceTraining'),
+              title: Text(ModAccountLocalizations.of(context).translate('civilDisobedienceTraining')),
             ),
              RadioListTile<bool>(
               title: Text(ModAccountLocalizations.of(context).translate('yes')),
@@ -136,7 +136,7 @@ class SignUpViewState extends State<SignUpView> {
               },
             ),
             RadioListTile<bool>(
-              title: Text(ModAccountLocalizations.of(context).translate('no'),
+              title: Text(ModAccountLocalizations.of(context).translate('no')),
               value: false,
               groupValue: model.haveTraining,
               onChanged: (bool value) {
