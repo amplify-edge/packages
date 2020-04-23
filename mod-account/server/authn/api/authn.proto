@@ -59,9 +59,24 @@ message ForgotPasswordResponse {
     google.protobuf.Timestamp forgot_password_requested_at = 4;
 }
 
+message ResetPasswordRequest {
+    string email = 1;
+    string password = 2;
+    string password_confirm = 3;
+}
+
+message ResetPasswordResponse {
+  bool success = 1;
+  string success_msg = 2;
+  ErrorReason error_reason = 3;
+  google.protobuf.Timestamp reset_password_requested_at = 4;
+}
+
 service AuthService {
     rpc Register(RegisterRequest) returns (RegisterResponse) {};
     rpc Login(LoginRequest) returns (LoginResponse) {};
+    // ForgotPassword, then ResetPassword if succeed
     rpc ForgotPassword(ForgotPasswordRequest) returns (ForgotPasswordResponse) {};
+    rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {};
 }
 

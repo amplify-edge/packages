@@ -5,7 +5,6 @@ import (
 	envoy_core "github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
 	envoy_auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
 	envoy_type "github.com/envoyproxy/go-control-plane/envoy/type"
-	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/metadata"
 	keyutils "github.com/getcouragenow/getcourage-packages/mod-account/server/keyutils"
 	"github.com/gogo/googleapis/google/rpc"
 	"github.com/square/go-jose/v3/jwt"
@@ -69,24 +68,55 @@ func OKResponse(headers []*envoy_core.HeaderValueOption) *envoy_auth.CheckRespon
 	}
 }
 
+// Adds Authorized user to header value
+func GenAuthdUser(uid, token string) []*envoy_core.HeaderValueOption {
+	return []*envoy_core.HeaderValueOption{
+		{
+			Header: &envoy_core.HeaderValue{
+				Key:   keyutils.HEADER_CLIENT_NAME,
+				Value: "authorized",
+			},
+		},
+		{
+			Header: &envoy_core.HeaderValue{
+				Key:   keyutils.HEADER_IS_LOGGED_IN,
+				Value: "1",
+			},
+		},
+		{
+			Header: &envoy_core.HeaderValue{
+				Key:   keyutils.HEADER_USER_ID,
+				Value: uid,
+			},
+		},
+		{
+			// Passes original token
+			Header: &envoy_core.HeaderValue{
+				Key:   keyutils.ORIGINAL_TOKEN,
+				Value: token,
+			},
+		},
+	}
+}
+
 // Adds Guest user to header value if not logged in
 func GenGuestUser() []*envoy_core.HeaderValueOption {
 	return []*envoy_core.HeaderValueOption{
 		{
 			Header: &envoy_core.HeaderValue{
-				Key:   metadata.HEADER_CLIENT_NAME,
+				Key:   keyutils.HEADER_CLIENT_NAME,
 				Value: "guest",
 			},
 		},
 		{
 			Header: &envoy_core.HeaderValue{
-				Key:   metadata.HEADER_USER_ID,
+				Key:   keyutils.HEADER_USER_ID,
 				Value: "",
 			},
 		},
 		{
 			Header: &envoy_core.HeaderValue{
-				Key:   metadata.HEADER_IS_LOGGED_IN,
+				Key:   keyutils.HEADER_IS_LOGGED_IN,
 				Value: "0",
 			},
 		},
