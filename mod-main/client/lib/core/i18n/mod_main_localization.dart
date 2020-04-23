@@ -14,7 +14,7 @@ class ModMainLocalizations {
 
   Future<bool> load() async {
     String jsonString = await rootBundle.loadString(
-        '../packages/mod_main/lib/core/i18n/generated/lang_${locale.languageCode}.json');
+        '../packages/mod_main/i18n/lang_${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
