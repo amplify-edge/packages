@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
 import 'package:maintemplate/layout_template.dart';
 import 'package:mod_main/core/i18n/mod_main_localization.dart';
+import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '././core/core.dart';
@@ -40,7 +41,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   AppLocalizationsDelegate _delegate;
   ModGeoAppLocalizationsDelegate _modGeoADelegate;
-  ModMainLocalizationsDelegate _modMainDelegate;
 
   @override
   void initState() {
@@ -52,7 +52,6 @@ class _AppState extends State<App> {
     final model = provider.Provider.of<SettingsViewModel>(context);
     _delegate = AppLocalizationsDelegate(model.locale);
     _modGeoADelegate = ModGeoAppLocalizationsDelegate(model.locale);
-    _modMainDelegate = ModMainLocalizationsDelegate(model.locale);
 
     print("${_delegate.overriddenLocale} delegate");
     print("${_modGeoADelegate.overriddenLocale} delegate");
@@ -72,7 +71,8 @@ class _AppState extends State<App> {
       localizationsDelegates: [
         _delegate,
         _modGeoADelegate,
-        _modMainDelegate,
+        ModMainLocalizationsDelegate(model.locale),
+        ModChatLocalizationsDelegate(model.locale),
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
