@@ -87,7 +87,7 @@ class UserNeedsViewModel extends BaseModel {
     });
   }
 
-  void navigateNext() {
+  void navigateNext(BuildContext context) {
     showActionDialogBox(
       onPressedNo: () {
         this.save();
@@ -99,9 +99,11 @@ class UserNeedsViewModel extends BaseModel {
         Modular.to.pushNamed(
             Modular.get<Paths>().supportRoles.replaceAll(':id', _orgId));
       },
-      title: "Support Role",
+      title: ModMainLocalizations.of(context).translate('supportRole'),
       description:
-          "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike ?",
+          ModMainLocalizations.of(context).translate('provideSupportRole'),
+      buttonText: ModMainLocalizations.of(context).translate('yes'),
+      buttonTextCancel: ModMainLocalizations.of(context).translate('no'),
     );
   }
 

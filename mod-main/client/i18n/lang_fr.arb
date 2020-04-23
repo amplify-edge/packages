@@ -1,5 +1,29 @@
 {
-  "@@last_modified": "2020-04-22T17:53:59.073020",
+  "@@last_modified": "2020-04-23T10:59:03.967584",
+  "country": "Pays",
+  "@country": {
+    "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "newCountrySelected": "Nouveau pays sélectionné",
+  "@newCountrySelected": {
+    "description": "New Country Selected",
+    "placeholders": {},
+    "type": "text"
+  },
+  "zipCode": "Code postal",
+  "@zipCode": {
+    "description": "Zip Code",
+    "placeholders": {},
+    "type": "text"
+  },
+  "whereAreYou": "Où êtes-vous?",
+  "@whereAreYou": {
+    "description": "Where are you?",
+    "placeholders": {},
+    "type": "text"
+  },
   "category": "Catégorie",
   "@category": {
     "description": "Category",
@@ -48,7 +72,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "Précédents historiques",
+  "historicalPrecedents": "Historique Précédents",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
@@ -78,25 +102,25 @@
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Les pionniers devaient démarrer",
+  "pioneersToStart": "Pionniers nécessaires pour démarrer",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Les rebelles nécessaires pour déclencher le média",
+  "rebelsMedia": "Rebelles nécessaires pour déclencher les médias",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Les rebelles nécessaires pour gagner",
+  "rebelsWin": "Rebelles nécessaires pour win",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Coordonnées",
+  "contactDetails": "Détails du contact",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
@@ -111,6 +135,60 @@
   "ready": "Prêt",
   "@ready": {
     "description": "Ready",
+    "placeholders": {},
+    "type": "text"
+  },
+  "searchCampaigns": "Campagnes de recherche",
+  "@searchCampaigns": {
+    "description": "Search Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "yourNeeds": "Vos besoins",
+  "@yourNeeds": {
+    "description": "Your Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "needsSatisifiedRequirement": "Veuillez choisir autant de supports ou de besoins dont vous avez besoin pour vous joindre à l'action.",
+  "@needsSatisifiedRequirement": {
+    "description": "Please choose as many supports or needs you need satisfied to join the action.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "next": "Suivant",
+  "@next": {
+    "description": "Next",
+    "placeholders": {},
+    "type": "text"
+  },
+  "supportRole": "Rôle de support",
+  "@supportRole": {
+    "description": "Support Role",
+    "placeholders": {},
+    "type": "text"
+  },
+  "provideSupportRole": "Si nous ne pouvons pas satisfaire vos conditions choisies, envisageriez-vous de fournir un rôle de soutien à ceux qui sont prêts à faire grève?",
+  "@provideSupportRole": {
+    "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "yes": "Oui",
+  "@yes": {
+    "description": "Yes",
+    "placeholders": {},
+    "type": "text"
+  },
+  "no": "Non",
+  "@no": {
+    "description": "No",
+    "placeholders": {},
+    "type": "text"
+  },
+  "supportRoles": "Rôles de soutien",
+  "@supportRoles": {
+    "description": "Support Roles",
     "placeholders": {},
     "type": "text"
   }

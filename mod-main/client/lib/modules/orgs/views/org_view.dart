@@ -30,10 +30,10 @@ class OrgView extends StatelessWidget {
               );
             },
             nullItems: Center(child: CircularProgressIndicator()),
-            emptyItems: Center(child: Text(ModMainLocalizations.of(context).noCampaigns())),
+            emptyItems: Center(child: Text(ModMainLocalizations.of(context).translate('noCampaigns'))),
             itemCount: model.orgs.length,
             slivers: <Widget>[
-              const SliverPadding(
+              SliverPadding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 sliver: SliverFloatingBar(
                   elevation: 1.0,
@@ -42,7 +42,7 @@ class OrgView extends StatelessWidget {
                   automaticallyImplyLeading: false,
                   title: TextField(
                     decoration:
-                        InputDecoration.collapsed(hintText: 'Search Campaigns'),
+                        InputDecoration.collapsed(hintText: ModMainLocalizations.of(context).translate('searchCampaigns')),
                   ),
                 ),
               ),

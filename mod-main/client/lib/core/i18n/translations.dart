@@ -1,6 +1,41 @@
 import 'package:intl/intl.dart';
 
 class Translations {
+  // USERINFO
+  String country() {
+    return Intl.message(
+      'Country',
+      name: 'country',
+      desc: 'Country',
+    );
+  }
+
+  String newCountrySelected() {
+    return Intl.message(
+      'New Country Selected',
+      name: 'newCountrySelected',
+      desc: 'New Country Selected',
+    );
+  }
+
+  String zipCode() {
+    return Intl.message(
+      'Zip Code',
+      name: 'zipCode',
+      desc: 'Zip Code',
+    );
+  }
+
+  String whereAreYou() {
+    return Intl.message(
+      'Where are you?',
+      name: 'whereAreYou',
+      desc: 'Where are you?',
+    );
+  }
+
+  // ORGS
+
   String category() {
     return Intl.message(
       'Category',
@@ -154,7 +189,81 @@ class Translations {
     );
   }
 
-  // import 'package:mod_main/core/core.dart';
-  // ModMainLocalizations.of(context).translate('')
+  String searchCampaigns() {
+    return Intl.message(
+      'Search Campaigns',
+      name: 'searchCampaigns',
+      desc: 'Search Campaigns',
+    );
+  }
 
+  // USERNEEDS
+
+  String yourNeeds() {
+    return Intl.message(
+      'Your Needs',
+      name: 'yourNeeds',
+      desc: 'Your Needs',
+    );
+  }
+
+  String needsSatisifiedRequirement() {
+    return Intl.message(
+      'Please choose as many supports or needs you need satisfied to join the action.',
+      name: 'needsSatisifiedRequirement',
+      desc:
+          'Please choose as many supports or needs you need satisfied to join the action.',
+    );
+  }
+
+  String next() {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: 'Next',
+    );
+  }
+
+  String supportRole() {
+    return Intl.message(
+      'Support Role',
+      name: 'supportRole',
+      desc: 'Support Role',
+    );
+  }
+
+  String provideSupportRole() {
+    return Intl.message(
+      'If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?',
+      name: 'provideSupportRole',
+      desc:
+          'If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?',
+    );
+  }
+
+  String yes() {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: 'Yes',
+    );
+  }
+
+  String no() {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: 'No',
+    );
+  }
+
+  // SUPPORT ROLES
+
+  String supportRoles() {
+    return Intl.message(
+      'Support Roles',
+      name: 'supportRoles',
+      desc: 'Support Roles',
+    );
+  }
 }

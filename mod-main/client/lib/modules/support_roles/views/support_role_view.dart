@@ -5,6 +5,7 @@ import 'package:mod_main/modules/orgs/data/org_model.dart';
 import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:mod_main/core/shared_services/dynamic_widget_service.dart';
+import 'package:mod_main/core/core.dart';
 
 import '../view_model/supportRole_view_model.dart';
 
@@ -21,7 +22,8 @@ class SupportRoleView extends StatelessWidget {
       viewModel: SupportRoleViewModel(),
       builder: (context, SupportRoleViewModel model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Support Roles"),
+          title:
+              Text(ModMainLocalizations.of(context).translate('supportRoles')),
           centerTitle: true,
         ),
         body: (model.buzy)
@@ -57,7 +59,8 @@ class SupportRoleView extends StatelessWidget {
                       model.save();
                       Modular.to.pushNamed('/account/signup');
                     },
-                    child: Text("Next"),
+                    child: Text(
+                        ModMainLocalizations.of(context).translate('next')),
                   )
                 ]),
               ]),

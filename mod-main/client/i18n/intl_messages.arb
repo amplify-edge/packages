@@ -1,5 +1,29 @@
 {
-  "@@last_modified": "2020-04-22T17:53:59.073020",
+  "@@last_modified": "2020-04-23T10:59:03.967584",
+  "country": "Country",
+  "@country": {
+    "description": "Country",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newCountrySelected": "New Country Selected",
+  "@newCountrySelected": {
+    "description": "New Country Selected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "zipCode": "Zip Code",
+  "@zipCode": {
+    "description": "Zip Code",
+    "type": "text",
+    "placeholders": {}
+  },
+  "whereAreYou": "Where are you?",
+  "@whereAreYou": {
+    "description": "Where are you?",
+    "type": "text",
+    "placeholders": {}
+  },
   "category": "Category",
   "@category": {
     "description": "Category",
@@ -111,6 +135,60 @@
   "ready": "Ready",
   "@ready": {
     "description": "Ready",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchCampaigns": "Search Campaigns",
+  "@searchCampaigns": {
+    "description": "Search Campaigns",
+    "type": "text",
+    "placeholders": {}
+  },
+  "yourNeeds": "Your Needs",
+  "@yourNeeds": {
+    "description": "Your Needs",
+    "type": "text",
+    "placeholders": {}
+  },
+  "needsSatisifiedRequirement": "Please choose as many supports or needs you need satisfied to join the action.",
+  "@needsSatisifiedRequirement": {
+    "description": "Please choose as many supports or needs you need satisfied to join the action.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Next",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportRole": "Support Role",
+  "@supportRole": {
+    "description": "Support Role",
+    "type": "text",
+    "placeholders": {}
+  },
+  "provideSupportRole": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
+  "@provideSupportRole": {
+    "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "Yes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "No",
+  "@no": {
+    "description": "No",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportRoles": "Support Roles",
+  "@supportRoles": {
+    "description": "Support Roles",
     "type": "text",
     "placeholders": {}
   }

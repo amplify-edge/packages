@@ -5,6 +5,7 @@ import 'package:mod_main/modules/orgs/data/org_model.dart';
 import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
 import 'package:mod_main/modules/user_needs/view_model/userneed_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:mod_main/core/core.dart';
 
 class UserNeedsView extends StatelessWidget {
   final String orgID;
@@ -21,7 +22,7 @@ class UserNeedsView extends StatelessWidget {
       builder: (context, UserNeedsViewModel model, child) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Your Needs"),
+          title: Text(ModMainLocalizations.of(context).translate('yourNeeds')),
         ),
         body: (model.buzy)
             ? Center(child: Offstage())
@@ -50,7 +51,7 @@ class UserNeedsView extends StatelessWidget {
                   const SizedBox(height: 8.0),
                   ListTile(
                     title: Text(
-                      'Please choose as many supports or needs you need satisfied to join the action.',
+                      ModMainLocalizations.of(context).translate('needsSatisifiedRequirement'),
                       style: Theme.of(context).textTheme.body1,
                     ),
                   ),
@@ -63,9 +64,9 @@ class UserNeedsView extends StatelessWidget {
                     children: <Widget>[
                       RaisedButton(
                         onPressed: () {
-                          model.navigateNext();
+                          model.navigateNext(context);
                         },
-                        child: Text("Next"),
+                        child: Text(ModMainLocalizations.of(context).translate('next')),
                       ),
                     ],
                   ),

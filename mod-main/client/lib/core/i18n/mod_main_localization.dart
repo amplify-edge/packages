@@ -9,7 +9,7 @@ import './translations.dart';
 
 class ModMainLocalizations extends Translations {
   final Locale locale;
-  Map<String, String> _localizedStrings;
+  static Map<String, String> _localizedStrings;
 
   ModMainLocalizations(this.locale);
 
@@ -20,7 +20,7 @@ class ModMainLocalizations extends Translations {
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
 
-    this._localizedStrings = jsonMap.map((key, value) {
+    _localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());
     });
 

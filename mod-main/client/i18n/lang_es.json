@@ -1,5 +1,29 @@
 {
-  "@@last_modified": "2020-04-22T17:53:59.073020",
+  "@@last_modified": "2020-04-23T10:59:03.967584",
+  "country": "País",
+  "@country": {
+    "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "newCountrySelected": "Nuevo país seleccionado",
+  "@newCountrySelected": {
+    "description": "New Country Selected",
+    "placeholders": {},
+    "type": "text"
+  },
+  "zipCode": "Código postal",
+  "@zipCode": {
+    "description": "Zip Code",
+    "placeholders": {},
+    "type": "text"
+  },
+  "whereAreYou": "¿Dónde estás?",
+  "@whereAreYou": {
+    "description": "Where are you?",
+    "placeholders": {},
+    "type": "text"
+  },
   "category": "Categoría",
   "@category": {
     "description": "Category",
@@ -48,7 +72,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "Antecedentes históricos",
+  "historicalPrecedents": "Histórico Antecedentes",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
@@ -60,7 +84,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "Personas ya comprometidas",
+  "peopleAlreadyPledged": "Personas que ya se comprometieron",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
@@ -78,19 +102,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Los pioneros necesitaban comenzar",
+  "pioneersToStart": "Pioneros necesarios para comenzar",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Los rebeldes necesitaban activar los medios",
+  "rebelsMedia": "Rebeldes necesarios para activar medios",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Los rebeldes necesitaban ganar",
+  "rebelsWin": "Rebeldes necesarios para win",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
@@ -111,6 +135,60 @@
   "ready": "Listo",
   "@ready": {
     "description": "Ready",
+    "placeholders": {},
+    "type": "text"
+  },
+  "searchCampaigns": "Buscar campañas",
+  "@searchCampaigns": {
+    "description": "Search Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "yourNeeds": "Sus necesidades",
+  "@yourNeeds": {
+    "description": "Your Needs",
+    "placeholders": {},
+    "type": "text"
+  },
+  "needsSatisifiedRequirement": "Elija tantos apoyos o necesidades que necesite satisfacer para unirse a la acción.",
+  "@needsSatisifiedRequirement": {
+    "description": "Please choose as many supports or needs you need satisfied to join the action.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "next": "Siguiente",
+  "@next": {
+    "description": "Next",
+    "placeholders": {},
+    "type": "text"
+  },
+  "supportRole": "Rol de soporte",
+  "@supportRole": {
+    "description": "Support Role",
+    "placeholders": {},
+    "type": "text"
+  },
+  "provideSupportRole": "Si no podemos satisfacerlo según sus condiciones elegidas, ¿consideraría brindar un rol de apoyo a quienes estén dispuestos a ir a la huelga?",
+  "@provideSupportRole": {
+    "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "yes": "Sí",
+  "@yes": {
+    "description": "Yes",
+    "placeholders": {},
+    "type": "text"
+  },
+  "no": "No",
+  "@no": {
+    "description": "No",
+    "placeholders": {},
+    "type": "text"
+  },
+  "supportRoles": "Roles de soporte",
+  "@supportRoles": {
+    "description": "Support Roles",
     "placeholders": {},
     "type": "text"
   }
