@@ -1,9 +1,7 @@
 package main
 
 import (
-	envoy_core "github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
 	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/filters"
-	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/metadata"
 	"log"
 	"net"
 	"os"
@@ -65,35 +63,7 @@ func (a *AuthorizationServer) Check(ctx context.Context, req *envoy_auth.CheckRe
 		if err != nil {
 			return guestResponse(), nil
 		}
-		res := filters.OKResponse(
-			[]*envoy_core.HeaderValueOption{
-				{
-					Header: &envoy_core.HeaderValue{
-						Key:   metadata.HEADER_CLIENT_NAME,
-						Value: "authorized",
-					},
-				},
-				{
-					Header: &envoy_core.HeaderValue{
-						Key:   metadata.HEADER_IS_LOGGED_IN,
-						Value: "1",
-					},
-				},
-				{
-					Header: &envoy_core.HeaderValue{
-						Key:   metadata.HEADER_USER_ID,
-						Value: *uid,
-					},
-				},
-				{
-					// Passes original token
-					Header: &envoy_core.HeaderValue{
-						Key:   metadata.ORIGINAL_TOKEN,
-						Value: token,
-					},
-				},
-			},
-		)
+		res := filters.OKResponse(filters.GenAuthdUser(*uid, token))
 		return res, nil
 	}
 	return guestResponse(), nil
