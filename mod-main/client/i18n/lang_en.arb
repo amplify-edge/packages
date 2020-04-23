@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-04-22T16:58:23.568866",
+  "category": "Category",
+  "@category": {
+    "description": "Category",
+    "placeholders": {},
+    "type": "text"
+  }
+}
