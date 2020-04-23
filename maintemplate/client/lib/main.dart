@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
 import 'package:maintemplate/layout_template.dart';
 import 'package:mod_main/core/i18n/mod_main_localization.dart';
+import 'package:mod_account/core/i18n/mod_account_localization.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '././core/core.dart';
@@ -73,6 +74,7 @@ class _AppState extends State<App> {
         _delegate,
         _modGeoADelegate,
         _modMainDelegate,
+        ModAccountLocalizationsDelegate(model.locale),
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
