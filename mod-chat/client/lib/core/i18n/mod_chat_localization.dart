@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:mod_core/i18n/languages.dart';
 import './translations.dart';
 
 class ModChatLocalizations extends Translations {
@@ -48,7 +49,7 @@ class ModChatLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
+    return Languages.supportedLanguages.keys.contains(locale.languageCode);
   }
 
   @override
@@ -65,7 +66,7 @@ class FallbackCupertinoLocalisationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
+      Languages.supportedLanguages.keys.contains(locale.languageCode);
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

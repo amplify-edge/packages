@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:maintemplate/core/i18n/translations.dart';
+import 'package:mod_core/i18n/languages.dart';
 
 import 'generated/messages_all.dart';
 
@@ -32,7 +33,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
+    return Languages.supportedLanguages.keys.contains(locale.languageCode);
   }
 
   @override
@@ -52,7 +53,7 @@ class FallbackCupertinoLocalisationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
+      Languages.supportedLanguages.keys.contains(locale.languageCode);
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

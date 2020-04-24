@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:mod_core/i18n/languages.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   // final SettingsRepository settingsRepository;
@@ -49,14 +50,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   String languageNameLookup(Locale locale) {
-    Map<String, String> _localeNames = {
-      'en': 'English',
-      'fr': 'French',
-      'system': 'System',
-      'ur': 'Urdu',
-      'de': 'German',
-      'es': 'Spanish',
-    };
+    Map<String, String> _localeNames = Languages.supportedLanguages;
 
     String code = locale.languageCode.toString();
 
@@ -116,12 +110,5 @@ class EnvVariables {
 
 // System Defaults
 class EnvVariableDefaults {
-  static final List<Locale> locales = [
-    Locale('system'),
-    Locale('en'),
-    Locale('es'),
-    Locale('fr'),
-    Locale('de'),
-    Locale('ur'),
-  ];
+  static final List<Locale> locales = Languages.getLocales();
 }

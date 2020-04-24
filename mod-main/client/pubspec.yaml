@@ -25,6 +25,8 @@ dependencies:
   responsive_builder: ^0.1.5
   responsive_scaffold: ^1.3.0+2
   floating_search_bar: ^0.3.0
+  mod_core:
+    path: ../../mod-core/client
 
   # ours
   # maintemplate:
