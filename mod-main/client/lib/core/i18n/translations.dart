@@ -1,12 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Translations {
+  Locale locale;
+
   // USERINFO
   String country() {
     return Intl.message(
       'Country',
       name: 'country',
       desc: 'Country',
+      locale: locale.toString(),
     );
   }
 
@@ -15,6 +19,7 @@ class Translations {
       'New Country Selected',
       name: 'newCountrySelected',
       desc: 'New Country Selected',
+      locale: locale.toString(),
     );
   }
 
@@ -23,6 +28,7 @@ class Translations {
       'Zip Code',
       name: 'zipCode',
       desc: 'Zip Code',
+      locale: locale.toString(),
     );
   }
 
@@ -31,6 +37,7 @@ class Translations {
       'Where are you?',
       name: 'whereAreYou',
       desc: 'Where are you?',
+      locale: locale.toString(),
     );
   }
 
@@ -41,6 +48,7 @@ class Translations {
       'Category',
       name: 'category',
       desc: 'Category',
+      locale: locale.toString(),
     );
   }
 
@@ -49,6 +57,7 @@ class Translations {
       'No Campaigns',
       name: 'noCampaigns',
       desc: 'No Campaigns',
+      locale: locale.toString(),
     );
   }
 
@@ -57,6 +66,7 @@ class Translations {
       'Type of Action',
       name: 'actionType',
       desc: 'Type of Action',
+      locale: locale.toString(),
     );
   }
 
@@ -65,6 +75,7 @@ class Translations {
       'Action Location',
       name: 'actionLocation',
       desc: 'Action Location',
+      locale: locale.toString(),
     );
   }
 
@@ -73,6 +84,7 @@ class Translations {
       'Time',
       name: 'time',
       desc: 'Time',
+      locale: locale.toString(),
     );
   }
 
@@ -81,6 +93,7 @@ class Translations {
       'Length of the Action',
       name: 'lengthOfTheAction',
       desc: 'Length of the Action',
+      locale: locale.toString(),
     );
   }
 
@@ -89,6 +102,7 @@ class Translations {
       'Goal',
       name: 'goal',
       desc: 'Goal',
+      locale: locale.toString(),
     );
   }
 
@@ -97,6 +111,7 @@ class Translations {
       'Strategy',
       name: 'strategy',
       desc: 'strategy',
+      locale: locale.toString(),
     );
   }
 
@@ -105,6 +120,7 @@ class Translations {
       'Historical Precedents',
       name: 'historicalPrecedents',
       desc: 'Historical Precedents',
+      locale: locale.toString(),
     );
   }
 
@@ -113,6 +129,7 @@ class Translations {
       'Backing/Endorsing Organizations',
       name: 'backingEndorsingOrganizations',
       desc: 'Backing/Endorsing Organizations',
+      locale: locale.toString(),
     );
   }
 
@@ -121,6 +138,7 @@ class Translations {
       'People already pledged',
       name: 'peopleAlreadyPledged',
       desc: 'People already pledged',
+      locale: locale.toString(),
     );
   }
 
@@ -129,6 +147,7 @@ class Translations {
       'We Need',
       name: 'weNeed',
       desc: 'We Need',
+      locale: locale.toString(),
     );
   }
 
@@ -138,6 +157,7 @@ class Translations {
       name: 'extrapolatedSimilarPastActions',
       desc:
           'The following figures are extrapolated from similar past actions that both succeeded and failed',
+      locale: locale.toString(),
     );
   }
 
@@ -146,6 +166,7 @@ class Translations {
       'Pioneers needed to start',
       name: 'pioneersToStart',
       desc: 'Pioneers needed to start',
+      locale: locale.toString(),
     );
   }
 
@@ -154,6 +175,7 @@ class Translations {
       'Rebels needed to trigger media',
       name: 'rebelsMedia',
       desc: 'Rebels needed to trigger media',
+      locale: locale.toString(),
     );
   }
 
@@ -162,6 +184,7 @@ class Translations {
       'Rebels needed to win',
       name: 'rebelsWin',
       desc: 'Rebels needed to win',
+      locale: locale.toString(),
     );
   }
 
@@ -170,6 +193,7 @@ class Translations {
       'Contact Details',
       name: 'contactDetails',
       desc: 'Contact Details',
+      locale: locale.toString(),
     );
   }
 
@@ -178,6 +202,7 @@ class Translations {
       'Not Ready',
       name: 'notReady',
       desc: 'Not Ready',
+      locale: locale.toString(),
     );
   }
 
@@ -186,6 +211,7 @@ class Translations {
       'Ready',
       name: 'ready',
       desc: 'Ready',
+      locale: locale.toString(),
     );
   }
 
@@ -194,6 +220,7 @@ class Translations {
       'Search Campaigns',
       name: 'searchCampaigns',
       desc: 'Search Campaigns',
+      locale: locale.toString(),
     );
   }
 
@@ -204,6 +231,7 @@ class Translations {
       'Your Needs',
       name: 'yourNeeds',
       desc: 'Your Needs',
+      locale: locale.toString(),
     );
   }
 
@@ -213,6 +241,7 @@ class Translations {
       name: 'needsSatisifiedRequirement',
       desc:
           'Please choose as many supports or needs you need satisfied to join the action.',
+      locale: locale.toString(),
     );
   }
 
@@ -221,6 +250,7 @@ class Translations {
       'Next',
       name: 'next',
       desc: 'Next',
+      locale: locale.toString(),
     );
   }
 
@@ -229,6 +259,7 @@ class Translations {
       'Support Role',
       name: 'supportRole',
       desc: 'Support Role',
+      locale: locale.toString(),
     );
   }
 
@@ -238,6 +269,7 @@ class Translations {
       name: 'provideSupportRole',
       desc:
           'If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?',
+      locale: locale.toString(),
     );
   }
 
@@ -246,6 +278,7 @@ class Translations {
       'Yes',
       name: 'yes',
       desc: 'Yes',
+      locale: locale.toString(),
     );
   }
 
@@ -254,6 +287,7 @@ class Translations {
       'No',
       name: 'no',
       desc: 'No',
+      locale: locale.toString(),
     );
   }
 
@@ -264,6 +298,7 @@ class Translations {
       'Support Roles',
       name: 'supportRoles',
       desc: 'Support Roles',
+      locale: locale.toString(),
     );
   }
 }

@@ -16,6 +16,7 @@ class SettingsViewModel extends ChangeNotifier {
     //String data =
     //await DefaultAssetBundle.of(context).loadString("assets/env.json");
     String data = await rootBundle.loadString("assets/env.json");
+
     _envVariables = EnvVariables.fromJson(data);
 
     this.loadLocalesFromEnvVariables(_envVariables);
@@ -46,6 +47,25 @@ class SettingsViewModel extends ChangeNotifier {
     _locale = locale;
     notifyListeners();
   }
+
+  String languageNameLookup(Locale locale) {
+    Map<String, String> _localeNames = {
+      'en': 'English',
+      'fr': 'French',
+      'system': 'System',
+      'ur': 'Urdu',
+      'de': 'German',
+      'es': 'Spanish',
+    };
+
+    String code = locale.languageCode.toString();
+
+    if (_localeNames.containsKey(code)) {
+      return _localeNames[code];
+    }
+
+    return 'Unknown';
+  }
 }
 
 class EnvVariables {
@@ -74,6 +94,7 @@ class EnvVariables {
 
   static EnvVariables fromJson(String jsonString) {
     var data = json.decode(jsonString);
+
     return EnvVariables(
       channel: data["channel"] ?? "-",
       url: data["url"] ?? "-",
@@ -100,6 +121,7 @@ class EnvVariableDefaults {
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('de'),
     Locale('ur'),
   ];
 }

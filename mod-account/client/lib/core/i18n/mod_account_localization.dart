@@ -49,7 +49,7 @@ class ModAccountLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
+    return ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
   }
 
   @override
@@ -66,7 +66,7 @@ class FallbackCupertinoLocalisationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
+      ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

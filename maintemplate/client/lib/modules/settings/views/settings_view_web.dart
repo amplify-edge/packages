@@ -55,7 +55,7 @@ class SettingsViewWeb extends StatelessWidget {
               return DropdownMenuItem<Locale>(
                 value: value,
                 child: Text(
-                    value.languageCode.getLanguage),
+                    model.languageNameLookup(value)),
               );
             }).toList(),
           ),

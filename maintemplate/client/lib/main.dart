@@ -83,6 +83,7 @@ class _AppState extends State<App> {
         Locale('en'),
         Locale('es'),
         Locale('fr'),
+        Locale('de'),
         Locale('ur'),
       ],
     );
