@@ -1,192 +1,192 @@
 {
   "@@last_modified": "2020-04-24T10:09:25.613105",
-  "country": "Pays",
+  "country": "Land",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "newCountrySelected": "Nouveau pays sélectionné",
+  "newCountrySelected": "Neues Land ausgewählt",
   "@newCountrySelected": {
     "description": "New Country Selected",
     "placeholders": {},
     "type": "text"
   },
-  "zipCode": "Code postal",
+  "zipCode": "Postleitzahl",
   "@zipCode": {
     "description": "Zip Code",
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "Où êtes-vous?",
+  "whereAreYou": "Wo bist du?",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
     "type": "text"
   },
-  "category": "Catégorie",
+  "category": "Kategorie",
   "@category": {
     "description": "Category",
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "Aucune campagne",
+  "noCampaigns": "Keine Kampagnen",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "actionType": "Type d'action",
+  "actionType": "Art der Aktion",
   "@actionType": {
     "description": "Type of Action",
     "placeholders": {},
     "type": "text"
   },
-  "actionLocation": "Lieu de l'action",
+  "actionLocation": "Aktionsort",
   "@actionLocation": {
     "description": "Action Location",
     "placeholders": {},
     "type": "text"
   },
-  "time": "Durée",
+  "time": "Zeit",
   "@time": {
     "description": "Time",
     "placeholders": {},
     "type": "text"
   },
-  "lengthOfTheAction": "Durée de l'action",
+  "lengthOfTheAction": "Länge der Aktion",
   "@lengthOfTheAction": {
     "description": "Length of the Action",
     "placeholders": {},
     "type": "text"
   },
-  "goal": "Objectif",
+  "goal": "Ziel",
   "@goal": {
     "description": "Goal",
     "placeholders": {},
     "type": "text"
   },
-  "strategy": "Stratégie",
+  "strategy": "Strategie",
   "@strategy": {
     "description": "strategy",
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "Historique Précédents",
+  "historicalPrecedents": "Historisch Präzedenzfälle",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "Organisations de soutien / d'approbation",
+  "backingEndorsingOrganizations": "Organisationen unterstützen / unterstützen",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "Personnes déjà engagées",
+  "peopleAlreadyPledged": "Personen, die bereits zugesagt haben",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
     "type": "text"
   },
-  "weNeed": "Nous avons besoin",
+  "weNeed": "Wir brauchen",
   "@weNeed": {
     "description": "We Need",
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Les chiffres suivants sont extrapolés à partir d'actions antérieures similaires qui ont réussi et échoué",
+  "extrapolatedSimilarPastActions": "Die folgenden Zahlen wurden aus ähnlichen früheren Aktionen extrapoliert, die sowohl erfolgreich waren als auch fehlgeschlagen sind",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Pionniers nécessaires pour démarrer",
+  "pioneersToStart": "Pioniere, die zum Starten benötigt wurden",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Rebelles nécessaires pour déclencher les médias",
+  "rebelsMedia": "Rebellen, die zum Auslösen von Medien benötigt wurden",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Rebelles nécessaires pour win",
+  "rebelsWin": "Rebellen, die benötigt wurden win",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Détails du contact",
+  "contactDetails": "Kontaktdetails",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
     "type": "text"
   },
-  "notReady": "Non prêt",
+  "notReady": "Nicht bereit",
   "@notReady": {
     "description": "Not Ready",
     "placeholders": {},
     "type": "text"
   },
-  "ready": "Prêt",
+  "ready": "Bereit",
   "@ready": {
     "description": "Ready",
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "Campagnes de recherche",
+  "searchCampaigns": "Suchkampagnen",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "yourNeeds": "Vos besoins",
+  "yourNeeds": "Ihre Bedürfnisse",
   "@yourNeeds": {
     "description": "Your Needs",
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Veuillez choisir autant de supports ou de besoins dont vous avez besoin pour vous joindre à l'action.",
+  "needsSatisifiedRequirement": "Bitte wählen Sie so viele Unterstützungen oder Bedürfnisse aus, wie Sie benötigen, um an der Aktion teilzunehmen.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "Suivant",
+  "next": "Weiter",
   "@next": {
     "description": "Next",
     "placeholders": {},
     "type": "text"
   },
-  "supportRole": "Rôle de support",
+  "supportRole": "Unterstützungsrolle",
   "@supportRole": {
     "description": "Support Role",
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "Si nous ne pouvons pas satisfaire vos conditions choisies, envisageriez-vous de fournir un rôle de soutien à ceux qui sont prêts à faire grève?",
+  "provideSupportRole": "Wenn wir nicht zufrieden stellen können Würden Sie unter den von Ihnen gewählten Bedingungen in Betracht ziehen, denjenigen, die zum Streik bereit sind, eine Unterstützungsrolle zu geben?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
     "type": "text"
   },
-  "yes": "Oui",
+  "yes": "Ja",
   "@yes": {
     "description": "Yes",
     "placeholders": {},
     "type": "text"
   },
-  "no": "Non",
+  "no": "Nein",
   "@no": {
     "description": "No",
     "placeholders": {},
     "type": "text"
   },
-  "supportRoles": "Rôles de soutien",
+  "supportRoles": "Unterstützungsrollen",
   "@supportRoles": {
     "description": "Support Roles",
     "placeholders": {},

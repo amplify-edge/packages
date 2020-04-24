@@ -22,5 +22,5 @@ lang-gen-flu: ## lang-gen-flu
 	@mkdir -p $(I18N_GENERATED_DIR)
 	@mkdir -p $(I18N_DIR)
 	@flutter pub run intl_translation:extract_to_arb --output-dir=$(I18N_DIR) $(I18N_LOCALIZATION_DIR)/translations.dart
-	@i18n flutter --dir $(I18N_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es,ur -f
+	@i18n flutter --dir $(I18N_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es,de,ur -f
 	@i18n flutter --dir $(I18N_DIR)
