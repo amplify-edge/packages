@@ -10,7 +10,7 @@ class Languages {
   };
 
   static List<Locale> getLocales() {
-    List<Locale> _locales;
+    List<Locale> _locales = [];
 
     Languages.supportedLanguages.forEach((key, value) {
       _locales.add(Locale(key));

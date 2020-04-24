@@ -38,11 +38,11 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) {
-    if (this.overriddenLocale == Locale('system')) {
-      print("return system");
-      return AppLocalizations.load(locale);
-    }
-    print("return overriden");
+    //if (this.overriddenLocale == Locale('system')) {
+     // print("return system");
+      //return AppLocalizations.load(locale);
+    //}
+   // print("return overriden");
     return AppLocalizations.load(this.overriddenLocale);
   }
 }

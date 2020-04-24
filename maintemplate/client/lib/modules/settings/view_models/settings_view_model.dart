@@ -32,8 +32,8 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   ThemeMode _themeMode = ThemeMode.system;
-  Locale _locale = Locale('system');
-  List<Locale> supportedLocales = EnvVariableDefaults.locales;
+  Locale _locale = Locale('en');
+  List<Locale> supportedLocales = Languages.getLocales();
 
   Locale get locale => _locale;
 
@@ -50,12 +50,10 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   String languageNameLookup(Locale locale) {
-    Map<String, String> _localeNames = Languages.supportedLanguages;
-
     String code = locale.languageCode.toString();
 
-    if (_localeNames.containsKey(code)) {
-      return _localeNames[code];
+    if (Languages.supportedLanguages.containsKey(code)) {
+      return Languages.supportedLanguages[code];
     }
 
     return 'Unknown';
@@ -104,11 +102,6 @@ class EnvVariables {
   static List<Locale> _buildLocalesFromList(List<dynamic> _locales) {
     List<Locale> locales = _locales.map((value) => Locale(value)).toList();
 
-    return locales.isEmpty ? EnvVariableDefaults.locales : locales;
+    return locales.isEmpty ? Languages.getLocales() : locales;
   }
-}
-
-// System Defaults
-class EnvVariableDefaults {
-  static final List<Locale> locales = Languages.getLocales();
 }
