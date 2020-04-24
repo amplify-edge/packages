@@ -41,25 +41,28 @@ data:
               - name: envoy.grpc_web
               - name: envoy.cors
               - name: envoy.router
-              - name: envoy.filters.http.jwt_authn
+              - name: envoy.ext_authz
                 config:
-                  providers:
-                    account-jwt-provider:
-                      issuer: {{ printf "%s:%s" .Values.jwkIssuerUrl .Values.jwkIssuerPort }}
-                      forward: true
-                      forward_payload_header: x-token-payload
-                      remote_jwks:
-                        http_uri:
-                          uri: {{ printf "%s:%s" .Values.jwkIssuerUrl .Values.jwkIssuerPort }}
-                          cluster: ext-authz
-                          timeout: 5s
-                        cache_duration:
-                          seconds: 300
-                rules:
-                - match:
-                    prefix: "/auth"
-                  requires:
-                    provider_name: "account-jwt-provider"
+                  grpc_service:
+                    envoy_grpc:
+                      cluster_name: ext-authz
+{{/*              - name: envoy.filters.http.jwt_authn*/}}
+{{/*                config:*/}}
+{{/*                  providers:*/}}
+{{/*                    account-jwt-provider:*/}}
+{{/*                      issuer: {{ printf "%s:%s" .Values.jwkIssuerUrl .Values.jwkIssuerPort }}*/}}
+{{/*                      forward: true*/}}
+{{/*                      forward_payload_header: x-token-payload*/}}
+{{/*                      local_jwks:*/}}
+{{/*                          cluster: ext-authz*/}}
+{{/*                          timeout: 5s*/}}
+{{/*                        cache_duration:*/}}
+{{/*                          seconds: 300*/}}
+{{/*                rules:*/}}
+{{/*                - match:*/}}
+{{/*                    prefix: "/auth"*/}}
+{{/*                  requires:*/}}
+{{/*                    provider_name: "account-jwt-provider"*/}}
               - name: envoy.lua
                 config:
                   inline_code: |

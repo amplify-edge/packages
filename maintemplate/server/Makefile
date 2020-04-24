@@ -10,9 +10,6 @@ RESET  := $(shell tput -Txterm sgr0)
 
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
-KEYRING_NAME ?= authz_keyring
-KEY_NAME ?= authz_key
-KMS_REGION ?= global
 MAX_NODES ?= 15
 
 MINIKUBE_VMDRIVER :=
@@ -74,7 +71,8 @@ endif
 gke-setup: check-env
 	@echo GKEConf
 	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member user:${GCP_USER} --role roles/iam.serviceAccountKeyAdmin
-	@mkdir -p ~/.getcouragenow/
+	#mkdir -p ~/.getcouragenow/
+	mkdir -p ${HOME}/.${GCP_PROJECT}
 	@gcloud config set project ${GCP_PROJECT}
 	@gcloud iam service-accounts create ${GCP_PROJECT}-sa
 	@gcloud services enable container.googleapis.com
@@ -125,17 +123,6 @@ gke-clean-services:
 	@kubectl delete service ci-envoy
 	@kubectl delete service ci-maintemplate
 
-## GKE Cloud-KMS init
-gke-cloud-kms-init:
-	@echo "${WHITE} Set up Cloud KMS ${RESET}"
-	@gcloud kms keyrings create ${KEYRING_NAME} --location global
-	@gcloud kms keys create ${KEY_NAME} --location global --keyring ${KEYRING_NAME} \
-		--purpose encryption --project ${GCP_PROJECT}
-	@gcloud kms keys add-iam-policy-binding ${KEY_NAME} --location ${KMS_REGION} \
-    		--keyring ${KEYRING_NAME} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com \
-    		--role roles/cloudkms.cryptoKeyEncrypterDecrypter \
-    		--project ${GCP_PROJECT}
-
 ## Configure minikube vm-driver
 minikube-config: 
 	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
@@ -168,3 +155,8 @@ minikube-deploy:
 	@./kustomize build . | kubectl replace --force -f -
 	@rm kustomization.yaml 
 	@rm -rf flutter/web ./kustomize
+
+## Generate app secrets
+gen-app-secrets:
+	@echo ${PWD}
+	go run cmd/appsecret/appsecret.go -o ${PWD}/keys/

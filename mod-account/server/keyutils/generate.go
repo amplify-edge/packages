@@ -6,19 +6,13 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	jose "github.com/square/go-jose/v3"
+	"io/ioutil"
 	"os"
 	"text/template"
 )
-
-type KeyType int
-
-// EncodedKeyPairs contains keypairs for signing JWTs.
-type encodedKeyPairs struct {
-	Pub  string
-	Priv string
-}
 
 func newEncodedKeyPairs(pub, priv []byte) *encodedKeyPairs {
 	return &encodedKeyPairs{
@@ -26,6 +20,26 @@ func newEncodedKeyPairs(pub, priv []byte) *encodedKeyPairs {
 		Priv: base64.StdEncoding.EncodeToString(priv),
 	}
 }
+
+type (
+	KeyType int
+	// EncodedKeyPairs contains keypairs for signing JWTs.
+	encodedKeyPairs struct {
+		Pub  string
+		Priv string
+	}
+	pubjwks struct {
+		Jwks []jwk `json:"jwks"`
+	}
+	jwk struct {
+		Alg string `json:"alg"`
+		E   string `json:"e"`
+		Kid string `json:"kid"`
+		Kty string `json:"kty"`
+		N   string `json:"n"`
+		Use string `json:"use"`
+	}
+)
 
 const (
 	RSA KeyType = iota
@@ -60,7 +74,6 @@ func (k *KeyType) generateAlgo() string {
 	}
 }
 
-
 func (k *KeyType) GenSigningKeys(path string) error {
 	pubKey, privKey, err := k.genSigningKey()
 	if err != nil {
@@ -88,6 +101,24 @@ func (k *KeyType) GenSigningKeys(path string) error {
 	}
 	t := template.Must(template.New(filename).Parse(secretsTemplate))
 	ekp := newEncodedKeyPairs(jpub, jpriv)
+
+	var jwkfile jwk
+	err = json.Unmarshal(jpub, jwkfile)
+	if err != nil {
+		return err
+	}
+	newPubJwks := &pubjwks{
+		Jwks: []jwk{
+			jwkfile,
+		},
+	}
+	pubjwkfile, err := json.Marshal(newPubJwks)
+	if err != nil {
+		return err
+	}
+	if err = writeToFile(pubjwkfile, fmt.Sprintf("%s/%s.json", path, "jwks.json")); err != nil {
+		return err
+	}
 	return writeSecrets(t, ekp, path)
 }
 
@@ -98,6 +129,10 @@ func writeSecrets(tpl *template.Template, ekp *encodedKeyPairs, path string) err
 		return err
 	}
 	return tpl.Execute(file, ekp)
+}
+
+func writeToFile(data []byte, path string) error {
+	return ioutil.WriteFile(path, data, 0644)
 }
 
 func (k *KeyType) genSigningKey() (crypto.PublicKey, crypto.PrivateKey, error) {

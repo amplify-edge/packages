@@ -25,3 +25,6 @@ vendor
 
 # Editor configs
 .idea
+
+# Secret key for JWT
+keys/*.yaml

@@ -21,6 +21,11 @@ env:
   RELEASE_CHANNEL: dev
   FLUTTER_CHANNEL: beta
   CHANNEL_URL: getcouragenow.org
+  MINIO_ACCESSKEY: ${{ secrets.MINIO_ACCESSKEY }}
+  MINIO_SECRETKEY: ${{ secrets.MINIO_SECRETKEY }}
+  MINIO_LOCATION: ${{ secrets.MINIO_LOCATION }}
+  MINIO_TIMEOUT: ${{ secrets.MINIO_TIMEOUT }}
+  MINIO_ENCKEY: ${{ secrets.MINIO_ENCKEY }}
 
 jobs:
   setup-build-publish-deploy:
@@ -55,23 +60,24 @@ jobs:
           # via gcloud command-line tool.
           gcloud auth configure-docker
 
-      # Configure cloud-kms for now
-      - run:
-          # Determines if keyring exists
-          type gcloud kms keyrings list --location $GKE_KEYRING_ZONE \
-          | grep projects/$GKE_PROJECT/locations/$GKE_KEYRING_ZONE/keyRings/$GKE_KEYRING_NAME || {
-          # Setup cloud-kms
-            gcloud kms keyrings create $GKE_KEYRING_NAME --location $GKE_KEYRING_ZONE \
-              --project $GKE_PROJECT
-            gcloud kms keys create $GKE_KEYNAME --keyring $GKE_KEYRING_NAME \
-              --location $GKE_KEYRING --project $GKE_PROJECT
-            gcloud kms keys add-iam-policy-binding $GKE_KEY_NAME \
-              --location $GKE_ZONE --project $GKE_PROJECT
-          }
+#      # Configure cloud-kms for now
+#      - run:
+#          # Determines if keyring exists
+#          type gcloud kms keyrings list --location $GKE_KEYRING_ZONE \
+#          | grep projects/$GKE_PROJECT/locations/$GKE_KEYRING_ZONE/keyRings/$GKE_KEYRING_NAME || {
+#          # Setup cloud-kms
+#            gcloud kms keyrings create $GKE_KEYRING_NAME --location $GKE_KEYRING_ZONE \
+#              --project $GKE_PROJECT
+#            gcloud kms keys create $GKE_KEYNAME --keyring $GKE_KEYRING_NAME \
+#              --location $GKE_KEYRING --project $GKE_PROJECT
+#            gcloud kms keys add-iam-policy-binding $GKE_KEY_NAME \
+#              --location $GKE_ZONE --project $GKE_PROJECT
+#          }
 
       # Create secret keys
       - run:
-          make -C
+          make -C mod-account/server/authz/ gen-secrets -k
+          make -C maintemplate/server/ gen-secrets -k
 
       # Build the Docker image
       - name: Build
