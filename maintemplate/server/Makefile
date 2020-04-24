@@ -154,6 +154,15 @@ minikube-init:
 
 ## Deploy on minikube
 minikube-deploy:
+	
+	# TODO: 
+	# Flutter Desk is faster to work with and so that can run on host, and connect via GRPC to the cluster
+	# Flutter Web, can also run on host and connect to cluster via GRPC-web.
+
+	# Golang: How can a dev work fast on this if its inside minikube ?
+	# Assumptions: they code and do gen at host level, and then compile with docker ? 
+
+	# DO a flutter web build
 	@cp -rf ../client/build/web flutter/
 	@docker build --tag localhost:5000/grpc-web grpc-web/
 	@docker build --tag localhost:5000/flutter-web flutter/
