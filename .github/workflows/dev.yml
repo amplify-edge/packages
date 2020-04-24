@@ -16,6 +16,7 @@ env:
   GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}
   GKE_KEY_NAME: ${{ secrets.GKE_KEY_NAME }}
   IMAGE: maintemplate
+  AUTHZ_IMAGE: ext-authz
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
   RELEASE_CHANNEL: dev
@@ -62,7 +63,8 @@ jobs:
           gcloud auth configure-docker
 
       # Create secret keys
-      - run:
+      - name: Create Secrets
+        run: |
           make -C mod-account/server/authz/ gen-secrets -k
           make -C maintemplate/server/ gen-secrets -k
           kubectl apply -f keys/keypair-secrets.yaml
@@ -72,7 +74,7 @@ jobs:
       # Build the Docker image
       - name: Build
         run: |
-          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
+          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$AUTH_IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
             --build-arg GITHUB_SHA="$GITHUB_SHA"
             --build-arg GITHUB_REF="$GITHUB_REF" -f mod-account/server/authz/Dockerfile .
           docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
@@ -94,6 +96,7 @@ jobs:
       - name: Publish
         run: |
           docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
+          docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$AUTH_IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
           docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
       # Set up helm v3
       - name: Set up Helm
