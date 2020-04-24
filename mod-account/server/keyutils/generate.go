@@ -29,7 +29,7 @@ type (
 		Priv string
 	}
 	pubjwks struct {
-		Jwks []jwk `json:"jwks"`
+		Jwks []*jwk `json:"jwks"`
 	}
 	jwk struct {
 		Alg string `json:"alg"`
@@ -108,7 +108,7 @@ func (k *KeyType) GenSigningKeys(path string) error {
 		return err
 	}
 	newPubJwks := &pubjwks{
-		Jwks: []jwk{
+		Jwks: []*jwk{
 			jwkfile,
 		},
 	}
