@@ -10,6 +10,7 @@ RESET  := $(shell tput -Txterm sgr0)
 
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
+IMG_LOCALE ?= en
 MAX_NODES ?= 15
 
 MINIKUBE_VMDRIVER :=
@@ -115,7 +116,7 @@ gke-vars:
 	@echo "GKE_EMAIL: "
 	@echo "\t ${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com"
 	@echo "GKE_KEY: "
-	@echo echo $$(cat  ~/.getcouragenow/${GCP_PROJECT}.json | base64 -w0)
+	@echo echo $(awk '1' ~/.getcouragenow/${GCP_PROJECT}.json | base64 | tr -d '\n')
 
 ## quick fixes for ci error on issue
 gke-clean-services:
@@ -125,6 +126,7 @@ gke-clean-services:
 
 ## Configure minikube vm-driver
 minikube-config: 
+	GO111MODULE=off go get -u -v github.com/cloudflare/cfssl/cmd/...
 	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
 	$(MAKE) minikube-clean
 
@@ -137,26 +139,30 @@ minikube-init:
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
-	go get -u -v github.com/cloudflare/cfssl/cmd/...
-	@kubectl port-forward --namespace kube-system svc/registry --address localhost 5000:80	
+	@kubectl port-forward -n kube-system svc/registry --address 127.0.0.1 5000:80
+
+build-frontend:
+	#cd ../client && flutter build web
+	@cp -rf ../client/build/web flutter/
+	@docker build -t localhost/flutter-web flutter/
 
 ## Deploy on minikube
-minikube-deploy:
-	@cp -rf ../client/build/web flutter/
-	#@docker build --tag localhost:5000/grpc-web grpc-web/
-	@docker build --tag localhost:5000/flutter-web flutter/
-	@docker build --tag 
-	#@docker push localhost:5000/grpc-web
-	@docker push localhost:5000/flutter-web
-	@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-	@chmod u+x ./kustomize
-	@touch kustomization.yaml
-	@./kustomize edit add resource k8s/*
-	#@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
-	@./kustomize edit set image "gcr.io/GKE_PROJECT/flutter-web-IMAGE"="localhost:5000/flutter-web"
-	@./kustomize build . | kubectl replace --force -f -
-	@rm kustomization.yaml 
-	@rm -rf flutter/web ./kustomize
+minikube-deploy: build-frontend
+	@docker build -t localhost/maintemplate -f Dockerfile-dev .
+	@docker push 127.0.0.1:5000/localhost/maintemplate
+	@docker push 127.0.0.1:5000/localhost/flutter-web
+	helm upgrade --force --install dev ./deployments/helm \
+		--set flutterImage=localhost:5000/flutter-web \
+		--set maintemplateServerImage=localhost:5000/maintemplate
+	#@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+	#@chmod u+x ./kustomize
+	#@touch kustomization.yaml
+	#@./kustomize edit add resource
+	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/flutter-web-${IMAGE}"="localhost:5000/flutter-web"
+	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/maintemplate-${IMAGE}"="localhost:9074/maintemplate"
+	#@./kustomize build . | kubectl replace --force -f -
+	#@rm kustomization.yaml
+	#@rm -rf flutter/web ./kustomize
 
 ## Generate app secrets
 gen-app-secrets:

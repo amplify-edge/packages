@@ -1,3 +1,7 @@
 ENV.sh
 secrets/
+local-ssl/maintemplate-csr-real.yaml
+local-ssl/maintemplate-svc.pem
+local-ssl/maintemplate-svc-key.pem
+local-ssl/maintemplate-svc.csr
 vendor
