@@ -166,9 +166,10 @@ minikube-deploy: build-frontend
 	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/maintemplate-${IMAGE}"="localhost:9074/maintemplate"
 	#@./kustomize build . | kubectl replace --force -f -
 	#@rm kustomization.yaml
-	#@rm -rf flutter/web ./kustomize
+	@rm -rf flutter/web 
 
 ## Generate app secrets
 gen-app-secrets:
 	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
+
 
