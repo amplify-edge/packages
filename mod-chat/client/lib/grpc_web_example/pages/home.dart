@@ -15,6 +15,7 @@ import 'package:mod_chat/grpc_web_example/theme.dart';
 import 'package:mod_chat/grpc_web_example/widgets/chat_message.dart';
 import 'package:mod_chat/grpc_web_example/widgets/chat_message_incoming.dart';
 import 'package:mod_chat/grpc_web_example/widgets/chat_message_outgoing.dart';
+import 'package:mod_chat/core/core.dart';
 
 /// Host screen widget - main window
 class HomePage extends StatefulWidget {
@@ -133,14 +134,14 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       },
 //                      onSubmitted: _isComposing ? _handleSubmitted : null,
                       decoration:
-                          InputDecoration.collapsed(hintText: "Send a message"),
+                          InputDecoration.collapsed(hintText: ModChatLocalizations.of(context).translate('sendMessage')),
                     ),
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 4.0),
               child: isIOS(context)
                   ? new CupertinoButton(
-                      child: new Text("Send"),
+                      child: new Text(ModChatLocalizations.of(context).translate('send')),
                       onPressed: _isComposing
                           ? () => _handleSubmitted(_textController.text)
                           : null,

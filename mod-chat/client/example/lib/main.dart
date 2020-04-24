@@ -7,6 +7,7 @@ import 'package:maintemplate/features/master_detail_scaffold_example/data/mock_i
 import 'package:maintemplate/features/master_detail_scaffold_example/master_detail_view.dart';
 import 'package:maintemplate/features/responsive_scaffold_example/responsive_scaffold_view.dart';
 import 'package:mod_chat/mod_chat.dart';
+import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
 import 'package:provider/provider.dart';
 
 
@@ -58,6 +59,7 @@ class AppWidget extends StatelessWidget {
         ],
         localizationsDelegates: [
           AppLocalizations.delegate,
+          ModChatLocalizationsDelegate(Locale('en')),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
