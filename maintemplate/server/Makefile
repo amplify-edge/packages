@@ -158,5 +158,4 @@ minikube-deploy:
 
 ## Generate app secrets
 gen-app-secrets:
-	@echo ${PWD}
-	go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
+	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/

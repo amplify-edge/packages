@@ -29,7 +29,7 @@ type (
 		Priv string
 	}
 	pubjwks struct {
-		Jwks []*jwk `json:"jwks"`
+		Jwks []*jwk `json:"keys"`
 	}
 	jwk struct {
 		Alg string `json:"alg"`
@@ -103,20 +103,20 @@ func (k *KeyType) GenSigningKeys(path string) error {
 	ekp := newEncodedKeyPairs(jpub, jpriv)
 
 	var jwkfile jwk
-	err = json.Unmarshal(jpub, jwkfile)
+	err = json.Unmarshal(jpub, &jwkfile)
 	if err != nil {
 		return err
 	}
 	newPubJwks := &pubjwks{
 		Jwks: []*jwk{
-			jwkfile,
+			&jwkfile,
 		},
 	}
-	pubjwkfile, err := json.Marshal(newPubJwks)
+	pubjwkfile, err := json.MarshalIndent(newPubJwks, "", "\t")
 	if err != nil {
 		return err
 	}
-	if err = writeToFile(pubjwkfile, fmt.Sprintf("%s/%s.json", path, "jwks.json")); err != nil {
+	if err = writeToFile(pubjwkfile, fmt.Sprintf("%s/%s.json", path, "jwks")); err != nil {
 		return err
 	}
 	return writeSecrets(t, ekp, path)

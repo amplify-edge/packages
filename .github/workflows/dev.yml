@@ -60,28 +60,20 @@ jobs:
           # via gcloud command-line tool.
           gcloud auth configure-docker
 
-#      # Configure cloud-kms for now
-#      - run:
-#          # Determines if keyring exists
-#          type gcloud kms keyrings list --location $GKE_KEYRING_ZONE \
-#          | grep projects/$GKE_PROJECT/locations/$GKE_KEYRING_ZONE/keyRings/$GKE_KEYRING_NAME || {
-#          # Setup cloud-kms
-#            gcloud kms keyrings create $GKE_KEYRING_NAME --location $GKE_KEYRING_ZONE \
-#              --project $GKE_PROJECT
-#            gcloud kms keys create $GKE_KEYNAME --keyring $GKE_KEYRING_NAME \
-#              --location $GKE_KEYRING --project $GKE_PROJECT
-#            gcloud kms keys add-iam-policy-binding $GKE_KEY_NAME \
-#              --location $GKE_ZONE --project $GKE_PROJECT
-#          }
-
       # Create secret keys
       - run:
           make -C mod-account/server/authz/ gen-secrets -k
           make -C maintemplate/server/ gen-secrets -k
+          kubectl apply -f keys/keypair-secrets.yaml
+          kubectl apply -f keys/minio-creds-secret.yaml
+          kubectl apply -f keys/getcourage-secrets.yaml
 
       # Build the Docker image
       - name: Build
         run: |
+          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA"
+            --build-arg GITHUB_REF="$GITHUB_REF" -f mod-account/server/authz/Dockerfile .
           docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .

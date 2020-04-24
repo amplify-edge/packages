@@ -3,12 +3,12 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-maintemplate-envoy-config
 data:
-  envoy.yaml : |
+  envoy.yaml: |
     admin:
       access_log_path: /tmp/admin_access.log
       address:
         socket_address: { address: 0.0.0.0, port_value: 8090 }
-    
+
     static_resources:
       listeners:
       - name: listener_0
@@ -41,7 +41,19 @@ data:
               - name: envoy.grpc_web
               - name: envoy.cors
               - name: envoy.router
-      clusters:        
+      clusters:
+      - name: ext-authz
+        type: STRICT_DNS
+        http2_protocol_options: {}
+        load_assignment:
+          cluster-name: ext-authz
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+              address:
+                socket_address:
+                  address: {{ .Release.Name }}-ext-authz.default.svc.cluster.local
+                  port_value: 9075
       - name: maintemplate
         connect_timeout: 0.5s
         type: STRICT_DNS
@@ -57,3 +69,18 @@ data:
                   socket_address:
                     address: {{ .Release.Name }}-maintemplate.default.svc.cluster.local
                     port_value: 9074
+        common_lb_config:
+          healthy_panic_threshold:
+            value: 50.0
+        health_checks:
+          - timeout: 1s
+            interval: 5s
+            interval_jitter: 1s
+            no_traffic_interval: 5s
+            unhealthy_threshold: 1
+            healthy_threshold: 3
+            grpc_health_check:
+              service_name: "envoy.service.auth.v2alpha.Authorization"
+              authority: "server.domain.com"
+
+        connect_timeout: 0.25s

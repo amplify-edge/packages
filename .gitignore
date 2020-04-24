@@ -28,3 +28,4 @@ vendor
 
 # Secret key for JWT
 keys/*.yaml
+keys/*.json

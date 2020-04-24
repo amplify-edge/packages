@@ -51,7 +51,7 @@ del-data:
 gen-secrets:
 	@rm -rf ${PWD}/keys/*.yaml
 	@mkdir -p ${PWD}/keys
-	@go run cmd/jwtkey/jwtkey.go -a ECC -p ${PWD}/keys
+	@go run cmd/jwtkey/jwtkey.go -a RSA -p ${PWD}/keys
 
 apply-secrets-local:
 	kubectl apply -f keys/keypair-secrets.yaml
