@@ -2,7 +2,7 @@ package keyutil_test
 
 import (
 	"errors"
-	"github.com/getcouragenow/getcourage-packages/mod-account/authz/pkg/keyutil"
+	"github.com/getcouragenow/getcourage-packages/mod-account/server/keyutils"
 	"github.com/square/go-jose/v3"
 	"github.com/square/go-jose/v3/jwt"
 	"os"

@@ -8,11 +8,25 @@ import (
 	"time"
 )
 
-type AppClaims struct {
-	ClientID string `json:"cid"`
-	UserID   string `json:"uid"`
-	jwt.Claims
-}
+type (
+	// Wrapper for jose.Signer
+	Signer jose.Signer
+	// Claims
+	AppClaims struct {
+		ClientID string `json:"cid"`
+		UserID   string `json:"uid"`
+		Role string `json:"role"`
+		jwt.Claims
+	}
+)
+
+const (
+	HEADER_CLIENT_NAME = "x-client-role"
+	HEADER_USER_ID = "x-user-id"
+	HEADER_IS_LOGGED_IN = "x-client-is-logged-in"
+	ORIGINAL_TOKEN = "x-jwt-token"
+)
+
 
 func (k *KeyType) ReadSignerKey() (jose.Signer, error) {
 	return k.readPrivateSigner()
@@ -43,12 +57,13 @@ func (k *KeyType) readPrivateSigner() (jose.Signer, error) {
 }
 
 // NewAppClaims creates new app claims
-func NewAppClaims(cid, uid, iss string, aud []string, dur time.Duration) *AppClaims {
+func NewAppClaims(cid, uid, iss, role string, aud []string, dur time.Duration) *AppClaims {
 	currentTime := jwt.NewNumericDate(time.Now())
 	expiry := jwt.NewNumericDate(currentTime.Time().Add(dur))
 	return &AppClaims{
 		cid,
 		uid,
+		role,
 		jwt.Claims{
 			Issuer:    iss,
 			Audience:  aud,
@@ -60,25 +75,33 @@ func NewAppClaims(cid, uid, iss string, aud []string, dur time.Duration) *AppCla
 }
 
 // CreateJwtClaims creates jwt claims with specified Issuer, Audience, and Duration
-func (a *AppClaims) CreateJwtClaims(signer jose.Signer) (string, error) {
+func (a *AppClaims) CreateJwtClaims(signer Signer) (string, error) {
 	return jwt.Signed(signer).Claims(*a).CompactSerialize()
 }
 
 // VerifyJwt parses and verifies token
 func VerifyJwt(rawToken string, validator func(*AppClaims) (bool, error)) (bool, error) {
-	token, err := jwt.ParseSigned(rawToken)
+	claim, err := GetClaimsFromToken(rawToken)
 	if err != nil {
 		return false, err
 	}
-	claim := AppClaims{}
-	// TODO: replace UnsafeClaimsWithoutVerification to VerifiableClaims
-	if err = token.UnsafeClaimsWithoutVerification(&claim); err != nil {
-		return false, err
-	}
-	if ok, err := validator(&claim); !ok {
+	if ok, err := validator(claim); !ok {
 		return false, errors.New("token is not valid")
 	} else if err != nil {
 		return false, err
 	}
 	return true, nil
+}
+
+// GetClaimsFromToken gets AppClaims from token
+func GetClaimsFromToken(rawToken string) (*AppClaims, error) {
+	token, err := jwt.ParseSigned(rawToken)
+	if err != nil {
+		return nil, err
+	}
+	claim := AppClaims{}
+	if err = token.UnsafeClaimsWithoutVerification(&claim); err != nil {
+		return nil, err
+	}
+	return &claim, nil
 }

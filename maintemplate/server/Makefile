@@ -10,9 +10,7 @@ RESET  := $(shell tput -Txterm sgr0)
 
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
-KEYRING_NAME ?= authz_keyring
-KEY_NAME ?= authz_key
-KMS_REGION ?= global
+IMG_LOCALE ?= en
 MAX_NODES ?= 15
 
 MINIKUBE_VMDRIVER :=
@@ -74,7 +72,8 @@ endif
 gke-setup: check-env
 	@echo GKEConf
 	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member user:${GCP_USER} --role roles/iam.serviceAccountKeyAdmin
-	@mkdir -p ~/.getcouragenow/
+	#mkdir -p ~/.getcouragenow/
+	mkdir -p ${HOME}/.${GCP_PROJECT}
 	@gcloud config set project ${GCP_PROJECT}
 	@gcloud iam service-accounts create ${GCP_PROJECT}-sa
 	@gcloud services enable container.googleapis.com
@@ -117,7 +116,7 @@ gke-vars:
 	@echo "GKE_EMAIL: "
 	@echo "\t ${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com"
 	@echo "GKE_KEY: "
-	@echo echo $$(cat  ~/.getcouragenow/${GCP_PROJECT}.json | base64 -w0)
+	@echo echo $(awk '1' ~/.getcouragenow/${GCP_PROJECT}.json | base64 | tr -d '\n')
 
 ## quick fixes for ci error on issue
 gke-clean-services:
@@ -125,55 +124,52 @@ gke-clean-services:
 	@kubectl delete service ci-envoy
 	@kubectl delete service ci-maintemplate
 
-## GKE Cloud-KMS init
-gke-cloud-kms-init:
-	@echo "${WHITE} Set up Cloud KMS ${RESET}"
-	@gcloud kms keyrings create ${KEYRING_NAME} --location global
-	@gcloud kms keys create ${KEY_NAME} --location global --keyring ${KEYRING_NAME} \
-		--purpose encryption --project ${GCP_PROJECT}
-	@gcloud kms keys add-iam-policy-binding ${KEY_NAME} --location ${KMS_REGION} \
-    		--keyring ${KEYRING_NAME} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com \
-    		--role roles/cloudkms.cryptoKeyEncrypterDecrypter \
-    		--project ${GCP_PROJECT}
-
 ## Configure minikube vm-driver
 minikube-config: 
+	GO111MODULE=off go get -u -v github.com/cloudflare/cfssl/cmd/...
 	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
 	$(MAKE) minikube-clean
 
 minikube-clean:
 	minikube delete
-	minikube start
+	minikube start --insecure-registry="10.0.0.0/24"
 
 ## Configure minikube
 minikube-init:
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
-	@kubectl port-forward --namespace kube-system svc/registry --address localhost 5000:80	
+	@echo -n "Sleep 5 seconds to make sure registry pod is up"
+	# kubectl port-forward -n kube-system svc/registry localhost 5000:80
+	# macos
+	@docker run --rm -it --network=host alpine \
+		ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
+
+build-frontend:
+	cd ../client && flutter build web
+	cp -rf ../client/build/web flutter/
+	docker build -t localhost:5000/flutter-web flutter/
 
 ## Deploy on minikube
-minikube-deploy:
-	
-	# TODO: 
-	# Flutter Desk is faster to work with and so that can run on host, and connect via GRPC to the cluster
-	# Flutter Web, can also run on host and connect to cluster via GRPC-web.
+minikube-deploy: build-frontend
+	@docker build -t localhost:5000/maintemplate -f Dockerfile-dev .
+	@docker push localhost:5000/maintemplate:latest
+	@docker push localhost:5000/flutter-web:latest
+	helm upgrade --force --install dev ./deployments/helm \
+		--set flutterImage=localhost:5000/flutter-web \
+		--set maintemplateServerImage=localhost:5000/maintemplate
+	#@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+	#@chmod u+x ./kustomize
+	#@touch kustomization.yaml
+	#@./kustomize edit add resource
+	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/flutter-web-${IMAGE}"="localhost:5000/flutter-web"
+	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/maintemplate-${IMAGE}"="localhost:9074/maintemplate"
+	#@./kustomize build . | kubectl replace --force -f -
+	#@rm kustomization.yaml
+	@rm -rf flutter/web 
 
-	# Golang: How can a dev work fast on this if its inside minikube ?
-	# Assumptions: they code and do gen at host level, and then compile with docker ? 
+## Generate app secrets
+gen-app-secrets:
+	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
 
-	# DO a flutter web build
-	@cp -rf ../client/build/web flutter/
-	@docker build --tag localhost:5000/grpc-web grpc-web/
-	@docker build --tag localhost:5000/flutter-web flutter/
-	@docker push localhost:5000/grpc-web
-	@docker push localhost:5000/flutter-web
-	@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-	@chmod u+x ./kustomize
-	@touch kustomization.yaml
-	@./kustomize edit add resource k8s/*
-	@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
-	@./kustomize edit set image "gcr.io/GKE_PROJECT/flutter-web-IMAGE"="localhost:5000/flutter-web"
-	@./kustomize build . | kubectl replace --force -f -
-	@rm kustomization.yaml 
-	@rm -rf flutter/web ./kustomize
+

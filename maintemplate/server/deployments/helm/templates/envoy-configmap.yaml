@@ -8,7 +8,6 @@ data:
       access_log_path: /tmp/admin_access.log
       address:
         socket_address: { address: 0.0.0.0, port_value: 8090 }
-    
     static_resources:
       listeners:
       - name: listener_0
@@ -41,7 +40,7 @@ data:
               - name: envoy.grpc_web
               - name: envoy.cors
               - name: envoy.router
-      clusters:        
+      clusters:
       - name: maintemplate
         connect_timeout: 0.5s
         type: STRICT_DNS
