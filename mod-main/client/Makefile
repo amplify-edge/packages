@@ -126,10 +126,10 @@ lang-dep: ## lang-dep
 	go get -u github.com/getcouragenow/bootstrap/tool/i18n
 
 # If you want the .dart files generated, add this to the bottom of the command
-#flutter pub run intl_translation:generate_from_arb --output-dir=$(I18N_GENERATED_DIR) $(I18N_LOCALIZATION_DIR)/mod_main_localization.dart $(I18N_DIR)/*.arb
+#flutter pub run intl_translation:generate_from_arb --output-dir=$(I18N_GENERATED_DIR) $(I18N_LOCALIZATION_DIR)/translations.dart $(I18N_DIR)/*.arb
 lang-gen-flu: ## lang-gen-flu
 	@mkdir -p $(I18N_GENERATED_DIR)
 	@mkdir -p $(I18N_DIR)
-	@flutter pub run intl_translation:extract_to_arb --output-dir=$(I18N_DIR) $(I18N_LOCALIZATION_DIR)/mod_main_localization.dart
+	@flutter pub run intl_translation:extract_to_arb --output-dir=$(I18N_DIR) $(I18N_LOCALIZATION_DIR)/translations.dart
 	@i18n flutter --dir $(I18N_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages en,fr,es,ur -f
 	@i18n flutter --dir $(I18N_DIR)
