@@ -26,6 +26,7 @@ env:
   MINIO_LOCATION: ${{ secrets.MINIO_LOCATION }}
   MINIO_TIMEOUT: ${{ secrets.MINIO_TIMEOUT }}
   MINIO_ENCKEY: ${{ secrets.MINIO_ENCKEY }}
+  MINIO_SSL: ${{ secrets.MINIO_SSL }}
 
 jobs:
   setup-build-publish-deploy:
