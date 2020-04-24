@@ -54,7 +54,10 @@ del-data:
 ## Generate keypair (public and private) in json format
 gen-keys: gen-secrets
 	@echo '${GREEN}generating keys based on Ed25519${RESET}'
-#	@kubectl apply -f keys/keypair-secrets.yaml
+	#@kubectl apply -f keys/keypair-secrets.yaml
+
+apply-secrets-local:
+	kubectl apply -f keys/keypair-secrets.yaml
 
 gen-secrets:
 	go run cmd/jwtkey/jwtkey.go -a ECC -p keys
@@ -64,7 +67,7 @@ encrypt-secrets:
 		--keyring=${KEYRING_NAME} \
 		--key=${KEY_NAME} \
 		--ciphertext-file=keys/keypair-secrets.yaml \
-		--plaint
+		--plaintext=
 
 
 ## Run unit tests on keyutil library
