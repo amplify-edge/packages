@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mod_main/core/shared_repositories/base_repository.dart';
 import 'package:mod_main/core/shared_repositories/user_need_answer_repository.dart';
 import 'package:mod_main/modules/user_needs/data/user_need_answer_model.dart';
@@ -23,11 +24,11 @@ class MockUserNeedAnswerRepository extends BaseRepository
   }
 
   bool createUserNeedAnswer(
-      {String prod,
-      String refQuestionId,
-      String refUserId,
-      String answer,
-      String comment}) {
+      {@required String prod,
+      @required String refQuestionId,
+      @required String refUserId,
+      @required String answer,
+      @required String comment}) {
 
     UserNeedAnswer largestId = this._mockUserNeedAnswers.reduce((value,
             element) =>

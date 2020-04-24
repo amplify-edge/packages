@@ -6,6 +6,8 @@ class UserNeedAnswerService {
 
   UserNeedAnswerService({repository}) : this._repository = repository;
 
+  UserNeedAnswerRepository get repository => this._repository;
+
   UserNeedAnswer getUserNeedAnswerById(String id) {
     return this._repository.getById(id);
   }

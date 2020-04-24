@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mod_main/modules/orgs/data/org_model.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
-import 'package:provider_architecture/_viewmodel_provider.dart';
 import 'package:mod_main/core/shared_services/dynamic_widget_service.dart';
+import 'package:mod_main/core/core.dart';
 
 import '../view_model/supportRole_view_model.dart';
 
@@ -21,7 +20,8 @@ class SupportRoleView extends StatelessWidget {
       viewModel: SupportRoleViewModel(),
       builder: (context, SupportRoleViewModel model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Support Roles"),
+          title:
+              Text(ModMainLocalizations.of(context).translate('supportRoles')),
           centerTitle: true,
         ),
         body: (model.buzy)
@@ -54,9 +54,11 @@ class SupportRoleView extends StatelessWidget {
                 ButtonBar(children: [
                   RaisedButton(
                     onPressed: () {
+                      model.save();
                       Modular.to.pushNamed('/account/signup');
                     },
-                    child: Text("Next"),
+                    child: Text(
+                        ModMainLocalizations.of(context).translate('next')),
                   )
                 ]),
               ]),
@@ -75,11 +77,11 @@ class SupportRoleView extends StatelessWidget {
           child: DynamicSlider(
             title: sp.name,
             question: sp.description,
-            current: model.minHours[index] ?? 0.0,
+            current: model.minHours[sp.id] ?? 0.0,
             min: 0.0,
             max: 8.0,
             callbackInjection: (String value) {
-              model.selectMinHours(double.tryParse(value) ?? 0.0, index);
+              model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
             },
           ),
         );

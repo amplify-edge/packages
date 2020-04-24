@@ -10,9 +10,6 @@ RESET  := $(shell tput -Txterm sgr0)
 
 GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
-KEYRING_NAME ?= authz_keyring
-KEY_NAME ?= authz_key
-KMS_REGION ?= global
 MAX_NODES ?= 15
 
 MINIKUBE_VMDRIVER :=
@@ -74,7 +71,8 @@ endif
 gke-setup: check-env
 	@echo GKEConf
 	@gcloud projects add-iam-policy-binding ${GCP_PROJECT} --member user:${GCP_USER} --role roles/iam.serviceAccountKeyAdmin
-	@mkdir -p ~/.getcouragenow/
+	#mkdir -p ~/.getcouragenow/
+	mkdir -p ${HOME}/.${GCP_PROJECT}
 	@gcloud config set project ${GCP_PROJECT}
 	@gcloud iam service-accounts create ${GCP_PROJECT}-sa
 	@gcloud services enable container.googleapis.com
@@ -125,17 +123,6 @@ gke-clean-services:
 	@kubectl delete service ci-envoy
 	@kubectl delete service ci-maintemplate
 
-## GKE Cloud-KMS init
-gke-cloud-kms-init:
-	@echo "${WHITE} Set up Cloud KMS ${RESET}"
-	@gcloud kms keyrings create ${KEYRING_NAME} --location global
-	@gcloud kms keys create ${KEY_NAME} --location global --keyring ${KEYRING_NAME} \
-		--purpose encryption --project ${GCP_PROJECT}
-	@gcloud kms keys add-iam-policy-binding ${KEY_NAME} --location ${KMS_REGION} \
-    		--keyring ${KEYRING_NAME} --member serviceAccount:${GCP_PROJECT}-sa@${GCP_PROJECT}.iam.gserviceaccount.com \
-    		--role roles/cloudkms.cryptoKeyEncrypterDecrypter \
-    		--project ${GCP_PROJECT}
-
 ## Configure minikube vm-driver
 minikube-config: 
 	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
@@ -150,21 +137,28 @@ minikube-init:
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
+	go get -u -v github.com/cloudflare/cfssl/cmd/...
 	@kubectl port-forward --namespace kube-system svc/registry --address localhost 5000:80	
 
 ## Deploy on minikube
 minikube-deploy:
 	@cp -rf ../client/build/web flutter/
-	@docker build --tag localhost:5000/grpc-web grpc-web/
+	#@docker build --tag localhost:5000/grpc-web grpc-web/
 	@docker build --tag localhost:5000/flutter-web flutter/
-	@docker push localhost:5000/grpc-web
+	@docker build --tag 
+	#@docker push localhost:5000/grpc-web
 	@docker push localhost:5000/flutter-web
 	@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
 	@chmod u+x ./kustomize
 	@touch kustomization.yaml
 	@./kustomize edit add resource k8s/*
-	@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
+	#@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
 	@./kustomize edit set image "gcr.io/GKE_PROJECT/flutter-web-IMAGE"="localhost:5000/flutter-web"
 	@./kustomize build . | kubectl replace --force -f -
 	@rm kustomization.yaml 
 	@rm -rf flutter/web ./kustomize
+
+## Generate app secrets
+gen-app-secrets:
+	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
+

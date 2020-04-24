@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
 import 'package:mod_main/modules/orgs/data/org_model.dart';
 import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
+import 'package:mod_main/modules/user_needs/services/user_need_answer_service.dart';
 import 'package:mod_main/modules/user_needs/services/user_need_service.dart';
 import 'package:mod_main/core/shared_services/dynamic_widget_service.dart';
 import '../../orgs/service/orgs_service.dart';
@@ -15,6 +17,7 @@ class UserNeedsViewModel extends BaseModel {
 
   final orgService = Modular.get<OrgsService>();
   final userNeedService = Modular.get<UserNeedService>();
+  final userNeedAnswerService = Modular.get<UserNeedAnswerService>();
 
   get org => _org;
   get userNeedsByGroup => _userNeedsByGroup;
@@ -63,19 +66,44 @@ class UserNeedsViewModel extends BaseModel {
     return key.substring(1);
   }
 
-  void navigateNext() {
+  String _formatData(dynamic data) {
+    if (data.runtimeType == 'bool') {
+      return data == true ? '1' : '0';
+    }
+
+    return data.toString();
+  }
+
+  // TODO create the ones that don't already exist, update the ones that do
+  void save() {
+    this.value.forEach((key, value) {
+      this.userNeedAnswerService.repository.createUserNeedAnswer(
+        answer: this._formatData(value),
+        refQuestionId: key,
+        refUserId: "199", // TODO update with user session data
+        prod: "1",
+        comment: "n/a",
+      );
+    });
+  }
+
+  void navigateNext(BuildContext context) {
     showActionDialogBox(
       onPressedNo: () {
+        this.save();
         Modular.to.pushNamed('/account/signup');
       },
       onPressedYes: () {
+        this.save();
         Modular.to.pop();
         Modular.to.pushNamed(
             Modular.get<Paths>().supportRoles.replaceAll(':id', _orgId));
       },
-      title: "Support Role",
+      title: ModMainLocalizations.of(context).translate('supportRole'),
       description:
-          "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike ?",
+          ModMainLocalizations.of(context).translate('provideSupportRole'),
+      buttonText: ModMainLocalizations.of(context).translate('yes'),
+      buttonTextCancel: ModMainLocalizations.of(context).translate('no'),
     );
   }
 

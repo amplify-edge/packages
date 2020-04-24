@@ -7,5 +7,7 @@ protoc-go:
 		--go_out=plugins=grpc:server/pkg/api/
 
 protoc-dart:
-	protoc -I/usr/include/google/protobuf -Iserver/api/ server/api/*.proto \
-		--dart_out=grpc:client/lib/api/
+	protoc -Iserver/api/ server/api/*.proto --dart_out=grpc:client/lib/api/
+
+install-dart-dep:
+	pub global activate protoc_plugin

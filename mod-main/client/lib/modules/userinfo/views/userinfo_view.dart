@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mod_timespace/mod_timespace.dart';
+
 import 'package:provider_architecture/provider_architecture.dart';
 import '../view_model/userinfo_view_model.dart';
+import 'package:mod_main/core/core.dart';
 
 class UserInfoView extends StatelessWidget {
   @override
@@ -15,23 +18,31 @@ class UserInfoView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                '1. Where are you?',
+                '1. ' + ModMainLocalizations.of(context).translate('whereAreYou'),
                 style: Theme.of(context).textTheme.title,
               ),
               const SizedBox(height: 8.0),
+              Row(
+                children: <Widget>[
+                  Text(ModMainLocalizations.of(context).translate('country'),),
+                  Spacer(),
+                  CountryPickerWidget(
+                    onCountryChanged: (countryCode){
+                      model.changeCountry(countryCode.name);
+                      print(ModMainLocalizations.of(context).translate('newCountrySelected') + ': ' + countryCode.toString() + countryCode.name);
+                    }
+                  ),
+                ],
+              ),
              
-              _select((value) {
-                model.changeCountry(value);
-              }, model.selectedCountry, model.countries),
-            
               _select((value) {
                 model.changeCity(value);
               }, model.selectedCity, model.cities),
              
               TextFormField(
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Zip Code',
+                decoration: InputDecoration(
+                  hintText: ModMainLocalizations.of(context).translate('zipCode'),
                 ),
               ),
             /*
@@ -79,7 +90,7 @@ class UserInfoView extends StatelessWidget {
                       onPressed: () {
                         model.navigateNext();
                       },
-                      child: const Text('Next'),
+                      child: Text(ModMainLocalizations.of(context).translate('next')),
                     ),
                   ],
                 ),

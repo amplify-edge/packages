@@ -1,0 +1,1 @@
+export 'i18n/mod_chat_localization.dart';

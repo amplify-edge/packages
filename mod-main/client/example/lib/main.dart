@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_main/core/core.dart';
 
 
 import 'package:mod_main/modules/main_module.dart';
@@ -39,6 +40,9 @@ class App extends StatelessWidget {
      initialRoute: "/",
      onGenerateRoute: Modular.generateRoute,
      navigatorKey: Modular.navigatorKey,
+     localizationsDelegates: [
+       ModMainLocalizationsDelegate(Locale('en'))
+     ]
     );
   }
 }

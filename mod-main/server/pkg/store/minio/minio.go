@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 
 	"github.com/getcouragenow/packages/mod-main/server/pkg/config"
 	mn "github.com/minio/minio-go/v6"
@@ -136,7 +137,56 @@ func (m *Ministore) Migrate(ctx context.Context, datapath string) error {
 			return err
 		}
 	}
+
 	return nil
+}
+
+func (m *Ministore) MigrateImages(ctx context.Context, datapath string) error {
+	filenames, err := getImagesFilenames(datapath)
+	if err != nil {
+		return err
+	}
+	for _, v := range filenames {
+
+		file, err := os.OpenFile(v, os.O_RDONLY, 0644)
+		if err != nil {
+			return err
+		}
+
+		f := strings.Split(v, "/")
+		name := "images/" + f[len(f)-2] + "/" + f[len(f)-1]
+
+		_, err = m.Put(ctx, name, file)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func getImagesFilenames(datapath string) ([]string, error) {
+	var matches []string
+	err := filepath.Walk(datapath, func(imagepath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() {
+			return nil
+		}
+
+		file := strings.Split(info.Name(), ".")
+		ext := file[len(file)-1]
+
+		if ext == "png" || ext == "jpg" {
+			matches = append(matches, imagepath)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return matches, nil
 }
 
 func getCsvFilenames(datapath string) ([]string, error) {

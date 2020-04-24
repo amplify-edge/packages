@@ -26,7 +26,7 @@ func main() {
 		algo = keyutil.RSA
 	}
 	if err := algo.GenSigningKeys(*pth); err != nil {
-		fmt.Fprintf(os.Stdout, "Error generating signing keys: %s", err.Error())
+		fmt.Fprintf(os.Stdout, "Error generating signing keys: %s\n", err.Error())
 	}
-	fmt.Fprintf(os.Stdout, "Keys successfully generated in dir: %s", *pth)
+	fmt.Fprintf(os.Stdout, "Keys successfully generated in dir: %s\n", *pth)
 }
