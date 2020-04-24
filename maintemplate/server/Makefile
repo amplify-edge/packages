@@ -132,25 +132,29 @@ minikube-config:
 
 minikube-clean:
 	minikube delete
-	minikube start
+	minikube start --insecure-registry="10.0.0.0/24"
 
 ## Configure minikube
 minikube-init:
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
-	@kubectl port-forward -n kube-system svc/registry --address 127.0.0.1 5000:80
+	@echo -n "Sleep 5 seconds to make sure registry pod is up"
+	# kubectl port-forward -n kube-system svc/registry localhost 5000:80
+	# macos
+	@docker run --rm -it --network=host alpine \
+		ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
 
 build-frontend:
-	#cd ../client && flutter build web
-	@cp -rf ../client/build/web flutter/
-	@docker build -t localhost/flutter-web flutter/
+	cd ../client && flutter build web
+	cp -rf ../client/build/web flutter/
+	docker build -t localhost:5000/flutter-web flutter/
 
 ## Deploy on minikube
 minikube-deploy: build-frontend
-	@docker build -t localhost/maintemplate -f Dockerfile-dev .
-	@docker push 127.0.0.1:5000/localhost/maintemplate
-	@docker push 127.0.0.1:5000/localhost/flutter-web
+	@docker build -t localhost:5000/maintemplate -f Dockerfile-dev .
+	@docker push localhost:5000/maintemplate:latest
+	@docker push localhost:5000/flutter-web:latest
 	helm upgrade --force --install dev ./deployments/helm \
 		--set flutterImage=localhost:5000/flutter-web \
 		--set maintemplateServerImage=localhost:5000/maintemplate
