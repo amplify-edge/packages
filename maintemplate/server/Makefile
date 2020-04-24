@@ -137,20 +137,22 @@ minikube-init:
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
+	go get -u -v github.com/cloudflare/cfssl/cmd/...
 	@kubectl port-forward --namespace kube-system svc/registry --address localhost 5000:80	
 
 ## Deploy on minikube
 minikube-deploy:
 	@cp -rf ../client/build/web flutter/
-	@docker build --tag localhost:5000/grpc-web grpc-web/
+	#@docker build --tag localhost:5000/grpc-web grpc-web/
 	@docker build --tag localhost:5000/flutter-web flutter/
-	@docker push localhost:5000/grpc-web
+	@docker build --tag 
+	#@docker push localhost:5000/grpc-web
 	@docker push localhost:5000/flutter-web
 	@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
 	@chmod u+x ./kustomize
 	@touch kustomization.yaml
 	@./kustomize edit add resource k8s/*
-	@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
+	#@./kustomize edit set image "gcr.io/GKE_PROJECT/IMAGE"="localhost:5000/grpc-web"
 	@./kustomize edit set image "gcr.io/GKE_PROJECT/flutter-web-IMAGE"="localhost:5000/flutter-web"
 	@./kustomize build . | kubectl replace --force -f -
 	@rm kustomization.yaml 
@@ -159,3 +161,4 @@ minikube-deploy:
 ## Generate app secrets
 gen-app-secrets:
 	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
+

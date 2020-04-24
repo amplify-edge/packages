@@ -40,6 +40,12 @@ data:
               http_filters:
               - name: envoy.grpc_web
               - name: envoy.cors
+              - name: envoy.ext_authz
+                config:
+                  grpc_service:
+                    envoy_grpc:
+                      cluster_name: ext-authz
+                    timeout: 0.5s
               - name: envoy.router
       clusters:
       - name: ext-authz
