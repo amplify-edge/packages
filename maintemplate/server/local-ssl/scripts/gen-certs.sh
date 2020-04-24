@@ -5,8 +5,10 @@
 		-profile=kubernetes maintemplate-sign-conf.json | cfssljson -bare maintemplate-svc
 
 	cp maintemplate-csr.yaml maintemplate-csr-real.yaml
-	B64_DECODED=$(awk '1' maintemplate-svc.csr | base64 -w 0)
-	sed -i s/b64_here/${B64_DECODED}/ maintemplate-csr-real.yaml
-
-
+	B64_DECODED=$(awk '1' maintemplate-svc.csr | base64 | tr -d '\n')
+	if hash gsed 2>/dev/null; then
+	  gsed -i s/b64_here/${B64_DECODED}/ maintemplate-csr-real.yaml
+	else
+	  sed -i s/b64_here/${B64_DECODED}/ maintemplate-csr-real.yaml
+	fi
 
