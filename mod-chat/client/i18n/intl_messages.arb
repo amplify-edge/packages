@@ -1,0 +1,15 @@
+{
+  "@@last_modified": "2020-04-23T15:16:32.517706",
+  "send": "Send",
+  "@send": {
+    "description": "Send",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sendMessage": "Send a message",
+  "@sendMessage": {
+    "description": "Send a message",
+    "type": "text",
+    "placeholders": {}
+  }
+}

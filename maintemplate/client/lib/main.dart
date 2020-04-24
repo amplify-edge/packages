@@ -3,6 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
 import 'package:maintemplate/layout_template.dart';
+import 'package:mod_main/core/i18n/mod_main_localization.dart';
+import 'package:mod_account/core/i18n/mod_account_localization.dart';
+import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '././core/core.dart';
@@ -14,12 +17,11 @@ import 'package:mod_geo/core/core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // init settings view model before starting app
   var settingsViewModel = SettingsViewModel();
   // get env.json from assets
   await settingsViewModel.fetchEnvVariables();
-
 
   runApp(provider.ChangeNotifierProvider<SettingsViewModel>(
     create: (context) => settingsViewModel,
@@ -44,8 +46,6 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    
-
   }
 
   @override
@@ -56,6 +56,7 @@ class _AppState extends State<App> {
 
     print("${_delegate.overriddenLocale} delegate");
     print("${_modGeoADelegate.overriddenLocale} delegate");
+
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -71,6 +72,9 @@ class _AppState extends State<App> {
       localizationsDelegates: [
         _delegate,
         _modGeoADelegate,
+        ModAccountLocalizationsDelegate(model.locale),
+        ModMainLocalizationsDelegate(model.locale),
+        ModChatLocalizationsDelegate(model.locale),
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],

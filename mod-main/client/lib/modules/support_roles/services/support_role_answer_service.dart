@@ -6,6 +6,8 @@ class SupportRoleAnswerService {
 
   SupportRoleAnswerService({repository}): this._repository = repository;
 
+  SupportRoleAnswerRepository get repository => this._repository;
+
   SupportRoleAnswer getSupportRoleAnswerById(String id) {
     return this._repository.getById(id);
   }

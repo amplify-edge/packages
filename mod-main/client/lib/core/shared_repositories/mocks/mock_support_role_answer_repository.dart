@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mod_main/modules/support_roles/data/support_role_answer_model.dart';
 import 'package:mod_main/core/shared_repositories/base_repository.dart';
 import 'package:mod_main/core/shared_repositories/support_role_answer_repository.dart';
@@ -23,11 +24,11 @@ class MockSupportRoleAnswerRepository extends BaseRepository
   }
 
   bool createSupportRoleAnswer(
-      {String prod,
-      String refQuestionId,
-      String refUserId,
-      String answer,
-      String comment}) {
+      {@required String prod,
+      @required String refQuestionId,
+      @required String refUserId,
+      @required String answer,
+      @required String comment}) {
 
     SupportRoleAnswer largestId = this._mockSupportRoleAnswers.reduce((value,
             element) =>
@@ -50,7 +51,7 @@ class MockSupportRoleAnswerRepository extends BaseRepository
   bool updateSupportRoleAnswer(SupportRoleAnswer supportRoleAnswer) {
     int index = this
         ._mockSupportRoleAnswers
-        .indexWhere((_una) => _una.id == supportRoleAnswer.id ? true : false);
+        .indexWhere((_spa) => _spa.id == supportRoleAnswer.id ? true : false);
 
     if (index < 0) {
       this._mockSupportRoleAnswers[index] = supportRoleAnswer;
