@@ -6,6 +6,7 @@ import 'package:maintemplate/layout_template.dart';
 import 'package:mod_main/core/i18n/mod_main_localization.dart';
 import 'package:mod_account/core/i18n/mod_account_localization.dart';
 import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
+import 'package:mod_core/i18n/languages.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '././core/core.dart';
@@ -78,14 +79,8 @@ class _AppState extends State<App> {
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
-      locale: (model.locale == Locale('system') ? null : model.locale),
-      supportedLocales: const <Locale>[
-        Locale('en'),
-        Locale('es'),
-        Locale('fr'),
-        Locale('de'),
-        Locale('ur'),
-      ],
+      locale: (model.locale == Locale('en') ? null : model.locale),
+      supportedLocales: Languages.getLocales(),
     );
   }
 }

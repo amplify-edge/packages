@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:mod_core/i18n/languages.dart';
 import './translations.dart';
 
 class ModMainLocalizations extends Translations {
@@ -14,8 +15,8 @@ class ModMainLocalizations extends Translations {
   ModMainLocalizations(this.locale);
 
   Future<bool> load() async {
-    String jsonString = await rootBundle.loadString(
-        'packages/mod_main/i18n/lang_${locale.languageCode}.json');
+    String jsonString = await rootBundle
+        .loadString('packages/mod_main/i18n/lang_${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
@@ -48,7 +49,7 @@ class ModMainLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
+    return Languages.supportedLanguages.keys.contains(locale.languageCode.toString());
   }
 
   @override
@@ -65,7 +66,7 @@ class FallbackCupertinoLocalisationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      ['en', 'es', 'fr', 'de', 'ur'].contains(locale.languageCode);
+      Languages.supportedLanguages.keys.contains(locale.languageCode.toString());
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

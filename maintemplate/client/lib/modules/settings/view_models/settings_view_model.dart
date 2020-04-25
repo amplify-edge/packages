@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:mod_core/i18n/languages.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   // final SettingsRepository settingsRepository;
@@ -31,8 +32,8 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   ThemeMode _themeMode = ThemeMode.system;
-  Locale _locale = Locale('system');
-  List<Locale> supportedLocales = EnvVariableDefaults.locales;
+  Locale _locale = Locale('en');
+  List<Locale> supportedLocales = Languages.getLocales();
 
   Locale get locale => _locale;
 
@@ -49,19 +50,10 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   String languageNameLookup(Locale locale) {
-    Map<String, String> _localeNames = {
-      'en': 'English',
-      'fr': 'French',
-      'system': 'System',
-      'ur': 'Urdu',
-      'de': 'German',
-      'es': 'Spanish',
-    };
-
     String code = locale.languageCode.toString();
 
-    if (_localeNames.containsKey(code)) {
-      return _localeNames[code];
+    if (Languages.supportedLanguages.containsKey(code)) {
+      return Languages.supportedLanguages[code];
     }
 
     return 'Unknown';
@@ -110,18 +102,6 @@ class EnvVariables {
   static List<Locale> _buildLocalesFromList(List<dynamic> _locales) {
     List<Locale> locales = _locales.map((value) => Locale(value)).toList();
 
-    return locales.isEmpty ? EnvVariableDefaults.locales : locales;
+    return locales.isEmpty ? Languages.getLocales() : locales;
   }
-}
-
-// System Defaults
-class EnvVariableDefaults {
-  static final List<Locale> locales = [
-    Locale('system'),
-    Locale('en'),
-    Locale('es'),
-    Locale('fr'),
-    Locale('de'),
-    Locale('ur'),
-  ];
 }
