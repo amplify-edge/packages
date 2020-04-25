@@ -1,192 +1,192 @@
 {
   "@@last_modified": "2020-04-24T17:02:46.304121",
-  "country": "ملک",
+  "country": "Paese",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "newCountrySelected": "نیا ملک منتخب",
+  "newCountrySelected": "Nuovo Paese selezionato",
   "@newCountrySelected": {
     "description": "New Country Selected",
     "placeholders": {},
     "type": "text"
   },
-  "zipCode": "زپ کوڈ",
+  "zipCode": "Codice postale",
   "@zipCode": {
     "description": "Zip Code",
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "آپ کہاں ہیں؟",
+  "whereAreYou": "Dove sei?",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
     "type": "text"
   },
-  "category": "زمرہ",
+  "category": "Categoria",
   "@category": {
     "description": "Category",
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "کوئی مہمات نہیں",
+  "noCampaigns": "Nessuna campagna",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "actionType": "ایکشن کی قسم",
+  "actionType": "Tipo di azione",
   "@actionType": {
     "description": "Type of Action",
     "placeholders": {},
     "type": "text"
   },
-  "actionLocation": "عمل کی جگہ",
+  "actionLocation": "Posizione dell'azione",
   "@actionLocation": {
     "description": "Action Location",
     "placeholders": {},
     "type": "text"
   },
-  "time": "وقت",
+  "time": "Tempo",
   "@time": {
     "description": "Time",
     "placeholders": {},
     "type": "text"
   },
-  "lengthOfTheAction": "کارروائی کی لمبائی",
+  "lengthOfTheAction": "Durata dell'azione",
   "@lengthOfTheAction": {
     "description": "Length of the Action",
     "placeholders": {},
     "type": "text"
   },
-  "goal": "مقصد",
+  "goal": "Obiettivo",
   "@goal": {
     "description": "Goal",
     "placeholders": {},
     "type": "text"
   },
-  "strategy": "حکمت عملی",
+  "strategy": "Strategia",
   "@strategy": {
     "description": "strategy",
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "تاریخی مثال",
+  "historicalPrecedents": "Storico Precedenti",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "حمایت یا تنظیموں کی حمایت",
+  "backingEndorsingOrganizations": "Organizzazioni di supporto / appoggio",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "لوگوں نے پہلے ہی عہد کیا تھا",
+  "peopleAlreadyPledged": "Persone già impegnate",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
     "type": "text"
   },
-  "weNeed": "ہمیں ضرورت ہے",
+  "weNeed": "Abbiamo bisogno",
   "@weNeed": {
     "description": "We Need",
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار اسی طرح کے سابقہ ​​اقدامات سے استثناء ہیں جو کامیاب اور ناکام رہے تھے",
+  "extrapolatedSimilarPastActions": "Le seguenti figure sono estrapolate da simili azioni passate che hanno avuto successo e fallito",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "شروع کرنے کے لئے سرخیل درکار ہیں",
+  "pioneersToStart": "I pionieri dovevano iniziare",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "میڈیا کو متحرک کرنے کے لئے باغیوں کی ضرورت ہے",
+  "rebelsMedia": "Ribelli necessari per attivare i media",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "باغیوں کی ضرورت ہے جیت",
+  "rebelsWin": "Ribelli necessari per win",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "رابطے کی تفصیلات",
+  "contactDetails": "Dettagli di contatto",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
     "type": "text"
   },
-  "notReady": "تیار نہیں",
+  "notReady": "Non pronto",
   "@notReady": {
     "description": "Not Ready",
     "placeholders": {},
     "type": "text"
   },
-  "ready": "تیار",
+  "ready": "Pronto",
   "@ready": {
     "description": "Ready",
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "​​تلاش مہمات",
+  "searchCampaigns": "Campagne di ricerca",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "yourNeeds": "آپ کی ضروریات",
+  "yourNeeds": "I tuoi bisogni",
   "@yourNeeds": {
     "description": "Your Needs",
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "براہ کرم اس عمل میں شامل ہونے کے ل as آپ کو زیادہ سے زیادہ حمایت یا ضرورت کی ضرورت ہے جو آپ کو مطمئن کرنے کی ضرورت ہے۔",
+  "needsSatisifiedRequirement": "Scegli quanti supporti o esigenze devi soddisfare per partecipare all'azione.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "اگلا",
+  "next": "Successivo",
   "@next": {
     "description": "Next",
     "placeholders": {},
     "type": "text"
   },
-  "supportRole": "سپورٹ رول",
+  "supportRole": "Ruolo di supporto",
   "@supportRole": {
     "description": "Support Role",
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "اگر ہم مطمئن نہیں کرسکتے ہیں آپ کی منتخب کردہ شرائط ، کیا آپ ہڑتال پر جانے کے خواہشمند افراد کو معاون کردار فراہم کرنے پر غور کریں گے؟",
+  "provideSupportRole": "Se non possiamo soddisfare condizioni prescelte, valuteresti di fornire un ruolo di supporto a coloro che sono disposti a scioperare?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
     "type": "text"
   },
-  "yes": "ہاں",
+  "yes": "Sì",
   "@yes": {
     "description": "Yes",
     "placeholders": {},
     "type": "text"
   },
-  "no": "نہیں",
+  "no": "No",
   "@no": {
     "description": "No",
     "placeholders": {},
     "type": "text"
   },
-  "supportRoles": "معاون کردار",
+  "supportRoles": "Ruoli di supporto",
   "@supportRoles": {
     "description": "Support Roles",
     "placeholders": {},

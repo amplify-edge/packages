@@ -19,7 +19,7 @@ env:
   RELEASE_CHANNEL: ci
   FLUTTER_CHANNEL: beta
   URL: getcouragenow.org
-  LOCALES: "[\"en\"]"
+  LOCALES: "[\"en\" \"fr\", \"es\", \"de\", \"it\", \"ur\"]"
   GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}
   GKE_KEYNAME: ${{ secrets.GKE_KEYNAME }}
 

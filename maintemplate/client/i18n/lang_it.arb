@@ -3,55 +3,55 @@
   "tabhome": "Home",
   "@tabhome": {
     "description": "text for the home tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "tabchat": "Chat",
   "@tabchat": {
     "description": "text for the chat tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "tabIon": "Ion",
   "@tabIon": {
     "description": "text for the ion tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
-  "tabsettings": "Settings",
+  "tabsettings": "Impostazioni",
   "@tabsettings": {
     "description": "text for the settings tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "tabwriter": "Writer",
   "@tabwriter": {
     "description": "text for the writer tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
-  "tabmap": "Map",
+  "tabmap": "Mappa",
   "@tabmap": {
     "description": "text for the writer tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
-  "tabSettings": "Settings",
+  "tabSettings": "Impostazioni",
   "@tabSettings": {
     "description": "text for the settings tab",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
-  "changeLanguageSet": "Change Language",
+  "changeLanguageSet": "Cambia lingua",
   "@changeLanguageSet": {
     "description": "text for the change language text in settings screen",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
-  "changeThemeSet": "Change Theme",
+  "changeThemeSet": "Cambia tema",
   "@changeThemeSet": {
     "description": "text for the change theme text in settings screen",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   }
 }

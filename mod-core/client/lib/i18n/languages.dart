@@ -6,6 +6,7 @@ class Languages {
     'fr': 'French',
     'de': 'German',
     'es': 'Spanish',
+    'it': 'Italian',
     'ur': 'Urdu',
   };
 
