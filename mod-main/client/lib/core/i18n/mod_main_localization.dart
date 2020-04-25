@@ -15,8 +15,10 @@ class ModMainLocalizations extends Translations {
   ModMainLocalizations(this.locale);
 
   Future<bool> load() async {
-    String jsonString = await rootBundle.loadString(
-        'packages/mod_main/i18n/lang_${locale.languageCode}.json');
+    print(locale.languageCode);
+    String jsonString = await rootBundle
+        .loadString('packages/mod_main/i18n/lang_${locale.languageCode}.json');
+    print(jsonString);
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');
@@ -49,7 +51,7 @@ class ModMainLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return Languages.supportedLanguages.keys.contains(locale.languageCode);
+    return Languages.supportedLanguages.keys.contains(locale.languageCode.toString());
   }
 
   @override
@@ -66,7 +68,7 @@ class FallbackCupertinoLocalisationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      Languages.supportedLanguages.keys.contains(locale.languageCode);
+      Languages.supportedLanguages.keys.contains(locale.languageCode.toString());
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

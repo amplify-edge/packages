@@ -7,7 +7,7 @@ import 'package:mod_core/i18n/languages.dart';
 
 import 'generated/messages_all.dart';
 
-class AppLocalizations extends Translations{
+class AppLocalizations extends Translations {
   final Locale locale;
 
   AppLocalizations(this.locale);
@@ -38,12 +38,12 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) {
-    //if (this.overriddenLocale == Locale('system')) {
-     // print("return system");
-      //return AppLocalizations.load(locale);
+    //if (this.overriddenLocale == Locale('en')) {
+    //  print("return system");
+    //  return AppLocalizations.load(locale);
     //}
-   // print("return overriden");
-    return AppLocalizations.load(this.overriddenLocale);
+    //print("return overriden");
+    return AppLocalizations.load(locale);
   }
 }
 
