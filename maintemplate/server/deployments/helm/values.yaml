@@ -3,4 +3,4 @@ maintempateServerImage: "maintemplate_server_image"
 jwkIssuerUrl: "http://0.0.0.0"
 jwkIssuerPort: "9075"
 domainSetup: true
-localJwks: maintemplate/server/keys/jwks.json
+localJwks: "/tmp/data/"

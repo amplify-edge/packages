@@ -42,15 +42,23 @@ Afteer deployment use kubectl port-forward:
 
 
 ### Minikube
-Install minikube and then run below command:
-```
-eval $(minikube docker-env)
-```
-and:
-```
-make deploy
-```
-Flutter web will be served on minikube IP:
-```
-minikube ip
 
+#### Prequisites
+1. Clone and setup https://github.com/getcouragenow/bootstrap
+2. Choose your OS and configure it there (on OS folder)
+3. For MacOS you might've to also ```brew cask install docker```
+
+#### Environment Variables
+1. Edit provided ENV or copy ```ENV-template``` to ```ENV``` (you *MUST* edit it first).
+2. Run ```make source-env``` to source environment variable from profile to shell.
+3. Run ```make gen-app-secrets```, your secrets should've been outputted to maintemplate/server/keys directory.
+4. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
+5. Run ```make minikube-start``` to start minikube registry
+6. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.
+7. Run ```kubectl get ingress``` that's where your maintemplate is.
+
+#### TODO
+1. Helm charts for minio and envoy's persistent volume claim.
+2. Kubectl patch (on runtime) for when issues like random helm error occurs.
+3. Adding generated secrets to environment variables.
+3. Docker rebuilds when inotify events occur.

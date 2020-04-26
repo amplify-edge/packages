@@ -154,7 +154,7 @@ copy-frontend:
 	@cp -rf ../client/build/web flutter/
 
 ## Deploy frontend and backend on minikube
-minikube-deploy: build-frontend minikube-use-internal-docker
+minikube-deploy: copy-frontend minikube-use-internal-docker
 	@docker build -t localhost:5000/flutter-web flutter/
 	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
 	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml
@@ -165,8 +165,7 @@ minikube-deploy: build-frontend minikube-use-internal-docker
 	helm upgrade --force --install dev ./deployments/helm \
 		--set domainSetup=false \
 		--set flutterImage=localhost:5000/flutter-web:latest \
-		--set maintemplateServerImage=localhost:5000/maintemplate:latest \
-		--set localJwks=keys/jwks.json
+		--set maintemplateServerImage=localhost:5000/maintemplate:latest
 	@rm -rf flutter/web 
 
 kube-clean:
