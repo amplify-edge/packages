@@ -134,35 +134,43 @@ minikube-clean:
 	minikube delete
 	minikube start --insecure-registry="10.0.0.0/24"
 
+minikube-run-registry:
+	docker run -d -p 5000:5000 --restart=always --name registry registry:2
+
 ## Minikube start process, enable insecure registries
-minikube-start:
+minikube-start: minikube-run-registry
 	# RUN this in separate SHELL please
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
-	@echo -n "Sleep 5 seconds to make sure registry pod is up"
-	# kubectl port-forward -n kube-system svc/registry localhost 5000:80
-	@docker run --rm -it --network=host alpine \
-		ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
+	#@echo -n "Sleep 5 seconds to make sure registry pod is up"
+	#@kubectl port-forward 9074 80
 
-# build-envoy:
-	# @docker
+minikube-use-internal-docker:
+	@eval $(minikube docker-env)
 
-build-frontend:
+copy-frontend:
 	@cd ../client && flutter build web
 	@cp -rf ../client/build/web flutter/
-	@docker build -t localhost:5000/flutter-web flutter/
 
 ## Deploy frontend and backend on minikube
-minikube-deploy: build-frontend
-	@kubectl apply -f ${PWD}/keys/*.yaml
-	@docker build -t localhost:5000/maintemplate -f Dockerfile-dev .
+minikube-deploy: build-frontend minikube-use-internal-docker
+	@docker build -t localhost:5000/flutter-web flutter/
+	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
+	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml
+	@kubectl apply -f ${PWD}/keys/keypair-secrets.yaml
+	@docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
 	@docker push localhost:5000/maintemplate:latest
 	@docker push localhost:5000/flutter-web:latest
 	helm upgrade --force --install dev ./deployments/helm \
-		--set flutterImage=localhost:5000/flutter-web \
-		--set maintemplateServerImage=localhost:5000/maintemplate
+		--set domainSetup=false \
+		--set flutterImage=localhost:5000/flutter-web:latest \
+		--set maintemplateServerImage=localhost:5000/maintemplate:latest \
+		--set localJwks=keys/jwks.json
 	@rm -rf flutter/web 
+
+kube-clean:
+	@helm uninstall dev
 
 ## Source env
 source-env:
