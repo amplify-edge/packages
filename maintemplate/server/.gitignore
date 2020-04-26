@@ -1,5 +1,6 @@
-ENV.sh
+#ENV.sh
 secrets/
+keys/
 local-ssl/maintemplate-csr-real.yaml
 local-ssl/maintemplate-svc.pem
 local-ssl/maintemplate-svc-key.pem

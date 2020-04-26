@@ -1,0 +1,16 @@
+GCP_PROJECT=$(gcloud config get-value project)
+GCP_USER=$(gcloud config get-value account)
+
+export GCP_PROJECT GCP_USER
+
+# below is an example, please replace it
+# it's just the string minio with base64
+MINIO_ACCESSKEY="bWluaW8K"
+MINIO_SECRETKEY="bWluaW8K"
+MINIO_LOCATION="$(minikube ip)"
+MINIO_TIMEOUT="10"
+MINIO_ENCKEY="bWluaW8K"
+MINIO_SSL=false
+MINIO_ENDPOINT="127.0.0.1"
+
+export MINIO_ACCESSKEY MINIO_SECRETKEY MINIO_LOCATION MINIO_TIMEOUT MINIO_ENCKEY

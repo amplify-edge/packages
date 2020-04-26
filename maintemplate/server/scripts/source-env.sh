@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+tail -n 20 ./ENV >> $HOME/.profile 
+
+SHELLNAME='${SHELL##*/}'
+case $SHELLNAME in
+    "fish")
+        bax source $HOME/.profile
+        ;;
+    *)
+        source $HOME/.profile
+        ;;
+esac   

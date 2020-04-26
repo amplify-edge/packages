@@ -14,16 +14,16 @@ var (
 kind: Secret
 type: Opaque
 metadata:
-    name: {{ .SecretsName }}
+  name: {{ .SecretsName }}
 data:
-	accesskey: {{ .MinioAccessKey }}
-	secretkey: {{ .MinioSecretKey }} {{ if eq .MinioSecrets false }}
-	enckey: {{ .MinioEncKey }}
-	endpoint: {{ .MinioEndpoint }}
-	location: {{ .MinioLocation }}
-	ssl: {{ .MinioUseSSL }}
-	timeout: {{ .MinioTimeout }}
-	{{ end }}
+  accesskey: {{ .MinioAccessKey }}
+  secretkey: {{ .MinioSecretKey }} {{ if eq .MinioSecrets false }}
+  enckey: {{ .MinioEncKey }}
+  endpoint: {{ .MinioEndpoint }}
+  location: {{ .MinioLocation }}
+  ssl: {{ .MinioUseSSL }}
+  timeout: {{ .MinioTimeout }}
+  {{ end }}
 `
 	outname = flag.String("o", "./secrets", "Choose path to store the output secrets")
 )

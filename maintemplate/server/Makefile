@@ -134,42 +134,44 @@ minikube-clean:
 	minikube delete
 	minikube start --insecure-registry="10.0.0.0/24"
 
-## Configure minikube
-minikube-init:
+## Minikube start process, enable insecure registries
+minikube-start:
+	# RUN this in separate SHELL please
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
 	@echo -n "Sleep 5 seconds to make sure registry pod is up"
 	# kubectl port-forward -n kube-system svc/registry localhost 5000:80
-	# macos
 	@docker run --rm -it --network=host alpine \
 		ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
 
-build-frontend:
-	cd ../client && flutter build web
-	cp -rf ../client/build/web flutter/
-	docker build -t localhost:5000/flutter-web flutter/
+# build-envoy:
+	# @docker
 
-## Deploy on minikube
+build-frontend:
+	@cd ../client && flutter build web
+	@cp -rf ../client/build/web flutter/
+	@docker build -t localhost:5000/flutter-web flutter/
+
+## Deploy frontend and backend on minikube
 minikube-deploy: build-frontend
+	@kubectl apply -f ${PWD}/keys/*.yaml
 	@docker build -t localhost:5000/maintemplate -f Dockerfile-dev .
 	@docker push localhost:5000/maintemplate:latest
 	@docker push localhost:5000/flutter-web:latest
 	helm upgrade --force --install dev ./deployments/helm \
 		--set flutterImage=localhost:5000/flutter-web \
 		--set maintemplateServerImage=localhost:5000/maintemplate
-	#@curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-	#@chmod u+x ./kustomize
-	#@touch kustomization.yaml
-	#@./kustomize edit add resource
-	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/flutter-web-${IMAGE}"="localhost:5000/flutter-web"
-	#@./kustomize edit set image "gcr.io/${GKE_PROJECT}/maintemplate-${IMAGE}"="localhost:9074/maintemplate"
-	#@./kustomize build . | kubectl replace --force -f -
-	#@rm kustomization.yaml
 	@rm -rf flutter/web 
+
+## Source env
+source-env:
+	@echo -n "Sourcing env"
+	./scripts/source-env.sh
 
 ## Generate app secrets
 gen-app-secrets:
+	@echo -n "Make sure you've correctly edited the ENV file & run make source-env"
+	@rm -rf keys/*.yaml
+	make -C ../../mod-account/server/authz gen-secrets
 	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
-
-
