@@ -112,7 +112,7 @@ func (k *KeyType) GenSigningKeys(path string) error {
 			&jwkfile,
 		},
 	}
-	pubjwkfile, err := json.MarshalIndent(newPubJwks, "", "\t")
+	pubjwkfile, err := json.MarshalIndent(newPubJwks, "", "  ")
 	if err != nil {
 		return err
 	}

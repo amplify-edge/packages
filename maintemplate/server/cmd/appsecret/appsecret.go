@@ -2,6 +2,7 @@ package main
 
 // Generate k8s secrets in secrets directory containing minio
 import (
+	"encoding/base64"
 	"flag"
 	"fmt"
 	"log"
@@ -14,16 +15,16 @@ var (
 kind: Secret
 type: Opaque
 metadata:
-    name: {{ .SecretsName }}
+  name: {{ .SecretsName }}
 data:
-	accesskey: {{ .MinioAccessKey }}
-	secretkey: {{ .MinioSecretKey }} {{ if eq .MinioSecrets false }}
-	enckey: {{ .MinioEncKey }}
-	endpoint: {{ .MinioEndpoint }}
-	location: {{ .MinioLocation }}
-	ssl: {{ .MinioUseSSL }}
-	timeout: {{ .MinioTimeout }}
-	{{ end }}
+  accesskey: {{ .MinioAccessKey }}
+  secretkey: {{ .MinioSecretKey }} {{ if eq .MinioSecrets false }}
+  enckey: {{ .MinioEncKey }}
+  endpoint: {{ .MinioEndpoint }}
+  location: {{ .MinioLocation }}
+  ssl: {{ .MinioUseSSL }}
+  timeout: {{ .MinioTimeout }}
+  {{ end }}
 `
 	outname = flag.String("o", "./secrets", "Choose path to store the output secrets")
 )
@@ -45,14 +46,18 @@ func newAppSecrets(isMinio bool, name string) *appsecrets {
 	return &appsecrets{
 		MinioSecrets:   isMinio,
 		SecretsName:    name,
-		MinioAccessKey: os.Getenv("MINIO_ACCESSKEY"),
-		MinioSecretKey: os.Getenv("MINIO_SECRETKEY"),
-		MinioEncKey:    os.Getenv("MINIO_ENCKEY"),
-		MinioEndpoint:  os.Getenv("MINIO_ENDPOINT"),
-		MinioLocation:  os.Getenv("MINIO_LOCATION"),
-		MinioUseSSL:       os.Getenv("MINIO_SSL"),
-		MinioTimeout:   os.Getenv("MINIO_TIMEOUT"),
+		MinioAccessKey: toB64(os.Getenv("MINIO_ACCESSKEY")),
+		MinioSecretKey: toB64(os.Getenv("MINIO_SECRETKEY")),
+		MinioEncKey:    toB64(os.Getenv("MINIO_ENCKEY")),
+		MinioEndpoint:  toB64(os.Getenv("MINIO_ENDPOINT")),
+		MinioLocation:  toB64(os.Getenv("MINIO_LOCATION")),
+		MinioUseSSL:    toB64(os.Getenv("MINIO_SSL")),
+		MinioTimeout:   toB64(os.Getenv("MINIO_TIMEOUT")),
 	}
+}
+
+func toB64(inputstring string) string {
+	return base64.StdEncoding.EncodeToString([]byte(inputstring))
 }
 
 func main() {
