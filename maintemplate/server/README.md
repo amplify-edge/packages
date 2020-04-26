@@ -52,10 +52,11 @@ Afteer deployment use kubectl port-forward:
 1. Edit provided ENV or copy ```ENV-template``` to ```ENV``` (you *MUST* edit it first).
 2. Run ```make source-env``` to source environment variable from profile to shell.
 3. Run ```make gen-app-secrets```, your secrets should've been outputted to maintemplate/server/keys directory.
-4. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
-5. Run ```make minikube-start``` to start minikube registry
-6. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.
-7. Run ```kubectl get ingress``` that's where your maintemplate is.
+4. Go to local-ssl dir and run ```make install-certs``` to install locally signed certificates.
+5. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
+6. Run ```make minikube-start``` to start minikube registry
+7. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.
+8. Run ```kubectl get ingress``` that's where your maintemplate is.
 
 #### TODO
 1. Helm charts for minio and envoy's persistent volume claim.
