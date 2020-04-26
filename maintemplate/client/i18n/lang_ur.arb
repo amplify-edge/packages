@@ -1,54 +1,54 @@
 {
-  "@@last_modified": "2020-03-10T17:32:07.116941",
-  "tabhome": "Home",
+  "@@last_modified": "2020-04-24T19:08:29.474698",
+  "tabhome": "ہوم",
   "@tabhome": {
     "description": "text for the home tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabchat": "Chat",
+  "tabchat": "چیٹ",
   "@tabchat": {
     "description": "text for the chat tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabIon": "Ion",
+  "tabIon": "آئن",
   "@tabIon": {
     "description": "text for the ion tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabsettings": "Settings",
+  "tabsettings": "ترتیبات",
   "@tabsettings": {
     "description": "text for the settings tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabwriter": "Writer",
+  "tabwriter": "مصنف",
   "@tabwriter": {
     "description": "text for the writer tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabmap": "Map",
+  "tabmap": "نقشہ",
   "@tabmap": {
     "description": "text for the writer tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabSettings": "Settings",
+  "tabSettings": "ترتیبات",
   "@tabSettings": {
     "description": "text for the settings tab",
     "placeholders": {},
     "type": "text"
   },
-  "changeLanguageSet": "Change Language",
+  "changeLanguageSet": "زبان تبدیل کریں",
   "@changeLanguageSet": {
     "description": "text for the change language text in settings screen",
     "placeholders": {},
     "type": "text"
   },
-  "changeThemeSet": "Change Theme",
+  "changeThemeSet": "تھیم تبدیل کریں",
   "@changeThemeSet": {
     "description": "text for the change theme text in settings screen",
     "placeholders": {},

@@ -17,6 +17,8 @@ dependencies:
   intl_translation: ^0.17.9
   shimmer: ^1.0.0
   protobuf: ^1.0.1
+  mod_core:
+    path: ../../mod-core/client
 
 dev_dependencies:
   flutter_test:

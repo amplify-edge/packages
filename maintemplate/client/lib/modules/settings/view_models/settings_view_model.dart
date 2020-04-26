@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:mod_core/i18n/languages.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   // final SettingsRepository settingsRepository;
@@ -16,6 +17,7 @@ class SettingsViewModel extends ChangeNotifier {
     //String data =
     //await DefaultAssetBundle.of(context).loadString("assets/env.json");
     String data = await rootBundle.loadString("assets/env.json");
+
     _envVariables = EnvVariables.fromJson(data);
 
     this.loadLocalesFromEnvVariables(_envVariables);
@@ -30,8 +32,8 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   ThemeMode _themeMode = ThemeMode.system;
-  Locale _locale = Locale('system');
-  List<Locale> supportedLocales = EnvVariableDefaults.locales;
+  Locale _locale = Locale('en');
+  List<Locale> supportedLocales = Languages.getLocales();
 
   Locale get locale => _locale;
 
@@ -45,6 +47,16 @@ class SettingsViewModel extends ChangeNotifier {
   void changeLanguage(Locale locale) {
     _locale = locale;
     notifyListeners();
+  }
+
+  String languageNameLookup(Locale locale) {
+    String code = locale.languageCode.toString();
+
+    if (Languages.supportedLanguages.containsKey(code)) {
+      return Languages.supportedLanguages[code];
+    }
+
+    return 'Unknown';
   }
 }
 
@@ -74,6 +86,7 @@ class EnvVariables {
 
   static EnvVariables fromJson(String jsonString) {
     var data = json.decode(jsonString);
+
     return EnvVariables(
       channel: data["channel"] ?? "-",
       url: data["url"] ?? "-",
@@ -89,17 +102,6 @@ class EnvVariables {
   static List<Locale> _buildLocalesFromList(List<dynamic> _locales) {
     List<Locale> locales = _locales.map((value) => Locale(value)).toList();
 
-    return locales.isEmpty ? EnvVariableDefaults.locales : locales;
+    return locales.isEmpty ? Languages.getLocales() : locales;
   }
-}
-
-// System Defaults
-class EnvVariableDefaults {
-  static final List<Locale> locales = [
-    Locale('system'),
-    Locale('en'),
-    Locale('es'),
-    Locale('fr'),
-    Locale('ur'),
-  ];
 }

@@ -1,11 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Translations {
+  Locale locale;
+
   String signUpForAccount() {
     return Intl.message(
       'Sign up for your account',
       name: 'signUpForAccount',
       desc: 'Sign up for your account',
+      locale: locale.toString(),
     );
   }
 
@@ -14,6 +18,7 @@ class Translations {
       'Email Address Addressory',
       name: 'emailAddress',
       desc: 'Email Address',
+      locale: locale.toString(),
     );
   }
 
@@ -22,6 +27,7 @@ class Translations {
       'Need a protonmail ?',
       name: 'needProtonMail',
       desc: 'Need a protonmail ?',
+      locale: locale.toString(),
     );
   }
 
@@ -30,6 +36,7 @@ class Translations {
       'Explain why?',
       name: 'explainWhy',
       desc: 'Explain why?',
+      locale: locale.toString(),
     );
   }
 
@@ -38,6 +45,7 @@ class Translations {
       'Password',
       name: 'password',
       desc: 'Password',
+      locale: locale.toString(),
     );
   }
 
@@ -45,7 +53,9 @@ class Translations {
     return Intl.message(
       'Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.',
       name: 'passwordStrength',
-      desc: 'Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.',
+      desc:
+          'Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.',
+      locale: locale.toString(),
     );
   }
 
@@ -54,6 +64,7 @@ class Translations {
       'Password Again',
       name: 'passwordAgain',
       desc: 'Password Again',
+      locale: locale.toString(),
     );
   }
 
@@ -62,6 +73,7 @@ class Translations {
       'Meet others with shared interests?',
       name: 'meetOthersSharedInterest',
       desc: 'Meet others with shared interests?',
+      locale: locale.toString(),
     );
   }
 
@@ -70,6 +82,7 @@ class Translations {
       'Yes',
       name: 'yes',
       desc: 'Yes',
+      locale: locale.toString(),
     );
   }
 
@@ -78,6 +91,7 @@ class Translations {
       'No',
       name: 'no',
       desc: 'No',
+      locale: locale.toString(),
     );
   }
 
@@ -86,6 +100,7 @@ class Translations {
       'I have civil disobedience training',
       name: 'civilDisobedienceTraining',
       desc: 'I have civil disobedience training',
+      locale: locale.toString(),
     );
   }
 
@@ -94,6 +109,7 @@ class Translations {
       'Setup notification channel',
       name: 'setupNotificationChannel',
       desc: 'Setup notification channel',
+      locale: locale.toString(),
     );
   }
 
@@ -102,6 +118,7 @@ class Translations {
       'Email',
       name: 'email',
       desc: 'Email',
+      locale: locale.toString(),
     );
   }
 
@@ -110,6 +127,7 @@ class Translations {
       'App Messaging',
       name: 'appMessaging',
       desc: 'App Messaging',
+      locale: locale.toString(),
     );
   }
 
@@ -118,6 +136,7 @@ class Translations {
       'Sign Up',
       name: 'signUp',
       desc: 'Sign Up',
+      locale: locale.toString(),
     );
   }
 
@@ -126,6 +145,7 @@ class Translations {
       'Privacy Policy',
       name: 'privacyPolicy',
       desc: 'Privacy Policy',
+      locale: locale.toString(),
     );
   }
 
@@ -134,6 +154,7 @@ class Translations {
       'Why ProtonMail ?',
       name: 'whyProtonMail',
       desc: 'Why ProtonMail ?',
+      locale: locale.toString(),
     );
   }
 
@@ -141,10 +162,12 @@ class Translations {
     return Intl.message(
       'ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.',
       name: 'protonMailExplanation',
-      desc: 'ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.',
+      desc:
+          'ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.',
+      locale: locale.toString(),
     );
   }
 
   // import 'package:mod_account/core/core.dart';
-  // 
+  //
 }
