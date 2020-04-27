@@ -3,6 +3,7 @@
 OSNAME=$(uname -s)
 
 install_prequisites() {
+    echo -n "Installing linux prequisites"
     sudo modprobe kvm
     hash apt >/dev/null && {
         sudo apt install -y qemu-kvm libvirtd-daemon bridge-utils \
@@ -29,6 +30,7 @@ install_prequisites() {
 }
 
 install_prequisites_mac() {
+    echo -n "Installing mac prequisites"
     brew install gnu-sed coreutils 
     # docker app
     brew cask install docker
@@ -39,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/fishworks/gofish/master/scripts/ins
 
 gofish install helm
 
-case OSNAME in
+case $OSNAME in
     Linux)
         install_prequisites
         ;;

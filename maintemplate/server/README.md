@@ -55,6 +55,7 @@ Afteer deployment use kubectl port-forward:
 4. Go to local-ssl dir and run ```make install-certs``` to install locally signed certificates.
 5. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
 6. Run ```make minikube-start``` to start minikube registry
+7. Run ```eval $(minikube -p minikube docker-env)```
 7. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.
 8. Run ```kubectl get ingress``` that's where your maintemplate is.
 
