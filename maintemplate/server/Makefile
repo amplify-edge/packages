@@ -12,6 +12,8 @@ GCP_ZONE ?= europe-west3-a
 GCP_REGION ?= europe-west3
 IMG_LOCALE ?= en
 MAX_NODES ?= 15
+RELEASE_NAME ?= dev
+HOST_PATH ?= /tmp/data
 
 MINIKUBE_VMDRIVER :=
 ifeq ($(OS),Windows_NT)
@@ -132,18 +134,17 @@ minikube-config:
 
 minikube-clean:
 	minikube delete
-	minikube start --insecure-registry="10.0.0.0/24"
+	minikube start --insecure-registry="127.0.0.1/24"
 
 minikube-run-registry:
-	docker run -d -p 5000:5000 --restart=always --name registry registry:2
-
+	./scripts/insecure-registries.sh
+	
 ## Minikube start process, enable insecure registries
 minikube-start: minikube-run-registry
 	# RUN this in separate SHELL please
 	@echo Running
 	@minikube addons enable ingress
 	@minikube addons enable registry
-	#@echo -n "Sleep 5 seconds to make sure registry pod is up"
 	#@kubectl port-forward 9074 80
 
 minikube-use-internal-docker:
@@ -155,20 +156,24 @@ copy-frontend:
 
 ## Deploy frontend and backend on minikube
 minikube-deploy: copy-frontend minikube-use-internal-docker
-	@docker build -t localhost:5000/flutter-web flutter/
+	# @docker build -t localhost:5000/flutter-web flutter/
 	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
 	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml
 	@kubectl apply -f ${PWD}/keys/keypair-secrets.yaml
-	@docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
-	@docker push localhost:5000/maintemplate:latest
-	@docker push localhost:5000/flutter-web:latest
-	helm upgrade --force --install dev ./deployments/helm \
+	# @docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
+	# @docker push localhost:5000/maintemplate:latest
+	# @docker push localhost:5000/flutter-web:latest
+	helm upgrade --force --install ${RELEASE_NAME}-paas ./deployments/devs \
+		--set hostPath=${HOST_PATH}
+	helm upgrade --force --install ${RELEASE_NAME} ./deployments/helm \
 		--set domainSetup=false \
 		--set flutterImage=localhost:5000/flutter-web:latest \
 		--set maintemplateServerImage=localhost:5000/maintemplate:latest
 	@rm -rf flutter/web 
 
-kube-clean:
+## Cleans minikube builds (services, deployments, pods)
+minikube-clean-builds:
+	@helm uninstall dev-paas
 	@helm uninstall dev
 
 ## Source env

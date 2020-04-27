@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: envoy-local-jwks-volume
+  name: envoy-local-jwks-pv
   labels:
     type: local
     app: {{ .Release.Name }}-envoy
@@ -12,12 +12,12 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path:  {{ .Values.localJwks }}
+    path:  {{ .Values.hostPath }}
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: envoy-local-jwks-claim
+  name: {{ .Release.Name}}-envoy-local-jwks-pvc
   labels:
     app: {{ .Release.Name }}-envoy
 spec:
@@ -27,4 +27,3 @@ spec:
   resources:
     requests:
       storage: 2Mi
-

@@ -3,7 +3,7 @@ name: Dev
 on:
   push:
     tags:
-      - 'dev'
+      - "dev"
 
 # Environment variables available to all jobs and steps in this workflow
 env:
@@ -39,7 +39,7 @@ jobs:
           ref: dev
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
+          channel: "beta"
 
       - run: flutter pub get
         working-directory: maintemplate/client/
@@ -52,7 +52,7 @@ jobs:
         # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: '285.0.0'
+          version: "285.0.0"
           service_account_email: ${{ secrets.GKE_EMAIL }}
           service_account_key: ${{ secrets.GKE_KEY }}
 
@@ -63,13 +63,13 @@ jobs:
           gcloud auth configure-docker
 
       # Create secret keys
-      - name: Create Secrets
-        run: |
-          make -C mod-account/server/authz/ gen-secrets -k
-          make -C maintemplate/server/ gen-app-secrets -k
-          kubectl apply -f keys/keypair-secrets.yaml
-          kubectl apply -f keys/minio-creds-secret.yaml
-          kubectl apply -f keys/getcourage-secrets.yaml
+      # - name: Create Secrets
+      # run: |
+      #   make -C mod-account/server/authz/ gen-secrets -k
+      #   make -C maintemplate/server/ gen-app-secrets -k
+      #   kubectl apply -f keys/keypair-secrets.yaml
+      #   kubectl apply -f keys/minio-creds-secret.yaml
+      #   kubectl apply -f keys/getcourage-secrets.yaml
 
       # Build the Docker image
       - name: Build

@@ -22,12 +22,12 @@ spec:
         volumeMounts:
           - name: config-volume
             mountPath: /etc/envoy/
-          - name: jwks-volume
-            mountPath: /etc/envoy/jwks
+          # - name: jwks-volume
+          #   mountPath: /etc/envoy/jwks
       volumes:
         - name: config-volume
           configMap:
             name: {{ .Release.Name }}-maintemplate-envoy-config
-        - name: jwks-volume
-          persistentVolumeClaim:
-            claimName: envoy-local-jwks-claims
+        # - name: jwks-volume
+        #   persistentVolumeClaim:
+        #     claimName: {{ .Release.Name }}-paas-envoy-local-jwks-claims
