@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
 import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
+import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_master_page_view_model.dart';
 import 'package:mod_main/modules/org_manager/orgs/widgets/data_pane/data_pane.dart';
 
 import 'package:mod_main/modules/org_manager/orgs/widgets/filter_pane.dart';
@@ -10,11 +11,10 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class OrgDetailPage extends StatelessWidget {
-  final String orgID;
+  final int orgID;
 
   const OrgDetailPage({Key key, this.orgID}) : super(key: key);
-  
-  
+
   @override
   Widget build(BuildContext context) {
     print("Detail : ${ModalRoute.of(context).settings.name}");
@@ -28,7 +28,7 @@ class OrgDetailPage extends StatelessWidget {
               // iconTheme: Theme.of(context).iconTheme,
               automaticallyImplyLeading:
                   (sizingInfo.screenSize.width > 1100) ? false : true,
-              title: Text("$orgID"),
+              title: Text(OrgMasterPageViewModel().orgs[orgID]), // this the mock data
               actions: <Widget>[
                 IconButton(
                     tooltip: "Copy Link",
@@ -57,7 +57,6 @@ class OrgDetailPage extends StatelessWidget {
                     ? IconButton(
                         icon: Icon(Icons.arrow_back),
                         onPressed: () {
-                         
                           return Modular.to.pop(false);
                         },
                       )

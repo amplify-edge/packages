@@ -7,7 +7,7 @@ class OrgManagerMasterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: MasterPageWrapper(
-        masterPage: OrgMasterPage(orgID: "-1",), // -1 indicates no selected index
+        masterPage: OrgMasterPage(orgID: -1,), // -1 indicates no selected index
       ),
     );
   }
