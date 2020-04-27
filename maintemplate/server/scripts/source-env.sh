@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-tail -n 20 ./ENV >> $HOME/.profile 
+tail -n 20 ./ENV >> ~/.profile
 
-SHELLNAME='${SHELL##*/}'
+SHELLNAME="${SHELL##*/}"
 case $SHELLNAME in
     fish)
-        bax source $HOME/.profile
+        bax source ~/.profile
         ;;
     zsh)
-        emulate sh -c '. $HOME/.profile'
+        emulate sh -c 'eval ~/.profile'
         ;;
     *)
-        source $HOME/.profile
+        source ~/.profile
         ;;
 esac   

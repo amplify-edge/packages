@@ -16,14 +16,13 @@ install_prequisites() {
     # User should be in the kvm group 
     sudo gpasswd -a kvm $(echo $USER) kvm
     # Polkit should've accepted administration from KVM
-    cat <<<' > $HOME/50-libvirt.rules
-    polkit.addRule(function(action, subject) {
+    # shellcheck disable=SC1073
+    echo 'polkit.addRule(function(action, subject) {
         if (action.id == "org.libvirt.unix.manage" &&
             subject.isInGroup("kvm")) {
                 return polkit.Result.YES;
             }
-    });'
-    sudo mv $HOME/50-libvirt.rules /etc/polkit-1/rules.d/50-libvirt.rules
+    });' | sudo tee /etc/polkit-1/rules.d/50-libvirt.rules
     sudo systemctl enable --now libvirtd virtlogd
     echo "REBOOTING to take effect"
     sudo reboot
@@ -31,14 +30,14 @@ install_prequisites() {
 
 install_prequisites_mac() {
     echo -n "Installing mac prequisites"
-    brew install gnu-sed coreutils 
     # docker app
     brew cask install docker
 }
 
 # Gofish
 curl -fsSL https://raw.githubusercontent.com/fishworks/gofish/master/scripts/install.sh | bash
-
+## Install helm
+gofish install minikube
 gofish install helm
 
 case $OSNAME in

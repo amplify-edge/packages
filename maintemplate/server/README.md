@@ -51,9 +51,9 @@ Afteer deployment use kubectl port-forward:
 #### Environment Variables
 1. Edit provided ENV or copy ```ENV-template``` to ```ENV``` (you *MUST* edit it first).
 2. Run ```make source-env``` to source environment variable from profile to shell.
-3. Run ```make gen-app-secrets```, your secrets should've been outputted to maintemplate/server/keys directory.
-4. Go to local-ssl dir and run ```make install-certs``` to install locally signed certificates.
-5. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
+3. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
+4. Run ```make gen-app-secrets```, your secrets should've been outputted to maintemplate/server/keys directory.
+5. Go to local-ssl dir and run ```make install-certs``` to install locally signed certificates.
 6. Run ```make minikube-start``` to start minikube registry
 7. Run ```eval $(minikube -p minikube docker-env)```
 7. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.

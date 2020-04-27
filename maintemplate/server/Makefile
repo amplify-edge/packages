@@ -128,7 +128,6 @@ gke-clean-services:
 
 ## Configure minikube vm-driver
 minikube-config: 
-	GO111MODULE=off go get -u -v github.com/cloudflare/cfssl/cmd/...
 	minikube config set vm-driver ${MINIKUBE_VMDRIVER}
 	$(MAKE) minikube-clean
 
@@ -154,23 +153,32 @@ copy-frontend:
 	@cd ../client && flutter build web
 	@cp -rf ../client/build/web flutter/
 
-## Deploy frontend and backend on minikube
-minikube-deploy: minikube-clean-builds copy-frontend minikube-use-internal-docker
-	@docker build -t localhost:5000/flutter-web flutter/
-	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
-	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml
-	@kubectl apply -f ${PWD}/keys/keypair-secrets.yaml
-	@docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
-	@docker push localhost:5000/maintemplate:latest
-	@docker push localhost:5000/flutter-web:latest
-	helm upgrade --force --install ${RELEASE_NAME}-paas ./deployments/devs \
+## (Re)-deploy frontend and backend on minikube
+minikube-deploy: minikube-clean-builds copy-frontend minikube-use-internal-docker apply-secrets docker-images docker-push
+	helm install ${RELEASE_NAME}-paas ./deployments/devs \
 		--set hostPath=${HOST_PATH}
-	helm upgrade --force --install ${RELEASE_NAME} ./deployments/helm \
+	helm install ${RELEASE_NAME} ./deployments/helm \
 		--set domainSetup=false \
 		--set flutterImage=localhost:5000/flutter-web:latest \
 		--set maintemplateServerImage=localhost:5000/maintemplate:latest \
 		--set flutterReplicas=1 
-	@rm -rf flutter/web 
+	@rm -rf flutter/web
+
+## Initial setup for local development (Run only once)
+initial-local-setup: install-prequisites source-env gen-app-secrets minikube-config
+
+apply-secrets:
+	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
+	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml
+	@kubectl apply -f ${PWD}/keys/keypair-secrets.yaml
+
+docker-images:
+	@docker build -t localhost:5000/flutter-web flutter/
+	@docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
+
+docker-push:
+	@docker push localhost:5000/maintemplate:latest
+	@docker push localhost:5000/flutter-web:latest
 
 ## Cleans minikube builds (services, deployments, pods)
 minikube-clean-builds:
@@ -192,4 +200,5 @@ gen-app-secrets:
 ## Install prequisites
 install-prequisites:
 	@echo -n "Installing prequisites"
+	GO111MODULE=off go get -u -v github.com/cloudflare/cfssl/cmd/...
 	./scripts/local-dev-setup.sh
