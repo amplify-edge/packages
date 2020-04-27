@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-flutter
 spec:
-  replicas: 2
+  replicas: {{ .Values.flutterReplicas }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}-flutter

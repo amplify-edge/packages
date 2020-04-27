@@ -47,19 +47,27 @@ Afteer deployment use kubectl port-forward:
 1. Clone and setup https://github.com/getcouragenow/bootstrap
 2. Choose your OS and configure it there (on OS folder)
 3. Run prequisites install script ```make install-prequisites```
+4. Log out / Reboot for Linux
+4. Run ```make minikube-config```
 
-#### Environment Variables
-1. Edit provided ENV or copy ```ENV-template``` to ```ENV``` (you *MUST* edit it first).
+#### First time setup
+1. Edit provided ```ENV``` file 
 2. Run ```make source-env``` to source environment variable from profile to shell.
-3. Run ```make gen-app-secrets```, your secrets should've been outputted to maintemplate/server/keys directory.
-4. Go to local-ssl dir and run ```make install-certs``` to install locally signed certificates.
-5. Run ```make minikube-config``` for creating new minikube config based on your OS's best k8s cluster driver
+3. Log out, to make sure the profile is loaded.
+4. Run ```make gen-app-secrets```, your secrets will be generated in maintemplate/server/keys directory.
+5. Go to local-ssl dir and run ```make install-certs``` to install locally signed certificates.
 6. Run ```make minikube-start``` to start minikube registry
-7. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.
+7. Run ```eval $(minikube -p minikube docker-env)``` or put that in your shell's config
+8. Finally run ```make minikube-deploy``` to deploy. Run ```kubectl get all``` and your maintemplate and flutter app should be on minikube now.
 8. Run ```kubectl get ingress``` that's where your maintemplate is.
+
+### Redeploying
+1. Run ```make minikube-clean-builds```
+2. Redeploy using ```make minikube-deploy```
 
 #### TODO
 1. Helm charts for minio and envoy's persistent volume claim.
 2. Kubectl patch (on runtime) for when issues like random helm error occurs.
 3. Adding generated secrets to environment variables.
 3. Docker rebuilds when inotify events occur.
+4. TODO: Per developer ENV
