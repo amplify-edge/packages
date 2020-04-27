@@ -28,14 +28,15 @@ class OrgDetailPage extends StatelessWidget {
               // iconTheme: Theme.of(context).iconTheme,
               automaticallyImplyLeading:
                   (sizingInfo.screenSize.width > 1100) ? false : true,
-              title: Text(OrgMasterPageViewModel().orgs[orgID]), // this the mock data
+              title: Text(OrgMasterPageViewModel().orgs[orgID]),
+              // this the mock data
               actions: <Widget>[
                 IconButton(
                     tooltip: "Copy Link",
                     icon: Icon(Icons.link),
                     onPressed: () async {
                       String link =
-                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "1")}";
+                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "${orgID}")}";
                       // ${Modular.get<Paths>().org.replaceAll(":id", "$index")
                       print(Modular.get<Paths>().baseRoute);
                       await Clipboard.setData(new ClipboardData(text: link));
