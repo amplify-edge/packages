@@ -164,9 +164,6 @@ minikube-deploy: minikube-clean-builds copy-frontend minikube-use-internal-docke
 		--set flutterReplicas=1 
 	@rm -rf flutter/web
 
-## Initial setup for local development (Run only once)
-initial-local-setup: install-prequisites source-env gen-app-secrets minikube-config
-
 apply-secrets:
 	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
 	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml

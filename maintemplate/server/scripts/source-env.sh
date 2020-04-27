@@ -8,7 +8,7 @@ case $SHELLNAME in
         bax source ~/.profile
         ;;
     zsh)
-        emulate sh -c 'eval ~/.profile'
+        echo "emulate sh -c '. $HOME/.profile'" | tee "$HOME"/.zprofile
         ;;
     *)
         source ~/.profile

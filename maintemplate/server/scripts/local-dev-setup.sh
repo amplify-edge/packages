@@ -5,16 +5,16 @@ OSNAME=$(uname -s)
 install_prequisites() {
     echo -n "Installing linux prequisites"
     sudo modprobe kvm
-    hash apt >/dev/null && {
-        sudo apt install -y qemu-kvm libvirtd-daemon bridge-utils \
+    if [[ -x /usr/bin/apt ]]; then
+        sudo apt install -y qemu-kvm libvirt-daemon bridge-utils \
             virtinst libvirt-daemon-system libprotobuf-dev
-    }
-    hash dnf >/dev/null && {
+        sudo gpasswd -a $(echo $USER) kvm
+        sudo gpasswd -a $(echo $USER) libvirt
+    elif [[ -x /usr/bin/dnf ]]; then
         sudo dnf install -y qemu-kvm qemu-img virt-manager libvirt libvirt-python \
             libvirt-client virt-install virt-viewer bridge-utils protobuf-devel
-    }
-    # User should be in the kvm group 
-    sudo gpasswd -a kvm $(echo $USER) kvm
+        sudo gpasswd -a kvm $(echo $USER)
+    fi
     sudo mkdir -p /etc/polkit-1/rules.d/
     # Polkit should've accepted administration from KVM
     # shellcheck disable=SC1073

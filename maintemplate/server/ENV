@@ -1,5 +1,5 @@
-GCP_PROJECT=$(gcloud config get-value project)
-GCP_USER=$(gcloud config get-value account)
+GCP_PROJECT=HELLO
+GCP_USER=FOOBAR
 
 export GCP_PROJECT GCP_USER
 
