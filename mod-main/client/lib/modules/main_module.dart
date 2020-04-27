@@ -59,10 +59,13 @@ class MainAppModule extends ChildModule{
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
     Router("/dashboard/orgs", child: (_, args) => OrgManagerMasterView()),
-    Router("/dashboard/orgs/:id", child: (_, args) => OrgManagerDetailView(
-      masterWidget: OrgMasterPage(orgID: args.params['id'],),
-      detailWidget: OrgDetailPage(orgID: args.params['id'],),
-    )),
+    Router("/dashboard/orgs/:id", child: (_, args) {
+      int id = int.tryParse(args.params['id']) ?? -1;
+      return OrgManagerDetailView(
+        masterWidget: OrgMasterPage(orgID: id,),
+        detailWidget: OrgDetailPage(orgID: id,),
+      );
+    }),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();

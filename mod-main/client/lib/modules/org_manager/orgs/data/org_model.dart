@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:meta/meta.dart';
 import 'package:random_string/random_string.dart';
 
@@ -127,10 +129,10 @@ List<Org> mockOrgs = List<Org>.generate(
     histPrecedents: "TBA",
     logoUrl:
         "https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/wp-cms/uploads/2019/10/i-2-90414932-extinction-rebellion-symbol.jpg",
-    minPioneers: "50",
+    minPioneers: "${(Random().nextInt(50) + 50)}",
     minRebelsForMedia: "5000",
     minRebelsToWin: "50,000",
-    organization: "Extinction Rebellion XR",
+    organization: "Extinction Rebellion XR ${(index+1)}",
     strategy: "TBA",
     uom: "days",
     videoURL: [
@@ -138,7 +140,7 @@ List<Org> mockOrgs = List<Org>.generate(
       "https://drive.google.com/open?id=1JOiwPp7Bis8W4IUBQlukyL8Pa_H7-Urx",
       "https://drive.google.com/open?id=1eSSkJYZnPRmpWoQHySGe8fHFJsPqycd6"
     ],
-    actionLocation: "NYC Pipeline, NY, USA",
-    actionTime: DateTime(2020, 4, 4, 11, 04),
+    actionLocation: "NYC Pipeline, NY, ${randomAlpha(3)}", // random string for different locations
+    actionTime: DateTime(2020, Random().nextInt(11)+1, Random().nextInt(30), 11, 04), //random date
   ),
 );
