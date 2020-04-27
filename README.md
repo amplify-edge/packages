@@ -23,4 +23,6 @@ See MainTemplate folder for Client and Server makefiles.
 
 Web CI: https://maintemplate.ci.getcouragenow.org/
 
+Web Beta: https://maintemplate.beta.getcouragenow.org
+
 Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/packages/releases
