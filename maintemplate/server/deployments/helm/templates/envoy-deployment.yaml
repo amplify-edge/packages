@@ -30,4 +30,4 @@ spec:
             name: {{ .Release.Name }}-maintemplate-envoy-config
         - name: jwks-volume
           persistentVolumeClaim:
-            claimName: envoy-local-jwks-claims
+            claimName: {{ .Release.Name }}-paas-envoy-local-jwks-claims
