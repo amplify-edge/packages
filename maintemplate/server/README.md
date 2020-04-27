@@ -46,7 +46,7 @@ Afteer deployment use kubectl port-forward:
 #### Prequisites
 1. Clone and setup https://github.com/getcouragenow/bootstrap
 2. Choose your OS and configure it there (on OS folder)
-3. For MacOS you might've to also ```brew cask install docker```
+3. Run prequisites install script ```make install-prequisites```
 
 #### Environment Variables
 1. Edit provided ENV or copy ```ENV-template``` to ```ENV``` (you *MUST* edit it first).

@@ -156,13 +156,13 @@ copy-frontend:
 
 ## Deploy frontend and backend on minikube
 minikube-deploy: copy-frontend minikube-use-internal-docker
-	# @docker build -t localhost:5000/flutter-web flutter/
+	@docker build -t localhost:5000/flutter-web flutter/
 	@kubectl apply -f ${PWD}/keys/getcourage-secret.yaml
 	@kubectl apply -f ${PWD}/keys/minio-creds-secret.yaml
 	@kubectl apply -f ${PWD}/keys/keypair-secrets.yaml
-	# @docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
-	# @docker push localhost:5000/maintemplate:latest
-	# @docker push localhost:5000/flutter-web:latest
+	@docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
+	@docker push localhost:5000/maintemplate:latest
+	@docker push localhost:5000/flutter-web:latest
 	helm upgrade --force --install ${RELEASE_NAME}-paas ./deployments/devs \
 		--set hostPath=${HOST_PATH}
 	helm upgrade --force --install ${RELEASE_NAME} ./deployments/helm \
@@ -187,3 +187,8 @@ gen-app-secrets:
 	@rm -rf keys/*.yaml
 	make -C ../../mod-account/server/authz gen-secrets
 	@go run cmd/appsecret/appsecret.go -o ${PWD}/keys/
+
+## Install prequisites
+install-prequisites:
+	@echo -n "Installing prequisites"
+	./scripts/local-dev-setup.sh
