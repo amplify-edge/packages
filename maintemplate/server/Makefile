@@ -163,7 +163,7 @@ minikube-deploy: copy-frontend minikube-use-internal-docker
 	# @docker build -t localhost:5000/maintemplate -f dockers/Dockerfile-dev .
 	# @docker push localhost:5000/maintemplate:latest
 	# @docker push localhost:5000/flutter-web:latest
-	helm install ${RELEASE_NAME}-paas ./deployments/devs \
+	helm upgrade --force --install ${RELEASE_NAME}-paas ./deployments/devs \
 		--set hostPath=${HOST_PATH}
 	helm upgrade --force --install ${RELEASE_NAME} ./deployments/helm \
 		--set domainSetup=false \
@@ -171,7 +171,9 @@ minikube-deploy: copy-frontend minikube-use-internal-docker
 		--set maintemplateServerImage=localhost:5000/maintemplate:latest
 	@rm -rf flutter/web 
 
-kube-clean:
+## Cleans minikube builds (services, deployments, pods)
+minikube-clean-builds:
+	@helm uninstall dev-paas
 	@helm uninstall dev
 
 ## Source env
