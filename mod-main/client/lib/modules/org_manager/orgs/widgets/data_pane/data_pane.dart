@@ -17,7 +17,7 @@ class DataPane extends StatelessWidget {
         NativeDataTable.builder(
       rowsPerPage: model.rowsPerPage,
       firstRowIndex: model.firstRowIndex,
-      itemCount: model.orgsPerPage.length ?? 0,
+      itemCount: model.orgs.length ?? 0,
       header: Text("Organization Details"),
       handleNext: () {
         model.handleNextPage();
@@ -33,13 +33,13 @@ class DataPane extends StatelessWidget {
         return null;
       },
       onRowsPerPageChanged: (int value) {
-        print("New Rows: $value");
+        model.setRowsPerPage(value);
       },
       noItems: Text("No Orgs"),
       // mobileItemBuilder: (BuildContext context, int index) {
       //   final org = model.orgs[index];
       //   return Text("${index} - ${org.organization}");
-         
+
       // },
       onSelectAll: (bool value) {
         model.onSelectAll(value);
@@ -67,7 +67,6 @@ class DataPane extends StatelessWidget {
           },
           selected: model.selected[index],
           cells: [
-           
             DataCell(Text(org.organization)),
             DataCell(Text(org.campaignName)),
             DataCell(Text(org.category)),
@@ -83,9 +82,11 @@ class DataPane extends StatelessWidget {
       },
       columns: [
         DataColumn(label: Text("Organization")),
-        DataColumn(label: Text("Campaign"), onSort: (int columnIndex,bool ascending){
-          model.sort((org) => org.campaignName, columnIndex, ascending);
-        }),
+        DataColumn(
+            label: Text("Campaign"),
+            onSort: (int columnIndex, bool ascending) {
+              model.sort((org) => org.campaignName, columnIndex, ascending);
+            }),
         DataColumn(label: Text("Category")),
         DataColumn(label: Text("Action Type")),
         DataColumn(label: Text("Action Location")),
