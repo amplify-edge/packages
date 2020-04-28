@@ -9,7 +9,6 @@ class MasterPageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
