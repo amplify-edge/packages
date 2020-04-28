@@ -1,4 +1,4 @@
-name: Stable
+name: STABLE
 
 on:
   push:
@@ -22,7 +22,7 @@ env:
 jobs:
 
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: STABLE - Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
