@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sys_core/syscore.dart';
+import 'package:sys_core/sys_core.dart';
 
 
 class MasterPageWrapper extends StatelessWidget {

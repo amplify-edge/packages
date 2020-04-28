@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:mod_core/i18n/languages.dart';
+import 'package:sys_core/sys_core.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   // final SettingsRepository settingsRepository;

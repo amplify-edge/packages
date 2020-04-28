@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:mod_core/i18n/languages.dart';
+import 'package:sys_core/sys_core.dart';
 import './translations.dart';
 
 class ModChatLocalizations extends Translations {

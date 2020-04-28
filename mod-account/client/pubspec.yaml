@@ -23,8 +23,8 @@ dependencies:
   provider_architecture: ^1.0.6
   intl: ^0.16.1
   intl_translation: ^0.17.9
-  mod_core:
-    path: ../../mod-core/client
+  sys_core:
+    path: ../../sys-core/client
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

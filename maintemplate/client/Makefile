@@ -230,7 +230,7 @@ go-desk-clean:
 	rm -rf $(SAMPLE_FSPATH)desktop/bind_windows_386.go
 	rm -rf $(SAMPLE_FSPATH)desktop/windows.syso
 
-include ../../mod-core/make/i18n.mk
+include ../../sys-core/make/i18n.mk
 
 ## LANG
 # 0. make lang-dep => ensure you have the i18n tool
