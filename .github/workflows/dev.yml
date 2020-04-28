@@ -1,4 +1,4 @@
-name: Dev
+name: DEV
 
 on:
   push:
@@ -33,7 +33,7 @@ env:
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: DEV - Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
