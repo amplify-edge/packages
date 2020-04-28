@@ -19,7 +19,7 @@ env:
   RELEASE_CHANNEL: ci
   FLUTTER_CHANNEL: beta
   URL: getcouragenow.org
-  LOCALES: '[\"en\",\n "fr",\n "es",\n "de",\n "it",\n "ur"\]'
+  LOCALES: '[\"en\",\"fr\",\"es\",\"it\",\"de\",\"ur\"]'
   GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}
   GKE_KEYNAME: ${{ secrets.GKE_KEYNAME }}
 
@@ -61,8 +61,12 @@ jobs:
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
 
-          ASSET_FILE=maintemplate/client/build/web/assets/assets/env.json
           sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
+          sed -i s/#\{channel_url\}/$PROJECT.$RELEASE_CHANNEL.$URL/g maintemplate/client/build/web/assets/assets/env.json
+          sed -i s/#\{channel_url_native\}/grpc.$PROJECT.$RELEASE_CHANNEL.$URL/g maintemplate/client/build/web/assets/assets/env.json
+          sed -i s/#\{channel_githash\}/$GITHUB_SHA/g maintemplate/client/build/web/assets/assets/env.json
+          sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
+          sed -i s/#\{locales\}/$LOCALES/g maintemplate/client/build/web/assets/assets/env.json
 
           cp -rf maintemplate/client/build/web maintemplate/server/flutter
           docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
