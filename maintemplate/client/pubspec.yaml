@@ -52,8 +52,8 @@ dependencies:
     path: ../../mod-main/client
   mod_account:
     path: ../../mod-account/client
-  mod_core:
-    path: ../../mod-core/client
+  sys_core:
+    path: ../../sys-core/client
  
 
   # Architectural packages

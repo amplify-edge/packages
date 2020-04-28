@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mod_main/core/package/detail_page_wrapper.dart';
-import 'package:mod_main/core/package/master_detail_utils.dart';
 
 
 

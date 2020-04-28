@@ -110,4 +110,4 @@ else
 	protoc chat.proto --proto_path=$(LIB_FSPATH)/server/api/proto/v1/ --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(SAMPLE_FSPATH)/client/lib/chat_view/api/v1/
 endif
 
-include ../../mod-core/make/i18n.mk
+include ../../sys-core/make/i18n.mk
