@@ -5,7 +5,7 @@
 #   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
 #   * LINUX_SIGN_KEY_ID used to find the key.
 # To configure this workflow:
-name: DESKTOP Electron - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps using Electron 
+name: DESKTOP ELECTRON - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps using Electron 
 on:
 #   pull_request:
   #   branches:
@@ -22,7 +22,7 @@ on:
 
 jobs:
   build-package-sign-linux:
-    name: "DESKTOP Electron - Linux Build, Package, Sign and Deploy"
+    name: "DESKTOP ELECTRON - Linux Build, Package, Sign and Deploy"
     runs-on: ubuntu-latest
     env:
 #      GOROOT: /usr/local/go
