@@ -5,7 +5,7 @@
 #   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
 #   * LINUX_SIGN_KEY_ID used to find the key.
 # To configure this workflow:
-name: Desktop - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
+name: DESKTOP - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
 on:
   #pull_request:
     #branches:
@@ -24,7 +24,7 @@ env:
   version: 1.0.0 
 jobs:
   build-packages:
-    name: "Linux Build, Package, Sign and Deploy"
+    name: "DESKTOP - Linux Build, Package, Sign and Deploy"
     runs-on: ubuntu-latest
     env:
       GOROOT: /usr/local/go

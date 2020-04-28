@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - '*'
+      - "*"
 
 # Environment variables available to all jobs and steps in this workflow
 env:
@@ -24,15 +24,14 @@ env:
   GKE_KEYNAME: ${{ secrets.GKE_KEYNAME }}
 
 jobs:
-
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: CI - Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
+          channel: "beta"
 
       - run: flutter pub get
         working-directory: maintemplate/client/
@@ -45,7 +44,7 @@ jobs:
         # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: '289.0.0'
+          version: "289.0.0"
           service_account_email: ${{ secrets.GKE_EMAIL }}
           service_account_key: ${{ secrets.GKE_KEY }}
 
@@ -55,8 +54,6 @@ jobs:
           # via gcloud command-line tool.
           gcloud auth configure-docker
 
-
-
       # Build the Docker image
       - name: Build
         run: |
@@ -65,12 +62,7 @@ jobs:
             --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
 
           ASSET_FILE=maintemplate/client/build/web/assets/assets/env.json
-          perl -i -pe 's/(?:version\=\#|(?<!^)\G)(?(?=\}\")|.)*?\K(([a-z]){3})/$ENV{'GITHUB_SHA'}/' maintemplate/client/build/web/index.html
-          perl -i -pe 's/(?:\\"channel\\"|(?<!^)\\G)(?(?=\\,)|.)*?\\K(([a-z]){3})/$ENV{'RELEASE_CHANNEL'}/' $ASSET_FILE
-          perl -i -pe 's/(?:\"url\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/$ENV{'IMAGE'}\.$ENV{'RELEASE_CHANNEL'}\.$ENV{'URL'}/g' $ASSET_FILE
-          perl -i -pe 's/(?:\"url_native\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/grpc\.$ENV{'IMAGE'}\.$ENV{'RELEASE_CHANNEL'}\.$ENV{'URL'}/g' $ASSET_FILE
-          perl -i -pe 's/(?:\"githash\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/$ENV{'GITHUB_SHA'}/g' $ASSET_FILE
-          perl -i -pe 's/(?:\"locales\":\ \[|(?<!^)\G)(?(?=\"\n\])|.)*?\K((.?))/$ENV{'LOCALES'}/g' $ASSET_FILE
+          sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
 
           cp -rf maintemplate/client/build/web maintemplate/server/flutter
           docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
