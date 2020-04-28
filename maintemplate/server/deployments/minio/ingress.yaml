@@ -8,7 +8,7 @@ metadata:
 spec:
   tls:
     - hosts:
-      - minio.getcouragenow.org
+      - minio.{{ .Release.Name }}.getcouragenow.org
       secretName: minio-tls
   rules:  
   - http:
@@ -16,4 +16,4 @@ spec:
       - backend:
           serviceName: minio-hl-svc
           servicePort: 9000
-    host: minio.getcouragenow.org
+    host: minio.{{ .Release.Name }}.getcouragenow.org
