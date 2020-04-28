@@ -16,6 +16,7 @@ env:
   GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}
   GKE_KEY_NAME: ${{ secrets.GKE_KEY_NAME }}
   IMAGE: maintemplate
+  PROJECT: maintemplate
   AUTHZ_IMAGE: ext-authz
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
@@ -28,6 +29,7 @@ env:
   MINIO_TIMEOUT: ${{ secrets.MINIO_TIMEOUT }}
   MINIO_ENCKEY: ${{ secrets.MINIO_ENCKEY }}
   MINIO_SSL: ${{ secrets.MINIO_SSL }}
+  LOCALES: '[\"en\",\n "fr",\n "es",\n "de",\n "it",\n "ur"\]'
 
 jobs:
   setup-build-publish-deploy:
@@ -52,7 +54,7 @@ jobs:
         # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: "285.0.0"
+          version: "289.0.0"
           service_account_email: ${{ secrets.GKE_EMAIL }}
           service_account_key: ${{ secrets.GKE_KEY }}
 
@@ -81,13 +83,13 @@ jobs:
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
 
-          sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
-          sed -i s/#\{channel_name\}/$RELEASE_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
-          sed -i s/#\{channel_url\}/$PROJECT.$RELEASE_CHANNEL.$URL/g maintemplate/client/build/web/assets/assets/env.json
-          sed -i s/#\{channel_url_native\}/grpc.$PROJECT.$RELEASE_CHANNEL.$URL/g maintemplate/client/build/web/assets/assets/env.json
-          sed -i s/#\{channel_githash\}/$GITHUB_SHA/g maintemplate/client/build/web/assets/assets/env.json
-          sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
-          sed -i s/#\{locales\}/$LOCALES/g maintemplate/client/build/web/assets/assets/env.json
+          ASSET_FILE=maintemplate/client/build/web/assets/assets/env.json
+          perl -i -pe 's/(?:version\=\#|(?<!^)\G)(?(?=\}\")|.)*?\K(([a-z]){3})/$ENV{'GITHUB_SHA'}/' maintemplate/client/build/web/index.html
+          perl -i -pe 's/(?:\\"channel\\"|(?<!^)\\G)(?(?=\\,)|.)*?\\K(([a-z]){3})/$ENV{'RELEASE_CHANNEL'}/' $ASSET_FILE
+          perl -i -pe 's/(?:\"url\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/$ENV{'IMAGE'}\.$ENV{'RELEASE_CHANNEL'}\.$ENV{'URL'}/g' $ASSET_FILE
+          perl -i -pe 's/(?:\"url_native\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/grpc\.$ENV{'IMAGE'}\.$ENV{'RELEASE_CHANNEL'}\.$ENV{'URL'}/g' $ASSET_FILE
+          perl -i -pe 's/(?:\"githash\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/$ENV{'GITHUB_SHA'}/g' $ASSET_FILE
+          perl -i -pe 's/(?:\"locales\":\ \[|(?<!^)\G)(?(?=\"\n\])|.)*?\K((.?))/$ENV{'LOCALES'}/g' $ASSET_FILE
 
           cp -rf maintemplate/client/build/web maintemplate/server/flutter
           docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
