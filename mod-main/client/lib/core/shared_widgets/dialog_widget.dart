@@ -39,7 +39,7 @@ Future<void> showInfoDialogBox({
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      color: themeData.accentColor,
+                      color: Theme.of(context).accentColor,
                       elevation: 0,
                       child: Text(buttonText),
                       onPressed: () {

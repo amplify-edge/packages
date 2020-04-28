@@ -2,9 +2,9 @@ import 'package:floating_search_bar/ui/sliver_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
-import 'package:mod_main/core/package/master_detail_utils.dart';
 import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_master_page_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:sys_core/syscore.dart';
 
 import 'org_detail_page.dart';
 import 'org_manager_detail_view.dart';

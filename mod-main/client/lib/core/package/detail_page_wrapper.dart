@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'master_detail_utils.dart';
+import 'package:sys_core/syscore.dart';
 
 class DetailPageWrapper extends StatelessWidget {
   final Widget masterWidget;

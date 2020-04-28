@@ -27,6 +27,8 @@ dependencies:
   floating_search_bar: ^0.3.0
   mod_core:
     path: ../../mod-core/client
+  sys_core:
+    path: ../../sys-core/client
 
   # ours
   # maintemplate:
