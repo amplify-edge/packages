@@ -132,7 +132,7 @@ List<Org> mockOrgs = List<Org>.generate(
     minPioneers: "${(Random().nextInt(50) + 50)}",
     minRebelsForMedia: "5000",
     minRebelsToWin: "50,000",
-    organization: "Extinction Rebellion XR ${(index+1)}",
+    organization: "Extinction Rebellion XR ${((index+1).toString().padLeft(3, "0"))}",
     strategy: "TBA",
     uom: "days",
     videoURL: [
