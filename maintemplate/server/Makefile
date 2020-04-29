@@ -154,7 +154,7 @@ copy-frontend:
 	@cp -rf ../client/build/web flutter/
 
 ## (Re)-deploy frontend and backend on minikube
-minikube-deploy: minikube-clean-builds copy-frontend minikube-use-internal-docker apply-secrets docker-images docker-push
+minikube-deploy: copy-frontend minikube-use-internal-docker apply-secrets docker-images docker-push
 	helm install ${RELEASE_NAME}-paas ./deployments/devs \
 		--set hostPath=${HOST_PATH}
 	helm install ${RELEASE_NAME} ./deployments/helm \

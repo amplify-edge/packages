@@ -1,8 +1,13 @@
 
-# git
+# git reflection
 REPO_NAME=$(notdir $(shell pwd))
 UPSTREAM_ORG=getcouragenow
 FORK_ORG=$(shell basename $(dir $(abspath $(dir $$PWD))))
+
+# hardcoded git
+GIT_SERVER=github.com
+
+ABS_REPO_FSPATH=$(GOPATH)/src/$(GIT_SERVER)/$(FORK_ORG)/$(REPO_NAME)
 
 # remove the "v" prefix
 VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
@@ -13,10 +18,17 @@ help:  ## Display this help
 
 print:
 	@echo
+	@echo -- GIT --
 	@echo FORK_ORG: $(FORK_ORG)
+	@echo UPSTREAM_ORG: 		$(UPSTREAM_ORG)
+	@echo REPO_NAME: 			$(REPO_NAME)
+	@echo GIT_SERVER: 			$(GIT_SERVER)
+	@echo
 
-	@echo UPSTREAM_ORG: $(UPSTREAM_ORG)
-	@echo REPO_NAME: $(REPO_NAME)
+	@echo -- FSPATHS -- 
+	@echo ABS_WORK_FSPATH: 		$(GOPATH)
+	@echo ABS_REPO_FSPATH: 		$(ABS_REPO_FSPATH)
+	@echo PWD: 					$(PWD)
 	@echo
 
 
@@ -26,12 +38,12 @@ print:
 
 
 git-upstream-open: ## git-upstream-open
-	open https://github.com/$(UPSTREAM_ORG)/$(REPO_NAME).git 
+	open https://$(GIT_SERVER)/$(UPSTREAM_ORG)/$(REPO_NAME).git 
 	
 
 
 git-fork-open: ## git-fork-open
-	open https://github.com/$(FORK_ORG)/$(REPO_NAME).git
+	open https://$(GIT_SERVER)/$(FORK_ORG)/$(REPO_NAME).git
 
 git-status:
 	git status
@@ -39,7 +51,7 @@ git-status:
 git-fork-setup: ## git-fork-setup
 	# Pre: you git forked ( via web) and git cloned (via ssh)
 	# add upstream repo
-	git remote add upstream git://github.com/$(UPSTREAM_ORG)/$(REPO_NAME).git
+	git remote add upstream git://$(GIT_SERVER)/$(UPSTREAM_ORG)/$(REPO_NAME).git
 
 git-fork-catchup: ## git-fork-catchup
 	# This fetches the branches and their respective commits from the upstream repository.
