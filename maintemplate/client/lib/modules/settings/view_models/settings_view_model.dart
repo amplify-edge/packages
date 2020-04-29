@@ -22,7 +22,6 @@ class SettingsViewModel extends ChangeNotifier {
 
     this.loadLocalesFromEnvVariables(_envVariables);
 
-    print("alec data : ${_envVariables.channel}");
     notifyListeners();
   }
 

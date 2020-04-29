@@ -18,34 +18,44 @@ class UserInfoView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                '1. ' + ModMainLocalizations.of(context).translate('whereAreYou'),
+                '1. ' +
+                    ModMainLocalizations.of(context).translate('whereAreYou'),
                 style: Theme.of(context).textTheme.title,
               ),
               const SizedBox(height: 8.0),
               Row(
                 children: <Widget>[
-                  Text(ModMainLocalizations.of(context).translate('country'),),
-                  Spacer(),
-                  CountryPickerWidget(
-                    onCountryChanged: (countryCode){
-                      model.changeCountry(countryCode.name);
-                      print(ModMainLocalizations.of(context).translate('newCountrySelected') + ': ' + countryCode.toString() + countryCode.name);
-                    }
+                  Text(
+                    ModMainLocalizations.of(context).translate('country'),
                   ),
+                  Spacer(),
+                  CountryPickerWidget(onCountryChanged: (countryCode) {
+                    model.changeCountry(countryCode.name);
+                    print(ModMainLocalizations.of(context)
+                            .translate('newCountrySelected') +
+                        ': ' +
+                        countryCode.toString() +
+                        countryCode.name);
+                  }),
                 ],
               ),
-             
               _select((value) {
                 model.changeCity(value);
               }, model.selectedCity, model.cities),
-             
               TextFormField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  hintText: ModMainLocalizations.of(context).translate('zipCode'),
+                  hintText:
+                      ModMainLocalizations.of(context).translate('zipCode'),
                 ),
               ),
-            /*
+              SearchLocationWidget(
+                decoration: InputDecoration(hintText: "Location"),
+                onLocationChanged: (value) {
+                  print("SearchLocationWidget picked : $value");
+                },
+              ),
+              /*
               const SizedBox(height: 48.0),
               Text(
                 '2. Travel distance you can afford?',
@@ -84,17 +94,17 @@ class UserInfoView extends StatelessWidget {
                     model.campaignAffiliations),
               */
               const SizedBox(height: 48.0),
-               ButtonBar(
-                  children: <Widget>[
-                    RaisedButton(
-                      onPressed: () {
-                        model.navigateNext();
-                      },
-                      child: Text(ModMainLocalizations.of(context).translate('next')),
-                    ),
-                  ],
-                ),
-             
+              ButtonBar(
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () {
+                      model.navigateNext();
+                    },
+                    child: Text(
+                        ModMainLocalizations.of(context).translate('next')),
+                  ),
+                ],
+              ),
             ],
             // ),
             //   ),
