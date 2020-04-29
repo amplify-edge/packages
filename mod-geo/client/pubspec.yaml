@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   flutter_modular: ^0.5.2
   provider_architecture: ^1.0.6
-  flutter_map: ^0.8.2
+  flutter_map: ^0.9.0
   latlong: ^0.6.1
   font_awesome_flutter: ^8.7.0
   responsive_builder: ^0.1.5
