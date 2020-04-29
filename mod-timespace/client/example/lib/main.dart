@@ -16,7 +16,7 @@ class App extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           CountryPickerWidget(),
-          SearchLocationWidget(),
+          SearchLocationWidget(onLocationChanged: (_){},showDebugInformation: true,),
         ],
       )),
     );
