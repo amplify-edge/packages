@@ -22,6 +22,10 @@ class UserInfoView extends StatelessWidget {
                     ModMainLocalizations.of(context).translate('whereAreYou'),
                 style: Theme.of(context).textTheme.title,
               ),
+              /*
+              --------------- THIS IS may useful in the future
+              --------------- old flow:
+
               const SizedBox(height: 8.0),
               Row(
                 children: <Widget>[
@@ -49,6 +53,8 @@ class UserInfoView extends StatelessWidget {
                       ModMainLocalizations.of(context).translate('zipCode'),
                 ),
               ),
+             ---------------
+              */
               SearchLocationWidget(
                 decoration: InputDecoration(hintText: "Location"),
                 onLocationChanged: (value) {
