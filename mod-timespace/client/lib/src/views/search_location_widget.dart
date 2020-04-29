@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong/latlong.dart';
+import 'package:synchronized/synchronized.dart';
 
 class OSMLocationData {
   final String displayName;
@@ -29,7 +31,10 @@ class SearchLocationWidget extends StatefulWidget {
   final ValueChanged<OSMLocationData> onLocationChanged;
   final InputDecoration decoration;
 
-  const SearchLocationWidget({Key key, @required this.onLocationChanged, this.decoration = const InputDecoration()})
+  const SearchLocationWidget(
+      {Key key,
+      @required this.onLocationChanged,
+      this.decoration = const InputDecoration()})
       : super(key: key);
 
   @override
@@ -47,15 +52,20 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
   // current suggestions
   List<OSMLocationData> places;
 
+  OSMLocationData _actualPlace;
+
   // avoid search twice for same keyword
   String lastSearch;
+
+  // we want to enforce that the request is fired max every 1 second
+  var lock = Lock();
 
   @override
   void initState() {
     super.initState();
     _searchTextController = TextEditingController();
     _searchTextController.addListener(() {
-      _getPlaces(_searchTextController.text);
+      _loadPlaces();
     });
   }
 
@@ -75,11 +85,17 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
             ],
           ),
         ),
+        if (!kReleaseMode && _actualPlace != null) ...[
+          Text("Debug:"),
+          Text("Displayname: ${_actualPlace.displayName}"),
+          Text("Lat: ${_actualPlace.lat}, Lon: ${_actualPlace.lon}")
+        ]
       ]);
     });
   }
 
-  Widget _getTextField() => TextField(controller: _searchTextController, decoration: widget.decoration);
+  Widget _getTextField() => TextField(
+      controller: _searchTextController, decoration: widget.decoration);
 
   /*
     suggestion list
@@ -100,6 +116,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                 _actualLocation = LatLng(place.lat, place.lon);
                 _mapController.move(_actualLocation, 12);
                 places = null;
+                _actualPlace = place;
               });
               widget.onLocationChanged(place);
             },
@@ -140,32 +157,30 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
         ],
       );
 
-  Future<List<OSMLocationData>> _getPlaces(String text) async {
-    if (text.length <= 0 || lastSearch == text) return Future.value(null);
+  Future _loadPlaces() async {
+    lock.synchronized(() async {
+      if (_searchTextController.text == lastSearch ||
+          _searchTextController.text.isEmpty) return;
+      print("loading places.. time: ${DateTime.now()}");
+      final url =
+          "https://nominatim.openstreetmap.org/search?q=${_searchTextController.text.replaceAll(RegExp(' '), '+')}&format=json&addressdetails=1";
+      final response = await http.get(url);
+      final jsonObject = json.decode(response.body);
+      final places = List<OSMLocationData>();
+      (jsonObject as List).forEach((element) {
+        places.add(OSMLocationData.fromJson(element));
+      });
 
-    /*
-    This code was working, but now the page is down. Using mock data instead.
-
-    final url =
-        "https://nominatim.openstreetmap.org/search?q=${text.replaceAll(
-        RegExp(' '), '+')}&format=json&addressdetails=1";
-    final response = await http.get(url);
-    final jsonObject = json.decode(response.body);
-    final places = List<OSMLocationData>();
-    (jsonObject as List).forEach((element) {
-      places.add(OSMLocationData.fromJson(element));
+      /*var places = List<OSMLocationData>();
+      places.add(OSMLocationData("Berlin", 52.5170365, 13.3888599));
+      places.add(OSMLocationData("Hamburg", 53.551086, 9.993682));
+      places.add(OSMLocationData("Bremen", 53.079296, 8.801694));
+      places.add(OSMLocationData("München", 48.135124, 11.581981));*/
+      setState(() {
+        lastSearch = _searchTextController.text;
+        this.places = places;
+      });
+      await Future.delayed(Duration(seconds: 2));
     });
-     */
-    var places = List<OSMLocationData>();
-    places.add(OSMLocationData("Berlin", 52.5170365, 13.3888599));
-    places.add(OSMLocationData("Hamburg", 53.551086, 9.993682));
-    places.add(OSMLocationData("Bremen", 53.079296, 8.801694));
-    places.add(OSMLocationData("München", 48.135124, 11.581981));
-    setState(() {
-      lastSearch = text;
-      this.places = places;
-    });
-    print(this.places);
-    return places;
   }
 }
