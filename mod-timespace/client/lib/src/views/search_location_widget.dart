@@ -5,20 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong/latlong.dart';
+import 'package:mod_timespace/src/map_buttons_plugin.dart';
 import 'package:synchronized/synchronized.dart';
 
 class OSMLocationData {
   final String displayName;
   final double lat;
   final double lon;
+  final Map<String, dynamic> address;
 
-  OSMLocationData(this.displayName, this.lat, this.lon);
+  OSMLocationData(this.displayName, this.lat, this.lon, this.address);
 
   static OSMLocationData fromJson(Map<String, dynamic> jsonMap) {
     String displayName = jsonMap["display_name"];
     double lat = double.tryParse(jsonMap["lat"]);
     double lon = double.tryParse(jsonMap["lon"]);
-    return OSMLocationData(displayName, lat, lon);
+    Map<String, dynamic> address =
+        Map<String, dynamic>.from(jsonMap["address"]);
+    return OSMLocationData(displayName, lat, lon, address);
   }
 
   @override
@@ -35,9 +39,10 @@ class SearchLocationWidget extends StatefulWidget {
   const SearchLocationWidget(
       {Key key,
       @required this.onLocationChanged,
-        this.showDebugInformation = false,
+      this.showDebugInformation = false,
       this.decoration = const InputDecoration()})
-      : super(key: key);
+      : assert(onLocationChanged != null),
+        super(key: key);
 
   @override
   _SearchLocationWidgetState createState() => _SearchLocationWidgetState();
@@ -90,7 +95,8 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
         if (widget.showDebugInformation && _actualPlace != null) ...[
           Text("Debug:"),
           Text("Displayname: ${_actualPlace.displayName}"),
-          Text("Lat: ${_actualPlace.lat}, Lon: ${_actualPlace.lon}")
+          Text("Lat: ${_actualPlace.lat}, Lon: ${_actualPlace.lon}"),
+          Text("Address: ${_actualPlace.address}"),
         ]
       ]);
     });
@@ -111,16 +117,19 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
           child: ListTile(
             title: Text(places[index].displayName),
             onTap: () {
-              var place = places[index];
-              lastSearch = place.displayName;
-              _searchTextController.text = place.displayName;
-              setState(() {
-                _actualLocation = LatLng(place.lat, place.lon);
-                _mapController.move(_actualLocation, 12);
-                places = null;
-                _actualPlace = place;
+              //avoid race conditions because of places
+              lock.synchronized(() async {
+                var place = places[index];
+                lastSearch = place.displayName;
+                _searchTextController.text = place.displayName;
+                setState(() {
+                  _actualLocation = LatLng(place.lat, place.lon);
+                  _mapController.move(_actualLocation, 12);
+                  places = null;
+                  _actualPlace = place;
+                });
+                widget.onLocationChanged(place);
               });
-              widget.onLocationChanged(place);
             },
           ),
         ),
@@ -132,15 +141,19 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
   Widget _getMap() => FlutterMap(
         mapController: _mapController,
         options: MapOptions(
-          center: _actualLocation,
-          zoom: 13.0,
-        ),
+            center: _actualLocation, zoom: 12.0, plugins: [MapButtonsPlugin()]),
         layers: [
           TileLayerOptions(
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             subdomains: ['a', 'b', 'c'],
             tileProvider: NonCachingNetworkTileProvider(),
           ),
+          MapButtonsPluginOption(
+              minZoom: 4,
+              maxZoom: 19,
+              mini: true,
+              padding: 10,
+              alignment: Alignment.bottomRight),
           MarkerLayerOptions(
             markers: [
               Marker(
@@ -166,7 +179,8 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
       final url =
           "https://nominatim.openstreetmap.org/search?q=${_searchTextController.text.replaceAll(RegExp(' '), '+')}&format=json&addressdetails=1";
       final response = await http.get(url);
-      print("loading places.. time: ${DateTime.now()}, response: ${response.body}");
+      print(
+          "loading places.. time: ${DateTime.now()}, response: ${response.body}");
       final jsonObject = json.decode(response.body);
       final places = List<OSMLocationData>();
       (jsonObject as List).forEach((element) {
