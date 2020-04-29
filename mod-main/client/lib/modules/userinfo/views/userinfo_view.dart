@@ -57,6 +57,7 @@ class UserInfoView extends StatelessWidget {
               */
               SearchLocationWidget(
                 decoration: InputDecoration(hintText: "Location"),
+                showDebugInformation: true,
                 onLocationChanged: (value) {
                   print("SearchLocationWidget picked : $value");
                 },

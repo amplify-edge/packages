@@ -30,10 +30,12 @@ class OSMLocationData {
 class SearchLocationWidget extends StatefulWidget {
   final ValueChanged<OSMLocationData> onLocationChanged;
   final InputDecoration decoration;
+  final bool showDebugInformation;
 
   const SearchLocationWidget(
       {Key key,
       @required this.onLocationChanged,
+        this.showDebugInformation = false,
       this.decoration = const InputDecoration()})
       : super(key: key);
 
@@ -85,7 +87,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
             ],
           ),
         ),
-        if (!kReleaseMode && _actualPlace != null) ...[
+        if (widget.showDebugInformation && _actualPlace != null) ...[
           Text("Debug:"),
           Text("Displayname: ${_actualPlace.displayName}"),
           Text("Lat: ${_actualPlace.lat}, Lon: ${_actualPlace.lon}")
@@ -161,10 +163,10 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
     lock.synchronized(() async {
       if (_searchTextController.text == lastSearch ||
           _searchTextController.text.isEmpty) return;
-      print("loading places.. time: ${DateTime.now()}");
       final url =
           "https://nominatim.openstreetmap.org/search?q=${_searchTextController.text.replaceAll(RegExp(' '), '+')}&format=json&addressdetails=1";
       final response = await http.get(url);
+      print("loading places.. time: ${DateTime.now()}, response: ${response.body}");
       final jsonObject = json.decode(response.body);
       final places = List<OSMLocationData>();
       (jsonObject as List).forEach((element) {
