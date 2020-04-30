@@ -51,7 +51,6 @@ class SupportRoleView extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0),
               Expanded(
                 child: _buildSupportRolesList(context, model),
               ),
@@ -81,18 +80,15 @@ class SupportRoleView extends StatelessWidget {
           return _getNextButton(context, model);
         } else {
           SupportRole sp = model.supportRoles[index];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DynamicSlider(
-              title: sp.name,
-              question: sp.description,
-              current: model.minHours[sp.id] ?? 0.0,
-              min: 0.0,
-              max: 8.0,
-              callbackInjection: (String value) {
-                model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
-              },
-            ),
+          return DynamicSlider(
+            title: sp.name,
+            question: sp.description,
+            current: model.minHours[sp.id] ?? 0.0,
+            min: 0.0,
+            max: 8.0,
+            callbackInjection: (String value) {
+              model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
+            },
           );
         }
       },
