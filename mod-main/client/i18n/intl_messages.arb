@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-04-24T19:09:43.518976",
+  "@@last_modified": "2020-04-30T19:14:58.349565",
   "country": "Country",
   "@country": {
     "description": "Country",
@@ -27,6 +27,12 @@
   "category": "Category",
   "@category": {
     "description": "Category",
+    "type": "text",
+    "placeholders": {}
+  },
+  "campaignName": "Campaign Name",
+  "@campaignName": {
+    "description": "campaignName",
     "type": "text",
     "placeholders": {}
   },
@@ -135,6 +141,18 @@
   "ready": "Ready",
   "@ready": {
     "description": "Ready",
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectCampaign": "Select Campaign",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "type": "text",
+    "placeholders": {}
+  },
+  "campaignDetails": "Campaign Details",
+  "@campaignDetails": {
+    "description": "campaignDetails",
     "type": "text",
     "placeholders": {}
   },

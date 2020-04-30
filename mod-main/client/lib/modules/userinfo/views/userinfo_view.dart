@@ -11,19 +11,22 @@ class UserInfoView extends StatelessWidget {
     return ViewModelProvider.withConsumer(
       viewModel: UserInfoViewModel(),
       builder: (context, UserInfoViewModel model, child) => Scaffold(
-        appBar: AppBar(),
+          appBar: AppBar(
+              title: Text(
+                  ModMainLocalizations.of(context).translate('whereAreYou'))),
           body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '1. ' +
-                    ModMainLocalizations.of(context).translate('whereAreYou'),
-                style: Theme.of(context).textTheme.title,
-              ),
-              /*
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  /*Text(
+                    '1. ' +
+                        ModMainLocalizations.of(context)
+                            .translate('whereAreYou'),
+                    style: Theme.of(context).textTheme.title,
+                  ),*/
+                  /*
               --------------- THIS IS may useful in the future
               --------------- old flow:
 
@@ -56,14 +59,14 @@ class UserInfoView extends StatelessWidget {
               ),
              ---------------
               */
-              SearchLocationWidget(
-                decoration: InputDecoration(hintText: "Location"),
-                showDebugInformation: true,
-                onLocationChanged: (value) {
-                  print("SearchLocationWidget picked : $value");
-                },
-              ),
-              /*
+                  SearchLocationWidget(
+                    decoration: InputDecoration(hintText: "Location"),
+                    showDebugInformation: true,
+                    onLocationChanged: (value) {
+                      print("SearchLocationWidget picked : $value");
+                    },
+                  ),
+                  /*
               const SizedBox(height: 48.0),
               Text(
                 '2. Travel distance you can afford?',
@@ -101,24 +104,24 @@ class UserInfoView extends StatelessWidget {
                 }, model.selectedCampaignAffiliation,
                     model.campaignAffiliations),
               */
-              const SizedBox(height: 48.0),
-              ButtonBar(
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                      model.navigateNext();
-                    },
-                    child: Text(
-                        ModMainLocalizations.of(context).translate('next')),
+                  const SizedBox(height: 48.0),
+                  ButtonBar(
+                    children: <Widget>[
+                      RaisedButton(
+                        onPressed: () {
+                          model.navigateNext();
+                        },
+                        child: Text(
+                            ModMainLocalizations.of(context).translate('next')),
+                      ),
+                    ],
                   ),
                 ],
+                // ),
+                //   ),
               ),
-            ],
-            // ),
-            //   ),
-          ),
-        ),
-      )),
+            ),
+          )),
     );
   }
 

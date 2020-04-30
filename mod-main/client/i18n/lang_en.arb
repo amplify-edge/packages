@@ -30,6 +30,24 @@
     "placeholders": {},
     "type": "text"
   },
+    "campaignName": "Campaign Name",
+    "@campaignName": {
+      "description": "Campaign Name",
+      "placeholders": {},
+      "type": "text"
+    },
+    "selectCampaign": "Select Campaign",
+    "@selectCampaign": {
+      "description": "Select Campaign",
+      "placeholders": {},
+      "type": "text"
+    },
+    "campaignDetails": "Campaign Details",
+    "@campaignDetails": {
+      "description": "Campaign Details",
+      "placeholders": {},
+      "type": "text"
+    },
   "noCampaigns": "No Campaigns",
   "@noCampaigns": {
     "description": "No Campaigns",

@@ -40,10 +40,9 @@ class UserNeedsView extends StatelessWidget {
                           model.org.campaignName,
                           style: Theme.of(context).textTheme.title,
                         ),
+                        isThreeLine: true,
                         subtitle: Text(
-                          model.org.goal,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                          model.org.goal
                         ),
                       ),
                     ),

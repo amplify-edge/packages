@@ -52,6 +52,15 @@ class Translations {
     );
   }
 
+  String campaignName() {
+    return Intl.message(
+      'Campaign Name',
+      name: 'campaignName',
+      desc: 'campaignName',
+      locale: locale.toString(),
+    );
+  }
+
   String noCampaigns() {
     return Intl.message(
       'No Campaigns',
@@ -211,6 +220,24 @@ class Translations {
       'Ready',
       name: 'ready',
       desc: 'Ready',
+      locale: locale.toString(),
+    );
+  }
+
+  String selectCampaign() {
+    return Intl.message(
+      'Select Campaign',
+      name: 'selectCampaign',
+      desc: 'Select Campaign',
+      locale: locale.toString(),
+    );
+  }
+
+  String campaignDetails() {
+    return Intl.message(
+      'Campaign Details',
+      name: 'campaignDetails',
+      desc: 'campaignDetails',
       locale: locale.toString(),
     );
   }
