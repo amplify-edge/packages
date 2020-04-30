@@ -5,12 +5,9 @@ import 'package:mod_main/core/shared_repositories/mocks/mock_support_role_answer
 import 'package:mod_main/core/shared_repositories/mocks/mock_support_role_repository.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_user_need_answer_repository.dart';
 import 'package:mod_main/core/shared_repositories/mocks/mock_user_need_repository.dart';
+import 'package:mod_main/modules/org_manager/orgs/views/org_master_detail_view.dart';
 import 'package:mod_main/modules/support_roles/services/support_role_answer_service.dart';
 import 'package:mod_main/modules/user_needs/services/user_need_answer_service.dart';
-import 'org_manager/orgs/views/org_detail_page.dart';
-import 'org_manager/orgs/views/org_manager_detail_view.dart';
-import 'org_manager/orgs/views/org_master_page.dart';
-import 'org_manager/orgs/views/orgs_manager_master_view.dart';
 import 'orgs/service/orgs_service.dart';
 import 'orgs/views/org_view.dart';
 import 'user_needs/services/user_need_service.dart';
@@ -58,14 +55,8 @@ class MainAppModule extends ChildModule{
     Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
-    Router("/dashboard/orgs", child: (_, args) => OrgManagerMasterView()),
-    Router("/dashboard/orgs/:id", child: (_, args) {
-      int id = int.tryParse(args.params['id']) ?? -1;
-      return OrgManagerDetailView(
-        masterWidget: OrgMasterPage(orgID: id,),
-        detailWidget: OrgDetailPage(orgID: id,),
-      );
-    }),
+    Router("/dashboard/orgs", child: (_, args) => OrgMasterDetailView()),
+    Router("/dashboard/orgs/:id", child: (_, args) => OrgMasterDetailView(id: int.tryParse(args.params['id']) ?? -1,)),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();

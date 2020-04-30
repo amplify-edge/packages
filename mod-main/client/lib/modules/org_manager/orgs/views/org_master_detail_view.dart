@@ -3,21 +3,67 @@ import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
 import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
-import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_master_page_view_model.dart';
 import 'package:mod_main/modules/org_manager/orgs/widgets/data_pane/data_pane.dart';
-
 import 'package:mod_main/modules/org_manager/orgs/widgets/filter_pane.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:floating_search_bar/ui/sliver_search_bar.dart';
+import 'package:sys_core/sys_core.dart';
 
-class OrgDetailPage extends StatelessWidget {
-  final int orgID;
+class OrgMasterDetailView extends StatelessWidget {
+  final int id;
+  final List<String> orgs = const [
+    "London Tax Strike 1",
+    "London Tax Strike 2",
+    "London Tax Strike 3"
+  ];
 
-  const OrgDetailPage({Key key, this.orgID}) : super(key: key);
+  OrgMasterDetailView({Key key, this.id = -1}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("Detail : ${ModalRoute.of(context).settings.name}");
+    return GetCourageMasterDetail(
+      id: id,
+      routeWithIdPlaceholder: Modular.get<Paths>().org,
+      masterBuilder: _getMasterView,
+      detailsBuilder: _getDetailsView,
+    );
+  }
+
+  Widget _getMasterView(
+      BuildContext context, int detailsId, void Function(int) onItemClicked) {
+    return CustomScrollView(
+      slivers: <Widget>[
+        const SliverPadding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          sliver: SliverFloatingBar(
+            elevation: 1.0,
+            floating: true,
+            pinned: true,
+            automaticallyImplyLeading: false,
+            title: TextField(
+              decoration:
+                  InputDecoration.collapsed(hintText: 'Search Campaigns'),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate((context, int index) {
+            return ListTile(
+              title: Text(orgs[index]),
+              selected: index == detailsId,
+              onTap: () {
+                print("onItemClicked: $index");
+                onItemClicked(index);
+              },
+            );
+          }, childCount: orgs.length),
+        ),
+      ],
+    );
+  }
+
+  Widget _getDetailsView(BuildContext context, int detailsId) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgsViewModel(),
       builder: (context, OrgsViewModel model, child) => ResponsiveBuilder(
@@ -28,7 +74,7 @@ class OrgDetailPage extends StatelessWidget {
               // iconTheme: Theme.of(context).iconTheme,
               automaticallyImplyLeading:
                   (sizingInfo.screenSize.width > 1100) ? false : true,
-              title: Text(OrgMasterPageViewModel().orgs[orgID]),
+              title: Text(orgs[detailsId]),
               // this the mock data
               actions: <Widget>[
                 IconButton(
@@ -36,7 +82,7 @@ class OrgDetailPage extends StatelessWidget {
                     icon: Icon(Icons.link),
                     onPressed: () async {
                       String link =
-                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "${orgID}")}";
+                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "${detailsId}")}";
                       // ${Modular.get<Paths>().org.replaceAll(":id", "$index")
                       print(Modular.get<Paths>().baseRoute);
                       await Clipboard.setData(new ClipboardData(text: link));
