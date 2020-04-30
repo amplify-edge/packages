@@ -25,7 +25,10 @@ class DynamicDropdownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     List<DropdownMenuItem<String>> dropdownItems = _data.keys
         .map((question) =>
-            DropdownMenuItem(child: Text(question), value: question))
+            DropdownMenuItem(child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(question),
+            ), value: question))
         .toList();
 
     return Padding(

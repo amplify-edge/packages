@@ -12,9 +12,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body:Center(child: CountryPickerWidget(),)
-      ),
-      
+          body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CountryPickerWidget(),
+          SearchLocationWidget(onLocationChanged: (_){},showDebugInformation: true,),
+        ],
+      )),
     );
   }
 }
