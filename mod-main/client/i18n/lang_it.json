@@ -191,5 +191,11 @@
     "description": "Support Roles",
     "placeholders": {},
     "type": "text"
+  },
+  "aboutYou": "A Proposito Di Te",
+  "@aboutYou": {
+    "description": "About You",
+    "placeholders": {},
+    "type": "text"
   }
 }
