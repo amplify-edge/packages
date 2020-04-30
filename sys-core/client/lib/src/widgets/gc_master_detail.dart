@@ -50,13 +50,17 @@ class _GetCourageMasterDetailState extends State<GetCourageMasterDetail> {
     return Material(
       child: Row(
         children: <Widget>[
-          (showMaster)
-              ? SizedBox(
-                  width: kTabletMasterContainerWidth,
-                  child: widget.masterBuilder(
-                      context, widget.id, _pushDetailsRoute),
-                )
-              : Offstage(),
+          if (showMaster)
+            (isMobilePhone) // take the whole width
+                ? Expanded(
+                    child: widget.masterBuilder(
+                        context, widget.id, _pushDetailsRoute),
+                  )
+                : SizedBox( // fix width size for tablet or desktop
+                    width: kTabletMasterContainerWidth,
+                    child: widget.masterBuilder(
+                        context, widget.id, _pushDetailsRoute),
+                  ),
           if (showDetails)
             (isItemSelected)
                 ? Expanded(
