@@ -11,6 +11,7 @@ class UserInfoView extends StatelessWidget {
     return ViewModelProvider.withConsumer(
       viewModel: UserInfoViewModel(),
       builder: (context, UserInfoViewModel model, child) => Scaffold(
+        appBar: AppBar(),
           body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

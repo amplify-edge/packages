@@ -21,6 +21,7 @@ class SignUpViewState extends State<SignUpView> {
       viewModel: SignUpViewModel(),
       builder: (context, SignUpViewModel model, child) =>
            Scaffold(
+             appBar: AppBar(),
             body: ListView(
           children: <Widget>[
             const SizedBox(height: 16.0),

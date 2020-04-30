@@ -15,6 +15,7 @@ class OrgView extends StatelessWidget {
       viewModel: OrgViewModel(),
       builder: (context, OrgViewModel model, child) {
         return Scaffold(
+          appBar: AppBar(),
           body: ResponsiveListScaffold.builder(
             scaffoldKey: _scaffoldKey,
             detailBuilder: (context, int index, tablet) {

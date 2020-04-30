@@ -73,11 +73,11 @@ class MaterialNavigationRail extends StatelessWidget {
                     children: <Widget>[
                       Positioned.fill(
                         child: Scaffold(
-                            appBar: AppBar(
+                            /*appBar: AppBar(
                               title: title,
                               actions: actions,
                               automaticallyImplyLeading: false,
-                            ),
+                            ),*/
                             body: body),
                       ),
                       if (this.floatingActionButton != null) ...[
@@ -102,7 +102,7 @@ class MaterialNavigationRail extends StatelessWidget {
         if (dimens.maxWidth >= this.tabletBreakpoint &&
             dimens.maxHeight > this.minHeight) {
           return Scaffold(
-            appBar: AppBar(
+            /*appBar: AppBar(
                 title: title,
                 actions: actions,
                 automaticallyImplyLeading: false,
@@ -117,35 +117,34 @@ class MaterialNavigationRail extends StatelessWidget {
                     this.drawerFooterBuilder != null)
                 ? _buildDrawer(context, false)
                 : null,
+             */
             body: Row(
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      if (this.floatingActionButton != null) ...[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: _tabletSpacingVertical,
-                            horizontal: _tabletSpacingHorizontial,
-                          ),
-                          child: floatingActionButton,
-                        )
-                      ],
-                      for (var tab in this.tabs) ...[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: _tabletSpacingVertical,
-                            horizontal: _tabletSpacingHorizontial,
-                          ),
-                          child: _buildTab(
-                              selected:
-                                  (currentIndex == this.tabs.indexOf(tab)),
-                              context: context,
-                              item: tab),
+                Column(
+                  children: [
+                    if (this.floatingActionButton != null) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: _tabletSpacingVertical,
+                          horizontal: _tabletSpacingHorizontial,
                         ),
-                      ]
+                        child: floatingActionButton,
+                      )
                     ],
-                  ),
+                    for (var tab in this.tabs) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: _tabletSpacingVertical,
+                          horizontal: _tabletSpacingHorizontial,
+                        ),
+                        child: _buildTab(
+                            selected:
+                                (currentIndex == this.tabs.indexOf(tab)),
+                            context: context,
+                            item: tab),
+                      ),
+                    ]
+                  ],
                 ),
                 Expanded(
                   child: body,
@@ -157,7 +156,7 @@ class MaterialNavigationRail extends StatelessWidget {
 
         //PHONE
         return Scaffold(
-            appBar: AppBar(
+            /*appBar: AppBar(
                 title: title,
                 actions: actions,
                 automaticallyImplyLeading: false,
@@ -171,6 +170,7 @@ class MaterialNavigationRail extends StatelessWidget {
             drawer: drawerHeaderBuilder != null || drawerFooterBuilder != null
                 ? _buildDrawer(context, false)
                 : null,
+             */
             body: body,
             floatingActionButton: floatingActionButton,
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -284,7 +284,7 @@ class MaterialNavigationRail extends StatelessWidget {
 
     final _icon = Align(
       alignment: Alignment.topCenter,
-      heightFactor: 1.0,
+      heightFactor: 1.2,
       child: IconTheme(
         data: _iconTheme,
         child: item.icon,
@@ -304,7 +304,7 @@ class MaterialNavigationRail extends StatelessWidget {
       );
     }
     return IconButton(
-      iconSize: 50,
+      iconSize: 51,
       onPressed: () {
         onPressed(tabs.indexOf(item));
         item.onTap();
