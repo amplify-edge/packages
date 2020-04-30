@@ -18,69 +18,71 @@ class SettingsViewWeb extends StatelessWidget {
           AppLocalizations.of(context).tabSettings()
           ),
       ),
-      body: Column(children: [
-       
-        ListTile(
-          leading: Icon(Icons.palette),
-          title: Text(
-            AppLocalizations.of(context).changeThemeSet()
+      body: SingleChildScrollView(
+        child: Column(children: [
+
+          ListTile(
+            leading: Icon(Icons.palette),
+            title: Text(
+              AppLocalizations.of(context).changeThemeSet()
+              ),
+            trailing: DropdownButton<ThemeMode>(
+              value: model.themeMode,
+              onChanged: (ThemeMode value) {
+                model.changeTheme(value);
+              },
+              items: ThemeMode.values
+                  .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
+                return DropdownMenuItem<ThemeMode>(
+                  value: value,
+                  child: Text(
+                      value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
+                );
+              }).toList(),
             ),
-          trailing: DropdownButton<ThemeMode>(
-            value: model.themeMode,
-            onChanged: (ThemeMode value) {
-              model.changeTheme(value);
-            },
-            items: ThemeMode.values
-                .map<DropdownMenuItem<ThemeMode>>((ThemeMode value) {
-              return DropdownMenuItem<ThemeMode>(
-                value: value,
-                child: Text(
-                    value.toString().replaceAll(RegExp(r'ThemeMode.'), '')),
-              );
-            }).toList(),
           ),
-        ),
-         ListTile(
-          leading: Icon(Icons.language),
-          title:  Text(
-            AppLocalizations.of(context).changeLanguageSet()
+           ListTile(
+            leading: Icon(Icons.language),
+            title:  Text(
+              AppLocalizations.of(context).changeLanguageSet()
+              ),
+            trailing: DropdownButton<Locale>(
+              value: model.locale,
+              onChanged: (Locale value) {
+                model.changeLanguage(value);
+              },
+              items: model.supportedLocales
+                  .map<DropdownMenuItem<Locale>>((Locale value) {
+                return DropdownMenuItem<Locale>(
+                  value: value,
+                  child: Text(
+                      model.languageNameLookup(value)),
+                );
+              }).toList(),
             ),
-          trailing: DropdownButton<Locale>(
-            value: model.locale,
-            onChanged: (Locale value) {
-              model.changeLanguage(value);
-            },
-            items: model.supportedLocales
-                .map<DropdownMenuItem<Locale>>((Locale value) {
-              return DropdownMenuItem<Locale>(
-                value: value,
-                child: Text(
-                    model.languageNameLookup(value)),
-              );
-            }).toList(),
           ),
-        ),
-        ListTile(
-          title: Text("Channel"),
-          subtitle: Text(env.channel),
-        ),
-        ListTile(
-          title: Text("Url"),
-          subtitle: Text(env.url),
-        ),
-        ListTile(
-          title: Text("UrlNative"),
-          subtitle: Text(env.urlNative),
-        ),
-        ListTile(
-          title: Text("GitHash"),
-          subtitle: Text(env.gitHash),
-        ),
-        ListTile(
-          title: Text("Flutter channel"),
-          subtitle: Text(env.flutterChannel),
-        ),
-      ]),
+          ListTile(
+            title: Text("Channel"),
+            subtitle: Text(env.channel),
+          ),
+          ListTile(
+            title: Text("Url"),
+            subtitle: Text(env.url),
+          ),
+          ListTile(
+            title: Text("UrlNative"),
+            subtitle: Text(env.urlNative),
+          ),
+          ListTile(
+            title: Text("GitHash"),
+            subtitle: Text(env.gitHash),
+          ),
+          ListTile(
+            title: Text("Flutter channel"),
+            subtitle: Text(env.flutterChannel),
+          ),
+        ]),
+      ),
     );
   }
 }
