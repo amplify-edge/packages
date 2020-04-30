@@ -55,6 +55,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
   // to control the map e.g. to move
   MapController _mapController = MapController();
   TextEditingController _searchTextController;
+  FocusNode _textFieldFocusNode = FocusNode();
 
   // current suggestions
   List<OSMLocationData> places;
@@ -103,6 +104,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
   }
 
   Widget _getTextField() => TextField(
+    focusNode: _textFieldFocusNode,
       controller: _searchTextController, decoration: widget.decoration);
 
   /*
@@ -122,6 +124,7 @@ class _SearchLocationWidgetState extends State<SearchLocationWidget> {
                 var place = places[index];
                 lastSearch = place.displayName;
                 _searchTextController.text = place.displayName;
+                _textFieldFocusNode.unfocus();
                 setState(() {
                   _actualLocation = LatLng(place.lat, place.lon);
                   _mapController.move(_actualLocation, 12);

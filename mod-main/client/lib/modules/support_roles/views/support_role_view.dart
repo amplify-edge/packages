@@ -11,6 +11,7 @@ class SupportRoleView extends StatelessWidget {
   final String orgId;
 
   SupportRoleView({Key key, this.orgId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
@@ -18,63 +19,68 @@ class SupportRoleView extends StatelessWidget {
         model.fetchOrgById(orgId);
       },
       viewModel: SupportRoleViewModel(),
-      builder: (context, SupportRoleViewModel model, child) => Scaffold(
-        appBar: AppBar(
-          title:
+      builder: (context, SupportRoleViewModel model, child) =>
+          Scaffold(
+            appBar: AppBar(
+              title:
               Text(ModMainLocalizations.of(context).translate('supportRoles')),
-          centerTitle: true,
-        ),
-        body: (model.buzy)
-            ? Center(child: Offstage())
-            : Column(children: [
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(model.org.logoUrl),
-                      ),
-                      title: Text(
-                        model.org.campaignName,
-                        style: Theme.of(context).textTheme.title,
-                      ),
-                      subtitle: Text(
-                        model.org.goal,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+              centerTitle: true,
+            ),
+            body: (model.buzy)
+                ? Center(child: Offstage())
+                : Column(children: [
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(model.org.logoUrl),
+                    ),
+                    title: Text(
+                      model.org.campaignName,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .title,
+                    ),
+                    subtitle: Text(
+                      model.org.goal,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                Expanded(
-                  child: _buildSupportRolesList(context, model),
-                ),
-                const SizedBox(height: 16.0),
-                ButtonBar(children: [
-                  RaisedButton(
-                    onPressed: () {
-                      model.save();
-                      Modular.to.pushNamed('/account/signup');
-                    },
-                    child: Text(
-                        ModMainLocalizations.of(context).translate('next')),
-                  )
-                ]),
-              ]),
-      ),
+              ),
+              Expanded(
+                child: _buildSupportRolesList(context, model),
+              ),
+            ]),
+          ),
     );
   }
+
+  Widget _getNextButton(BuildContext context, SupportRoleViewModel model) =>
+      ButtonBar(children: [
+        RaisedButton(
+          onPressed: () {
+            model.save();
+            Modular.to.pushNamed('/account/signup');
+          },
+          child: Text(ModMainLocalizations.of(context).translate('next')),
+        )
+      ]);
 
   Widget _buildSupportRolesList(context, SupportRoleViewModel model) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: model.supportRoles.length,
+      itemCount: model.supportRoles.length + 1, // +1 is for the next button
       itemBuilder: (BuildContext context, int index) {
-        SupportRole sp = model.supportRoles[index];
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DynamicSlider(
+        //add next button as last item to the list
+        if (index == model.supportRoles.length) {
+          return _getNextButton(context, model);
+        } else {
+          SupportRole sp = model.supportRoles[index];
+          return DynamicSlider(
             title: sp.name,
             question: sp.description,
             current: model.minHours[sp.id] ?? 0.0,
@@ -83,8 +89,8 @@ class SupportRoleView extends StatelessWidget {
             callbackInjection: (String value) {
               model.selectMinHours(double.tryParse(value) ?? 0.0, sp.id);
             },
-          ),
-        );
+          );
+        }
       },
     );
   }
