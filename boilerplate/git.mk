@@ -1,34 +1,30 @@
 
 # git reflection
-REPO_NAME=$(notdir $(shell pwd))
-UPSTREAM_ORG=getcouragenow
-FORK_ORG=$(shell basename $(dir $(abspath $(dir $$PWD))))
+GIT_REPO_NAME=$(notdir $(shell pwd))
+GIT_UPSTREAM_ORG=getcouragenow
+GIT_FORK_ORG=$(shell basename $(dir $(abspath $(dir $$PWD))))
 
 # hardcoded git
 GIT_SERVER=github.com
 
-ABS_REPO_FSPATH=$(GOPATH)/src/$(GIT_SERVER)/$(FORK_ORG)/$(REPO_NAME)
+GIT_ABS_REPO_FSPATH=$(GOPATH)/src/$(GIT_SERVER)/$(GIT_FORK_ORG)/$(GIT_REPO_NAME)
 
 # remove the "v" prefix
-VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
-
-help:  ## Display this help
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+GIT_VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 
 
-git-print:
+
+
+## Prints the git setting
+git-print: ## git-print
 	@echo
 	@echo -- GIT --
-	@echo FORK_ORG: $(FORK_ORG)
-	@echo UPSTREAM_ORG: 		$(UPSTREAM_ORG)
-	@echo REPO_NAME: 			$(REPO_NAME)
-	@echo GIT_SERVER: 			$(GIT_SERVER)
-	@echo
-
-	@echo -- FSPATHS -- 
-	@echo ABS_WORK_FSPATH: 		$(GOPATH)
-	@echo ABS_REPO_FSPATH: 		$(ABS_REPO_FSPATH)
-	@echo PWD: 					$(PWD)
+	@echo GIT_FORK_ORG: 			$(GIT_FORK_ORG)
+	@echo GIT_UPSTREAM_ORG: 		$(GIT_UPSTREAM_ORG)
+	@echo GIT_REPO_NAME: 			$(GIT_REPO_NAME)
+	@echo GIT_SERVER: 				$(GIT_SERVER)
+	@echo GIT_VERSION: 				$(GIT_VERSION)
+	@echo GIT_ABS_REPO_FSPATH: 		$(GIT_ABS_REPO_FSPATH)
 	@echo
 
 
@@ -38,21 +34,21 @@ git-print:
 
 
 git-upstream-open: ## git-upstream-open
-	open https://$(GIT_SERVER)/$(UPSTREAM_ORG)/$(REPO_NAME).git 
+	open https://$(GIT_SERVER)/$(GIT_UPSTREAM_ORG)/$(GIT_REPO_NAME).git 
 	
 
-
+## Opens the forked git server.
 git-fork-open: ## git-fork-open
-	open https://$(GIT_SERVER)/$(FORK_ORG)/$(REPO_NAME).git
+	open https://$(GIT_SERVER)/$(GIT_FORK_ORG)/$(GIT_REPO_NAME).git
 
-git-status:
-	git status
 
+## Sets up the git fork locally.
 git-fork-setup: ## git-fork-setup
 	# Pre: you git forked ( via web) and git cloned (via ssh)
 	# add upstream repo
-	git remote add upstream git://$(GIT_SERVER)/$(UPSTREAM_ORG)/$(REPO_NAME).git
+	git remote add upstream git://$(GIT_SERVER)/$(GIT_UPSTREAM_ORG)/$(GIT_REPO_NAME).git
 
+## Sync upstream with your fork. Use this to make a PR.
 git-fork-catchup: ## git-fork-catchup
 	# This fetches the branches and their respective commits from the upstream repository.
 	git fetch upstream 
@@ -63,16 +59,18 @@ git-fork-catchup: ## git-fork-catchup
 
 ## GIT-TAG
 
+## Create a tag.
 git-tag-create: ## git-tag-create
 	# this will create a local tag on your current branch and push it to Github.
 
-	git tag $(TAG_NAME)
+	git tag $(GIT_TAG_NAME)
 
 	# push it up
 	git push origin --tags
 
+## Deletes a tag.
 git-tag-delete: ## git-tag-delete
 	# this will delete a local tag and push that to Github
 
-	git push --delete origin $(TAG_NAME)
-	git tag -d $(TAG_NAME)
+	git push --delete origin $(GIT_TAG_NAME)
+	git tag -d $(GIT_TAG_NAME)
