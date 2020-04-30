@@ -209,5 +209,11 @@
     "description": "Support Roles",
     "placeholders": {},
     "type": "text"
+  },
+  "aboutYou": "About You",
+  "@aboutYou": {
+    "description": "About You",
+    "placeholders": {},
+    "type": "text"
   }
 }

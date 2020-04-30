@@ -191,5 +191,11 @@
     "description": "Support Roles",
     "placeholders": {},
     "type": "text"
+  },
+  "aboutYou": "Au Propos De Vous",
+  "@aboutYou": {
+    "description": "About You",
+    "placeholders": {},
+    "type": "text"
   }
 }

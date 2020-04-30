@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mod_timespace/mod_timespace.dart';
-
-import 'package:provider_architecture/provider_architecture.dart';
-import '../view_model/userinfo_view_model.dart';
 import 'package:mod_main/core/core.dart';
+import 'package:mod_timespace/mod_timespace.dart';
+import 'package:provider_architecture/provider_architecture.dart';
+
+import '../view_model/userinfo_view_model.dart';
 
 class UserInfoView extends StatelessWidget {
   @override
@@ -12,20 +12,20 @@ class UserInfoView extends StatelessWidget {
       viewModel: UserInfoViewModel(),
       builder: (context, UserInfoViewModel model, child) => Scaffold(
           appBar: AppBar(
-              title: Text(
-                  ModMainLocalizations.of(context).translate('whereAreYou'))),
+              title:
+                  Text(ModMainLocalizations.of(context).translate('aboutYou'))),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  /*Text(
+                  Text(
                     '1. ' +
                         ModMainLocalizations.of(context)
                             .translate('whereAreYou'),
                     style: Theme.of(context).textTheme.title,
-                  ),*/
+                  ),
                   /*
               --------------- THIS IS may useful in the future
               --------------- old flow:
@@ -66,44 +66,37 @@ class UserInfoView extends StatelessWidget {
                       print("SearchLocationWidget picked : $value");
                     },
                   ),
-                  /*
-              const SizedBox(height: 48.0),
-              Text(
-                '2. Travel distance you can afford?',
-                style: Theme.of(context).textTheme.title,
-              ),
-              const SizedBox(height: 8.0),
-            
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Distance in KM',
-                ),
-              ),
-              
-              const SizedBox(height: 48.0),
-              Text(
-                '3. Age',
-                style: Theme.of(context).textTheme.title,
-              ),
-               const SizedBox(height: 8.0),
-             
-              _select((value) {
-                model.changeAge(value);
-              }, model.selectedAge, model.age),
-             
-              const SizedBox(height: 48.0),
-              Text(
-                '4. Any Campaign Affiliations ?',
-                style: Theme.of(context).textTheme.title,
-              ),
-               const SizedBox(height: 8.0),
-             
-               _select((value) {
-                  model.changeAffiliation(value);
-                }, model.selectedCampaignAffiliation,
-                    model.campaignAffiliations),
-              */
+                  const SizedBox(height: 48.0),
+                  Text(
+                    '2. Travel distance you can afford?',
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  const SizedBox(height: 8.0),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      hintText: 'Distance in KM',
+                    ),
+                  ),
+                  const SizedBox(height: 48.0),
+                  Text(
+                    '3. Age',
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  const SizedBox(height: 8.0),
+                  _select((value) {
+                    model.changeAge(value);
+                  }, model.selectedAge, model.age),
+                  const SizedBox(height: 48.0),
+                  Text(
+                    '4. Any Campaign Affiliations ?',
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  const SizedBox(height: 8.0),
+                  _select((value) {
+                    model.changeAffiliation(value);
+                  }, model.selectedCampaignAffiliation,
+                      model.campaignAffiliations),
                   const SizedBox(height: 48.0),
                   ButtonBar(
                     children: <Widget>[

@@ -210,4 +210,10 @@
     "type": "text",
     "placeholders": {}
   }
+  "aboutYou": "About You",
+    "@aboutYou": {
+      "description": "About You",
+      "type": "text",
+      "placeholders": {}
+    }
 }
