@@ -25,22 +25,6 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           child: Text("Header"),
         ),
       ),
-      drawerFooterBuilder: (context) {
-        return Column(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text(AppLocalizations.of(context).tabsettings()
-              ),
-              onTap: () {
-                //  Navigator.of(context).pushNamed(Router.settings);
-                // locator<NavigationService>().navigateTo( Router.settings);
-                Modular.to.pushNamed(Paths.settings);
-              },
-            ),
-          ],
-        );
-      },
       body: widget.body,
       bottomNavigationBarSelectedColor:
           (Theme.of(context).brightness == Brightness.dark)
@@ -105,6 +89,15 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
           onTap: () {
             Modular.to.pushNamed(Paths.modGeo);
             print("Writer tapped");
+          },
+        ),
+        TabItem(
+          title: Text(AppLocalizations.of(context).tabsettings()),
+
+          icon: Icon(Icons.settings),
+          onTap: () {
+            Modular.to.pushNamed(Paths.settings);
+            print("Settings tapped");
           },
         ),
         // TabItem(
