@@ -1,4 +1,7 @@
 # CI for building everything: Server, Web, Desktop, Mobile.
+
+# NOTE: Not ready. Needs to be make into a template so it can be reused.
+#
 name: CI
 
 on:
