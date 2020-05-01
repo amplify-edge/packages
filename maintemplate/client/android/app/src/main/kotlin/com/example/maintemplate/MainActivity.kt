@@ -1,4 +1,4 @@
-package com.example.maintemplate
+package org.getcouragenow.maintemplate
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
