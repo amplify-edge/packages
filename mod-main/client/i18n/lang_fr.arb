@@ -191,5 +191,41 @@
     "description": "Support Roles",
     "placeholders": {},
     "type": "text"
-  }
+  },
+     "aboutYou": "Au Propos De Vous",
+     "@aboutYou": {
+       "description": "About You",
+       "placeholders": {},
+       "type": "text"
+     },
+        "location": "Entrez votre emplacement",
+        "@location": {
+          "description": "Enter your location",
+          "placeholders": {},
+          "type": "text"
+        },
+        "travelDistance": "Jusqu'où êtes-vous prêt à voyager?",
+        "@travelDistance": {
+          "description": "How far are you willing to travel?",
+          "placeholders": {},
+          "type": "text"
+        },
+        "distanceInKM": "Entrez la distance en kilomètres",
+        "@distanceInKM": {
+          "description": "Enter distance in kilometers",
+          "placeholders": {},
+          "type": "text"
+        },
+        "age": "Quel âge avez-vous?",
+        "@age": {
+          "description": "How old are you?",
+          "placeholders": {},
+          "type": "text"
+        },
+        "campaignAffiliation": "Avez-vous une affiliation de campagne?",
+        "@campaignAffiliation": {
+          "description": "Do you have a campaign affiliation?",
+          "placeholders": {},
+          "type": "text"
+        }
 }

@@ -197,5 +197,35 @@
     "description": "About You",
     "placeholders": {},
     "type": "text"
+  },
+  "location": "Inserisci la tua posizione",
+  "@location": {
+    "description": "Enter your location",
+    "placeholders": {},
+    "type": "text"
+  },
+  "travelDistance": "Fino a che punto sei disposto a viaggiare?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "distanceInKM": "Inserisci la distanza in chilometri",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "age": "Quanti anni hai?",
+  "@age": {
+    "description": "How old are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignAffiliation": "Hai un'affiliazione alla campagna?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "placeholders": {},
+    "type": "text"
   }
 }
