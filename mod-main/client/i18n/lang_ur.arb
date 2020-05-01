@@ -191,5 +191,41 @@
     "description": "Support Roles",
     "placeholders": {},
     "type": "text"
-  }
+  },
+     "aboutYou": "تمھارے بارے میں",
+     "@aboutYou": {
+       "description": "About You",
+       "placeholders": {},
+       "type": "text"
+     },
+        "location": "اپنا مقام درج کریں",
+        "@location": {
+          "description": "Enter your location",
+          "placeholders": {},
+          "type": "text"
+        },
+        "travelDistance": "آپ کتنا سفر کرنے کے لئے تیار ہیں؟",
+        "@travelDistance": {
+          "description": "How far are you willing to travel?",
+          "placeholders": {},
+          "type": "text"
+        },
+        "distanceInKM": "کلو میٹر میں فاصلہ درج کریں",
+        "@distanceInKM": {
+          "description": "Enter distance in kilometers",
+          "placeholders": {},
+          "type": "text"
+        },
+        "age": "آپ کتنے سال کے ہو؟",
+        "@age": {
+          "description": "How old are you?",
+          "placeholders": {},
+          "type": "text"
+        },
+        "campaignAffiliation": "کیا آپ کی انتخابی مہم وابستگی ہے؟",
+        "@campaignAffiliation": {
+          "description": "Do you have a campaign affiliation?",
+          "placeholders": {},
+          "type": "text"
+        }
 }

@@ -60,7 +60,9 @@ class UserInfoView extends StatelessWidget {
              ---------------
               */
                   SearchLocationWidget(
-                    decoration: InputDecoration(hintText: "Location"),
+                    decoration: InputDecoration(
+                        hintText: ModMainLocalizations.of(context)
+                            .translate('location')),
                     showDebugInformation: true,
                     onLocationChanged: (value) {
                       print("SearchLocationWidget picked : $value");
@@ -68,19 +70,19 @@ class UserInfoView extends StatelessWidget {
                   ),
                   const SizedBox(height: 48.0),
                   Text(
-                    '2. Travel distance you can afford?',
+                    '2. ${ModMainLocalizations.of(context).translate('travelDistanceAfford')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Distance in KM',
-                    ),
+                    decoration: InputDecoration(
+                        hintText: ModMainLocalizations.of(context)
+                            .translate('distanceInKM')),
                   ),
                   const SizedBox(height: 48.0),
                   Text(
-                    '3. Age',
+                    '3. ${ModMainLocalizations.of(context).translate('age')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
@@ -89,7 +91,7 @@ class UserInfoView extends StatelessWidget {
                   }, model.selectedAge, model.age),
                   const SizedBox(height: 48.0),
                   Text(
-                    '4. Any Campaign Affiliations ?',
+                    '4. ${ModMainLocalizations.of(context).translate('campaignAffiliation')}?',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),

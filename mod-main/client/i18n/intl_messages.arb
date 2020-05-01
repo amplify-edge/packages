@@ -215,5 +215,35 @@
       "description": "About You",
       "type": "text",
       "placeholders": {}
-    }
+    },
+       "location": "Enter your location",
+       "@location": {
+         "description": "Enter your location",
+         "placeholders": {},
+         "type": "text"
+       },
+       "travelDistance": "How far are you willing to travel?",
+       "@travelDistance": {
+         "description": "How far are you willing to travel?",
+         "placeholders": {},
+         "type": "text"
+       },
+       "distanceInKM": "Enter distance in kilometers",
+       "@distanceInKM": {
+         "description": "Enter distance in kilometers",
+         "placeholders": {},
+         "type": "text"
+       },
+       "age": "How old are you?",
+       "@age": {
+         "description": "How old are you?",
+         "placeholders": {},
+         "type": "text"
+       },
+       "campaignAffiliation": "Do you have a campaign affiliation?",
+       "@campaignAffiliation": {
+         "description": "Do you have a campaign affiliation?",
+         "placeholders": {},
+         "type": "text"
+       }
 }
