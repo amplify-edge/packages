@@ -8,6 +8,7 @@ Project Web site: https://getcouragenow.org/
 
 Project Docs: https://docs.google.com/document/d/1caq1gSvHqVXVCOCGPsqi7I0fbF-Gdyryd07CL9yJ55o
 
+Dev Team Contact: "winwisely-dev"
 
 ## Developer setup
 
@@ -43,11 +44,11 @@ Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/p
 
 ## Working on an issue
 
-The [Kan Ban](https://github.com/users/winwisely99/projects/1) should be looked at to work out what to work on.
+The [Kan Ban](https://github.com/orgs/getcouragenow/projects/1) should be looked at to work out what to work on.
 
-Is you want to work on an issue, please first ensure that you understand the issue and the suggested approach.
+Is you want to work on an issue, please first ensure that you understand the issue and the suggested approach. Ask the Team on Telegram if your not sure about something or the best way to approach the implementation.
 
-When you take an issue, please assign yourself to it and let everyone know on the Telegram group called "winwisely-dev", so we everyone knows your taking it.
+When you take an issue, please assign yourself to it and let everyone know on the Telegram group, so we everyone knows your taking it.
 
 ## CI and CD
 

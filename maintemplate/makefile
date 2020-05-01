@@ -8,7 +8,7 @@
 # git include
 include ../boilerplate/help.mk
 include ../boilerplate/os.mk
-include ../boilerplate/git.mk
+include ../boilerplate/gitr.mk
 
 include ../boilerplate/flu.mk
 include ../boilerplate/srv.mk
@@ -29,7 +29,7 @@ print: ## print
 
 	$(MAKE) os-print
 	
-	$(MAKE) git-print
+	$(MAKE) gitr-print
 	
 	$(MAKE) flu-print
 

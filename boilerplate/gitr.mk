@@ -25,7 +25,7 @@ GIT_VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 
 
 ## Prints the git setting
-git-print: ## git-print
+gitr-print: ## gitr-print
 	@echo
 	@echo -- GIT Upstream --
 
@@ -54,23 +54,23 @@ git-print: ## git-print
 #See: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork
 
 
-git-upstream-open: ## git-upstream-open
+gitr-upstream-open: ## gitr-upstream-open
 	open https://$(GIT_SERVER)/$(GIT_ORG_UPSTREAM)/$(GIT_REPO_NAME).git 
 	
 
 ## Opens the forked git server.
-git-fork-open: ## git-fork-open
+gitr-fork-open: ## gitr-fork-open
 	open $(GIT_REPO_ABS_URL).git
 
 
 ## Sets up the git fork locally.
-git-fork-setup: ## git-fork-setup
+gitr-fork-setup: ## gitr-fork-setup
 	# Pre: you git forked ( via web) and git cloned (via ssh)
 	# add upstream repo
 	git remote add upstream git://$(GIT_SERVER)/$(GIT_ORG_UPSTREAM)/$(GIT_REPO_NAME).git
 
 ## Sync upstream with your fork. Use this to make a PR.
-git-fork-catchup: ## git-fork-catchup
+gitr-fork-catchup: ## gitr-fork-catchup
 	# This fetches the branches and their respective commits from the upstream repository.
 	git fetch upstream 
 
@@ -81,7 +81,7 @@ git-fork-catchup: ## git-fork-catchup
 ## GIT-TAG
 
 ## Create a tag.
-git-tag-create: ## git-tag-create
+gitr-tag-create: ## gitr-tag-create
 	# this will create a local tag on your current branch and push it to Github.
 
 	git tag $(GIT_TAG_NAME)
@@ -90,7 +90,7 @@ git-tag-create: ## git-tag-create
 	git push origin --tags
 
 ## Deletes a tag.
-git-tag-delete: ## git-tag-delete
+gitr-tag-delete: ## gitr-tag-delete
 	# this will delete a local tag and push that to Github
 
 	git push --delete origin $(GIT_TAG_NAME)
