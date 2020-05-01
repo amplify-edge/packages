@@ -49,6 +49,10 @@ gitu-pull:
 gitu-delete: ## gitu-delete
 	rm -rf $(GITU_REPO_OUT_FSPATH)
 
+## Returns destination file system path
+gitu-getfspath: ## gitu-getfspath
+	@echo $(GITU_REPO_OUT_FSPATH)
+
 
 
 

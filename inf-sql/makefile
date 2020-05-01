@@ -20,24 +20,10 @@ override FLU_SAMPLE_NAME=clientXXX
 
 ## Print all settings
 print: ## print
-
 	$(MAKE) os-print
-
-
 	$(MAKE) env-print
-
 	$(MAKE) k8-print
 
-
-	
-
-## So whatever
-whatever: ## whatever
-	@echo i wanna get...
-
-
-override ENV_SOURCE=joe
-override FLU_SAMPLE_NAME=clientXXX
 
 ## Get all dependencies
 dep: dep-liftbridge ## dep
@@ -46,9 +32,18 @@ dep: dep-liftbridge ## dep
 override GITU_REPO_SERVER=github.com
 override GITU_REPO_ORG=liftbridge-io
 override GITU_REPO_NAME=liftbridge
-dep-liftbridge: ## dep
+MY_VAR := $(MAKE) gitu-getfspath
+dep-liftbridge:
 
 	$(MAKE) gitu-print
-	$(MAKE) gitu-clone-master 
+
+	@echo MY_VAR $(MY_VAR)
+
+	#$(MAKE) gitu-clone-master 
+
+	
+
+lift-run:
+	cd $(MAKE) 
 
 
