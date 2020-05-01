@@ -3,14 +3,14 @@
 
 current_dir = $(shell pwd)
 
-SAMPLE_NAME = 
-SAMPLE_FSPATH = $(PWD)/$(SAMPLE_NAME)
+FLU_SAMPLE_NAME = ???
+FLU_SSAMPLE_FSPATH = $(PWD)/$(FLU_SAMPLE_NAME)
 
 
 ## Prints the flutter settings
 flu-print: ## print
 	@echo -- FLU -- 
-	@echo SAMPLE_FSPATH: $(SAMPLE_FSPATH)
+	@echo FLU_SSAMPLE_FSPATH: $(FLU_SSAMPLE_FSPATH)
 	@echo
 
 	@echo -- I18N --
@@ -30,20 +30,20 @@ flu-config: ## flu-config
 ## Runs Flutter Web.
 flu-web-run: ## flu-web-run
 	flutter config --enable-web
-	cd $(SAMPLE_FSPATH) && flutter run -d chrome
+	cd $(FLU_SSAMPLE_FSPATH) && flutter run -d chrome
 
 ## Builds flutter web as a release version
 flu-web-build: ## flu-web-build
 	flutter config --enable-web
-	cd $(SAMPLE_FSPATH) && flutter build web
+	cd $(FLU_SSAMPLE_FSPATH) && flutter build web
 
 ## Fixes a common bug with IOS
 flu-mob-fix:
 	# webrtc fix
 	# MIGHT have to apply this to CI also. Lets see.
-	cd $(SAMPLE_FSPATH) && rm ios/Podfile.lock
-	cd $(SAMPLE_FSPATH) && rm -rf ios/Pods
-	cd $(SAMPLE_FSPATH) && flutter clean
+	cd $(FLU_SSAMPLE_FSPATH) && rm ios/Podfile.lock
+	cd $(FLU_SSAMPLE_FSPATH) && rm -rf ios/Pods
+	cd $(FLU_SSAMPLE_FSPATH) && flutter clean
 	 
 	# sign for ios local
 
@@ -65,59 +65,63 @@ flu-mob-fix:
 
 
 flu-mob-run: ## flu-mob-run
-	cd $(SAMPLE_FSPATH) && flutter run -d all
+	cd $(FLU_SSAMPLE_FSPATH) && flutter run -d all
 
 flu-mob-build: ## flu-mob-build
 	# ios
 	# https://flutter.dev/docs/deployment/ios
 	# change to ios 11 in xcode for runner and pods
-	cd $(SAMPLE_FSPATH)/ios && pod install
-	#cd $(SAMPLE_FSPATH) && flutter build ios
+	cd $(FLU_SSAMPLE_FSPATH)/ios && pod install
+	#cd $(FLU_SSAMPLE_FSPATH) && flutter build ios
 
-	cd $(SAMPLE_FSPATH) && 	flutter build ios --release --no-codesign
+	cd $(FLU_SSAMPLE_FSPATH) && 	flutter build ios --release --no-codesign
 
+## Inits Flutter Desktop
+flu-desk-init: ## flu-desk-init
+	cd $(FLU_SSAMPLE_FSPATH) && hover init
+	
 
+## Runs Flutter Desktop
 flu-desk-run: ## flu-desk-run
-	#cd $(SAMPLE_FSPATH) && hover init
-	cd $(SAMPLE_FSPATH) && hover run
+	cd $(FLU_SSAMPLE_FSPATH) && hover run
 
 
 ### GEN 
 
 flu-gen: ## flu-gen
-	cd $(SAMPLE_FSPATH) && flutter packages get
+	cd $(FLU_SSAMPLE_FSPATH) && flutter packages get
 	$(MAKE) gen-icons
 	$(MAKE) gen-hive
 	$(MAKE) gen-proto
-	cd $(SAMPLE_FSPATH) && flutter analyze 
+	cd $(FLU_SSAMPLE_FSPATH) && flutter analyze 
 
 gen-icons:
 	# mobile and web
 	@echo
 	@echo Generating icons for Flutter
 	@echo
-	cd $(SAMPLE_FSPATH) && flutter pub run flutter_launcher_icons:main
+	cd $(FLU_SSAMPLE_FSPATH) && flutter pub run flutter_launcher_icons:main
 
 	# desktop
 	@echo
 	@echo Copying icon-png from flutter assets into go assets, so hover can use it
 	@echo
-	cp $(SAMPLE_FSPATH)/assets/icon/icon.png $(SAMPLE_FSPATH)/go/assets
+	cp $(FLU_SSAMPLE_FSPATH)/assets/icon/icon.png $(FLU_SSAMPLE_FSPATH)/go/assets
 
 gen-hive:
-	cd $(SAMPLE_FSPATH) && flutter packages pub run build_runner build --delete-conflicting-outputs
+	cd $(FLU_SSAMPLE_FSPATH) && flutter packages pub run build_runner build --delete-conflicting-outputs
 
 gen-proto:
 	pub global activate protoc_plugin
-	mkdir -p $(SAMPLE_FSPATH)/lib/api/v1/google/protobuf
+	mkdir -p $(FLU_SSAMPLE_FSPATH)/lib/api/v1/google/protobuf
 
 ifeq ($(GO_OS), windows)
 	@echo Windows detected
 	protoc empty.proto timestamp.proto wrappers.proto --proto_path=$(LIB_FSPATH)/server/third_party/google/protobuf/ --plugin=$(HOME_PATH)/AppData/Roaming/Pub/Cache/bin/protoc-gen-dart.bat --dart_out=grpc:"$(PROTO_OUTPUT)/client/lib/chat_view/api/v1/google/protobuf"
 	protoc chat.proto --proto_path=$(LIB_FSPATH)/server/api/proto/v1/ --plugin=$(HOME_PATH)/AppData/Roaming/Pub/Cache/bin/protoc-gen-dart.bat --dart_out=grpc:"$(PROTO_OUTPUT)/client/lib/chat_view/api/v1/"
 else
-	protoc empty.proto timestamp.proto wrappers.proto --proto_path=$(LIB_FSPATH)/server/third_party/google/protobuf --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(SAMPLE_FSPATH)/lib/api/v1/google/protobuf
-	protoc chat.proto --proto_path=$(LIB_FSPATH)/server/api/proto/v1/ --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(SAMPLE_FSPATH)/client/lib/chat_view/api/v1/
+	protoc empty.proto timestamp.proto wrappers.proto --proto_path=$(LIB_FSPATH)/server/third_party/google/protobuf --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(FLU_SSAMPLE_FSPATH)/lib/api/v1/google/protobuf
+	protoc chat.proto --proto_path=$(LIB_FSPATH)/server/api/proto/v1/ --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(FLU_SSAMPLE_FSPATH)/client/lib/chat_view/api/v1/
 endif
 
 ### ASTI
@@ -138,23 +142,23 @@ go-desk-dep: ## go-desk-dep
 go-desk-build: ## go-desk-build
 	# build flutter web
 	# flutter config --enable-web
-	# cd $(SAMPLE_FSPATH) && flutter build web
+	# cd $(FLU_SSAMPLE_FSPATH) && flutter build web
 
 	# copy flutter web build to desktop/resources/app
-	rm -rf $(SAMPLE_FSPATH)desktop/resources/app
-	mkdir -p $(SAMPLE_FSPATH)desktop/resources/app/
-	cp -r $(SAMPLE_FSPATH)build/web/* $(SAMPLE_FSPATH)desktop/resources/app
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/resources/app
+	mkdir -p $(FLU_SSAMPLE_FSPATH)desktop/resources/app/
+	cp -r $(FLU_SSAMPLE_FSPATH)build/web/* $(FLU_SSAMPLE_FSPATH)desktop/resources/app
 
 	# -d is for darwin
-	cd $(SAMPLE_FSPATH)desktop && astilectron-bundler
+	cd $(FLU_SSAMPLE_FSPATH)desktop && astilectron-bundler
 
 ############## Linux ##############
 go-desk-run-lin: ## go-desk-run-lin
-	cd $(SAMPLE_FSPATH) && desktop/output/linux-amd64/ION\ Desktop\ App
+	cd $(FLU_SSAMPLE_FSPATH) && desktop/output/linux-amd64/ION\ Desktop\ App
 
 go-desk-pack-lin: ## go-desk-pack-lin
 	# deb
-	cd $(SAMPLE_FSPATH)packer/ && make go-pack-deb
+	cd $(FLU_SSAMPLE_FSPATH)packer/ && make go-pack-deb
 
 go-desk-sign-lin:
 	# https://blog.packagecloud.io/eng/2014/10/28/howto-gpg-sign-verify-deb-packages-apt-repositories/
@@ -169,7 +173,7 @@ go-desk-run-win: ## go-desk-run-win
 	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
 
 go-desk-pack-win:
-	cd $(SAMPLE_FSPATH)packer/ && make go-pack-win
+	cd $(FLU_SSAMPLE_FSPATH)packer/ && make go-pack-win
 
 go-desk-sign-win:
 	# https://github.com/itchio/itch-setup/blob/master/scripts/ci-build.sh#L73
@@ -181,10 +185,10 @@ go-desk-run-mac: ## go-desk-run-mac
 
 go-desk-pack-mac:  ## go-desk-pack-mac
 	#darwin
-	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-bundle
+	#cd $(FLU_SSAMPLE_FSPATH) && hover init-packaging darwin-bundle
 
 	# skaffold the file system with the pkg templates.
-	#cd $(SAMPLE_FSPATH) && hover init-packaging darwin-pkg
+	#cd $(FLU_SSAMPLE_FSPATH) && hover init-packaging darwin-pkg
 
 	# inject out .app into it.
 	cp -rf $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app ./Applications/maintemplate.app
@@ -202,12 +206,12 @@ go-desk-sign-mac: ## go-desk-sign-mac
 	codesign --verify -vvvv "${TARGET}"
 
 go-desk-clean:
-	rm -rf $(SAMPLE_FSPATH)desktop/resources/app
-	rm -rf $(SAMPLE_FSPATH)desktop/output
-	rm -rf $(SAMPLE_FSPATH)desktop/bind_darwin_amd64.go
-	rm -rf $(SAMPLE_FSPATH)desktop/bind_linux_amd64.go
-	rm -rf $(SAMPLE_FSPATH)desktop/bind_windows_386.go
-	rm -rf $(SAMPLE_FSPATH)desktop/windows.syso
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/resources/app
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/output
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/bind_darwin_amd64.go
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/bind_linux_amd64.go
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/bind_windows_386.go
+	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/windows.syso
 
 #include ../../sys-core/make/i18n.mk
 

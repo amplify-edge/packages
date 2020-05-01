@@ -1,13 +1,22 @@
 
-# git reflection
+# git general stuff
+
+# hardcoded
+GIT_SERVER ?= github.com
+GIT_ORG_UPSTREAM ?= getcouragenow
+
+GIT_ORG_FORK=$(shell basename $(dir $(abspath $(dir $$PWD))))
+
+
+GIT_USER=$(GIT_ORG_FORK)
 GIT_REPO_NAME=$(notdir $(shell pwd))
-GIT_UPSTREAM_ORG=getcouragenow
-GIT_FORK_ORG=$(shell basename $(dir $(abspath $(dir $$PWD))))
 
-# hardcoded git
-GIT_SERVER=github.com
+# calculated
+# upstream
+GIT_REPO_UPSTREAM_ABS_URL=https:///$(GIT_SERVER)/$(GIT_ORG_UPSTREAM)/$(GIT_REPO_NAME)
 
-GIT_ABS_REPO_FSPATH=$(GOPATH)/src/$(GIT_SERVER)/$(GIT_FORK_ORG)/$(GIT_REPO_NAME)
+GIT_REPO_ABS_URL=https:///$(GIT_SERVER)/$(GIT_ORG_FORK)/$(GIT_REPO_NAME)
+GIT_REPO_ABS_FSPATH=$(GOPATH)/src/$(GIT_SERVER)/$(GIT_ORG_FORK)/$(GIT_REPO_NAME)
 
 # remove the "v" prefix
 GIT_VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
@@ -18,13 +27,25 @@ GIT_VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 ## Prints the git setting
 git-print: ## git-print
 	@echo
-	@echo -- GIT --
-	@echo GIT_FORK_ORG: 			$(GIT_FORK_ORG)
-	@echo GIT_UPSTREAM_ORG: 		$(GIT_UPSTREAM_ORG)
-	@echo GIT_REPO_NAME: 			$(GIT_REPO_NAME)
-	@echo GIT_SERVER: 				$(GIT_SERVER)
-	@echo GIT_VERSION: 				$(GIT_VERSION)
-	@echo GIT_ABS_REPO_FSPATH: 		$(GIT_ABS_REPO_FSPATH)
+	@echo -- GIT Upstream --
+
+	@echo GIT_ORG_UPSTREAM: 			$(GIT_ORG_UPSTREAM)
+	@echo GIT_REPO_UPSTREAM_ABS_URL: 	$(GIT_REPO_UPSTREAM_ABS_URL)
+	
+
+	@echo -- GIT Fork --
+	@echo GIT_ORG_FORK: 				$(GIT_ORG_FORK)
+	@echo GIT_SERVER: 					$(GIT_SERVER)
+	@echo GIT_USER: 					$(GIT_USER)
+	@echo GIT_REPO_NAME: 				$(GIT_REPO_NAME)
+
+	@echo ---
+	@echo GIT_REPO_ABS_URL: 			$(GIT_REPO_ABS_URL)
+	@echo GIT_REPO_ABS_FSPATH: 			$(GIT_REPO_ABS_FSPATH)
+
+	@echo ---
+	@echo GIT_VERSION: 					$(GIT_VERSION)
+	
 	@echo
 
 
@@ -34,19 +55,19 @@ git-print: ## git-print
 
 
 git-upstream-open: ## git-upstream-open
-	open https://$(GIT_SERVER)/$(GIT_UPSTREAM_ORG)/$(GIT_REPO_NAME).git 
+	open https://$(GIT_SERVER)/$(GIT_ORG_UPSTREAM)/$(GIT_REPO_NAME).git 
 	
 
 ## Opens the forked git server.
 git-fork-open: ## git-fork-open
-	open https://$(GIT_SERVER)/$(GIT_FORK_ORG)/$(GIT_REPO_NAME).git
+	open $(GIT_REPO_ABS_URL).git
 
 
 ## Sets up the git fork locally.
 git-fork-setup: ## git-fork-setup
 	# Pre: you git forked ( via web) and git cloned (via ssh)
 	# add upstream repo
-	git remote add upstream git://$(GIT_SERVER)/$(GIT_UPSTREAM_ORG)/$(GIT_REPO_NAME).git
+	git remote add upstream git://$(GIT_SERVER)/$(GIT_ORG_UPSTREAM)/$(GIT_REPO_NAME).git
 
 ## Sync upstream with your fork. Use this to make a PR.
 git-fork-catchup: ## git-fork-catchup

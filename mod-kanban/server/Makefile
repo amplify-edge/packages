@@ -39,6 +39,7 @@ local-run:
 deploy:
 	@echo Running
 	@eval $$(minikube -p minikube docker-env)
+	# assumes you did a flu-web-build in client folder
 	@cp -rf ../client/build/web flutter/
 	@docker build --tag localhost:5000/grpc-web:1 grpc-web/
 	@docker build --tag localhost:5000/flutter-web:2 flutter/
