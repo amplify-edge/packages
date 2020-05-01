@@ -1,3 +1,6 @@
+# langugae tools for i18n
+
+
 LANG_CURRENT_DIR = $(shell pwd)
 
 I18N_SUPPORTED_LANGUAGES = en,fr,es,de,it,ur
@@ -12,7 +15,7 @@ I18N_PREFIX_OUT_FILES = lang
 lang-print: ##lang-print
 
 	@echo
-	@echo LANG_CURRENT_DIR: 					$(LANG_CURRENT_DIR)
+	@echo LANG_CURRENT_DIR: 			$(LANG_CURRENT_DIR)
 	@echo I18N_SUPPORTED_LANGUAGES: 	$(I18N_SUPPORTED_LANGUAGES)
 	@echo I18N_DIR: 					$(I18N_DIR)
 	@echo I18N_LOCALIZATION_DIR: 		$(I18N_LOCALIZATION_DIR)

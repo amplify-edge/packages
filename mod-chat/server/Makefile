@@ -35,7 +35,7 @@ help:
 
 ## Local run
 local-run:
-	go run ./grpc-web/cmd/server/main.go
+	go run ./cmd/server.go
 
 ## minikube run
 deploy:

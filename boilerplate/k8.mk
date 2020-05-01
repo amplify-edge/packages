@@ -1,0 +1,1 @@
+# k8 for running k8 locally ( minikube) and remotely.

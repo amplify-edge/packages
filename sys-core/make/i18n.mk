@@ -13,6 +13,19 @@ I18N_PREFIX_OUT_FILES = lang
 # 0. make lang-dep => ensure you have the i18n tool
 # 1. make lang-gen-flu => generate all files
 
+lang-print: ##lang-print
+
+	@echo
+	@echo LANG_CURRENT_DIR: 			$(CURRENT_DIR)
+	@echo I18N_SUPPORTED_LANGUAGES: 	$(I18N_SUPPORTED_LANGUAGES)
+	@echo I18N_DIR: 					$(I18N_DIR)
+	@echo I18N_LOCALIZATION_DIR: 		$(I18N_LOCALIZATION_DIR)
+	@echo I18N_GENERATED_DIR: 			$(I18N_GENERATED_DIR)
+	@echo I18N_TEMPLATE_NAME: 			$(I18N_TEMPLATE_NAME)
+	@echo I18N_PREFIX_OUT_FILES: 		$(I18N_PREFIX_OUT_FILES)
+	@echo	
+
+
 lang-dep: ## lang-dep
 	go get -u github.com/getcouragenow/bootstrap/tool/i18n
 
