@@ -1,7 +1,10 @@
 # env for managing environment settings
 
 # Concept
-# does alot of codegen
+# codegen based
+# spits out the env files for golang, flutter and k8, and then can be used to set the environment variables also 
+# - this makes it easy to see whats going on.
+# - this imprtantly does not leak file outside the repo and so make it possible to run locally and in any CI.
 # the final env file is based on a template and a per environment values file.
 # the two are run to produce an env file.
 # the final environment file is then used by the server, client, infra ete to run
