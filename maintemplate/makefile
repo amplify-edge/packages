@@ -8,16 +8,11 @@
 # git include
 include ../boilerplate/help.mk
 include ../boilerplate/os.mk
-include ../boilerplate/gitr.mk
-
 include ../boilerplate/flu.mk
 include ../boilerplate/srv.mk
 include ../boilerplate/lang.mk
 
-export REPOSITORY=$(MAKE) git-
-
-# remove the "v" prefix
-VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
+FLU_SAMPLE_NAME = client
 
 
 ## Print all settings
@@ -28,8 +23,6 @@ print: ## print
 	
 
 	$(MAKE) os-print
-	
-	$(MAKE) gitr-print
 	
 	$(MAKE) flu-print
 

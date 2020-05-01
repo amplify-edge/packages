@@ -10,6 +10,7 @@ FLU_SSAMPLE_FSPATH = $(PWD)/$(FLU_SAMPLE_NAME)
 ## Prints the flutter settings
 flu-print: ## print
 	@echo -- FLU -- 
+	@echo FLU_SAMPLE_NAME: $(FLU_SAMPLE_NAME)
 	@echo FLU_SSAMPLE_FSPATH: $(FLU_SSAMPLE_FSPATH)
 	@echo
 

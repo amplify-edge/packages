@@ -11,6 +11,11 @@
 # so all users of the env data can have loaders code generated from the original protobuf for eading their env settings at runtime.
 # this provides a strong typing and also schema evolution so we can use the same system to do feature flags
 
+# Because Settings in a multi cluster system are cross dependent, each system ( server, client etc ) 
+# needs to point to a central confgiuration management system. 
+# Each system still has its own settings, but it will be upstream or down stream on another system
+# So lables are traditionally used for this. So use the folder names like mod-account, inf-sql etc for the labelling.
+
 ENV_SOURCE ?= env_source
 ENV_TEMPLATE ?= env_template
 ENV_TARGET ?= env_target.json
