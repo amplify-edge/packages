@@ -70,7 +70,7 @@ class UserInfoView extends StatelessWidget {
                   ),
                   const SizedBox(height: 48.0),
                   Text(
-                    '2. ${ModMainLocalizations.of(context).translate('travelDistanceAfford')}',
+                    '2. ${ModMainLocalizations.of(context).translate('travelDistance')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
@@ -91,7 +91,7 @@ class UserInfoView extends StatelessWidget {
                   }, model.selectedAge, model.age),
                   const SizedBox(height: 48.0),
                   Text(
-                    '4. ${ModMainLocalizations.of(context).translate('campaignAffiliation')}?',
+                    '4. ${ModMainLocalizations.of(context).translate('campaignAffiliation')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
