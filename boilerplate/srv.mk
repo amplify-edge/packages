@@ -1,5 +1,6 @@
-# Server tools
+# golang server tools
 
+# NOTE: This make file is VERY much up in the air as to if we need it.
 
 
 # Absolute File path to Server

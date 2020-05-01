@@ -7,7 +7,7 @@
 # git include
 include ./boilerplate/help.mk
 include ./boilerplate/os.mk
-include ./boilerplate/git.mk
+include ./boilerplate/gitr.mk
 
 
 #export REPOSITORY=$(MAKE) git-
@@ -18,20 +18,12 @@ VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 
 ## Print all settings
 print: ## print
-	@echo -- REPO -- 
-	@echo REPOSITORY: $(REPOSITORY)
-	@echo
-	
 
+	
 	$(MAKE) os-print
 	
-	$(MAKE) git-print
+	$(MAKE) gitr-print
 	
-	#$(MAKE) flu-print
-
-	#$(MAKE) lang-print
-
-	#$(MAKE) srv-print
 
 ## So high
 high: ## high
