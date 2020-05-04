@@ -18,6 +18,7 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
   @override
   Widget build(BuildContext context) {
     return MaterialNavigationRail(
+      key: UniqueKey(),
       currentIndex: _currentIndex,
       drawerHeader: Container(
         width: MediaQuery.of(context).size.width * 0.85,
