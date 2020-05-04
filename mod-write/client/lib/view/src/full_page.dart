@@ -11,7 +11,7 @@ import 'package:mod_write/view/src/zefyr_image_delegate.dart'
     if (dart.library.js) 'package:mod_write/view/src/zefyr_image_delegate_web.dart';
 
 class FullPageEditorScreen extends StatefulWidget {
-  final String id;
+  final int id;
 
   const FullPageEditorScreen({Key key, @required this.id}) : super(key: key);
 
@@ -45,8 +45,7 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
   }
 
   Delta getDelta() {
-    return Delta.fromJson(json.decode(StubData.documents
-        .firstWhere((Document element) => element.id == widget.id)
+    return Delta.fromJson(json.decode(StubData.documents[widget.id]
         .content) as List);
   }
 
