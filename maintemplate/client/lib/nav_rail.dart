@@ -24,28 +24,26 @@ class MaterialNavigationRail extends StatelessWidget {
       bottomNavigationBarUnselectedColor;
   final bool isDense;
 
-
-  MaterialNavigationRail(
-      {Key key,
-      this.floatingActionButton,
-      this.body,
-      this.title,
-      @required this.currentIndex,
-      @required this.tabs,
-      @required this.onPressed,
-      this.drawerHeaderBuilder,
-      this.drawerFooterBuilder,
-      this.bottomNavigationBarColor,
-      this.tabletBreakpoint = 768.0,
-      this.desktopBreakpoint = 1400,
-      this.minHeight = 400.0,
-      this.drawerWidth = 304.0,
-      this.actions,
-      this.bottomNavigationBarType,
-      this.bottomNavigationBarSelectedColor,
-      this.bottomNavigationBarUnselectedColor,
-      this.isDense = false,
-      this.drawerHeader})
+  MaterialNavigationRail({Key key,
+    this.floatingActionButton,
+    this.body,
+    this.title,
+    @required this.currentIndex,
+    @required this.tabs,
+    @required this.onPressed,
+    this.drawerHeaderBuilder,
+    this.drawerFooterBuilder,
+    this.bottomNavigationBarColor,
+    this.tabletBreakpoint = 768.0,
+    this.desktopBreakpoint = 1400,
+    this.minHeight = 400.0,
+    this.drawerWidth = 304.0,
+    this.actions,
+    this.bottomNavigationBarType,
+    this.bottomNavigationBarSelectedColor,
+    this.bottomNavigationBarUnselectedColor,
+    this.isDense = false,
+    this.drawerHeader})
       : super(key: key);
 
   @override
@@ -60,20 +58,19 @@ class MaterialNavigationRail extends StatelessWidget {
         if (dimens.maxWidth >= this.desktopBreakpoint &&
             dimens.maxHeight > this.minHeight) {
           return Material(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: Theme
+                .of(context)
+                .scaffoldBackgroundColor,
             child: Row(
               children: <Widget>[
-                Container(
-                  width: _drawerWidth,
-                  child: _buildDrawer(context, true),
-                ),
+                _buildDrawer(context, true),
                 Expanded(
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: <Widget>[
                       Positioned.fill(
                         child: Scaffold(
-                            /*appBar: AppBar(
+                          /*appBar: AppBar(
                               title: title,
                               actions: actions,
                               automaticallyImplyLeading: false,
@@ -138,8 +135,7 @@ class MaterialNavigationRail extends StatelessWidget {
                           horizontal: _tabletSpacingHorizontial,
                         ),
                         child: _buildTab(
-                            selected:
-                                (currentIndex == this.tabs.indexOf(tab)),
+                            selected: (currentIndex == this.tabs.indexOf(tab)),
                             context: context,
                             item: tab),
                       ),
@@ -156,7 +152,7 @@ class MaterialNavigationRail extends StatelessWidget {
 
         //PHONE
         return Scaffold(
-            /*appBar: AppBar(
+          /*appBar: AppBar(
                 title: title,
                 actions: actions,
                 automaticallyImplyLeading: false,
@@ -191,13 +187,19 @@ class MaterialNavigationRail extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             IconTheme(
-                              data: IconThemeData(
-                                color: (currentIndex == tabs.indexOf(tab)) ? bottomNavigationBarSelectedColor : bottomNavigationBarUnselectedColor,
-                              ),
-                              child: tab.icon),
+                                data: IconThemeData(
+                                  color: (currentIndex == tabs.indexOf(tab))
+                                      ? bottomNavigationBarSelectedColor
+                                      : bottomNavigationBarUnselectedColor,
+                                ),
+                                child: tab.icon),
                             DefaultTextStyle(
-                              style: TextStyle(color:(currentIndex == tabs.indexOf(tab)) ? bottomNavigationBarSelectedColor : bottomNavigationBarUnselectedColor,),
-                              child: tab.title)
+                                style: TextStyle(
+                                  color: (currentIndex == tabs.indexOf(tab))
+                                      ? bottomNavigationBarSelectedColor
+                                      : bottomNavigationBarUnselectedColor,
+                                ),
+                                child: tab.title)
                           ],
                         ),
                       ),
@@ -206,60 +208,133 @@ class MaterialNavigationRail extends StatelessWidget {
                 ],
               ),
             )
-            //  BottomNavigationBar(
-            //   currentIndex: currentIndex,
-            //   type: bottomNavigationBarType,
-            //   backgroundColor: bottomNavigationBarColor,
-            //   unselectedItemColor: bottomNavigationBarUnselectedColor,
-            //   selectedItemColor: bottomNavigationBarSelectedColor,
-            //   onTap: (index) {
-            //     onPressed(index);
-            //     tabs[index].onTap();
-            //   },
-            //   items: [
-            //     for (var tab in this.tabs) ...[
-            //       BottomNavigationBarItem(
-            //         icon: tab.icon,
-            //         title: tab.title,
-            //       )
-            //     ],
-            //   ],
-            // ),
-            );
+          //  BottomNavigationBar(
+          //   currentIndex: currentIndex,
+          //   type: bottomNavigationBarType,
+          //   backgroundColor: bottomNavigationBarColor,
+          //   unselectedItemColor: bottomNavigationBarUnselectedColor,
+          //   selectedItemColor: bottomNavigationBarSelectedColor,
+          //   onTap: (index) {
+          //     onPressed(index);
+          //     tabs[index].onTap();
+          //   },
+          //   items: [
+          //     for (var tab in this.tabs) ...[
+          //       BottomNavigationBarItem(
+          //         icon: tab.icon,
+          //         title: tab.title,
+          //       )
+          //     ],
+          //   ],
+          // ),
+        );
       }),
     );
   }
 
   Widget _buildDrawer(BuildContext context, bool showTabs) {
-    return Drawer(
-      semanticLabel: "Drawer",
+    // got the specs from here: https://material.io/components/lists#specs
+    return Material(
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              if (drawerHeader != null) ...[drawerHeader],
-              if (drawerHeaderBuilder != null) ...[
-                drawerHeaderBuilder(context),
-              ],
-              if (showTabs) ...[
-                for (var tab in tabs) ...[
-                  ListTile(
-                    dense: isDense,
-                    selected: currentIndex == tabs.indexOf(tab),
-                    leading: tab?.icon,
-                    title: tab?.title,
-                    onTap: () {
-                      onPressed(tabs.indexOf(tab));
-                      tab.onTap();
-                    },
-                  ),
-                ]
-              ],
-              if (drawerFooterBuilder != null) ...[
-                drawerFooterBuilder(context),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (drawerHeader != null) ...[drawerHeader],
+            if (drawerHeaderBuilder != null) ...[
+              drawerHeaderBuilder(context),
             ],
-          ),
+            if (showTabs) ...[
+              for (var tab in tabs) ...[
+                InkWell(
+                  child: Container(
+                    height: 56,
+                    child: Row(
+                      //selected: currentIndex == tabs.indexOf(tab),
+                      children: <Widget>[
+                        SizedBox(width: 16),
+
+                        //logic taken from ListTile
+                        IconTheme.merge(data: IconThemeData(
+                            color: (currentIndex != tabs.indexOf(tab)
+                                ? Theme
+                                .of(context)
+                                .disabledColor
+                                : Theme
+                                .of(context)
+                                .accentColor)), child: tab?.icon),
+                        SizedBox(width: 16),
+                        //logic taken from ListTile
+                        DefaultTextStyle(
+                          child: tab?.title,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .subtitle1
+                              .merge(TextStyle(
+                            color: (currentIndex != tabs.indexOf(tab)
+                                ? Theme
+                                .of(context)
+                                .disabledColor
+                                : Theme
+                                .of(context)
+                                .accentColor),
+                          )),
+                        ),
+                        SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    onPressed(tabs.indexOf(tab));
+                    tab.onTap();
+                  },
+                ),
+              ]
+            ],
+          ],
+        ),
+      ),
+    );
+    return Material(
+      child: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: SingleChildScrollView(
+                child: Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      /*if (drawerHeader != null) ...[drawerHeader],
+                      if (drawerHeaderBuilder != null) ...[
+                        drawerHeaderBuilder(context),
+                      ],*/
+                      /* if (showTabs) ...[
+                        for (var tab in tabs) ...[
+                          ListTile(
+                            dense: isDense,
+                            selected: currentIndex == tabs.indexOf(tab),
+                            leading: tab?.icon,
+                            title: tab?.title,
+                            onTap: () {
+                              onPressed(tabs.indexOf(tab));
+                              tab.onTap();
+                            },
+                          ),
+                        ]
+                      ],
+                      */
+                      Expanded(child: ListTile()),
+                      /*if (drawerFooterBuilder != null) ...[
+                        drawerFooterBuilder(context),
+                      ],*/
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -329,6 +404,7 @@ class TabItem extends StatelessWidget {
   final Text title;
   final Icon icon;
   final Function onTap;
+
   const TabItem({
     Key key,
     @required this.icon,

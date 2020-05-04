@@ -20,6 +20,8 @@ dependencies:
       path: packages/zefyr/
   flutter_modular: ^0.5.2
   responsive_scaffold: ^1.3.0+2
+  sys_core:
+    path: ../../sys-core/client
 
 dev_dependencies:
   flutter_test:

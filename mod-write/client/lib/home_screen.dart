@@ -6,11 +6,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final nav = Navigator.of(context, rootNavigator: false);
-        print(ModWriterModule.fullPageRoute);
     return Column(
       children: <Widget>[
         Expanded(child: Container()),
-        RaisedButton(
+        /*RaisedButton(
           onPressed: () => nav.pushNamed(ModWriterModule.fullPageRoute),
           /*onPressed: () => nav.push(MaterialPageRoute(
             settings: RouteSettings(name: "Full page edit"),
@@ -33,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           )),*/
           onPressed: () => nav.pushNamed(ModWriterModule.viewRoute),
           child: Text('Read-only embeddable view'),
-        ),
+        ),*/
         Expanded(child: Container()),
       ],
     );

@@ -47,7 +47,7 @@ class _DocumentListOldState extends State<DocumentListOld> {
                         ? Expanded(
                             child: FullPageEditorScreen(
                               key: ValueKey(_document.id),
-                              id: _document.id,
+                              id: int.tryParse(_document.id)??-1,
                             ),
                           )
                         : Container(),
@@ -69,7 +69,7 @@ class _DocumentListOldState extends State<DocumentListOld> {
                   //    '${ModWriterModule.fullPageRoute}?id=${_document?.id??"1"}');
                   Modular.to.push(MaterialPageRoute(
                     builder: (context) =>
-                        FullPageEditorScreen(id: _document.id),
+                        FullPageEditorScreen(id: int.tryParse(_document.id)??-1),
                   ));
                 },
                 leading: Text(_listDocumentOld[index].name),
