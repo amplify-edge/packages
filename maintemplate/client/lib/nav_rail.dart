@@ -284,7 +284,7 @@ class MaterialNavigationRail extends StatelessWidget {
 
     final _icon = Align(
       alignment: Alignment.topCenter,
-      heightFactor: 1.2,
+      heightFactor: 1.0,
       child: IconTheme(
         data: _iconTheme,
         child: item.icon,
