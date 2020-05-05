@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sys_core/sys_core.dart';
 
-class GetCourageMasterDetail extends StatefulWidget {
+class GetCourageMasterDetail<T> extends StatelessWidget {
   /// [routeWithIdPlaceholder] is the actual route where the
   /// master-detail-view is located at e.g. /myneeds/orgs/:id
   final String routeWithIdPlaceholder;
@@ -14,78 +14,148 @@ class GetCourageMasterDetail extends StatefulWidget {
   ///[detailsId] is the actual selected id
   final Widget Function(BuildContext context, int detailsId) detailsBuilder;
 
-  /// [masterBuilder] is used to build the master view
-  ///[context] is the BuildContext
-  ///[detailsId] is the actual selected id
-  ///[onItemClicked] should fire with an id when an item was clicked
-  final Widget Function(
-          BuildContext context, int detailsId, void Function(int) onItemClicked)
-      masterBuilder;
+  ///[items] is the list of items which are displayed on the master view
+  final List<T> items;
+
+  ///[labelBuilder] returns the label for the current item
+  final String Function(T item) labelBuilder;
 
   /// [noItemsSelected] is the place holder widget for the details view if
   /// nothing was selected
   final Widget noItemsSelected;
 
+  /// warning just for showcase right now, now real search implementation here
+  final bool enableSearchBar;
+
   const GetCourageMasterDetail(
       {Key key,
-      @required this.masterBuilder,
       @required this.detailsBuilder,
       @required this.routeWithIdPlaceholder,
+      @required this.items,
+      @required this.labelBuilder,
+      this.enableSearchBar = false,
       this.noItemsSelected,
       this.id = -1})
       : super(key: key);
 
   @override
-  _GetCourageMasterDetailState createState() => _GetCourageMasterDetailState();
-}
-
-class _GetCourageMasterDetailState extends State<GetCourageMasterDetail> {
-  @override
   Widget build(BuildContext context) {
     bool isMobilePhone = !isTablet(context);
-    bool isItemSelected = widget.id >= 0;
+    bool isItemSelected = id >= 0;
     bool showMaster = isMobilePhone && !isItemSelected || !isMobilePhone;
     bool showDetails = isMobilePhone && isItemSelected || !isMobilePhone;
 
     return Material(
-      child: Row(
-        children: <Widget>[
-          if (showMaster)
-            (isMobilePhone) // take the whole width
-                ? Expanded(
-                    child: widget.masterBuilder(
-                        context, widget.id, _pushDetailsRoute),
-                  )
-                : SizedBox( // fix width size for tablet or desktop
-                    width: kTabletMasterContainerWidth,
-                    child: widget.masterBuilder(
-                        context, widget.id, _pushDetailsRoute),
-                  ),
-          if (showDetails)
-            (isItemSelected)
-                ? Expanded(
-                    child: widget.detailsBuilder(context, widget.id),
-                  )
-                : Expanded(
-                    child: widget.noItemsSelected ??
-                        Center(child: Text("No items selected.")))
-        ],
+      child: Container(
+        child: Row(
+          children: <Widget>[
+            if (showMaster)
+              (isMobilePhone) // take the whole width
+                  ? Expanded(
+                      child: _getMasterView(context),
+                    )
+                  : _getMasterView(context),
+            if (showDetails)
+              (isItemSelected)
+                  ? Expanded(
+                      flex: 3,
+                      child: detailsBuilder(context, id),
+                    )
+                  : Expanded(
+                      flex: 3,
+                      child: noItemsSelected ??
+                          Center(child: Text("No items selected.")))
+          ],
+        ),
       ),
     );
   }
 
-  _pushDetailsRoute(int newId) {
+  Widget _getMasterView(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        child: IntrinsicWidth(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              if (enableSearchBar)
+                SizedBox(
+                  width: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: TextField(
+                        decoration:
+                            InputDecoration.collapsed(hintText: 'Search Campaigns'),
+                      ),
+                    ),
+                  ),
+                ),
+              /*const SliverPadding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  sliver: SliverFloatingBar(
+                    elevation: 1.0,
+                    floating: true,
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    title: TextField(
+                      decoration:
+                          InputDecoration.collapsed(hintText: 'Search Campaigns'),
+                    ),
+                  ),
+                ),*/
+              for (var item in items)
+                InkWell(
+                  child: Container(
+                    height: 56,
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(width: 16),
+                        //logic taken from ListTile
+                        Text(
+                          labelBuilder(item),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .merge(TextStyle(
+                                color: items.indexOf(item) != id
+                                    ? Theme.of(context).textTheme.subtitle1.color
+                                    : Theme.of(context).accentColor,
+                              )),
+                        ),
+                        SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    _pushDetailsRoute(items.indexOf(item), context);
+                  },
+                )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  _pushDetailsRoute(int newId, BuildContext context) {
     print(
-        "_pushDetailsRoute newId: $newId, routeWithIdPlaceholder: ${widget.routeWithIdPlaceholder}");
+        "_pushDetailsRoute newId: $newId, routeWithIdPlaceholder: ${routeWithIdPlaceholder}");
     bool withTransition = !isTablet(context);
     var routeSettings = RouteSettings(
-      name: widget.routeWithIdPlaceholder.replaceAll(":id", "$newId"),
+      name: routeWithIdPlaceholder.replaceAll(":id", "$newId"),
     );
     var newMasterDetailView = GetCourageMasterDetail(
-      masterBuilder: widget.masterBuilder,
-      detailsBuilder: widget.detailsBuilder,
+      items: items,
+      labelBuilder: labelBuilder,
+      noItemsSelected: noItemsSelected,
+      detailsBuilder: detailsBuilder,
       id: newId,
-      routeWithIdPlaceholder: widget.routeWithIdPlaceholder,
+      routeWithIdPlaceholder: routeWithIdPlaceholder,
+      enableSearchBar: enableSearchBar,
     );
 
     /*
