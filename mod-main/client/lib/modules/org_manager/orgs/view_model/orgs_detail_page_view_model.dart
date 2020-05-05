@@ -3,12 +3,12 @@ import 'package:mod_main/modules/org_manager/orgs/data/org_model.dart';
 
 class OrgsViewModel extends BaseModel {
   // This all is to manage orgs, please change it to match the users data model.
-  List<Org> _orgs = mockOrgs;
+  List<Org> _orgs = Org.mockOrgs;
   int _rowsPerPage = 10;
   int _firstRowIndex = 0;
   int _sortColumnIndex;
   bool _sortAscending = true;
-  List<bool> _selected = List<bool>.generate(mockOrgs.length, (index) => false);
+  List<bool> _selected = List<bool>.generate(Org.mockOrgs.length, (index) => false);
 
   List<Org> get orgs => _orgs;
 
@@ -40,7 +40,7 @@ class OrgsViewModel extends BaseModel {
   }
 
   void handleNextPage() async {
-    if (_firstRowIndex + _rowsPerPage >= mockOrgs.length) {
+    if (_firstRowIndex + _rowsPerPage >= Org.mockOrgs.length) {
       return;
     }
     _firstRowIndex += _rowsPerPage;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/nav_rail.dart';
+import 'package:sys_core/sys_core.dart';
 
 import 'core/core.dart';
 
@@ -18,8 +19,15 @@ class _LayoutTemplateState extends State<LayoutTemplate> {
 
   @override
   Widget build(BuildContext context) {
+    String platform = "phone";
+    if(isTablet(context)) platform = "tablet";
+    if(isDesktop(context)) platform = "desktop";
+
     return MaterialNavigationRail(
-      key: UniqueKey(),
+      //rebuild here on every platform change
+      //unique keys would lead to rerender on every pixel change when resizing
+      // the window
+      key: ValueKey(platform),
       currentIndex: _currentIndex,
       drawerHeader: Container(height: 74, child: Text("")),
       body: widget.body,
