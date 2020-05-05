@@ -72,69 +72,71 @@ class GetCourageMasterDetail<T> extends StatelessWidget {
   }
 
   Widget _getMasterView(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              if (enableSearchBar)
-                SizedBox(
-                  width: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+    return SafeArea(
+      child: Container(
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: IntrinsicWidth(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                if (enableSearchBar)
+                  SizedBox(
+                    width: 200,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: TextField(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: TextField(
+                          decoration:
+                              InputDecoration.collapsed(hintText: 'Search Campaigns'),
+                        ),
+                      ),
+                    ),
+                  ),
+                /*const SliverPadding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    sliver: SliverFloatingBar(
+                      elevation: 1.0,
+                      floating: true,
+                      pinned: true,
+                      automaticallyImplyLeading: false,
+                      title: TextField(
                         decoration:
                             InputDecoration.collapsed(hintText: 'Search Campaigns'),
                       ),
                     ),
-                  ),
-                ),
-              /*const SliverPadding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                  sliver: SliverFloatingBar(
-                    elevation: 1.0,
-                    floating: true,
-                    pinned: true,
-                    automaticallyImplyLeading: false,
-                    title: TextField(
-                      decoration:
-                          InputDecoration.collapsed(hintText: 'Search Campaigns'),
+                  ),*/
+                for (var item in items)
+                  InkWell(
+                    child: Container(
+                      height: 56,
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(width: 16),
+                          //logic taken from ListTile
+                          Text(
+                            labelBuilder(item),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .merge(TextStyle(
+                                  color: items.indexOf(item) != id
+                                      ? Theme.of(context).textTheme.subtitle1.color
+                                      : Theme.of(context).accentColor,
+                                )),
+                          ),
+                          SizedBox(width: 50),
+                        ],
+                      ),
                     ),
-                  ),
-                ),*/
-              for (var item in items)
-                InkWell(
-                  child: Container(
-                    height: 56,
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 16),
-                        //logic taken from ListTile
-                        Text(
-                          labelBuilder(item),
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1
-                              .merge(TextStyle(
-                                color: items.indexOf(item) != id
-                                    ? Theme.of(context).textTheme.subtitle1.color
-                                    : Theme.of(context).accentColor,
-                              )),
-                        ),
-                        SizedBox(width: 50),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    _pushDetailsRoute(items.indexOf(item), context);
-                  },
-                )
-            ],
+                    onTap: () {
+                      _pushDetailsRoute(items.indexOf(item), context);
+                    },
+                  )
+              ],
+            ),
           ),
         ),
       ),
