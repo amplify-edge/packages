@@ -89,6 +89,7 @@ flu-desk-run: ## flu-desk-run
 
 ### GEN 
 
+## Generates all code
 flu-gen: ## flu-gen
 	cd $(FLU_SSAMPLE_FSPATH) && flutter packages get
 	$(MAKE) gen-icons

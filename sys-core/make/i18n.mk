@@ -32,11 +32,20 @@ lang-dep: ## lang-dep
 # If you want the .dart files generated, add this to the bottom of the command
 #flutter pub run intl_translation:generate_from_arb --output-dir=$(I18N_GENERATED_DIR) $(I18N_LOCALIZATION_DIR)/translations.dart $(I18N_DIR)/*.arb
 lang-gen-flu: ## lang-gen-flu
+
+	@echo -- Creating: $(I18N_GENERATED_DIR)
 	@mkdir -p $(I18N_GENERATED_DIR)
+
+	@echo -- Creating: $(I18N_DIR)
 	@mkdir -p $(I18N_DIR)
+
+	@echo -- Extracting: To ARB
 	@flutter pub run intl_translation:extract_to_arb --output-dir=$(I18N_DIR) $(I18N_LOCALIZATION_DIR)/translations.dart
-	@i18n flutter --dir $(I18N_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages $(I18N_SUPPORTED_LANGUAGES) -f
-	@i18n flutter --dir $(I18N_DIR)
+
+	@echo -- Translating Text
+	i18n flutter --dir $(I18N_DIR) --template $(I18N_TEMPLATE_PATH) --prefix $(I18N_PREFIX_OUT_FILES) --languages $(I18N_SUPPORTED_LANGUAGES) -f
+	
+	echo i18n flutter --dir $(I18N_DIR)
 
 lang-gen-flu-dart: ## lang-gen-flu-dart
 	flutter pub run intl_translation:generate_from_arb --output-dir=$(I18N_GENERATED_DIR) $(I18N_LOCALIZATION_DIR)/translations.dart $(I18N_DIR)/*.arb
