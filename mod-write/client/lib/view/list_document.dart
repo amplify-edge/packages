@@ -20,7 +20,7 @@ class _DocumentListState extends State<DocumentList> {
 
   @override
   Widget build(BuildContext context) {
-    return GetCourageMasterDetail(
+    return GetCourageMasterDetail<Document>(
       id: widget.id,
       routeWithIdPlaceholder: Modular
           .get<Paths>()
@@ -28,28 +28,8 @@ class _DocumentListState extends State<DocumentList> {
       detailsBuilder: (context, detailsId) =>
           FullPageEditorScreen(key: ValueKey(detailsId),
               id: detailsId),
-      masterBuilder: _getMasterView,
-    );
-  }
-
-
-  Widget _getMasterView(BuildContext context, int detailsId,
-      void Function(int) onItemClicked) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverList(
-          delegate: SliverChildBuilderDelegate((context, int index) {
-            return ListTile(
-              title: Text(_listDocument[index].name),
-              selected: index == detailsId,
-              onTap: () {
-                print("onItemClicked: $index");
-                onItemClicked(index);
-              },
-            );
-          }, childCount: _listDocument.length),
-        ),
-      ],
+      items: _listDocument,
+      labelBuilder: (item) => item.name,
     );
   }
 }

@@ -22,44 +22,13 @@ class OrgMasterDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetCourageMasterDetail(
+    return GetCourageMasterDetail<String>(
       id: id,
       routeWithIdPlaceholder: Modular.get<Paths>().org,
-      masterBuilder: _getMasterView,
       detailsBuilder: _getDetailsView,
-    );
-  }
-
-  Widget _getMasterView(
-      BuildContext context, int detailsId, void Function(int) onItemClicked) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        const SliverPadding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          sliver: SliverFloatingBar(
-            elevation: 1.0,
-            floating: true,
-            pinned: true,
-            automaticallyImplyLeading: false,
-            title: TextField(
-              decoration:
-                  InputDecoration.collapsed(hintText: 'Search Campaigns'),
-            ),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate((context, int index) {
-            return ListTile(
-              title: Text(orgs[index]),
-              selected: index == detailsId,
-              onTap: () {
-                print("onItemClicked: $index");
-                onItemClicked(index);
-              },
-            );
-          }, childCount: orgs.length),
-        ),
-      ],
+      labelBuilder: (item) => item,
+      items: orgs,
+      enableSearchBar: true,
     );
   }
 
