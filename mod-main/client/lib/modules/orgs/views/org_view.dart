@@ -1,66 +1,47 @@
 import 'package:floating_search_bar/ui/sliver_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_main/modules/orgs/data/org_model.dart';
 import 'package:mod_main/modules/orgs/view_model/org_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_scaffold/responsive_scaffold.dart';
 import 'package:mod_main/core/core.dart';
+import 'package:sys_core/sys_core.dart';
 
 import 'org_detail_view.dart';
 
 class OrgView extends StatelessWidget {
-  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final int id;
+
+  const OrgView({Key key, this.id = -1}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgViewModel(),
-      builder: (context, OrgViewModel model, child) {
-        return Scaffold(
-          appBar: AppBar(title: Text(ModMainLocalizations.of(context).translate('selectCampaign')),),
-          body: ResponsiveListScaffold.builder(
-            scaffoldKey: _scaffoldKey,
-            detailBuilder: (context, int index, tablet) {
-              return DetailsScreen(
-                body: Scaffold(
-                    appBar: AppBar(
-                      elevation: 0.0,
-                      centerTitle: true,
-                      title: Text(ModMainLocalizations.of(context).translate('campaignDetails')),
-                      automaticallyImplyLeading: !tablet,
-                    ),
-                    body: OrgDetailView(org: model.orgs[index])),
-              );
-            },
-            nullItems: Center(child: CircularProgressIndicator()),
-            emptyItems: Center(child: Text(ModMainLocalizations.of(context).translate('noCampaigns'))),
-            itemCount: model.orgs.length,
-            slivers: <Widget>[
-              SliverPadding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                sliver: SliverFloatingBar(
-                  elevation: 1.0,
-                  floating: true,
-                  pinned: true,
-                  automaticallyImplyLeading: false,
-                  title: TextField(
-                    decoration:
-                        InputDecoration.collapsed(hintText: ModMainLocalizations.of(context).translate('searchCampaigns')),
+      builder: (context, OrgViewModel model, child) =>
+          Scaffold(
+            body: GetCourageMasterDetail<Org>(
+                id: id,
+                items: model.orgs,
+                labelBuilder: (item) => item.campaignName,
+                imageBuilder: (item) => item.logoUrl,
+                routeWithIdPlaceholder: Modular
+                    .get<Paths>()
+                    .orgsId,
+                detailsBuilder: (context, detailsId, isFullScreen) =>
+                    OrgDetailView(org: model.orgs[detailsId], showBackButton:isFullScreen),
+                noItemsAvailable: Center(
+                  child: Text(
+                    ModMainLocalizations.of(context).translate('noCampaigns'),
                   ),
                 ),
-              ),
-            
-            ],
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(model.orgs[index].logoUrl),
-                ),
-                title: Text(model.orgs[index].campaignName),
-              );
-            },
+                disableBackButtonOnNoItemSelected: false,
+                masterAppBarTitle: Text(
+                    ModMainLocalizations.of(context).translate(
+                        'selectCampaign')),
+            ),
           ),
-        );
-      },
     );
   }
 }
