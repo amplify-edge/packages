@@ -5,20 +5,20 @@ import 'package:mod_main/modules/user_needs/data/user_need_model.dart';
 class MockUserNeedRepository extends BaseRepository implements UserNeedRepository {
   @override
   List<UserNeed> getAll() {
-    return this._mockUserNeeds;
+    return _mockUserNeeds;
   }
 
   UserNeed getById(String id) {
-    return this._mockUserNeeds.singleWhere((_userNeed) => _userNeed.id == id);
+    return _mockUserNeeds.singleWhere((_userNeed) => _userNeed.id == id);
   }
 
   List<UserNeed> getByOrgId(String orgId) {
-    return this._mockUserNeeds.where((_userNeed) => _userNeed.refOrgId == orgId).toList();
+    return _mockUserNeeds.where((_userNeed) => _userNeed.refOrgId == orgId).toList();
   }
 
   // Because of the size of the data, I will put the attribute at the
   // bottom of the class
-  final List<UserNeed> _mockUserNeeds = [
+  static final List<UserNeed> _mockUserNeeds = [
     UserNeed(
       id: '001',
       prod: '1',

@@ -12,6 +12,8 @@ class OrgsViewModel extends BaseModel {
 
   List<Org> get orgs => _orgs;
 
+  List<String> get masterOrgNames => Org.mockMasterOrgsNames;
+
   int get rowsPerPage => _rowsPerPage;
 
   int get firstRowIndex => _firstRowIndex;

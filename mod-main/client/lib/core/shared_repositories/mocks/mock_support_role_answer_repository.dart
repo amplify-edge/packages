@@ -11,16 +11,16 @@ class MockSupportRoleAnswerRepository extends BaseRepository
     // OR if the client acts as the repository, then this repo will just mirror it
     // and do this.getConnection().getAllOrgs()
 
-    return this._mockSupportRoleAnswers;
+    return _mockSupportRoleAnswers;
   }
 
   SupportRoleAnswer getById(String id) {
-    return this._mockSupportRoleAnswers.singleWhere((_supportRoleAnswer) => _supportRoleAnswer.id == id);
+    return _mockSupportRoleAnswers.singleWhere((_supportRoleAnswer) => _supportRoleAnswer.id == id);
   }
 
   // Returns a list of Orgs via a matching name
   List<SupportRoleAnswer> getByQuestionId(String questionId) {
-    return this._mockSupportRoleAnswers.where((_supportRoleAnswer) => _supportRoleAnswer.refQuestionId == questionId);
+    return _mockSupportRoleAnswers.where((_supportRoleAnswer) => _supportRoleAnswer.refQuestionId == questionId);
   }
 
   bool createSupportRoleAnswer(
@@ -30,7 +30,7 @@ class MockSupportRoleAnswerRepository extends BaseRepository
       @required String answer,
       @required String comment}) {
 
-    SupportRoleAnswer largestId = this._mockSupportRoleAnswers.reduce((value,
+    SupportRoleAnswer largestId = _mockSupportRoleAnswers.reduce((value,
             element) =>
         value = int.parse(value.id) > int.parse(element.id) ? value : element);
 
@@ -43,18 +43,18 @@ class MockSupportRoleAnswerRepository extends BaseRepository
         refQuestionId: refQuestionId,
         refUserId: refUserId);
 
-    this._mockSupportRoleAnswers.add(supportRoleAnswer);
+    _mockSupportRoleAnswers.add(supportRoleAnswer);
 
     return true;
   }
 
   bool updateSupportRoleAnswer(SupportRoleAnswer supportRoleAnswer) {
-    int index = this
-        ._mockSupportRoleAnswers
+    int index =
+        _mockSupportRoleAnswers
         .indexWhere((_spa) => _spa.id == supportRoleAnswer.id ? true : false);
 
     if (index < 0) {
-      this._mockSupportRoleAnswers[index] = supportRoleAnswer;
+      _mockSupportRoleAnswers[index] = supportRoleAnswer;
 
       return true;
     }
@@ -62,7 +62,7 @@ class MockSupportRoleAnswerRepository extends BaseRepository
     return false;
   }
 
-  List<SupportRoleAnswer> _mockSupportRoleAnswers = [
+  static List<SupportRoleAnswer> _mockSupportRoleAnswers = [
     SupportRoleAnswer(
       id: "001",
       prod: "1",

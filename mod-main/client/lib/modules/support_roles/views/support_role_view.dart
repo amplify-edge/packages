@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_main/modules/widgets/campaign_header.dart';
+import 'package:mod_main/core/shared_widgets/campaign_header.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
 import 'package:mod_main/core/shared_services/dynamic_widget_service.dart';
