@@ -24,7 +24,7 @@ class OrgMasterDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetCourageMasterDetail<String>(
       id: id,
-      routeWithIdPlaceholder: Modular.get<Paths>().org,
+      routeWithIdPlaceholder: Modular.get<Paths>().dashboardId,
       detailsBuilder: _getDetailsView,
       labelBuilder: (item) => item,
       items: orgs,
@@ -32,17 +32,16 @@ class OrgMasterDetailView extends StatelessWidget {
     );
   }
 
-  Widget _getDetailsView(BuildContext context, int detailsId) {
+  Widget _getDetailsView(
+      BuildContext context, int detailsId, bool isFullScreen) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgsViewModel(),
       builder: (context, OrgsViewModel model, child) => ResponsiveBuilder(
         builder: (context, sizingInfo) {
           return Scaffold(
             appBar: AppBar(
-              elevation: 0,
               // iconTheme: Theme.of(context).iconTheme,
-              automaticallyImplyLeading:
-                  (sizingInfo.screenSize.width > 1100) ? false : true,
+              automaticallyImplyLeading: isFullScreen,
               title: Text(orgs[detailsId]),
               // this the mock data
               actions: <Widget>[
@@ -51,13 +50,13 @@ class OrgMasterDetailView extends StatelessWidget {
                     icon: Icon(Icons.link),
                     onPressed: () async {
                       String link =
-                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().org.replaceFirst("/", "").replaceAll(":id", "${detailsId}")}";
+                          "${Modular.get<EnvConfig>().url}/${Modular.get<Paths>().dashboardId.replaceFirst("/", "").replaceAll(":id", "${detailsId}")}";
                       // ${Modular.get<Paths>().org.replaceAll(":id", "$index")
                       print(Modular.get<Paths>().baseRoute);
                       await Clipboard.setData(new ClipboardData(text: link));
                       print(link);
                       print(Modular.get<Paths>()
-                          .org
+                          .dashboardId
                           .replaceFirst("/", "")
                           .replaceAll(":id", "1"));
                     })

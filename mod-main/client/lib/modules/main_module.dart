@@ -51,7 +51,8 @@ class MainAppModule extends ChildModule{
     Router("/", child: (_, args) => SplashView()),
     /// Non-Admin Dashboard Routes
     Router("/userInfo", child: (_, args) => UserInfoView()),
-    Router("/orgs", child: (_, args) => OrgView()),
+    Router("/orgs", child: (_, args) => OrgView(),),
+    Router("/orgs/:id", child: (_, args) => OrgView(id: int.tryParse(args.params['id']) ?? -1,)),
     Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
     Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
