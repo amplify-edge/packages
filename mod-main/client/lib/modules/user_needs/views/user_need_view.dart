@@ -21,7 +21,6 @@ class UserNeedsView extends StatelessWidget {
       },
       builder: (context, UserNeedsViewModel model, child) => Scaffold(
         appBar: AppBar(
-          centerTitle: true,
           title: Text(ModMainLocalizations.of(context).translate('yourNeeds')),
         ),
         body: (model.buzy)

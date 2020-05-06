@@ -2,38 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
+import 'package:mod_main/modules/org_manager/orgs/data/org_model.dart';
 import 'package:mod_main/modules/org_manager/orgs/view_model/orgs_detail_page_view_model.dart';
 import 'package:mod_main/modules/org_manager/orgs/widgets/data_pane/data_pane.dart';
 import 'package:mod_main/modules/org_manager/orgs/widgets/filter_pane.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:floating_search_bar/ui/sliver_search_bar.dart';
 import 'package:sys_core/sys_core.dart';
 
 class OrgMasterDetailView extends StatelessWidget {
   final int id;
-  final List<String> orgs = const [
-    "London Tax Strike 1",
-    "London Tax Strike 2",
-    "London Tax Strike 3"
-  ];
 
   OrgMasterDetailView({Key key, this.id = -1}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetCourageMasterDetail<String>(
-      id: id,
-      routeWithIdPlaceholder: Modular.get<Paths>().dashboardId,
-      detailsBuilder: _getDetailsView,
-      labelBuilder: (item) => item,
-      items: orgs,
-      enableSearchBar: true,
+    return ViewModelProvider.withConsumer(
+      viewModel: OrgsViewModel(),
+      builder:(context, OrgsViewModel model, child)=>
+      GetCourageMasterDetail<String>(
+        id: id,
+        routeWithIdPlaceholder: Modular.get<Paths>().dashboardId,
+        detailsBuilder: (context, detailsId, isFullScreen) => _getDetailsView(context, detailsId, isFullScreen, model),
+        labelBuilder: (item) => item,
+        items: model.masterOrgNames,
+        enableSearchBar: true,
+      ),
     );
   }
 
   Widget _getDetailsView(
-      BuildContext context, int detailsId, bool isFullScreen) {
+      BuildContext context, int detailsId, bool isFullScreen, OrgsViewModel model) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgsViewModel(),
       builder: (context, OrgsViewModel model, child) => ResponsiveBuilder(
@@ -42,7 +41,7 @@ class OrgMasterDetailView extends StatelessWidget {
             appBar: AppBar(
               // iconTheme: Theme.of(context).iconTheme,
               automaticallyImplyLeading: isFullScreen,
-              title: Text(orgs[detailsId]),
+              title: Text(model.masterOrgNames[detailsId]),
               // this the mock data
               actions: <Widget>[
                 IconButton(

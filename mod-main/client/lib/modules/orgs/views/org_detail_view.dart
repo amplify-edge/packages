@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:mod_main/modules/orgs/data/org_model.dart';
-import 'package:mod_main/modules/widgets/campaign_header.dart';
+import 'package:mod_main/core/shared_widgets/campaign_header.dart';
 import '../../../core/core.dart';
 
 class OrgDetailView extends StatelessWidget {

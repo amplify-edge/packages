@@ -76,8 +76,7 @@ class Org {
     @required this.videoURL,
     @required this.actionTime,
     @required this.actionLocation,
-  })
-      : assert(id != null),
+  })  : assert(id != null),
         assert(campaignName != null),
         assert(minPioneers != null),
         assert(minRebelsForMedia != null),
@@ -100,55 +99,51 @@ class Org {
         assert(uom != null),
         assert(crgIdsMany != null);
 
+  static List<String> mockMasterOrgsNames =
+      List<String>.generate(6, (index) => "London Tax Strike $index");
 
   static List<Org> mockOrgs = List<Org>.generate(
     100,
-        (index) =>
-        Org(
-          id: (index + 1).toString(),
-          actionLength: "1",
-          actionType: "NVDA",
-          alreadyPledged: "29738",
-          backingOrg: [
-            "Org 1",
-            "Org 2",
-            "Org 3",
-          ],
-          campaignName: randomAlpha(10),
-          campaignStill: "NY State Pipeline Shutdown",
-          category: "Climate",
-          contact: "climate@xr.org",
-          crgIdsMany: [
-            "crg001",
-            "crg002",
-          ],
-          crgQuantityMany: [
-            "500",
-            "5000"
-          ],
-          goal:
+    (index) => Org(
+      id: (index + 1).toString(),
+      actionLength: "1",
+      actionType: "NVDA",
+      alreadyPledged: "29738",
+      backingOrg: [
+        "Org 1",
+        "Org 2",
+        "Org 3",
+      ],
+      campaignName: randomAlpha(10),
+      campaignStill: "NY State Pipeline Shutdown",
+      category: "Climate",
+      contact: "climate@xr.org",
+      crgIdsMany: [
+        "crg001",
+        "crg002",
+      ],
+      crgQuantityMany: ["500", "5000"],
+      goal:
           "We will state a peaceful NVDA at the NYC Pipeline with the demand to have it shut down.",
-          histPrecedents: "TBA",
-          logoUrl:
+      histPrecedents: "TBA",
+      logoUrl:
           "https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/wp-cms/uploads/2019/10/i-2-90414932-extinction-rebellion-symbol.jpg",
-          minPioneers: "${(Random().nextInt(50) + 50)}",
-          minRebelsForMedia: "5000",
-          minRebelsToWin: "50,000",
-          organization: "Extinction Rebellion XR ${((index + 1)
-              .toString()
-              .padLeft(3, "0"))}",
-          strategy: "TBA",
-          uom: "days",
-          videoURL: [
-            "https://drive.google.com/open?id=1Fjo5VHzDJw5HV9b4N3GEeAJqFJL66oCg",
-            "https://drive.google.com/open?id=1JOiwPp7Bis8W4IUBQlukyL8Pa_H7-Urx",
-            "https://drive.google.com/open?id=1eSSkJYZnPRmpWoQHySGe8fHFJsPqycd6"
-          ],
-          actionLocation: "NYC Pipeline, NY, ${randomAlpha(3)}",
-          // random string for different locations
-          actionTime: DateTime(
-              2020, Random().nextInt(11) + 1, Random().nextInt(30), 11,
-              04), //random date
-        ),
+      minPioneers: "${(Random().nextInt(50) + 50)}",
+      minRebelsForMedia: "5000",
+      minRebelsToWin: "50,000",
+      organization:
+          "Extinction Rebellion XR ${((index + 1).toString().padLeft(3, "0"))}",
+      strategy: "TBA",
+      uom: "days",
+      videoURL: [
+        "https://drive.google.com/open?id=1Fjo5VHzDJw5HV9b4N3GEeAJqFJL66oCg",
+        "https://drive.google.com/open?id=1JOiwPp7Bis8W4IUBQlukyL8Pa_H7-Urx",
+        "https://drive.google.com/open?id=1eSSkJYZnPRmpWoQHySGe8fHFJsPqycd6"
+      ],
+      actionLocation: "NYC Pipeline, NY, ${randomAlpha(3)}",
+      // random string for different locations
+      actionTime: DateTime(2020, Random().nextInt(11) + 1, Random().nextInt(30),
+          11, 04), //random date
+    ),
   );
 }
