@@ -10,9 +10,10 @@ include ../boilerplate/help.mk
 include ../boilerplate/os.mk
 include ../boilerplate/flu.mk
 include ../boilerplate/srv.mk
-include ../boilerplate/lang.mk
 
-FLU_SAMPLE_NAME = client
+override FLU_SAMPLE_NAME =client
+override FLU_LIB_NAME =client
+
 
 
 ## Print all settings
