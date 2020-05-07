@@ -25,7 +25,7 @@ class _DocumentListState extends State<DocumentList> {
       routeWithIdPlaceholder: Modular
           .get<Paths>()
           .detail,
-      detailsBuilder: (context, detailsId) =>
+      detailsBuilder: (context, detailsId, isFullScreen) =>
           FullPageEditorScreen(key: ValueKey(detailsId),
               id: detailsId),
       items: _listDocument,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const _tabletBreakpoint = 720.0;
-const _desktopBreakpoint = 1440.0;
 const _minHeight = 400.0;
 const _tabletSpacingVertical = 15.0;
 const _tabletSpacingHorizontial = 10.0;

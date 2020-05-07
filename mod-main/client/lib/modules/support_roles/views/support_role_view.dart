@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_main/core/shared_widgets/campaign_header.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:mod_main/modules/support_roles/data/support_role_model.dart';
 import 'package:mod_main/core/shared_services/dynamic_widget_service.dart';
@@ -19,43 +20,23 @@ class SupportRoleView extends StatelessWidget {
         model.fetchOrgById(orgId);
       },
       viewModel: SupportRoleViewModel(),
-      builder: (context, SupportRoleViewModel model, child) =>
-          Scaffold(
-            appBar: AppBar(
-              title:
+      builder: (context, SupportRoleViewModel model, child) => Scaffold(
+        appBar: AppBar(
+          title:
               Text(ModMainLocalizations.of(context).translate('supportRoles')),
-              centerTitle: true,
-            ),
-            body: (model.buzy)
-                ? Center(child: Offstage())
-                : Column(children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(model.org.logoUrl),
-                    ),
-                    title: Text(
-                      model.org.campaignName,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .title,
-                    ),
-                    subtitle: Text(
-                      model.org.goal,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+          centerTitle: true,
+        ),
+        body: (model.buzy)
+            ? Center(child: Offstage())
+            : Column(children: [
+                CampaignHeader(
+                  org: model.org,
                 ),
-              ),
-              Expanded(
-                child: _buildSupportRolesList(context, model),
-              ),
-            ]),
-          ),
+                Expanded(
+                  child: _buildSupportRolesList(context, model),
+                ),
+              ]),
+      ),
     );
   }
 

@@ -7,18 +7,18 @@ class MockUserNeedAnswerRepository extends BaseRepository
     implements UserNeedAnswerRepository {
   @override
   List<UserNeedAnswer> getAll() {
-    return this._mockUserNeedAnswers;
+    return _mockUserNeedAnswers;
   }
 
   UserNeedAnswer getById(String id) {
-    return this
-        ._mockUserNeedAnswers
+    return
+        _mockUserNeedAnswers
         .singleWhere((_userNeedAnswer) => _userNeedAnswer.id == id);
   }
 
   List<UserNeedAnswer> getByQuestionId(String questionId) {
-    return this
-        ._mockUserNeedAnswers
+    return
+        _mockUserNeedAnswers
         .where((_userNeedAnswer) => _userNeedAnswer.refQuestionId == questionId)
         .toList();
   }
@@ -30,7 +30,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
       @required String answer,
       @required String comment}) {
 
-    UserNeedAnswer largestId = this._mockUserNeedAnswers.reduce((value,
+    UserNeedAnswer largestId = _mockUserNeedAnswers.reduce((value,
             element) =>
         value = int.parse(value.id) > int.parse(element.id) ? value : element);
 
@@ -44,18 +44,18 @@ class MockUserNeedAnswerRepository extends BaseRepository
         refQuestionId: refQuestionId,
         refUserId: refUserId);
 
-    this._mockUserNeedAnswers.add(userNeedAnswer);
+    _mockUserNeedAnswers.add(userNeedAnswer);
 
     return true;
   }
 
   bool updateUserNeedAnswer(UserNeedAnswer userNeedAnswer) {
-    int index = this
-        ._mockUserNeedAnswers
+    int index =
+        _mockUserNeedAnswers
         .indexWhere((_una) => _una.id == userNeedAnswer.id ? true : false);
 
     if (index < 0) {
-      this._mockUserNeedAnswers[index] = userNeedAnswer;
+      _mockUserNeedAnswers[index] = userNeedAnswer;
 
       return true;
     }
@@ -65,7 +65,7 @@ class MockUserNeedAnswerRepository extends BaseRepository
 
   // Because of the size of the data, I will put the attribute at the
   // bottom of the class
-  final List<UserNeedAnswer> _mockUserNeedAnswers = [
+  static final List<UserNeedAnswer> _mockUserNeedAnswers = [
     UserNeedAnswer(
       id: '001',
       prod: '1',

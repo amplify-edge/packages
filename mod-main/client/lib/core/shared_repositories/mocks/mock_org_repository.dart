@@ -5,20 +5,20 @@ import 'package:mod_main/modules/orgs/data/org_model.dart';
 class MockOrgRepository extends BaseRepository implements OrgRepository {
   @override
   List<Org> getAll() {
-    return this._mockOrgs;
+    return _mockOrgs;
   }
 
   Org getById(String id) {
-    return this._mockOrgs.singleWhere((_org) => _org.id == id);
+    return _mockOrgs.singleWhere((_org) => _org.id == id);
   }
 
   List<Org> getByName(String name) {
-    return this._mockOrgs.where((_org) => _org.organization == name).toList();
+    return _mockOrgs.where((_org) => _org.organization == name).toList();
   }
 
   // Because of the size of the data, I will put the attribute at the
   // bottom of the class
-  final List<Org> _mockOrgs = [
+  static final List<Org> _mockOrgs = [
     Org(
       actionLength: "1",
       actionType: "NVDA",

@@ -12,8 +12,11 @@ import 'package:mod_write/view/src/zefyr_image_delegate.dart'
 
 class FullPageEditorScreen extends StatefulWidget {
   final int id;
+  final bool showBackButton;
 
-  const FullPageEditorScreen({Key key, @required this.id}) : super(key: key);
+  const FullPageEditorScreen(
+      {Key key, @required this.id, this.showBackButton = false})
+      : super(key: key);
 
   @override
   _FullPageEditorScreenState createState() => _FullPageEditorScreenState();
@@ -45,8 +48,8 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
   }
 
   Delta getDelta() {
-    return Delta.fromJson(json.decode(StubData.documents[widget.id]
-        .content) as List);
+    return Delta.fromJson(
+        json.decode(StubData.documents[widget.id].content) as List);
   }
 
   @override
@@ -62,6 +65,7 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
         : IconButton(onPressed: _startEditing, icon: Icon(Icons.edit));
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: widget.showBackButton,
         actions: <Widget>[done],
       ),
       resizeToAvoidBottomPadding: true,

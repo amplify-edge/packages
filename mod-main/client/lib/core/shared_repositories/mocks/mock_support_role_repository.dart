@@ -10,19 +10,19 @@ class MockSupportRoleRepository extends BaseRepository
     // OR if the client acts as the repository, then this repo will just mirror it
     // and do this.getConnection().getAllOrgs()
 
-    return this._mockSupportRoles;
+    return _mockSupportRoles;
   }
 
   SupportRole getById(String id) {
-    return this._mockSupportRoles.singleWhere((_supportRole) => _supportRole.id == id);
+    return _mockSupportRoles.singleWhere((_supportRole) => _supportRole.id == id);
   }
 
   // Returns a list of Orgs via a matching name
   List<SupportRole> getByOrgId(String orgId) {
-    return this._mockSupportRoles.where((_supportRole) => _supportRole.refOrgId == orgId).toList();
+    return _mockSupportRoles.where((_supportRole) => _supportRole.refOrgId == orgId).toList();
   }
 
-  List<SupportRole> _mockSupportRoles = [
+  static List<SupportRole> _mockSupportRoles = [
     SupportRole(
       id: "001",
       name: "Lawyer",
