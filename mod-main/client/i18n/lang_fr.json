@@ -1,8 +1,14 @@
 {
-  "@@last_modified": "2020-04-24T19:09:43.518976",
+  "@@last_modified": "2020-05-08T11:32:12.340204",
   "country": "Pays",
   "@country": {
     "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "aboutYou": "À propos de vous",
+  "@aboutYou": {
+    "description": "About You",
     "placeholders": {},
     "type": "text"
   },
@@ -24,9 +30,45 @@
     "placeholders": {},
     "type": "text"
   },
+  "travelDistance": "Jusqu'où êtes-vous prêt à voyager?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "howOldAreYou": "Quel âge avez-vous?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignAffiliation": "Avez-vous une affiliation à la campagne?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "distanceInKM": "Entrez la distance en kilomètres",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "Aucun élément sélectionné.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
   "category": "Catégorie",
   "@category": {
     "description": "Category",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignName": "Nom de la campagne",
+  "@campaignName": {
+    "description": "campaignName",
     "placeholders": {},
     "type": "text"
   },
@@ -72,13 +114,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "Historique Précédents",
+  "historicalPrecedents": "Précédents historiques",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "Organisations de soutien / d'approbation",
+  "backingEndorsingOrganizations": "Soutien / Organisations endossantes",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
@@ -102,25 +144,25 @@
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Pionniers nécessaires pour démarrer",
+  "pioneersToStart": "Les pionniers devaient démarrer",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Rebelles nécessaires pour déclencher les médias",
+  "rebelsMedia": "Les rebelles nécessaires pour déclencher le média",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Rebelles nécessaires pour win",
+  "rebelsWin": "Les rebelles nécessaires pour gagner",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Détails du contact",
+  "contactDetails": "Contact Détails",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
@@ -138,7 +180,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "Campagnes de recherche",
+  "selectCampaign": "Sélectionner la campagne",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignDetails": "Détails de la campagne",
+  "@campaignDetails": {
+    "description": "campaignDetails",
+    "placeholders": {},
+    "type": "text"
+  },
+  "searchCampaigns": "Rechercher les campagnes",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
@@ -168,7 +222,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "Si nous ne pouvons pas satisfaire vos conditions choisies, envisageriez-vous de fournir un rôle de soutien à ceux qui sont prêts à faire grève?",
+  "provideSupportRole": "Si nous ne pouvons pas satisfaire les conditions que vous avez choisies, envisageriez-vous de fournir un rôle de soutien à ceux qui sont prêts à faire grève?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
@@ -189,42 +243,6 @@
   "supportRoles": "Rôles de soutien",
   "@supportRoles": {
     "description": "Support Roles",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "Au Propos De Vous",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "location": "Entrez votre emplacement",
-  "@location": {
-    "description": "Enter your location",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "Jusqu'où êtes-vous prêt à voyager?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "Entrez la distance en kilomètres",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "age": "Quel âge avez-vous?",
-  "@age": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "Avez-vous une affiliation de campagne?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
     "placeholders": {},
     "type": "text"
   }

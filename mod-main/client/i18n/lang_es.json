@@ -1,8 +1,14 @@
 {
-  "@@last_modified": "2020-04-24T19:09:43.518976",
+  "@@last_modified": "2020-05-08T11:32:12.340204",
   "country": "País",
   "@country": {
     "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "aboutYou": "Acerca de usted",
+  "@aboutYou": {
+    "description": "About You",
     "placeholders": {},
     "type": "text"
   },
@@ -18,9 +24,39 @@
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "¿Dónde estás?",
+  "whereAreYou": "¿Dónde está?",
   "@whereAreYou": {
     "description": "Where are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "travelDistance": "¿Cuán lejos está dispuesto a viajar?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "howOldAreYou": "¿Cuántos años tiene?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignAffiliation": "¿Tiene una afiliación de campaña?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "distanceInKM": "Ingrese la distancia en kilómetros",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "No hay elementos seleccionados.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
     "placeholders": {},
     "type": "text"
   },
@@ -30,7 +66,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "Sin campañas",
+  "campaignName": "Nombre de la campaña",
+  "@campaignName": {
+    "description": "campaignName",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "No hay campañas",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},
@@ -72,19 +114,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "Histórico Antecedentes",
+  "historicalPrecedents": "Antecedentes históricos",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "Organizaciones de respaldo / respaldo",
+  "backingEndorsingOrganizations": "Respaldo / Organizaciones de apoyo",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "Personas que ya se comprometieron",
+  "peopleAlreadyPledged": "Personas ya comprometidas",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
@@ -102,25 +144,25 @@
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Pioneros necesarios para comenzar",
+  "pioneersToStart": "Los pioneros debían comenzar",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Rebeldes necesarios para activar medios",
+  "rebelsMedia": "Los rebeldes necesarios para activar los medios",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Rebeldes necesarios para win",
+  "rebelsWin": "Los rebeldes necesarios para ganar",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Detalles de contacto",
+  "contactDetails": "Contacto Detalles",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
@@ -138,6 +180,18 @@
     "placeholders": {},
     "type": "text"
   },
+  "selectCampaign": "Seleccionar campaña",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignDetails": "Detalles de campaña",
+  "@campaignDetails": {
+    "description": "campaignDetails",
+    "placeholders": {},
+    "type": "text"
+  },
   "searchCampaigns": "Buscar campañas",
   "@searchCampaigns": {
     "description": "Search Campaigns",
@@ -150,7 +204,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Elija tantos apoyos o necesidades que necesite satisfacer para unirse a la acción.",
+  "needsSatisifiedRequirement": "Por favor, elija tantos apoyos o necesidades que necesite satisfacer para unirse a la acción.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
@@ -168,7 +222,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "Si no podemos satisfacerlo según sus condiciones elegidas, ¿consideraría brindar un rol de apoyo a quienes estén dispuestos a ir a la huelga?",
+  "provideSupportRole": "Si no podemos cumplir con las condiciones elegidas, ¿consideraría brindar un rol de apoyo a aquellos dispuestos a ir a la huelga?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
@@ -189,42 +243,6 @@
   "supportRoles": "Roles de soporte",
   "@supportRoles": {
     "description": "Support Roles",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "Acerca De Ti",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "location": "Ingresa tu ubicación",
-  "@location": {
-    "description": "Enter your location",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "¿Hasta dónde estás dispuesto/a a viajar?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "Ingrese la distancia en kilómetros",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "age": "¿Cuantos años tienes?",
-  "@age": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "¿Tiene una afiliación de campaña?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
     "placeholders": {},
     "type": "text"
   }

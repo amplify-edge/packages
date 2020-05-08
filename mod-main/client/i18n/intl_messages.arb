@@ -1,8 +1,14 @@
 {
-  "@@last_modified": "2020-04-30T19:14:58.349565",
+  "@@last_modified": "2020-05-08T11:32:12.340204",
   "country": "Country",
   "@country": {
     "description": "Country",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutYou": "About you",
+  "@aboutYou": {
+    "description": "About You",
     "type": "text",
     "placeholders": {}
   },
@@ -21,6 +27,36 @@
   "whereAreYou": "Where are you?",
   "@whereAreYou": {
     "description": "Where are you?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "travelDistance": "How far are you willing to travel?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "howOldAreYou": "How old are you?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "campaignAffiliation": "Do you have a campaign affiliation?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "distanceInKM": "Enter distance in kilometers",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
     "type": "text",
     "placeholders": {}
   },
@@ -210,40 +246,4 @@
     "type": "text",
     "placeholders": {}
   }
-  "aboutYou": "About You",
-    "@aboutYou": {
-      "description": "About You",
-      "type": "text",
-      "placeholders": {}
-    },
-       "location": "Enter your location",
-       "@location": {
-         "description": "Enter your location",
-         "placeholders": {},
-         "type": "text"
-       },
-       "travelDistance": "How far are you willing to travel?",
-       "@travelDistance": {
-         "description": "How far are you willing to travel?",
-         "placeholders": {},
-         "type": "text"
-       },
-       "distanceInKM": "Enter distance in kilometers",
-       "@distanceInKM": {
-         "description": "Enter distance in kilometers",
-         "placeholders": {},
-         "type": "text"
-       },
-       "age": "How old are you?",
-       "@age": {
-         "description": "How old are you?",
-         "placeholders": {},
-         "type": "text"
-       },
-       "campaignAffiliation": "Do you have a campaign affiliation?",
-       "@campaignAffiliation": {
-         "description": "Do you have a campaign affiliation?",
-         "placeholders": {},
-         "type": "text"
-       }
 }
