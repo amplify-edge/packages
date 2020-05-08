@@ -27,6 +27,7 @@ class OrgMasterDetailView extends StatelessWidget {
         labelBuilder: (item) => item,
         items: model.masterOrgNames,
         enableSearchBar: true,
+        noItemsSelected: Center(child: Text(ModMainLocalizations.of(context).translate('noItemsSelected'))),
       ),
     );
   }

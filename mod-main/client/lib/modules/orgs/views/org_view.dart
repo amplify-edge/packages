@@ -36,6 +36,7 @@ class OrgView extends StatelessWidget {
                     ModMainLocalizations.of(context).translate('noCampaigns'),
                   ),
                 ),
+                noItemsSelected: Center(child: Text(ModMainLocalizations.of(context).translate('noItemsSelected'))),
                 disableBackButtonOnNoItemSelected: false,
                 masterAppBarTitle: Text(
                     ModMainLocalizations.of(context).translate(

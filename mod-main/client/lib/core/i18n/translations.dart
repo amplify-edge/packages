@@ -14,6 +14,15 @@ class Translations {
     );
   }
 
+  String aboutYou() {
+    return Intl.message(
+      "About you",
+      name: "aboutYou",
+      desc: "About You",
+      locale: locale.toString(),
+    );
+  }
+
   String newCountrySelected() {
     return Intl.message(
       'New Country Selected',
@@ -40,6 +49,52 @@ class Translations {
       locale: locale.toString(),
     );
   }
+
+  String travelDistance() {
+    return Intl.message(
+      'How far are you willing to travel?',
+      name: 'travelDistance',
+      desc: 'How far are you willing to travel?',
+      locale: locale.toString(),
+    );
+  }
+
+  String howOldAreYou() {
+    return Intl.message(
+      'How old are you?',
+      name: 'howOldAreYou',
+      desc: 'How old are you?',
+      locale: locale.toString(),
+    );
+  }
+
+  String campaignAffiliation() {
+    return Intl.message(
+      'Do you have a campaign affiliation?',
+      name: 'campaignAffiliation',
+      desc: 'Do you have a campaign affiliation?',
+      locale: locale.toString(),
+    );
+  }
+
+  String distanceInKM() {
+    return Intl.message(
+      'Enter distance in kilometers',
+      name: 'distanceInKM',
+      desc: 'Enter distance in kilometers',
+      locale: locale.toString(),
+    );
+  }
+
+  String noItemsSelected() {
+    return Intl.message(
+      'No items selected.',
+      name: 'noItemsSelected',
+      desc: 'No items selected.',
+      locale: locale.toString(),
+    );
+  }
+
 
   // ORGS
 

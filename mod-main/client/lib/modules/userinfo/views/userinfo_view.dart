@@ -23,7 +23,7 @@ class UserInfoView extends StatelessWidget {
                   Text(
                     '1. ' +
                         ModMainLocalizations.of(context)
-                            .translate('whereAreYou'),
+                            .translate("whereAreYou"),
                     style: Theme.of(context).textTheme.title,
                   ),
                   /*
@@ -82,7 +82,7 @@ class UserInfoView extends StatelessWidget {
                   ),
                   const SizedBox(height: 48.0),
                   Text(
-                    '3. ${ModMainLocalizations.of(context).translate('age')}',
+                    '3. ${ModMainLocalizations.of(context).translate('howOldAreYou')}',
                     style: Theme.of(context).textTheme.title,
                   ),
                   const SizedBox(height: 8.0),
@@ -106,8 +106,8 @@ class UserInfoView extends StatelessWidget {
                         onPressed: () {
                           model.navigateNext();
                         },
-                        child: Text(
-                            ModMainLocalizations.of(context).translate('next')),
+                        child: Text(ModMainLocalizations.of(context)
+                                .translate('next')),
                       ),
                     ],
                   ),
