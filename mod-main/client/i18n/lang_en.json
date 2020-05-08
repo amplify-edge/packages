@@ -1,8 +1,14 @@
 {
-  "@@last_modified": "2020-04-24T19:09:43.518976",
+  "@@last_modified": "2020-05-08T11:32:12.340204",
   "country": "Country",
   "@country": {
     "description": "Country",
+    "placeholders": {},
+    "type": "text"
+  },
+  "aboutYou": "About you",
+  "@aboutYou": {
+    "description": "About You",
     "placeholders": {},
     "type": "text"
   },
@@ -24,27 +30,45 @@
     "placeholders": {},
     "type": "text"
   },
-  "campaignName": "Campaign Name",
-  "@campaignName": {
-    "description": "Campaign Name",
+  "travelDistance": "How far are you willing to travel?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "Select Campaign",
-  "@selectCampaign": {
-    "description": "Select Campaign",
+  "howOldAreYou": "How old are you?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
     "placeholders": {},
     "type": "text"
   },
-  "campaignDetails": "Campaign Details",
-  "@campaignDetails": {
-    "description": "Campaign Details",
+  "campaignAffiliation": "Do you have a campaign affiliation?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "distanceInKM": "Enter distance in kilometers",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
     "placeholders": {},
     "type": "text"
   },
   "category": "Category",
   "@category": {
     "description": "Category",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignName": "Campaign Name",
+  "@campaignName": {
+    "description": "campaignName",
     "placeholders": {},
     "type": "text"
   },
@@ -156,6 +180,18 @@
     "placeholders": {},
     "type": "text"
   },
+  "selectCampaign": "Select Campaign",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignDetails": "Campaign Details",
+  "@campaignDetails": {
+    "description": "campaignDetails",
+    "placeholders": {},
+    "type": "text"
+  },
   "searchCampaigns": "Search Campaigns",
   "@searchCampaigns": {
     "description": "Search Campaigns",
@@ -207,42 +243,6 @@
   "supportRoles": "Support Roles",
   "@supportRoles": {
     "description": "Support Roles",
-    "placeholders": {},
-    "type": "text"
-  },
-  "aboutYou": "About You",
-  "@aboutYou": {
-    "description": "About You",
-    "placeholders": {},
-    "type": "text"
-  },
-  "location": "Enter your location",
-  "@location": {
-    "description": "Enter your location",
-    "placeholders": {},
-    "type": "text"
-  },
-  "travelDistance": "How far are you willing to travel?",
-  "@travelDistance": {
-    "description": "How far are you willing to travel?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "distanceInKM": "Enter distance in kilometers",
-  "@distanceInKM": {
-    "description": "Enter distance in kilometers",
-    "placeholders": {},
-    "type": "text"
-  },
-  "age": "How old are you?",
-  "@age": {
-    "description": "How old are you?",
-    "placeholders": {},
-    "type": "text"
-  },
-  "campaignAffiliation": "Do you have a campaign affiliation?",
-  "@campaignAffiliation": {
-    "description": "Do you have a campaign affiliation?",
     "placeholders": {},
     "type": "text"
   }

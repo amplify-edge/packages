@@ -84,11 +84,11 @@ class GetCourageMasterDetail<T> extends StatelessWidget {
                     )
                   : Expanded(
                       flex: 3,
-                      child: noItemsSelected ??
+                      child:
                           Column(
                             children: <Widget>[
                               AppBar(leading: Container(),),
-                              Expanded(child: Center(child: Text("No items selected."))),
+                              Expanded(child: noItemsSelected?? Center(child: Text("No items selected."))),
                             ],
                           ))
           ],

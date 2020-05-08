@@ -3,6 +3,9 @@
 
 current_dir = $(shell pwd)
 
+FLU_LIB_NAME = ???
+FLU_LIB_FSPATH = $(PWD)/$(FLU_LIB_NAME)
+
 FLU_SAMPLE_NAME = ???
 FLU_SSAMPLE_FSPATH = $(PWD)/$(FLU_SAMPLE_NAME)
 
@@ -10,13 +13,15 @@ FLU_SSAMPLE_FSPATH = $(PWD)/$(FLU_SAMPLE_NAME)
 ## Prints the flutter settings
 flu-print: ## print
 	@echo -- FLU -- 
+	@echo FLU_LIB_NAME: $(FLU_LIB_NAME)
+	@echo FLU_LIB_FSPATH: $(FLU_LIB_FSPATH)
 	@echo FLU_SAMPLE_NAME: $(FLU_SAMPLE_NAME)
 	@echo FLU_SSAMPLE_FSPATH: $(FLU_SSAMPLE_FSPATH)
 	@echo
 
 	@echo -- I18N --
-	@echo I18N_TEMPLATE_PATH: $(I18N_TEMPLATE_PATH)
-	@echo I18N_PREFIX_OUT_FILES: $(I18N_PREFIX_OUT_FILES)
+	@echo FLU_LANG_TEMPLATE_PATH: $(FLU_LANG_TEMPLATE_PATH)
+	@echo FLU_LANG_FILE_PREFIX_OUT: $(FLU_LANG_FILE_PREFIX_OUT)
 	@echo
 
 
@@ -91,31 +96,31 @@ flu-desk-run: ## flu-desk-run
 
 ## Generates all code
 flu-gen: ## flu-gen
-	cd $(FLU_SSAMPLE_FSPATH) && flutter packages get
+	cd $(FLU_LIB_FSPATH) && flutter packages get
 	$(MAKE) gen-icons
 	$(MAKE) gen-hive
 	$(MAKE) gen-proto
-	cd $(FLU_SSAMPLE_FSPATH) && flutter analyze 
+	cd $(FLU_LIB_FSPATH) && flutter analyze 
 
 gen-icons:
 	# mobile and web
 	@echo
 	@echo Generating icons for Flutter
 	@echo
-	cd $(FLU_SSAMPLE_FSPATH) && flutter pub run flutter_launcher_icons:main
+	cd $(FLU_LIB_FSPATH) && flutter pub run flutter_launcher_icons:main
 
 	# desktop
 	@echo
 	@echo Copying icon-png from flutter assets into go assets, so hover can use it
 	@echo
-	cp $(FLU_SSAMPLE_FSPATH)/assets/icon/icon.png $(FLU_SSAMPLE_FSPATH)/go/assets
+	cp $(FLU_LIB_FSPATH)/assets/icon/icon.png $(FLU_LIB_FSPATH)/go/assets
 
 gen-hive:
-	cd $(FLU_SSAMPLE_FSPATH) && flutter packages pub run build_runner build --delete-conflicting-outputs
+	cd $(FLU_LIB_FSPATH) && flutter packages pub run build_runner build --delete-conflicting-outputs
 
 gen-proto:
 	pub global activate protoc_plugin
-	mkdir -p $(FLU_SSAMPLE_FSPATH)/lib/api/v1/google/protobuf
+	mkdir -p $(FLU_LIB_FSPATH)/lib/api/v1/google/protobuf
 
 ifeq ($(GO_OS), windows)
 	@echo Windows detected
@@ -125,6 +130,80 @@ else
 	protoc empty.proto timestamp.proto wrappers.proto --proto_path=$(LIB_FSPATH)/server/third_party/google/protobuf --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(FLU_SSAMPLE_FSPATH)/lib/api/v1/google/protobuf
 	protoc chat.proto --proto_path=$(LIB_FSPATH)/server/api/proto/v1/ --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(FLU_SSAMPLE_FSPATH)/client/lib/chat_view/api/v1/
 endif
+
+
+## LANG
+# 0. make lang-dep => ensure you have the i18n tool
+# 1. make lang-gen-flu => Generates everything
+# OR
+# 1. make lang-gen-flu-all = > Generates for maintemplate and all submodules
+
+## LANG
+# 0. 
+# 1. make lang-dep => ensure you have the i18n tool
+# 2. make lang-gen-flu => generate all files
+
+FLU_LANG_LOCALES = en,fr,es,de,it,ur
+
+FLU_LANG_DIR = $(FLU_LIB_FSPATH)/i18n
+FLU_LANG_LOCALIZATION_DIR = $(FLU_LIB_FSPATH)/lib/core/i18n
+FLU_LANG_GENERATED_DIR = $(FLU_LANG_LOCALIZATION_DIR)/generated
+FLU_LANG_TEMPLATE_NAME = intl_messages.arb
+FLU_LANG_TEMPLATE_PATH = $(FLU_LANG_DIR)/$(FLU_LANG_TEMPLATE_NAME)
+FLU_LANG_FILE_PREFIX_OUT = lang
+
+## prints flu-lang variables
+flu-gen-lang-print: ## flu-gen-lang-print
+	@echo
+	@echo FLU_LANG_LOCALES: 			$(FLU_LANG_LOCALES)
+	@echo FLU_LANG_DIR: 					$(FLU_LANG_DIR)
+	@echo FLU_LANG_LOCALIZATION_DIR: 		$(FLU_LANG_LOCALIZATION_DIR)
+	@echo FLU_LANG_GENERATED_DIR: 			$(FLU_LANG_GENERATED_DIR)
+	@echo FLU_LANG_TEMPLATE_NAME: 			$(FLU_LANG_TEMPLATE_NAME)
+	@echo FLU_LANG_FILE_PREFIX_OUT: 		$(FLU_LANG_FILE_PREFIX_OUT)
+	@echo	
+#	
+flu-gen-lang-dep: ## flu-gen-lang-dep
+	go get -u github.com/getcouragenow/bootstrap/tool/i18n
+
+
+# Generates language file for maintemplate and all submodules
+flu-gen-lang-all: ## flu-gen-lang-all
+	$(MAKE) flu-gen-lang
+	$(MAKE) flu-gen-lang-dart
+	$(MAKE) flu-gen-lang-submodules
+
+## Generates lang for sub modules
+flu-gen-lang-submodules: ## flu-gen-lang-submodules
+	#TODO joe make recursive
+	cd ../../mod-account/client && make lang-gen-flu
+	cd ../../mod-chat/client && make lang-gen-flu
+	cd ../../mod-main/client && make lang-gen-flu
+
+## generates language code
+flu-gen-lang: ## flu-gen-lang
+	@echo -- Running flutter pub get first
+	cd $(FLU_LIB_FSPATH) && flutter pub get
+
+	@echo -- Creating: $(FLU_LANG_GENERATED_DIR)
+	mkdir -p $(FLU_LANG_GENERATED_DIR)
+	
+	@echo -- Creating: $(FLU_LANG_DIR)
+	mkdir -p $(FLU_LANG_DIR)
+
+	@echo -- Extracting: To ARB
+	cd $(FLU_LIB_FSPATH) && flutter pub run intl_translation:extract_to_arb --output-dir=$(FLU_LANG_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart
+	
+	@echo -- Translating Text
+	i18n flutter --dir $(FLU_LANG_DIR) --template $(FLU_LANG_TEMPLATE_PATH) --prefix $(FLU_LANG_FILE_PREFIX_OUT) --languages $(FLU_LANG_LOCALES) -f
+	i18n flutter --dir $(FLU_LANG_DIR)
+
+## generates dart code out of arb files
+flu-gen-lang-dart: ## flu-gen-lang-dart
+	flutter pub run intl_translation:generate_from_arb --output-dir=$(FLU_LANG_GENERATED_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart $(FLU_LANG_DIR)/*.arb
+
+
+
 
 ### ASTI
 
@@ -147,20 +226,20 @@ go-desk-build: ## go-desk-build
 	# cd $(FLU_SSAMPLE_FSPATH) && flutter build web
 
 	# copy flutter web build to desktop/resources/app
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/resources/app
-	mkdir -p $(FLU_SSAMPLE_FSPATH)desktop/resources/app/
-	cp -r $(FLU_SSAMPLE_FSPATH)build/web/* $(FLU_SSAMPLE_FSPATH)desktop/resources/app
+	rm -rf $(FLU_LIB_FSPATH)desktop/resources/app
+	mkdir -p $(FLU_LIB_FSPATH)desktop/resources/app/
+	cp -r $(FLU_LIB_FSPATH)build/web/* $(FLU_LIB_FSPATH)desktop/resources/app
 
 	# -d is for darwin
-	cd $(FLU_SSAMPLE_FSPATH)desktop && astilectron-bundler
+	cd $(FLU_LIB_FSPATH)desktop && astilectron-bundler
 
 ############## Linux ##############
 go-desk-run-lin: ## go-desk-run-lin
-	cd $(FLU_SSAMPLE_FSPATH) && desktop/output/linux-amd64/ION\ Desktop\ App
+	cd $(FLU_LIB_FSPATH) && desktop/output/linux-amd64/ION\ Desktop\ App
 
 go-desk-pack-lin: ## go-desk-pack-lin
 	# deb
-	cd $(FLU_SSAMPLE_FSPATH)packer/ && make go-pack-deb
+	cd $(FLU_LIB_FSPATH)packer/ && make go-pack-deb
 
 go-desk-sign-lin:
 	# https://blog.packagecloud.io/eng/2014/10/28/howto-gpg-sign-verify-deb-packages-apt-repositories/
@@ -175,7 +254,7 @@ go-desk-run-win: ## go-desk-run-win
 	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
 
 go-desk-pack-win:
-	cd $(FLU_SSAMPLE_FSPATH)packer/ && make go-pack-win
+	cd $(FLU_LIB_FSPATH)packer/ && make go-pack-win
 
 go-desk-sign-win:
 	# https://github.com/itchio/itch-setup/blob/master/scripts/ci-build.sh#L73
@@ -208,39 +287,11 @@ go-desk-sign-mac: ## go-desk-sign-mac
 	codesign --verify -vvvv "${TARGET}"
 
 go-desk-clean:
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/resources/app
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/output
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/bind_darwin_amd64.go
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/bind_linux_amd64.go
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/bind_windows_386.go
-	rm -rf $(FLU_SSAMPLE_FSPATH)desktop/windows.syso
+	rm -rf $(FLU_LIB_FSPATH)desktop/resources/app
+	rm -rf $(FLU_LIB_FSPATH)desktop/output
+	rm -rf $(FLU_LIB_FSPATH)desktop/bind_darwin_amd64.go
+	rm -rf $(FLU_LIB_FSPATH)desktop/bind_linux_amd64.go
+	rm -rf $(FLU_LIB_FSPATH)desktop/bind_windows_386.go
+	rm -rf $(FLU_LIB_FSPATH)desktop/windows.syso
 
-#include ../../sys-core/make/i18n.mk
 
-## LANG
-# 0. make lang-dep => ensure you have the i18n tool
-# 1. make lang-gen-flu => Generates everything
-# OR
-# 1. make lang-gen-flu-all = > Generates for maintemplate and all submodules
-
-## Generates the langage files
-lang-gen: ## lang-gen
-	# wrapper script to call others to make it seemless
-	$(MAKE) lang-gen-go
-
-## Generates lang using go.
-lang-gen-go: ## lang-gen-go
-	# calls our golang tool to do its thing...
-	@echo i18n flutter
-
-## Generates lang for sub modules
-lang-gen-flu-submodules: ## lang-gen-flu-submodules
-	@(cd ../../mod-account/client && make lang-gen-flu)
-	@(cd ../../mod-chat/client && make lang-gen-flu)
-	@(cd ../../mod-main/client && make lang-gen-flu)
-
-# Generates language file for maintemplate and all submodules
-lang-gen-flu-all: ## lang-gen-flu-all
-	$(MAKE) lang-gen-flu
-	$(MAKE) lang-gen-flu-dart
-	$(MAKE) lang-gen-flu-submodules
