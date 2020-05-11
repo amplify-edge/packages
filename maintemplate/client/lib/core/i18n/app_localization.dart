@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:maintemplate/core/i18n/translations.dart';
 import 'package:sys_core/sys_core.dart';

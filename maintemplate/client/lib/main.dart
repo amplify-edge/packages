@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/app_module.dart';
-import 'package:maintemplate/layout_template.dart';
 import 'package:mod_main/core/i18n/mod_main_localization.dart';
 import 'package:mod_account/core/i18n/mod_account_localization.dart';
 import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart' as provider;
 import 'package:sys_core/sys_core.dart';
 
 import '././core/core.dart';
-import 'core/events/event_listener.dart';
 import 'modules/settings/settings.dart';
 
 // Bottom Up approach .....
@@ -61,7 +59,7 @@ class _AppState extends State<App> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      builder: (context, child) => LayoutTemplate(body: child),
+      builder: (context, child) => NavigationLayout(body: child),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
