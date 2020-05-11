@@ -26,7 +26,10 @@ dependencies:
   responsive_scaffold: ^1.3.0+2
   floating_search_bar: ^0.3.0
   sys_core:
-    path: ../../sys-core/client
+    git:
+     url: https://github.com/getcouragenow/core-runtime.git
+     ref: master
+     path: sys-core/client
 
   # ours
   # maintemplate:
