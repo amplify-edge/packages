@@ -53,8 +53,10 @@ dependencies:
   mod_account:
     path: ../../mod-account/client
   sys_core:
-    path: ../../sys-core/client
- 
+    git:
+     url: https://github.com/getcouragenow/core-runtime.git
+     ref: master
+     path: sys-core/client
 
   # Architectural packages
   provider: ^4.0.4

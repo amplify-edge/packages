@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:maintemplate/nav_rail.dart';
+import 'package:maintemplate/core/views/nav_rail.dart';
 import 'package:sys_core/sys_core.dart';
 
-import 'core/core.dart';
+import '../core.dart';
 
-class LayoutTemplate extends StatefulWidget {
+class NavigationLayout extends StatefulWidget {
   final Widget body;
 
-  const LayoutTemplate({Key key, this.body}) : super(key: key);
+  const NavigationLayout({Key key, this.body}) : super(key: key);
 
   @override
-  _LayoutTemplateState createState() => _LayoutTemplateState();
+  _NavigationLayoutState createState() => _NavigationLayoutState();
 }
 
-class _LayoutTemplateState extends State<LayoutTemplate> {
+class _NavigationLayoutState extends State<NavigationLayout> {
   int _currentIndex = 0;
 
   @override

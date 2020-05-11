@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-const _minHeight = 400.0;
 const _tabletSpacingVertical = 15.0;
 const _tabletSpacingHorizontial = 10.0;
-const _drawerWidth = 304.0;
 
 class MaterialNavigationRail extends StatelessWidget {
   final Widget drawerHeader;
@@ -289,49 +287,6 @@ class MaterialNavigationRail extends StatelessWidget {
                 ),
               ]
             ],
-          ],
-        ),
-      ),
-    );
-    return Material(
-      child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: SingleChildScrollView(
-                child: Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      /*if (drawerHeader != null) ...[drawerHeader],
-                      if (drawerHeaderBuilder != null) ...[
-                        drawerHeaderBuilder(context),
-                      ],*/
-                      /* if (showTabs) ...[
-                        for (var tab in tabs) ...[
-                          ListTile(
-                            dense: isDense,
-                            selected: currentIndex == tabs.indexOf(tab),
-                            leading: tab?.icon,
-                            title: tab?.title,
-                            onTap: () {
-                              onPressed(tabs.indexOf(tab));
-                              tab.onTap();
-                            },
-                          ),
-                        ]
-                      ],
-                      */
-                      Expanded(child: ListTile()),
-                      /*if (drawerFooterBuilder != null) ...[
-                        drawerFooterBuilder(context),
-                      ],*/
-                    ],
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),

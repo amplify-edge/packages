@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/core/core.dart';
 import 'package:maintemplate/modules/settings/view_models/settings_view_model.dart';
 import 'package:provider/provider.dart';

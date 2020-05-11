@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-05-08T11:32:12.340204",
+  "@@last_modified": "2020-05-08T11:46:40.280083",
   "country": "Paese",
   "@country": {
     "description": "Country",
@@ -30,7 +30,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "travelDistance": "Quanto lontano sei disposto a viaggiare?",
+  "travelDistance": "Fino a che punto sei disposto a viaggiare?",
   "@travelDistance": {
     "description": "How far are you willing to travel?",
     "placeholders": {},
@@ -204,7 +204,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Scegli quanti supporti o necessità devi soddisfare per partecipare all'azione.",
+  "needsSatisifiedRequirement": "Scegli quanti supporti o esigenze devi soddisfare per partecipare all'azione.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
