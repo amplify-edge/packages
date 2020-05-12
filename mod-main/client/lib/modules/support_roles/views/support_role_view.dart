@@ -24,7 +24,6 @@ class SupportRoleView extends StatelessWidget {
         appBar: AppBar(
           title:
               Text(ModMainLocalizations.of(context).translate('supportRoles')),
-          centerTitle: true,
         ),
         body: (model.buzy)
             ? Center(child: Offstage())

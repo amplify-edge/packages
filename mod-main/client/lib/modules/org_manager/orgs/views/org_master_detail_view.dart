@@ -28,6 +28,9 @@ class OrgMasterDetailView extends StatelessWidget {
         items: model.masterOrgNames,
         enableSearchBar: true,
         noItemsSelected: Center(child: Text(ModMainLocalizations.of(context).translate('noItemsSelected'))),
+
+        masterAppBarTitle: Text(
+            ModMainLocalizations.of(context).translate('selectCampaign')),
       ),
     );
   }
