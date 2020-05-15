@@ -19,30 +19,29 @@ class OrgView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModel: OrgViewModel(),
-      builder: (context, OrgViewModel model, child) =>
-          Scaffold(
-            body: GetCourageMasterDetail<Org>(
-                id: id,
-                items: model.orgs,
-                labelBuilder: (item) => item.campaignName,
-                imageBuilder: (item) => item.logoUrl,
-                routeWithIdPlaceholder: Modular
-                    .get<Paths>()
-                    .orgsId,
-                detailsBuilder: (context, detailsId, isFullScreen) =>
-                    OrgDetailView(org: model.orgs[detailsId], showBackButton:isFullScreen),
-                noItemsAvailable: Center(
-                  child: Text(
-                    ModMainLocalizations.of(context).translate('noCampaigns'),
-                  ),
-                ),
-                noItemsSelected: Center(child: Text(ModMainLocalizations.of(context).translate('noItemsSelected'))),
-                disableBackButtonOnNoItemSelected: false,
-                masterAppBarTitle: Text(
-                    ModMainLocalizations.of(context).translate(
-                        'selectCampaign')),
+      builder: (context, OrgViewModel model, child) => Scaffold(
+        body: GetCourageMasterDetail<Org>(
+          enableSearchBar: true,
+          id: id,
+          items: model.orgs,
+          labelBuilder: (item) => item.campaignName,
+          imageBuilder: (item) => item.logoUrl,
+          routeWithIdPlaceholder: Modular.get<Paths>().orgsId,
+          detailsBuilder: (context, detailsId, isFullScreen) => OrgDetailView(
+              org: model.orgs[detailsId], showBackButton: isFullScreen),
+          noItemsAvailable: Center(
+            child: Text(
+              ModMainLocalizations.of(context).translate('noCampaigns'),
             ),
           ),
+          noItemsSelected: Center(
+              child: Text(ModMainLocalizations.of(context)
+                  .translate('noItemsSelected'))),
+          disableBackButtonOnNoItemSelected: false,
+          masterAppBarTitle: Text(
+              ModMainLocalizations.of(context).translate('selectCampaign')),
+        ),
+      ),
     );
   }
 }
