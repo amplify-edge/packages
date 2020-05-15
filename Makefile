@@ -25,6 +25,3 @@ print: ## print
 	$(MAKE) gitr-print
 	
 
-## So high
-high: ## high
-	@echo i wanna get...
