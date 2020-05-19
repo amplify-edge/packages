@@ -24,7 +24,10 @@ dependencies:
   intl: ^0.16.1
   intl_translation: ^0.17.9
   sys_core:
-    path: ../../../core-runtime/sys-core/client
+    git:
+      url: git://github.com/getcouragenow/core-runtime.git
+      path: sys-core/client
+      ref: master
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
