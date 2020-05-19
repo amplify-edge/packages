@@ -32,10 +32,6 @@ this-build-all: ##
 
 ## Print all settings
 print: ## print
-	@echo -- REPO -- 
-	@echo REPOSITORY: $(REPOSITORY)
-	@echo
-	
 
 	$(MAKE) os-print
 	
@@ -45,6 +41,3 @@ print: ## print
 
 	$(MAKE) srv-print
 
-## So high
-high: ## high
-	@echo i wanna get...
