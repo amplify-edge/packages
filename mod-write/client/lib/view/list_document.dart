@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_write/core/i18n/mod_write_localization.dart';
 import 'package:mod_write/stub_data.dart';
 import 'package:mod_write/view/src/full_page.dart';
 import 'package:responsive_scaffold/responsive_scaffold.dart';
@@ -19,15 +20,17 @@ class _DocumentListState extends State<DocumentList> {
   var _listDocument = StubData.documents;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GetCourageMasterDetail<Document>(
       id: widget.id,
-      routeWithIdPlaceholder: Modular
-          .get<Paths>()
-          .detail,
+      routeWithIdPlaceholder: Modular.get<Paths>().detail,
       detailsBuilder: (context, detailsId, isFullScreen) =>
-          FullPageEditorScreen(key: ValueKey(detailsId),
-              id: detailsId),
+          FullPageEditorScreen(key: ValueKey(detailsId), id: detailsId),
       items: _listDocument,
       labelBuilder: (item) => item.name,
     );

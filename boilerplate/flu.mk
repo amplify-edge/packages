@@ -166,19 +166,23 @@ flu-gen-lang-print: ## flu-gen-lang-print
 flu-gen-lang-dep: ## flu-gen-lang-dep
 	go get -u github.com/getcouragenow/bootstrap/tool/i18n
 
-
-# Generates language file for maintemplate and all submodules
-flu-gen-lang-all: ## flu-gen-lang-all
-	$(MAKE) flu-gen-lang
-	$(MAKE) flu-gen-lang-dart
-	$(MAKE) flu-gen-lang-submodules
-
-## Generates lang for sub modules
-flu-gen-lang-submodules: ## flu-gen-lang-submodules
-	#TODO joe make recursive
-	cd ../../mod-account/client && make lang-gen-flu
-	cd ../../mod-chat/client && make lang-gen-flu
-	cd ../../mod-main/client && make lang-gen-flu
+#
+## Generates language file for maintemplate and all submodules
+#flu-gen-lang-all: ## flu-gen-lang-all
+#	$(MAKE) flu-gen-lang
+#	$(MAKE) flu-gen-lang-dart
+#	$(MAKE) flu-gen-lang-submodules
+#
+### Generates lang for sub modules
+#flu-gen-lang-submodules: ## flu-gen-lang-submodules
+#	#TODO joe make recursive
+#	cd ../mod-account && make flu-gen-lang
+#	cd ../mod-chat && make flu-gen-lang
+#	cd ../mod-main && make flu-gen-lang
+#	cd ../mod-geo && make flu-gen-lang
+#	cd ../mod-chat && make flu-gen-lang
+#	cd ../mod-write && make flu-gen-lang
+#	cd ../mod-ion && make flu-gen-lang
 
 ## generates language code
 flu-gen-lang: ## flu-gen-lang
@@ -200,7 +204,7 @@ flu-gen-lang: ## flu-gen-lang
 
 ## generates dart code out of arb files
 flu-gen-lang-dart: ## flu-gen-lang-dart
-	flutter pub run intl_translation:generate_from_arb --output-dir=$(FLU_LANG_GENERATED_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart $(FLU_LANG_DIR)/*.arb
+	cd $(FLU_LIB_FSPATH) && flutter pub run intl_translation:generate_from_arb --output-dir=$(FLU_LANG_GENERATED_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart $(FLU_LANG_DIR)/*.arb
 
 
 

@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-05-19T18:15:24.508219",
+  "startupTestLog": "یہ ماڈ آئن سے i18n ٹیسٹ سٹرنگ ہے۔ نوائے وقت میں ہر ایک کو سلام۔",
+  "@startupTestLog": {
+    "description": "This is i18n test string from mod-ion. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  }
+}

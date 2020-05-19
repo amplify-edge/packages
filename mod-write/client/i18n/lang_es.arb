@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-05-19T18:15:00.149957",
+  "startupTestLog": "Esta es la cadena de prueba i18n de mod-write. Hola a todos en los registros.",
+  "@startupTestLog": {
+    "description": "This is i18n test string from mod-write. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  }
+}

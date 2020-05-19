@@ -40,7 +40,7 @@ dependencies:
   path_provider: ^1.6.7
   equatable:
   meta:
-  flutter_modular: ^0.5.5
+  flutter_modular: ^1.2.2
   intl: ^0.16.1
   intl_translation: ^0.17.9
   data_tables: ^1.0.3
