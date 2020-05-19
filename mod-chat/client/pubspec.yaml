@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_modular: ^0.5.2
+  flutter_modular: ^1.2.2
   grpc: ^2.1.3
   rxdart: ^0.20.0
   intl: ^0.16.1
@@ -22,7 +22,7 @@ dependencies:
       url: git://github.com/getcouragenow/core-runtime.git
       path: sys-core/client
       ref: master
-      
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-05-19T18:14:07.610789",
+  "startupTestLog": "This is i18n test string from mod-geo. Hi everybody in the logs.",
+  "@startupTestLog": {
+    "description": "This is i18n test string from mod-geo. Hi everybody in the logs.",
+    "type": "text",
+    "placeholders": {}
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-05-19T18:15:24.508219",
+  "startupTestLog": "This is i18n test string from mod-ion. Hi everybody in the logs.",
+  "@startupTestLog": {
+    "description": "This is i18n test string from mod-ion. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  }
+}

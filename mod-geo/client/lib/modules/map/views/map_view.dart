@@ -89,7 +89,7 @@ class MapsView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(ModGeoLocalizations.of(context) == null ? "String to be tested" : ModGeoLocalizations.of(context).test()  ),
+                          Text(ModGeoLocalizations.of(context) == null ? "String to be tested" : ModGeoLocalizations.of(context).translate("startupTestLog")  ),
                           for (var campaign in model.campaigns) ...[
                             // InkWell(
                             //   onTap: () {

@@ -1,0 +1,1 @@
+export 'i18n/mod_ion_localization.dart';

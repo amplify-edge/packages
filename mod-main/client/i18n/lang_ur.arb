@@ -1,234 +1,246 @@
 {
-  "@@last_modified": "2020-05-07T18:11:09.284946",
+  "@@last_modified": "2020-05-19T18:13:41.172528",
   "country": "ملک",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "aboutYou": "آپ",
+  "aboutYou": "آپ کے بارے میں",
   "@aboutYou": {
     "description": "About You",
     "placeholders": {},
     "type": "text"
   },
-  "newCountrySelected": "کے",
+  "newCountrySelected": "نیا ملک منتخب",
   "@newCountrySelected": {
     "description": "New Country Selected",
     "placeholders": {},
     "type": "text"
   },
-  "zipCode": "بارے",
+  "zipCode": "زپ کوڈ",
   "@zipCode": {
     "description": "Zip Code",
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "میں",
+  "whereAreYou": "آپ کہاں ہیں؟",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
     "type": "text"
   },
-  "travelDistance": "نیا",
+  "travelDistance": "آپ کتنے سفر پر راضی ہیں؟",
   "@travelDistance": {
     "description": "How far are you willing to travel?",
     "placeholders": {},
     "type": "text"
   },
-  "howOldAreYou": "ملک",
+  "howOldAreYou": "آپ کی عمر کتنی ہے؟",
   "@howOldAreYou": {
     "description": "How old are you?",
     "placeholders": {},
     "type": "text"
   },
-  "campaignAffiliation": "منتخب",
+  "campaignAffiliation": "کیا آپ کی مہم سے وابستہ ہے؟",
   "@campaignAffiliation": {
     "description": "Do you have a campaign affiliation?",
     "placeholders": {},
     "type": "text"
   },
-  "category": "زپ",
+  "distanceInKM": "فاصلہ درج کریں کلومیٹر میں",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "کوئی اشیاء منتخب نہیں کی گئیں۔",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "category": "زمرہ",
   "@category": {
     "description": "Category",
     "placeholders": {},
     "type": "text"
   },
-  "campaignName": "کوڈ",
+  "campaignName": "مہم کا نام",
   "@campaignName": {
     "description": "campaignName",
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "آپ",
+  "noCampaigns": "کوئی مہمات نہیں",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "actionType": "کہاں",
+  "actionType": "ایکشن کی قسم",
   "@actionType": {
     "description": "Type of Action",
     "placeholders": {},
     "type": "text"
   },
-  "actionLocation": "ہیں؟",
+  "actionLocation": "عمل کا مقام",
   "@actionLocation": {
     "description": "Action Location",
     "placeholders": {},
     "type": "text"
   },
-  "time": "آپ",
+  "time": "وقت",
   "@time": {
     "description": "Time",
     "placeholders": {},
     "type": "text"
   },
-  "lengthOfTheAction": "کتنا",
+  "lengthOfTheAction": "عمل کی لمبائی",
   "@lengthOfTheAction": {
     "description": "Length of the Action",
     "placeholders": {},
     "type": "text"
   },
-  "goal": "سفر",
+  "goal": "مقصد",
   "@goal": {
     "description": "Goal",
     "placeholders": {},
     "type": "text"
   },
-  "strategy": "کرنے",
+  "strategy": "حکمت عملی",
   "@strategy": {
     "description": "strategy",
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "کے",
+  "historicalPrecedents": "تاریخی مثال",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "لئے",
+  "backingEndorsingOrganizations": "پشت پناہی / تنظیموں کی توثیق",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "تیار",
+  "peopleAlreadyPledged": "لوگوں نے پہلے ہی عہد کیا تھا",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
     "type": "text"
   },
-  "weNeed": "ہیں؟",
+  "weNeed": "ہمیں ضرورت ہے",
   "@weNeed": {
     "description": "We Need",
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "آپ",
+  "extrapolatedSimilarPastActions": "مندرجہ ذیل اعداد و شمار اسی طرح کی ماضی کی کارروائیوں سے ماخوذ ہیں جو کامیاب اور ناکام دونوں ہی تھے",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "کتنے",
+  "pioneersToStart": "شروع کرنے کے لئے سرخیل درکار ہیں",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "سال",
+  "rebelsMedia": "میڈیا کو متحرک کرنے کے لئے باغیوں کی ضرورت ہے",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "کے",
+  "rebelsWin": "جیتنے کے لئے باغیوں کی ضرورت ہے",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "ہو؟",
+  "contactDetails": "رابطہ تفصیلات",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
     "type": "text"
   },
-  "notReady": "کیا",
+  "notReady": "تیار نہیں",
   "@notReady": {
     "description": "Not Ready",
     "placeholders": {},
     "type": "text"
   },
-  "ready": "آپ",
+  "ready": "تیار",
   "@ready": {
     "description": "Ready",
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "کی",
+  "selectCampaign": "​​انتخاب",
   "@selectCampaign": {
     "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   },
-  "campaignDetails": "انتخابی",
+  "campaignDetails": "",
   "@campaignDetails": {
     "description": "campaignDetails",
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "مہم",
+  "searchCampaigns": "",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "yourNeeds": "وابستگی",
+  "yourNeeds": "",
   "@yourNeeds": {
     "description": "Your Needs",
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "ہے؟",
+  "needsSatisifiedRequirement": "",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "زمرہ",
+  "next": "",
   "@next": {
     "description": "Next",
     "placeholders": {},
     "type": "text"
   },
-  "supportRole": "مہم",
+  "supportRole": "",
   "@supportRole": {
     "description": "Support Role",
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "کا",
+  "provideSupportRole": "",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
     "type": "text"
   },
-  "yes": "نام",
+  "yes": "",
   "@yes": {
     "description": "Yes",
     "placeholders": {},
     "type": "text"
   },
-  "no": "نہیں",
+  "no": "",
   "@no": {
     "description": "No",
     "placeholders": {},
     "type": "text"
   },
-  "supportRoles": "مہمات",
+  "supportRoles": "",
   "@supportRoles": {
     "description": "Support Roles",
     "placeholders": {},

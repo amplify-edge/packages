@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-04-24T19:09:36.264858",
+  "@@last_modified": "2020-05-19T18:12:48.647786",
   "signUpForAccount": "اپنے اکاؤنٹ کے لئے سائن اپ کریں",
   "@signUpForAccount": {
     "description": "Sign up for your account",
@@ -102,7 +102,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "protonMailExplanation": "پروٹون میل سے لیکر پروٹون میل ای میلز کو سلامتی کے پیشہ ور افراد کے ذریعہ محفوظ سمجھا جاتا ہے۔ وہ لوڈ ، اتارنا Android اور ایپل سمارٹ فونز اور ونڈوز اور میک کمپیوٹرز پر مفت استعمال کر سکتے ہیں۔",
+  "protonMailExplanation": "پروٹون میل سے لیکر پروٹون میل ای میل کو سیکیورٹی کے پیشہ ور افراد کے ذریعہ محفوظ سمجھا جاتا ہے۔ وہ لوڈ ، اتارنا Android اور ایپل سمارٹ فونز اور ونڈوز اور میک کمپیوٹرز پر مفت استعمال کر سکتے ہیں۔",
   "@protonMailExplanation": {
     "description": "ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.",
     "placeholders": {},

@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-05-19T18:14:07.610789",
+  "startupTestLog": "یہ جدید-جیو سے آئی 18 این ٹیسٹ سٹرنگ ہے۔ نوائے وقت میں ہر ایک کو سلام۔",
+  "@startupTestLog": {
+    "description": "This is i18n test string from mod-geo. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  }
+}

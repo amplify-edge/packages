@@ -1,234 +1,246 @@
 {
-  "@@last_modified": "2020-05-07T18:11:09.284946",
+  "@@last_modified": "2020-05-19T18:13:41.172528",
   "country": "Country",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "aboutYou": "About",
+  "aboutYou": "About you",
   "@aboutYou": {
     "description": "About You",
     "placeholders": {},
     "type": "text"
   },
-  "newCountrySelected": "you",
+  "newCountrySelected": "New Country Selected",
   "@newCountrySelected": {
     "description": "New Country Selected",
     "placeholders": {},
     "type": "text"
   },
-  "zipCode": "New",
+  "zipCode": "Zip Code",
   "@zipCode": {
     "description": "Zip Code",
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "Country",
+  "whereAreYou": "Where are you?",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
     "type": "text"
   },
-  "travelDistance": "Selected",
+  "travelDistance": "How far are you willing to travel?",
   "@travelDistance": {
     "description": "How far are you willing to travel?",
     "placeholders": {},
     "type": "text"
   },
-  "howOldAreYou": "Zip",
+  "howOldAreYou": "How old are you?",
   "@howOldAreYou": {
     "description": "How old are you?",
     "placeholders": {},
     "type": "text"
   },
-  "campaignAffiliation": "Code",
+  "campaignAffiliation": "Do you have a campaign affiliation?",
   "@campaignAffiliation": {
     "description": "Do you have a campaign affiliation?",
     "placeholders": {},
     "type": "text"
   },
-  "category": "Where",
+  "distanceInKM": "Enter distance in kilometers",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "category": "Category",
   "@category": {
     "description": "Category",
     "placeholders": {},
     "type": "text"
   },
-  "campaignName": "are",
+  "campaignName": "Campaign Name",
   "@campaignName": {
     "description": "campaignName",
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "you?",
+  "noCampaigns": "No Campaigns",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "actionType": "How",
+  "actionType": "Type of Action",
   "@actionType": {
     "description": "Type of Action",
     "placeholders": {},
     "type": "text"
   },
-  "actionLocation": "far",
+  "actionLocation": "Action Location",
   "@actionLocation": {
     "description": "Action Location",
     "placeholders": {},
     "type": "text"
   },
-  "time": "are",
+  "time": "Time",
   "@time": {
     "description": "Time",
     "placeholders": {},
     "type": "text"
   },
-  "lengthOfTheAction": "you",
+  "lengthOfTheAction": "Length of the Action",
   "@lengthOfTheAction": {
     "description": "Length of the Action",
     "placeholders": {},
     "type": "text"
   },
-  "goal": "willing",
+  "goal": "Goal",
   "@goal": {
     "description": "Goal",
     "placeholders": {},
     "type": "text"
   },
-  "strategy": "to",
+  "strategy": "Strategy",
   "@strategy": {
     "description": "strategy",
     "placeholders": {},
     "type": "text"
   },
-  "historicalPrecedents": "travel?",
+  "historicalPrecedents": "Historical Precedents",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "How",
+  "backingEndorsingOrganizations": "Backing/Endorsing Organizations",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "old",
+  "peopleAlreadyPledged": "People already pledged",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
     "type": "text"
   },
-  "weNeed": "are",
+  "weNeed": "We Need",
   "@weNeed": {
     "description": "We Need",
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "you?",
+  "extrapolatedSimilarPastActions": "The following figures are extrapolated from similar past actions that both succeeded and failed",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Do",
+  "pioneersToStart": "Pioneers needed to start",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "you",
+  "rebelsMedia": "Rebels needed to trigger media",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "have",
+  "rebelsWin": "Rebels needed to win",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "a",
+  "contactDetails": "Contact Details",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
     "type": "text"
   },
-  "notReady": "campaign",
+  "notReady": "Not Ready",
   "@notReady": {
     "description": "Not Ready",
     "placeholders": {},
     "type": "text"
   },
-  "ready": "affiliation?",
+  "ready": "Ready",
   "@ready": {
     "description": "Ready",
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "Category",
+  "selectCampaign": "Select Campaign",
   "@selectCampaign": {
     "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   },
-  "campaignDetails": "Campaign",
+  "campaignDetails": "Campaign Details",
   "@campaignDetails": {
     "description": "campaignDetails",
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "Name",
+  "searchCampaigns": "Search Campaigns",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
     "type": "text"
   },
-  "yourNeeds": "No",
+  "yourNeeds": "Your Needs",
   "@yourNeeds": {
     "description": "Your Needs",
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Campaigns",
+  "needsSatisifiedRequirement": "Please choose as many supports or needs you need satisfied to join the action.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "Type",
+  "next": "Next",
   "@next": {
     "description": "Next",
     "placeholders": {},
     "type": "text"
   },
-  "supportRole": "of",
+  "supportRole": "Support Role",
   "@supportRole": {
     "description": "Support Role",
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "Action",
+  "provideSupportRole": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
     "type": "text"
   },
-  "yes": "Action",
+  "yes": "Yes",
   "@yes": {
     "description": "Yes",
     "placeholders": {},
     "type": "text"
   },
-  "no": "Location",
+  "no": "No",
   "@no": {
     "description": "No",
     "placeholders": {},
     "type": "text"
   },
-  "supportRoles": "Time",
+  "supportRoles": "Support Roles",
   "@supportRoles": {
     "description": "Support Roles",
     "placeholders": {},
