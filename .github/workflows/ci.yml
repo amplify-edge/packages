@@ -28,11 +28,6 @@ jobs:
     name: CI - Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout core-runtime repo
-        uses: actions/checkout@v2
-        with:
-          repository: getcouragenow/core-runtime
-
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
