@@ -48,6 +48,14 @@ class _NavigationLayoutState extends State<NavigationLayout> {
           },
         ),
         TabItem(
+          title: Text(AppLocalizations.of(context).tabKanban()),
+          icon: Icon(Icons.storage),
+          onTap: () {
+            Modular.to.pushNamed(Paths.modKanban);
+            print("Kanban tapped");
+          },
+        ),
+        TabItem(
           title: Text(AppLocalizations.of(context).tabchat()),
           icon: Icon(Icons.chat),
           onTap: () {
@@ -86,14 +94,6 @@ class _NavigationLayoutState extends State<NavigationLayout> {
           onTap: () {
             Modular.to.pushNamed(Paths.modGeo);
             print("Writer tapped");
-          },
-        ),
-        TabItem(
-          title: Text(AppLocalizations.of(context).tabKanban()),
-          icon: Icon(Icons.storage),
-          onTap: () {
-            Modular.to.pushNamed(Paths.modKanban);
-            print("Settings tapped");
           },
         ),
         TabItem(
