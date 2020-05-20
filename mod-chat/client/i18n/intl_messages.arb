@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-05-19T18:14:34.566346",
+  "@@last_modified": "2020-05-20T10:21:01.488551",
   "send": "Send",
   "@send": {
     "description": "Send",
@@ -9,6 +9,24 @@
   "sendMessage": "Send a message",
   "@sendMessage": {
     "description": "Send a message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noCampaigns": "No Campaigns",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectCampaign": "Select Campaign",
+  "@selectCampaign": {
+    "description": "Select Campaign",
     "type": "text",
     "placeholders": {}
   }

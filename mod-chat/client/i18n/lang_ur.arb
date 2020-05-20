@@ -1,14 +1,32 @@
 {
-  "@@last_modified": "2020-05-19T18:14:34.566346",
+  "@@last_modified": "2020-05-20T10:21:01.488551",
   "send": "بھیجیں",
   "@send": {
     "description": "Send",
     "placeholders": {},
     "type": "text"
   },
-  "sendMessage": "ایک پیغام بھیجیں",
+  "sendMessage": "کوئی پیغام بھیجیں",
   "@sendMessage": {
     "description": "Send a message",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "کوئی آئٹم منتخب نہیں ہوا۔",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "کوئی مہم نہیں",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "مہم منتخب کریں",
+  "@selectCampaign": {
+    "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   }
