@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
 
 class HomeScreen extends StatefulWidget {
+  final bool automaticallyImplyLeading;
+
+  const HomeScreen({Key key, this.automaticallyImplyLeading = false})
+      : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -9,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<String> cards = ["ToDo", "Completed"];
   List<List<String>> childres = [
-    ["ToDo 1", "ToDo 2"],
+    List.generate(150, (index) => "Item $index"),
     ["Done 1", "Done 2"],
   ];
 
@@ -17,7 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Trello Cards"),
+        automaticallyImplyLeading: widget.automaticallyImplyLeading,
+        title: Text("Kanban"),
       ),
       body: _buildBody(),
     );
@@ -40,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     "Add Card",
                     style:
-                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
@@ -89,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     "Add Card task",
                     style:
-                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
