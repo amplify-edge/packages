@@ -1,8 +1,26 @@
 {
-  "@@last_modified": "2020-05-19T18:15:00.149957",
+  "@@last_modified": "2020-05-20T13:55:27.153482",
   "startupTestLog": "Il s'agit de la chaîne de test i18n de mod-write. Salut tout le monde dans les journaux.",
   "@startupTestLog": {
     "description": "This is i18n test string from mod-write. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "Aucun élément sélectionné.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "Aucune campagne",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "Sélectionnez la campagne",
+  "@selectCampaign": {
+    "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   }

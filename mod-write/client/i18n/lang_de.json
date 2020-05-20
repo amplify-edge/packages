@@ -1,8 +1,26 @@
 {
-  "@@last_modified": "2020-05-19T18:15:00.149957",
-  "startupTestLog": "Dies ist eine i18n-Testzeichenfolge von Mod-Write. Hallo allerseits in den Logs.",
+  "@@last_modified": "2020-05-20T13:55:27.153482",
+  "startupTestLog": "Dies ist eine i18n-Testzeichenfolge von Mod-Write. Hallo allerseits in den Protokollen.",
   "@startupTestLog": {
     "description": "This is i18n test string from mod-write. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "Keine Elemente ausgewählt.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "Keine Kampagnen",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "Kampagne auswählen",
+  "@selectCampaign": {
+    "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   }
