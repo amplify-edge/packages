@@ -1,12 +1,9 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maintemplate/main.dart';
 import 'package:maintemplate/modules/startup/views/startup_view.dart';
 import 'package:mod_chat/mod_chat.dart';
+
 //import 'package:mod_chat_beta/mod_chat.dart' as chatBeta;
 import 'package:mod_geo/mod_geo.dart';
 import 'package:mod_ion/ion_module.dart';
@@ -38,24 +35,78 @@ class AppModule extends MainModule {
         // Router(Paths.login,
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
-        Router(Paths.startup, child: (_, args) => StartupView()),
-        Router(Paths.modAccount, module: AccountModule(Paths.modAccount),),
-       
-        Router(Paths.modMain, module: MainAppModule(baseRoute: Paths.modMain, url: url, urlNative: urlNative)),
-        Router(Paths.chat,
-            module: ChatModule(Paths.chat,
-                deviceID: SessionModule.deviceID, url: url, urlNative: urlNative)),
-        Router(Paths.ion,
-            module: IonModule(Paths.ion,
-                deviceID: SessionModule.deviceID,
-                userAgent: SessionModule.deviceUserAgent)),
+        Router(
+          Paths.startup,
+          child: (_, args) => StartupView(),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.modAccount,
+          module: AccountModule(Paths.modAccount),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.modMain,
+          module: MainAppModule(
+            baseRoute: Paths.modMain,
+            url: url,
+            urlNative: urlNative,
+          ),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.chat,
+          module: ChatModule(
+            Paths.chat,
+            deviceID: SessionModule.deviceID,
+            url: url,
+            urlNative: urlNative,
+          ),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.ion,
+          module: IonModule(
+            Paths.ion,
+            deviceID: SessionModule.deviceID,
+            userAgent: SessionModule.deviceUserAgent,
+          ),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
         //Router(Paths.chat_beta, module: chatBeta.ModChatModule()),
-        Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
-        Router(Paths.modGeo, module: GeoModule(Paths.modGeo)),
-        Router(Paths.settings, module: SettingsModule()),
+        Router(
+          Paths.modWriter,
+          module: ModWriterModule(Paths.modWriter),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.modGeo,
+          module: GeoModule(Paths.modGeo),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.settings,
+          module: SettingsModule(),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
       ];
 
 // add your main widget here
   @override
   Widget get bootstrap => App();
+
+  CustomTransition get noTransition => CustomTransition(
+        transitionDuration: Duration.zero,
+        transitionBuilder: (context, animation, secondaryAnimation, child) {
+          return child;
+        },
+      );
 }
