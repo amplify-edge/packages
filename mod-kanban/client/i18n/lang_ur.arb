@@ -1,0 +1,21 @@
+{
+  "@@last_modified": "2020-05-20T16:00:17.873707",
+  "noItemsSelected": "کوئی آئٹمز منتخب نہیں ہوئے ہیں۔",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "مہمات نہیں",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "مہم منتخب کریں",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  }
+}
