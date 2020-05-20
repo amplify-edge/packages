@@ -1,10 +1,10 @@
 library mod_chat;
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_chat/core/routes/paths.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
-import 'package:mod_chat/grpc_web_example/pages/home.dart';
+import 'package:mod_chat/grpc_web_example/pages/master_detail_home.dart';
 export 'package:mod_chat/chat_module.dart';
 
 class ChatModuleConfig {
@@ -20,27 +20,19 @@ class ChatModuleConfig {
 }
 
 class ChatModule extends ChildModule {
-  // not sure if this is the best way to store the current route statically
-  // it works ... ideas welcome
-  static String baseRoute;
+  final String baseRoute;
 
   // we need device id statically for further use with static methods
   static String deviceID;
 
   static ChatModuleConfig chatModuleConfig;
 
-  static String cutOffBaseRoute(String route) {
-    if (route.indexOf(baseRoute) < 0) return route;
-    return route.substring(
-        route.indexOf(baseRoute) + baseRoute.length, route.length);
-  }
-
-  ChatModule(String baseRoute, {@required deviceID, @required url, @required urlNative}) {
+  ChatModule(this.baseRoute,
+      {@required deviceID, @required url, @required urlNative}) {
     assert(deviceID != null);
     assert(baseRoute != null);
     assert(url != null);
     //assert(urlNative != null);
-    ChatModule.baseRoute = baseRoute;
     ChatModule.deviceID = deviceID;
 
     ChatModule.chatModuleConfig = ChatModuleConfig(url, urlNative);
@@ -48,6 +40,7 @@ class ChatModule extends ChildModule {
 
   @override
   List<Bind> get binds => [
+        Bind((i) => Paths(baseRoute)),
         Bind((i) => GRPCWebBloc()),
       ];
 
@@ -59,7 +52,8 @@ class ChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        Router("/", child: (context, args) => HomePage()),
+        Router("/", child: (context, args) => MasterDetailHome()),
+        Router("/:id", child: (context, args) => MasterDetailHome(id: int.tryParse(args.params['id']) ?? -1,)),
       ];
 
   static Inject get to => Inject<ChatModule>.of();
