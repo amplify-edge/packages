@@ -167,41 +167,44 @@ class MaterialNavigationRail extends StatelessWidget {
             floatingActionButton: floatingActionButton,
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             bottomNavigationBar: BottomAppBar(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  for (var tab in this.tabs) ...[
-                    InkWell(
-                      onTap: () {
-                        onPressed(tabs.indexOf(tab));
-                        tab.onTap();
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(8),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            IconTheme(
-                                data: IconThemeData(
-                                  color: (currentIndex == tabs.indexOf(tab))
-                                      ? bottomNavigationBarSelectedColor
-                                      : bottomNavigationBarUnselectedColor,
-                                ),
-                                child: tab.icon),
-                            DefaultTextStyle(
-                                style: TextStyle(
-                                  color: (currentIndex == tabs.indexOf(tab))
-                                      ? bottomNavigationBarSelectedColor
-                                      : bottomNavigationBarUnselectedColor,
-                                ),
-                                child: tab.title)
-                          ],
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    for (var tab in this.tabs) ...[
+                      InkWell(
+                        onTap: () {
+                          onPressed(tabs.indexOf(tab));
+                          tab.onTap();
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconTheme(
+                                  data: IconThemeData(
+                                    color: (currentIndex == tabs.indexOf(tab))
+                                        ? bottomNavigationBarSelectedColor
+                                        : bottomNavigationBarUnselectedColor,
+                                  ),
+                                  child: tab.icon),
+                              DefaultTextStyle(
+                                  style: TextStyle(
+                                    color: (currentIndex == tabs.indexOf(tab))
+                                        ? bottomNavigationBarSelectedColor
+                                        : bottomNavigationBarUnselectedColor,
+                                  ),
+                                  child: tab.title)
+                            ],
+                          ),
                         ),
-                      ),
-                    )
+                      )
+                    ],
                   ],
-                ],
+                ),
               ),
             )
           //  BottomNavigationBar(
