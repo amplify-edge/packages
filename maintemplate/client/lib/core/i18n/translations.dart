@@ -49,6 +49,15 @@ class Translations {
     );
   }
 
+  String tabKanban() {
+    return Intl.message(
+      'Kanban',
+      name: 'tabKanban',
+      desc: 'Text for the Kanban tab',
+      locale: locale.toString(),
+    );
+  }
+
   String tabmap() {
     return Intl.message(
       'Map',

@@ -1,0 +1,21 @@
+{
+  "@@last_modified": "2020-05-20T16:57:40.753546",
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noCampaigns": "No Campaigns",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectCampaign": "Select Campaign",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "type": "text",
+    "placeholders": {}
+  }
+}

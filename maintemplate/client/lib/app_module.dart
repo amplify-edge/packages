@@ -7,6 +7,7 @@ import 'package:mod_chat/mod_chat.dart';
 //import 'package:mod_chat_beta/mod_chat.dart' as chatBeta;
 import 'package:mod_geo/mod_geo.dart';
 import 'package:mod_ion/ion_module.dart';
+import 'package:mod_kanban/kanban_module.dart';
 import 'package:mod_main/modules/mod_main.dart';
 import 'package:mod_session/mod_session.dart';
 import 'package:mod_write/mod_write.dart';
@@ -94,6 +95,12 @@ class AppModule extends MainModule {
         Router(
           Paths.settings,
           module: SettingsModule(),
+          transition: TransitionType.custom,
+          customTransition: noTransition,
+        ),
+        Router(
+          Paths.modKanban,
+          module: KanbanModule(Paths.modKanban),
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),

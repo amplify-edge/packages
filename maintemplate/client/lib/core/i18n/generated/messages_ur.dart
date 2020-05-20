@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changeLanguageSet" : MessageLookupByLibrary.simpleMessage("زبان تبدیل کریں"),
     "changeThemeSet" : MessageLookupByLibrary.simpleMessage("تھیم تبدیل کریں"),
     "tabIon" : MessageLookupByLibrary.simpleMessage("آئن"),
+    "tabKanban" : MessageLookupByLibrary.simpleMessage("کنبن"),
     "tabSettings" : MessageLookupByLibrary.simpleMessage("ترتیبات"),
     "tabchat" : MessageLookupByLibrary.simpleMessage("چیٹ"),
     "tabhome" : MessageLookupByLibrary.simpleMessage("ہوم"),

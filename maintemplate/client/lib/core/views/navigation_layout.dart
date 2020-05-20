@@ -20,8 +20,8 @@ class _NavigationLayoutState extends State<NavigationLayout> {
   @override
   Widget build(BuildContext context) {
     String platform = "phone";
-    if(isTablet(context)) platform = "tablet";
-    if(isDesktop(context)) platform = "desktop";
+    if (isTablet(context)) platform = "tablet";
+    if (isDesktop(context)) platform = "desktop";
 
     return MaterialNavigationRail(
       //rebuild here on every platform change
@@ -86,6 +86,14 @@ class _NavigationLayoutState extends State<NavigationLayout> {
           onTap: () {
             Modular.to.pushNamed(Paths.modGeo);
             print("Writer tapped");
+          },
+        ),
+        TabItem(
+          title: Text(AppLocalizations.of(context).tabKanban()),
+          icon: Icon(Icons.storage),
+          onTap: () {
+            Modular.to.pushNamed(Paths.modKanban);
+            print("Settings tapped");
           },
         ),
         TabItem(
