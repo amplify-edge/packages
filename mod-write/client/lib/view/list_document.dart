@@ -33,6 +33,17 @@ class _DocumentListState extends State<DocumentList> {
           FullPageEditorScreen(key: ValueKey(detailsId), id: detailsId),
       items: _listDocument,
       labelBuilder: (item) => item.name,
+      noItemsAvailable: Center(
+        child: Text(
+          ModWriteLocalizations.of(context).translate('noCampaigns'),
+        ),
+      ),
+      noItemsSelected: Center(
+          child: Text(
+              ModWriteLocalizations.of(context).translate('noItemsSelected'))),
+      disableBackButtonOnNoItemSelected: false,
+      masterAppBarTitle:
+      Text(ModWriteLocalizations.of(context).translate('selectCampaign')),
     );
   }
 }
