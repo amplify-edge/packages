@@ -29,6 +29,7 @@ this-build-all: ##
 	cd ../mod-chat && make this-build
 	cd ../mod-write && make this-build
 	cd ../mod-ion && make this-build
+	cd ../mod-kanban && make this-build
 
 ## Print all settings
 print: ## print

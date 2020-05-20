@@ -1,7 +1,5 @@
 library mod_kanban;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+
+export 'kanban_module.dart';
+export 'core/i18n/mod_kanban_localization.dart';

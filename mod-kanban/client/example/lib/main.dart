@@ -33,7 +33,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // set your initial route
       initialRoute: "/",
-      localizationsDelegates: [KanbanLocalizationsDelegate(Locale("en", "en"))],
+      localizationsDelegates: [ModKanbanLocalizationsDelegate(Locale("en", "en"))],
       // add Modular to manage the routing system
       onGenerateRoute: Modular.generateRoute,
     );

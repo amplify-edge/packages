@@ -22,15 +22,15 @@ class MasterDetailHome extends StatelessWidget {
       labelBuilder: (item) => item.name,
       noItemsAvailable: Center(
         child: Text(
-          KanbanLocalizations.of(context).translate('noCampaigns'),
+          ModKanbanLocalizations.of(context).translate('noCampaigns'),
         ),
       ),
       noItemsSelected: Center(
           child: Text(
-              KanbanLocalizations.of(context).translate('noItemsSelected'))),
+              ModKanbanLocalizations.of(context).translate('noItemsSelected'))),
       disableBackButtonOnNoItemSelected: true,
       masterAppBarTitle:
-      Text(KanbanLocalizations.of(context).translate('selectCampaign')),
+      Text(ModKanbanLocalizations.of(context).translate('selectCampaign')),
     );
   }
 }

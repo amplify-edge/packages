@@ -11,4 +11,5 @@ class Paths {
   static const String modGeo = '/geo';
   static const String modMain = '/';
   static const String modAccount = '/account';
+  static const String modKanban = '/kanban';
 }

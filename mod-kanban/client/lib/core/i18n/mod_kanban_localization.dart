@@ -7,11 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:sys_core/sys_core.dart';
 import './translations.dart';
 
-class KanbanLocalizations extends Translations {
+class ModKanbanLocalizations extends Translations {
   final Locale locale;
   Map<String, String> _localizedStrings;
 
-  KanbanLocalizations(this.locale);
+  ModKanbanLocalizations(this.locale);
 
   Future<bool> load() async {
     String jsonString = await rootBundle.loadString(
@@ -31,20 +31,20 @@ class KanbanLocalizations extends Translations {
     return _localizedStrings[key];
   }
 
-  static KanbanLocalizations of(BuildContext context) {
-    return Localizations.of<KanbanLocalizations>(
-        context, KanbanLocalizations);
+  static ModKanbanLocalizations of(BuildContext context) {
+    return Localizations.of<ModKanbanLocalizations>(
+        context, ModKanbanLocalizations);
   }
 }
 
-class KanbanLocalizationsDelegate
-    extends LocalizationsDelegate<KanbanLocalizations> {
+class ModKanbanLocalizationsDelegate
+    extends LocalizationsDelegate<ModKanbanLocalizations> {
   final Locale overriddenLocale;
 
-  KanbanLocalizationsDelegate(this.overriddenLocale);
+  ModKanbanLocalizationsDelegate(this.overriddenLocale);
 
   @override
-  bool shouldReload(KanbanLocalizationsDelegate old) => true;
+  bool shouldReload(ModKanbanLocalizationsDelegate old) => true;
 
   @override
   bool isSupported(Locale locale) {
@@ -52,8 +52,8 @@ class KanbanLocalizationsDelegate
   }
 
   @override
-  Future<KanbanLocalizations> load(Locale locale) async {
-    KanbanLocalizations localizations = new KanbanLocalizations(locale);
+  Future<ModKanbanLocalizations> load(Locale locale) async {
+    ModKanbanLocalizations localizations = new ModKanbanLocalizations(locale);
     await localizations.load();
     return localizations;
   }
