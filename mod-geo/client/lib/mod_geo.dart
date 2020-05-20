@@ -1,3 +1,3 @@
 library mod_geo;
 
-export './modules/geo_module.dart';
+export 'geo_module.dart';

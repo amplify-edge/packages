@@ -1,32 +1,30 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_ion/core/routes/paths.dart';
 import 'package:mod_ion/src/call_sample/call_sample.dart';
+import 'package:mod_ion/src/master_detail_home.dart';
 
 class IonModule extends ChildModule {
   // not sure if this is the best way to store the current route statically
   // it works ... ideas welcome
-  static String baseRoute;
+  final String baseRoute;
   static String deviceID;
   static String userAgent;
 
-  static String cutOffBaseRoute(String route) {
-    if (route.indexOf(baseRoute) < 0) return route;
-    return route.substring(
-        route.indexOf(baseRoute) + baseRoute.length, route.length);
-  }
 
-  IonModule(String baseRoute,
+  IonModule(this.baseRoute,
       {@required String deviceID, @required String userAgent}) {
     assert(deviceID != null);
     IonModule.deviceID = deviceID;
     assert(userAgent != null);
     IonModule.userAgent = userAgent;
     assert(baseRoute != null);
-    IonModule.baseRoute = baseRoute;
   }
 
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+    Bind((i) => Paths(baseRoute)),
+  ];
 
   // routes for child module are starting with '/', e.g. "/fullpage"
   // but to call inside this module the correct route
@@ -36,10 +34,8 @@ class IonModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        Router(
-          "/",
-          child: (context, args) => CallSample(ip: "demo.cloudwebrtc.com"),
-        ),
+        Router("/", child: (context, args) => MasterDetailHome(ip: "demo.cloudwebrtc.com",)),
+        Router("/:id", child: (context, args) => MasterDetailHome(ip: "demo.cloudwebrtc.com", id: int.tryParse(args.params['id']) ?? -1,)),
       ];
 
   static Inject get to => Inject<IonModule>.of();

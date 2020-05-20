@@ -1,8 +1,26 @@
 {
-  "@@last_modified": "2020-05-19T18:15:24.508219",
-  "startupTestLog": "یہ ماڈ آئن سے i18n ٹیسٹ سٹرنگ ہے۔ نوائے وقت میں ہر ایک کو سلام۔",
+  "@@last_modified": "2020-05-20T10:32:34.541710",
+  "startupTestLog": "یہ ماڈ آئن سے i18n ٹیسٹ سٹرنگ ہے۔ نوشتہ جات میں ہر ایک کو سلام۔",
   "@startupTestLog": {
     "description": "This is i18n test string from mod-ion. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "کوئی آئٹم منتخب نہیں ہوا۔",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "کوئی مہم نہیں",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "مہم منتخب کریں",
+  "@selectCampaign": {
+    "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   }

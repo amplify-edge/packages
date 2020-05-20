@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_chat/core/routes/paths.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
-import 'package:mod_chat/grpc_web_example/pages/home.dart';
 import 'package:mod_chat/grpc_web_example/pages/master_detail_home.dart';
 export 'package:mod_chat/chat_module.dart';
 
@@ -21,20 +20,19 @@ class ChatModuleConfig {
 }
 
 class ChatModule extends ChildModule {
-  String baseRoute;
+  final String baseRoute;
 
   // we need device id statically for further use with static methods
   static String deviceID;
 
   static ChatModuleConfig chatModuleConfig;
 
-  ChatModule(String baseRoute,
+  ChatModule(this.baseRoute,
       {@required deviceID, @required url, @required urlNative}) {
     assert(deviceID != null);
     assert(baseRoute != null);
     assert(url != null);
     //assert(urlNative != null);
-    this.baseRoute = baseRoute;
     ChatModule.deviceID = deviceID;
 
     ChatModule.chatModuleConfig = ChatModuleConfig(url, urlNative);
