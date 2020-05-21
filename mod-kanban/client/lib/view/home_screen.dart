@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool automaticallyImplyLeading;
@@ -130,9 +129,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _handleReOrder(int oldIndex, int newIndex, int index) {
-    var oldValue = childres[index][oldIndex];
-    childres[index][oldIndex] = childres[index][newIndex];
-    childres[index][newIndex] = oldValue;
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    var item = childres[index].removeAt(oldIndex);
+    childres[index].insert(newIndex, item);
     setState(() {});
   }
 
@@ -246,21 +247,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: DragAndDropList<String>(
-                      childres[index],
-                      itemBuilder: (BuildContext context, item) {
-                        return _buildCardTask(
-                            index, childres[index].indexOf(item));
-                      },
-                      onDragFinish: (oldIndex, newIndex) {
-                        _handleReOrder(oldIndex, newIndex, index);
-                      },
-                      canBeDraggedTo: (one, two) => true,
-                      dragElevation: 8.0,
-                    ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: ReorderableListView(
+                    key: UniqueKey(),
+                    scrollController: ScrollController(),
+                    onReorder: (oldIndex, newIndex) =>
+                        _handleReOrder(oldIndex, newIndex, index),
+                    children: [
+                      ...childres[index]
+                          .map((e) =>
+                              _buildCardTask(index, childres[index].indexOf(e)))
+                          .toList()
+                    ],
                   ),
                 ),
               ],
@@ -296,25 +295,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Container _buildCardTask(int index, int innerIndex) {
     return Container(
+      key: ValueKey(childres[index][innerIndex]),
       width: 300.0,
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      child: Draggable<dynamic>(
-        feedback: Material(
-          elevation: 5.0,
-          child: Container(
-            width: 284.0,
-            padding: const EdgeInsets.all(16.0),
-            color: Colors.greenAccent,
-            child: Text(childres[index][innerIndex]),
-          ),
-        ),
-        childWhenDragging: Container(),
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          color: Colors.greenAccent,
-          child: Text(childres[index][innerIndex]),
-        ),
-        data: {"from": index, "string": childres[index][innerIndex]},
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        color: Colors.greenAccent,
+        child: Text(childres[index][innerIndex]),
       ),
     );
   }
