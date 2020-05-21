@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-05-20T16:57:40.753546",
+  "@@last_modified": "2020-05-21T11:05:02.234300",
   "noItemsSelected": "No items selected.",
   "@noItemsSelected": {
     "description": "No items selected.",
@@ -15,6 +15,36 @@
   "selectCampaign": "Select Campaign",
   "@selectCampaign": {
     "description": "Select Campaign",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addCardTask": "Add Card Task",
+  "@addCardTask": {
+    "description": "Add Card Task",
+    "type": "text",
+    "placeholders": {}
+  },
+  "taskTitle": "Task Title",
+  "@taskTitle": {
+    "description": "Task Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addTask": "Add Task",
+  "@addTask": {
+    "description": "Add Task",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addCard": "Add Card",
+  "@addCard": {
+    "description": "Add Card",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cardTitle": "Card Title",
+  "@cardTitle": {
+    "description": "Card Title",
     "type": "text",
     "placeholders": {}
   }

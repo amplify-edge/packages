@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-20T16:57:40.753546",
+  "@@last_modified": "2020-05-21T11:05:02.234300",
   "noItemsSelected": "No hay elementos seleccionados.",
   "@noItemsSelected": {
     "description": "No items selected.",
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "No hay campañas",
+  "noCampaigns": "Sin campañas",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},
@@ -15,6 +15,36 @@
   "selectCampaign": "Seleccionar campaña",
   "@selectCampaign": {
     "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  },
+  "addCardTask": "Agregar tarea de tarjeta",
+  "@addCardTask": {
+    "description": "Add Card Task",
+    "placeholders": {},
+    "type": "text"
+  },
+  "taskTitle": "Título de tarea",
+  "@taskTitle": {
+    "description": "Task Title",
+    "placeholders": {},
+    "type": "text"
+  },
+  "addTask": "Agregar tarea",
+  "@addTask": {
+    "description": "Add Task",
+    "placeholders": {},
+    "type": "text"
+  },
+  "addCard": "Agregar tarjeta",
+  "@addCard": {
+    "description": "Add Card",
+    "placeholders": {},
+    "type": "text"
+  },
+  "cardTitle": "Título de tarjeta",
+  "@cardTitle": {
+    "description": "Card Title",
     "placeholders": {},
     "type": "text"
   }

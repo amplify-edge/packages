@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mod_kanban/core/i18n/mod_kanban_localization.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool automaticallyImplyLeading;
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Add Card",
+                    ModKanbanLocalizations.of(context).translate("addCard"),
                     style:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    decoration: InputDecoration(hintText: "Card Title"),
+                    decoration: InputDecoration(hintText: ModKanbanLocalizations.of(context).translate("cardTitle")),
                     controller: _cardTextController,
                   ),
                 ),
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                       _addCard(_cardTextController.text.trim());
                     },
-                    child: Text("Add Card"),
+                    child: Text(ModKanbanLocalizations.of(context).translate("addCard")),
                   ),
                 )
               ],
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Add Card task",
+                    ModKanbanLocalizations.of(context).translate("addCardTask"),
                     style:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    decoration: InputDecoration(hintText: "Task Title"),
+                    decoration: InputDecoration(hintText: ModKanbanLocalizations.of(context).translate("taskTitle")),
                     controller: _taskTextController,
                   ),
                 ),
@@ -113,7 +114,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                       _addCardTask(index, _taskTextController.text.trim());
                     },
-                    child: Text("Add Task"),
+                    child: Text(ModKanbanLocalizations.of(context)
+                        .translate("addTask")),
                   ),
                 )
               ],
@@ -171,7 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       width: 16.0,
                     ),
-                    Text("Add Card"),
+                    Text(ModKanbanLocalizations.of(context)
+                        .translate("addCard")),
                   ],
                 ),
               ),
@@ -200,7 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Add Card Task"),
+              child: Text(
+                  ModKanbanLocalizations.of(context).translate("addCardTask")),
             ),
           ],
         ),
