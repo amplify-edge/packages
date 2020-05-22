@@ -31,6 +31,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
       // set your initial route
       initialRoute: "/",
       localizationsDelegates: [ModKanbanLocalizationsDelegate(Locale("en", "en"))],

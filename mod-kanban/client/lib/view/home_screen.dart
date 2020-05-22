@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
+import 'package:mod_kanban/core/i18n/mod_kanban_localization.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool automaticallyImplyLeading;
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Add Card",
+                    ModKanbanLocalizations.of(context).translate("addCard"),
                     style:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    decoration: InputDecoration(hintText: "Card Title"),
+                    decoration: InputDecoration(hintText: ModKanbanLocalizations.of(context).translate("cardTitle")),
                     controller: _cardTextController,
                   ),
                 ),
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                       _addCard(_cardTextController.text.trim());
                     },
-                    child: Text("Add Card"),
+                    child: Text(ModKanbanLocalizations.of(context).translate("addCard")),
                   ),
                 )
               ],
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Add Card task",
+                    ModKanbanLocalizations.of(context).translate("addCardTask"),
                     style:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    decoration: InputDecoration(hintText: "Task Title"),
+                    decoration: InputDecoration(hintText: ModKanbanLocalizations.of(context).translate("taskTitle")),
                     controller: _taskTextController,
                   ),
                 ),
@@ -114,7 +114,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                       _addCardTask(index, _taskTextController.text.trim());
                     },
-                    child: Text("Add Task"),
+                    child: Text(ModKanbanLocalizations.of(context)
+                        .translate("addTask")),
                   ),
                 )
               ],
@@ -124,15 +125,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _addCardTask(int index, String text) {
-    childres[index].add(text);
+    childres[index].insert(0, text);
     _taskTextController.text = "";
     setState(() {});
   }
 
   _handleReOrder(int oldIndex, int newIndex, int index) {
-    var oldValue = childres[index][oldIndex];
-    childres[index][oldIndex] = childres[index][newIndex];
-    childres[index][newIndex] = oldValue;
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    var item = childres[index].removeAt(oldIndex);
+    childres[index].insert(newIndex, item);
     setState(() {});
   }
 
@@ -150,46 +153,41 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildAddCardWidget(context) {
-    return Column(
-      children: <Widget>[
-        InkWell(
-          onTap: () {
-            _showAddCard();
-          },
-          child: Container(
-            width: 300.0,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 8,
-                    offset: Offset(0, 0),
-                    color: Color.fromRGBO(127, 140, 141, 0.5),
-                    spreadRadius: 2)
-              ],
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-            ),
-            margin: const EdgeInsets.all(16.0),
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: <Widget>[
-                Icon(
-                  Icons.add,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              _showAddCard();
+            },
+            child: Card(
+              child: Container(
+                margin: const EdgeInsets.all(16.0),
+                width: 300.0,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.add,
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    Text(ModKanbanLocalizations.of(context)
+                        .translate("addCard")),
+                  ],
                 ),
-                SizedBox(
-                  width: 16.0,
-                ),
-                Text("Add Card"),
-              ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget _buildAddCardTaskWidget(context, index) {
     return Container(
+      key: ValueKey("_buildAddCardTaskWidget"),
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: InkWell(
         onTap: () {
@@ -203,7 +201,11 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               width: 16.0,
             ),
-            Text("Add Card Task"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  ModKanbanLocalizations.of(context).translate("addCardTask")),
+            ),
           ],
         ),
       ),
@@ -215,55 +217,46 @@ class _HomeScreenState extends State<HomeScreen> {
     //         width: 300.0,
     //   child: ,
     // );
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Stack(
         children: <Widget>[
-          Container(
-            width: 300.0,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 8,
-                    offset: Offset(0, 0),
-                    color: Color.fromRGBO(127, 140, 141, 0.5),
-                    spreadRadius: 1)
-              ],
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-            ),
-            margin: const EdgeInsets.all(16.0),
-            height: MediaQuery.of(context).size.height * 0.8,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    cards[index],
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+          Card(
+            child: Container(
+              width: 300.0,
+              margin: const EdgeInsets.all(16.0),
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      cards[index],
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                SingleChildScrollView(
-                  child: Container(
+                  Container(
                     height: MediaQuery.of(context).size.height * 0.7,
-                    child: DragAndDropList<String>(
-                      childres[index],
-                      itemBuilder: (BuildContext context, item) {
-                        return _buildCardTask(
-                            index, childres[index].indexOf(item));
-                      },
-                      onDragFinish: (oldIndex, newIndex) {
-                        _handleReOrder(oldIndex, newIndex, index);
-                      },
-                      canBeDraggedTo: (one, two) => true,
-                      dragElevation: 8.0,
+                    child: ReorderableListView(
+                      key: UniqueKey(),
+                      scrollController: ScrollController(),
+                      onReorder: (oldIndex, newIndex) =>
+                          _handleReOrder(oldIndex, newIndex, index),
+                      children: [
+                        ...childres[index]
+                            .map((e) => _buildCardTask(
+                                index, childres[index].indexOf(e)))
+                            .toList(),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  _buildAddCardTaskWidget(context, index),
+                ],
+              ),
             ),
           ),
           Positioned.fill(
@@ -296,25 +289,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Container _buildCardTask(int index, int innerIndex) {
     return Container(
+      key: ValueKey(childres[index][innerIndex]),
       width: 300.0,
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      child: Draggable<dynamic>(
-        feedback: Material(
-          elevation: 5.0,
-          child: Container(
-            width: 284.0,
-            padding: const EdgeInsets.all(16.0),
-            color: Colors.greenAccent,
-            child: Text(childres[index][innerIndex]),
-          ),
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        color: Theme.of(context).accentColor,
+        child: Text(
+          childres[index][innerIndex],
+          style: TextStyle(
+              color: Theme.of(context).accentTextTheme.subtitle1.color),
         ),
-        childWhenDragging: Container(),
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          color: Colors.greenAccent,
-          child: Text(childres[index][innerIndex]),
-        ),
-        data: {"from": index, "string": childres[index][innerIndex]},
       ),
     );
   }

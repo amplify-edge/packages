@@ -30,4 +30,49 @@ class Translations {
       locale: locale.toString(),
     );
   }
+
+  String addCardTask() {
+    return Intl.message(
+      'Add Card Task',
+      name: 'addCardTask',
+      desc: 'Add Card Task',
+      locale: locale.toString(),
+    );
+  }
+
+  String taskTitle() {
+    return Intl.message(
+      'Task Title',
+      name: 'taskTitle',
+      desc: 'Task Title',
+      locale: locale.toString(),
+    );
+  }
+
+  String addTask() {
+    return Intl.message(
+      'Add Task',
+      name: 'addTask',
+      desc: 'Add Task',
+      locale: locale.toString(),
+    );
+  }
+
+  String addCard() {
+    return Intl.message(
+      'Add Card',
+      name: 'addCard',
+      desc: 'Add Card',
+      locale: locale.toString(),
+    );
+  }
+
+  String cardTitle() {
+    return Intl.message(
+      'Card Title',
+      name: 'cardTitle',
+      desc: 'Card Title',
+      locale: locale.toString(),
+    );
+  }
 }
