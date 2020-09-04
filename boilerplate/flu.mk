@@ -28,6 +28,10 @@ flu-print: ## print
 
 ### FLU
 
+## Check for outdated packages.
+flu-outdated:
+	cd $(FLU_SSAMPLE_FSPATH) && pub outdated
+
 ## Configure flutter.
 flu-config: ## flu-config
 	flutter channel beta
