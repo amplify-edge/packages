@@ -11,6 +11,7 @@ RANDTAG := $(shell head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 
 
 # minio
+# TODO: REMOVE !!
 MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
 MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 MINIO_PORT=9000
@@ -45,14 +46,14 @@ help:
 # 4- make go-srv : run server
 # 5- make go-cli : run client
 
-i18n:
+dep:
 	# install i18n tool 
 	GO111MODULE=off go get -u -v github.com/getcouragenow/bootstrap
 	cd ${GOPATH}/src/github.com/getcouragenow/bootstrap/tool/i18n && make build 
 	i18n
 
 ## Pull down gsheets data
-get-data:
+data-get:
 	@echo ''
 	@echo '$(YELLOW)IF THE CONFIGS CANNOT BE FOUND, MAKE SURE TO RUN $(WHITE)make build$(YELLOW) IN THE $(WHITE)boostrap/tools/i18n$(YELLOW) [github.com/getcouragenow/bootstrap]'
 	@echo ''
@@ -64,21 +65,25 @@ get-data:
 	@cd data && ${GOPATH}/bin/i18n gsheet -o datadump
 
 ## Removes data folder and all of it's contents
-del-data:
+data-del:
 	@if [ -f ./data ]; then rm -r ./data; fi
 	@echo '${GREEN}Data Removed${RESET}'
 	@echo 'Run ${YELLOW}make get-data${RESET} to regenerate the data'
 
+## Run GO Server
 go-srv:
 	go run cmd/server.go
 
+## Run GO cli
 go-cli:
 	go run cmd/client.go
 
+## Run go tests
 go-test:
 	go test -v ./...
 
-minio:
+## Run Minio
+minio-run:
 	sudo rm -rf ${HOME}/minio_volume
 	sudo mkdir -p ${HOME}/minio_volume
 
@@ -88,5 +93,6 @@ minio:
 	-v ${HOME}/minio_volume:/minio_volume \
 	minio/minio server /minio_volume
 
-open-minio:
+## Minio Open URL
+minio-open:
 	open http://127.0.0.1:${MINIO_PORT}

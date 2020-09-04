@@ -29,8 +29,12 @@ flu-print: ## print
 ### FLU
 
 ## Check for outdated packages.
-flu-outdated:
+flu-pub-outdated:
 	cd $(FLU_SSAMPLE_FSPATH) && pub outdated
+
+## Upgrade for all packages.
+flu-pub-upgrade:
+	cd $(FLU_SSAMPLE_FSPATH) && pub upgrade
 
 ## Configure flutter.
 flu-config: ## flu-config
