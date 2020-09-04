@@ -36,10 +36,15 @@ flu-pub-outdated:
 flu-pub-upgrade:
 	cd $(FLU_SSAMPLE_FSPATH) && pub upgrade
 
-## Configure flutter.
+## Recreates the Flutter scaffolding code. Useful after a SDK Channel change has occured.
+flu-recreate:
+	cd $(FLU_SSAMPLE_FSPATH) && flutter create .
+
+## Configure flutter to correct CHANNEL.
 flu-config: ## flu-config
-	flutter channel beta
+	flutter channel dev
 	flutter upgrade --force
+
 
 ## Runs Flutter Web.
 flu-web-run: ## flu-web-run
