@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_modular: ^1.2.2
+  flutter_modular: ^2.0.0+1
   grpc: ^2.1.3
   rxdart: ^0.20.0
   intl: ^0.16.1

@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_webrtc: ^0.2.6
-  flutter_modular: ^1.2.2
+  flutter_modular: ^2.0.0+1
   path_provider: ^1.6.4
   shared_preferences:
   sys_core:

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:provider/provider.dart';
+
 import 'package:maintemplate/core/i18n/app_localization.dart';
 import 'package:maintemplate/features/i18n_example/i18n_view.dart';
 import 'package:maintemplate/features/master_detail_scaffold_example/data/mock_item.dart';
 import 'package:maintemplate/features/master_detail_scaffold_example/master_detail_view.dart';
 import 'package:maintemplate/features/responsive_scaffold_example/responsive_scaffold_view.dart';
+
 import 'package:mod_chat/mod_chat.dart';
 import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
-import 'package:provider/provider.dart';
-
 
 import 'features/responvive_builder_example/responsive_template.dart';
 
 void main() => runApp(ModularApp(
+      key: "d",
       module: AppModule(),
     ));
 
@@ -24,14 +26,19 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router(
+  List<ModularRouter> get routers => [
+        ModularRouter(
           "/",
           child: (context, args) => App(),
         ),
-        Router(
+        ModularRouter(
           "/chat",
-          module: ChatModule("/chat"),
+          module: ChatModule(
+            "/chat",
+            deviceID: "SessionModule.deviceID",
+            url: "grpc url",
+            urlNative: "grpc urlNative",
+          ),
         )
       ];
 

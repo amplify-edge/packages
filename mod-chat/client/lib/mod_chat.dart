@@ -51,9 +51,12 @@ class ChatModule extends ChildModule {
   // pattern for the child module is e.g.
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
-  List<Router> get routers => [
-        Router("/", child: (context, args) => MasterDetailHome()),
-        Router("/:id", child: (context, args) => MasterDetailHome(id: int.tryParse(args.params['id']) ?? -1,)),
+  List<ModularRouter> get routers => [
+        ModularRouter("/", child: (context, args) => MasterDetailHome()),
+        ModularRouter("/:id",
+            child: (context, args) => MasterDetailHome(
+                  id: int.tryParse(args.params['id']) ?? -1,
+                )),
       ];
 
   static Inject get to => Inject<ChatModule>.of();

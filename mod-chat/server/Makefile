@@ -117,6 +117,7 @@ go-srv:
 	cd cmd && go run server.go
 
 go-cli:
+	# connects to cloud: https://maintemplate.ci.getcouragenow.org/#/chat/0
 	cd cmd && go run client.go
 
 faker:

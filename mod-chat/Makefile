@@ -11,6 +11,7 @@ include ../boilerplate/srv.mk
 override FLU_SAMPLE_NAME =client/example
 override FLU_LIB_NAME =client
 
+override SERVER_FSPATH=server
 
 
 ## This builds everything
