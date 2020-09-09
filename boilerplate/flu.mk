@@ -30,11 +30,18 @@ flu-print: ## print
 
 ## Check for outdated packages.
 flu-pub-outdated:
-	cd $(FLU_SSAMPLE_FSPATH) && pub outdated
+	cd $(FLU_SSAMPLE_FSPATH) && flutter pub outdated
 
 ## Upgrade for all packages.
 flu-pub-upgrade:
-	cd $(FLU_SSAMPLE_FSPATH) && pub upgrade
+	cd $(FLU_SSAMPLE_FSPATH) && flutter update-packages
+	cd $(FLU_SSAMPLE_FSPATH) && flutter upgrade
+	
+## Upgrade for all packages and FORCE it. This is useful for CI as we spot Issues early or when things break as its a brute force approach.
+flu-pub-upgrade-force:
+	# Seems this does a deep upgrade. Sort of recursive it seems.
+	cd $(FLU_SSAMPLE_FSPATH) && flutter update-packages --force-upgrade
+	cd $(FLU_SSAMPLE_FSPATH) && flutter upgrade --force
 
 ## Recreates the Flutter scaffolding code. Useful after a SDK Channel change has occured.
 flu-recreate:

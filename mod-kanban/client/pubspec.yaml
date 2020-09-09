@@ -15,7 +15,7 @@ dependencies:
       url: git://github.com/getcouragenow/core-runtime.git
       path: sys-core/client
       ref: master
-  flutter_modular: ^1.2.2
+  flutter_modular: ^2.0.0+1
   intl_translation: ^0.17.10
 
 

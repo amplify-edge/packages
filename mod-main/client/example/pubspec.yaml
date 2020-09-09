@@ -22,7 +22,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  flutter_modular: ^1.2.2
+  flutter_modular: ^2.0.0+1
   mod_main:
     path: ../
   sys_core:
