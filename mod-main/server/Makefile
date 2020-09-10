@@ -48,6 +48,7 @@ help:
 
 dep:
 	# install i18n tool 
+	# TODO FIX as it does not compile
 	GO111MODULE=off go get -u -v github.com/getcouragenow/bootstrap
 	cd ${GOPATH}/src/github.com/getcouragenow/bootstrap/tool/i18n && make build 
 	i18n
@@ -76,6 +77,7 @@ go-srv:
 
 ## Run GO cli
 go-cli:
+	## TODO Fix as does not compile
 	go run cmd/client.go
 
 ## Run go tests
@@ -84,10 +86,10 @@ go-test:
 
 ## Run Minio
 minio-run:
-	sudo rm -rf ${HOME}/minio_volume
-	sudo mkdir -p ${HOME}/minio_volume
+	rm -rf ${HOME}/minio_volume
+	mkdir -p ${HOME}/minio_volume
 
-	sudo docker run -p ${MINIO_PORT}:${MINIO_PORT} --name minio4 \
+	docker run -p ${MINIO_PORT}:${MINIO_PORT} --name minio4 \
 	-e "MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}" \
 	-e "MINIO_SECRET_KEY=${MINIO_SECRET_KEY}" \
 	-v ${HOME}/minio_volume:/minio_volume \
