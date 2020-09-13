@@ -6,6 +6,7 @@ GIT_VERSION	:= $(shell git describe --tags)
 
 SAMPLE_FSPATH = $(PWD)/example
 
+
 help: ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
@@ -25,7 +26,7 @@ print: ## print
 
 git-clone:
 	mkdir -p $(LIB_FSPATH)
-cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
+	cd $(LIB_FSPATH) && cd .. && rm -rf $(LIB_NAME) && git clone ssh://git@$(LIB).git
 	cd $(LIB_FSPATH) && git checkout $(LIB_BRANCH)
 git-pull:
 	cd $(LIB_FSPATH) && git pull
@@ -40,9 +41,15 @@ os-dep:
 
 ### FLU
 
+
+
+
 flu-config: ## flu-config
 	flutter channel beta
 	flutter upgrade --force
+
+flu-check: ## flu-check
+	cd $(SAMPLE_FSPATH) && flutter analyze --no-pub
 
 flu-web-run: ## flu-web-run
 	# WORKS :)
@@ -105,5 +112,4 @@ else
 	protoc chat.proto --proto_path=$(LIB_FSPATH)/server/api/proto/v1/ --plugin=protoc-gen-dart=$(HOME)/.pub-cache/bin/protoc-gen-dart --dart_out=grpc:$(SAMPLE_FSPATH)/client/lib/chat_view/api/v1/
 endif
 
-
-# i18N
+include ../../sys-core/make/i18n.mk

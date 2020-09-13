@@ -1,134 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_write/core/i18n/mod_write_localization.dart';
 import 'package:mod_write/stub_data.dart';
 import 'package:mod_write/view/src/full_page.dart';
-
-class Document {
-  final String name;
-  final String content;
-  final String id;
-
-  Document(this.id, this.name, this.content);
-}
+import 'package:responsive_scaffold/responsive_scaffold.dart';
+import 'package:sys_core/sys_core.dart';
+import 'package:mod_write/core/routes/paths.dart';
 
 class DocumentList extends StatefulWidget {
+  final int id;
+
+  const DocumentList({Key key, this.id = -1}) : super(key: key);
+
   @override
   _DocumentListState createState() => _DocumentListState();
 }
 
 class _DocumentListState extends State<DocumentList> {
-  Document _document;
+  var _listDocument = StubData.documents;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print("DocumentList");
-    var _listDocument = StubData.documents;
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        //tablet
-        if (constraints.maxWidth >= 720 && constraints.maxHeight > 400) {
-          return Column(
-            children: <Widget>[
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _listDocument.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            onTap: () {
-                              setState(() {
-                                _document = _listDocument[index];
-                              });
-                              //MasterDetailScaffold.of(context).detailsPaneNavigator.pushNamed(
-                              //    '${ModWriterModule.fullPageRoute}?id=${_document?.id??"1"}');
-                            },
-                            leading: Text(_listDocument[index].name),
-                          );
-                        },
-                      ),
-                    ),
-                    (_document != null)
-                        ? Expanded(
-                            child: FullPageEditorScreen(
-                              key: ValueKey(_document.id),
-                              id: _document.id,
-                            ),
-                          )
-                        : Container(),
-                  ],
-                ),
-              )
-            ],
-          );
-        } else
-          return ListView.builder(
-            itemCount: _listDocument.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                onTap: () {
-                  setState(() {
-                    _document = _listDocument[index];
-                  });
-                  //MasterDetailScaffold.of(context).detailsPaneNavigator.pushNamed(
-                  //    '${ModWriterModule.fullPageRoute}?id=${_document?.id??"1"}');
-                  Modular.to.push(MaterialPageRoute(
-                    builder: (context) =>
-                        FullPageEditorScreen(id: _document.id),
-                  ));
-                },
-                leading: Text(_listDocument[index].name),
-              );
-            },
-          );
-      },
+    return GetCourageMasterDetail<Document>(
+      id: widget.id,
+      routeWithIdPlaceholder: Modular.get<Paths>().detail,
+      detailsBuilder: (context, detailsId, isFullScreen) =>
+          FullPageEditorScreen(key: ValueKey(detailsId), id: detailsId),
+      items: _listDocument,
+      labelBuilder: (item) => item.name,
+      noItemsAvailable: Center(
+        child: Text(
+          ModWriteLocalizations.of(context).translate('noCampaigns'),
+        ),
+      ),
+      noItemsSelected: Center(
+          child: Text(
+              ModWriteLocalizations.of(context).translate('noItemsSelected'))),
+      disableBackButtonOnNoItemSelected: false,
+      masterAppBarTitle:
+      Text(ModWriteLocalizations.of(context).translate('selectCampaign')),
     );
-
-    /*MasterDetailScaffold(
-
-      initialAppBar: null,
-      initialRoute: ModWriterModule.baseRoute,
-      masterPaneBuilder: (context) {
-        return ListView.builder(
-          itemCount: _listDocument.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              onTap: () {
-                setState(() {
-                  _document = _listDocument[index];
-                });
-                //MasterDetailScaffold.of(context).detailsPaneNavigator.pushNamed(
-                //    '${ModWriterModule.fullPageRoute}?id=${_document?.id??"1"}');
-              },
-              leading: Text(_listDocument[index].name),
-            );
-          },
-        );
-      },
-      masterPaneWidth: MediaQuery.of(context).size.width * 0.5,
-      twoPanesWidthBreakpoint: 450,
-      detailsAppBar: AppBar(),
-      detailsPaneBuilder: (context) {
-        return FullPageEditorScreen(
-          id: _document?.id??"1",
-        );
-      },
-      detailsRoute: ModWriterModule.fullPageRoute,
-      onDetailsPaneRouteChanged:
-          (String route, Map<String, String> parameters) {
-        if (route == ModWriterModule.baseRoute && parameters != null) {
-          print("parameters $parameters");
-          setState(() {
-            _document = StubData.documents.firstWhere(
-                (item) => item.id.toString() == parameters['id'],
-                orElse: null);
-          });
-        }
-      },
-    );
-
-       */
   }
 }

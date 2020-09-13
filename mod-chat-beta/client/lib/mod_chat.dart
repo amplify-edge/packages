@@ -1,17 +1,53 @@
+library mod_chat;
+
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hive/hive.dart';
+import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
+import 'package:mod_chat/grpc_web_example/pages/chat.dart';
 
-//TODO: Uncomment when done.
-//import 'screens/screenwidget.dart';
+export 'package:mod_chat/chat_module.dart';
 
-class ModChatModule extends ChildModule {
-  Box messages;
-  Box groups;
+class ChatModuleConfig {
+  final String url;
 
-  ModChatModule(this.messages, this.groups);
+  ChatModuleConfig(this.url);
 
   @override
-  List<Bind> get binds => [];
+  String toString() {
+    return "ChatModuleConfig{url: $url}";
+  }
+}
+
+class ChatModule extends ChildModule {
+  // not sure if this is the best way to store the current route statically
+  // it works ... ideas welcome
+  static String baseRoute;
+
+  // we need device id statically for further use with static methods
+  static String deviceID;
+
+  static ChatModuleConfig chatModuleConfig;
+
+  static String cutOffBaseRoute(String route) {
+    if (route.indexOf(baseRoute) < 0) return route;
+    return route.substring(
+        route.indexOf(baseRoute) + baseRoute.length, route.length);
+  }
+
+  ChatModule(String baseRoute, {@required deviceID, @required url}) {
+    assert(deviceID != null);
+    assert(baseRoute != null);
+    assert(url != null);
+    ChatModule.baseRoute = baseRoute;
+    ChatModule.deviceID = deviceID;
+
+    ChatModule.chatModuleConfig = ChatModuleConfig(url);
+  }
+
+  @override
+  List<Bind> get binds => [
+        Bind((i) => GRPCWebBloc()),
+      ];
 
   // routes for child module are starting with '/', e.g. "/fullpage"
   // but to call inside this module the correct route
@@ -21,9 +57,10 @@ class ModChatModule extends ChildModule {
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
   List<Router> get routers => [
-        //TODO: Uncomment when ChatScreen is built.
-        //Router("/", child: (context, args) => ChatScreen(messages, groups)),
+        Router("/",
+            child: (context, args) =>
+                ChatPage('global test', 'User ${deviceID.substring(0, 6)}')),
       ];
 
-  static Inject get to => Inject<ModChatModule>.of();
+  static Inject get to => Inject<ChatModule>.of();
 }

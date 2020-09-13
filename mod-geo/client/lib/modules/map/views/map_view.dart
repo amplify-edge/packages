@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:latlong/latlong.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mod_geo/core/core.dart';
 import 'package:mod_geo/modules/map/view_models/map_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -88,27 +89,28 @@ class MapsView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Text(ModGeoLocalizations.of(context) == null ? "String to be tested" : ModGeoLocalizations.of(context).translate("startupTestLog")  ),
                           for (var campaign in model.campaigns) ...[
-                            InkWell(
-                              onTap: () {
-                                _mapController.move(
-                                    LatLng(campaign.location.latitude,
-                                        campaign.location.longitude),
-                                    5);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.my_location),
-                                    SizedBox(width: 16),
-                                    Text(campaign.campaignName),
-                                  ],
-                                ),
-                              ),
-                            )
+                            // InkWell(
+                            //   onTap: () {
+                            //     _mapController.move(
+                            //         LatLng(campaign.location.latitude,
+                            //             campaign.location.longitude),
+                            //         5);
+                            //   },
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Row(
+                            //       mainAxisAlignment:
+                            //           MainAxisAlignment.spaceBetween,
+                            //       children: <Widget>[
+                            //         Icon(Icons.my_location),
+                            //         SizedBox(width: 16),
+                            //         Text(campaign.campaignName),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ],
                       ),

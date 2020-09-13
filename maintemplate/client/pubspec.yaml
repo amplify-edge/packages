@@ -16,6 +16,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.6.0 <3.0.0"
 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -30,23 +31,34 @@ dependencies:
   master_detail_scaffold: ^1.1.1+1
   rflutter_alert: ^1.0.3
 
-  modtemplate02:
-    git:
-      url: git://github.com/getcouragenow/packages.git
-      path: modtemplate02/client/
+  #modtemplate02:
+  #  git:
+  #    url: git://github.com/getcouragenow/packages.git
+  #    path: modtemplate02/client/
 
   mod_write:
     path: ../../mod-write/client
   mod_chat:
     path: ../../mod-chat/client
+  #mod_chat_beta:
+  #  path: ../../mod-chat-beta/client
   mod_ion:
     path: ../../mod-ion/client
   mod_geo:
     path: ../../mod-geo/client
   mod_session:
     path: ../../mod-session/client
-
- 
+  mod_main:
+    path: ../../mod-main/client
+  mod_account:
+    path: ../../mod-account/client
+  mod_kanban:
+    path: ../../mod-kanban/client
+  sys_core:
+    git:
+      url: git://github.com/getcouragenow/core-runtime.git
+      path: sys-core/client
+      ref: master
 
   # Architectural packages
   provider: ^4.0.4
@@ -60,8 +72,9 @@ dependencies:
   get_it: ^3.1.0
   equatable:
   meta:
-  flutter_modular: ^0.5.5
-  #font_awesome_flutter:
+  flutter_modular: ^2.0.0+1
+  flutter_platform_widgets: ^0.8.1
+  # font_awesome_flutter:
 
   cupertino_icons: ^0.1.2
 
@@ -93,16 +106,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lang/de.json
-    - lang/en.json
-    - lang/es.json
-    - lang/fr.json
-    - lang/he.json
-    - lang/zh-cn.json
-    - assets/hambach.png
-    - assets/london_strike.png
-    - assets/pipeline.png
+    - ./i18n/
     - assets/env.json
+    - assets/icon/placeholder.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

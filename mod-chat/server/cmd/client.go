@@ -3,19 +3,23 @@ package main
 import (
 	"bufio"
 	"crypto/sha256"
+	"crypto/tls"
 	"flag"
 	"fmt"
 	"os"
 
 	proto "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
 
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+
 	"encoding/hex"
 	"log"
 	"sync"
 	"time"
 
+	"github.com/johnsiilver/getcert"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 )
 
 var client proto.BroadcastClient
@@ -64,7 +68,14 @@ func main() {
 
 	id := sha256.Sum256([]byte(timestamp.String() + *name))
 
-	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
+	// TODO: Add environment vars from top
+	tlsCert, _, err := getcert.FromTLSServer("grpc.maintemplate.ci.getcouragenow.org:443", false)
+
+	config := &tls.Config{
+		Certificates: []tls.Certificate{tlsCert},
+	}
+
+	conn, err := grpc.Dial("grpc.maintemplate.ci.getcouragenow.org:443", grpc.WithTransportCredentials(credentials.NewTLS(config)))
 	if err != nil {
 		log.Fatalf("Couldnt connect to service: %v", err)
 	}

@@ -1,10 +1,9 @@
-name: Dev
-
+name: DEV
 
 on:
   push:
     tags:
-    - 'dev'
+      - "dev"
 
 # Environment variables available to all jobs and steps in this workflow
 env:
@@ -13,83 +12,105 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  GKE_KEYRING_ZONE: global
+  GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}
+  GKE_KEY_NAME: ${{ secrets.GKE_KEY_NAME }}
   IMAGE: maintemplate
+  PROJECT: maintemplate
+  AUTHZ_IMAGE: ext-authz
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
   RELEASE_CHANNEL: dev
-  FLUTTER_CHANNEL: dev
+  FLUTTER_CHANNEL: beta
   CHANNEL_URL: getcouragenow.org
+  MINIO_ACCESSKEY: ${{ secrets.MINIO_ACCESSKEY }}
+  MINIO_SECRETKEY: ${{ secrets.MINIO_SECRETKEY }}
+  MINIO_LOCATION: ${{ secrets.MINIO_LOCATION }}
+  MINIO_TIMEOUT: ${{ secrets.MINIO_TIMEOUT }}
+  MINIO_ENCKEY: ${{ secrets.MINIO_ENCKEY }}
+  MINIO_SSL: ${{ secrets.MINIO_SSL }}
+  LOCALES: '[\"en\",\n "fr",\n "es",\n "de",\n "it",\n "ur"\]'
 
 jobs:
-
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: DEV - Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: dev
-    - uses: subosito/flutter-action@v1
-      with:
-        channel: 'beta'
+      - uses: actions/checkout@v2
+        with:
+          ref: dev
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "beta"
 
-    - run: flutter pub get
-      working-directory: maintemplate/client/
-    - run: flutter config --enable-web
-      working-directory: maintemplate/client/
-    # build Flutter web version
-    - run: flutter build web
-      working-directory: maintemplate/client/
+      - run: flutter pub get
+        working-directory: maintemplate/client/
+      - run: flutter config --enable-web
+        working-directory: maintemplate/client/
+      # build Flutter web version
+      - run: flutter build web
+        working-directory: maintemplate/client/
 
-      # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '270.0.0'
-        service_account_email: ${{ secrets.GKE_EMAIL }}
-        service_account_key: ${{ secrets.GKE_KEY }}
+        # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: "289.0.0"
+          service_account_email: ${{ secrets.GKE_EMAIL }}
+          service_account_key: ${{ secrets.GKE_KEY }}
 
-    # Configure docker to use the gcloud command-line tool as a credential helper
-    - run: |
-        # Set up docker to authenticate
-        # via gcloud command-line tool.
-        gcloud auth configure-docker
-        
-    # Build the Docker image
-    - name: Build
-      run: |        
-        docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
-          
-        sed -i s/\\?version\=#\{ref\}/?version=$GITHUB_SHA/g maintemplate/client/build/web/index.html
-        
-        sed -i s/#\{channel_name\}/$RELEASE_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
-        sed -i s/#\{channel_url\}/$CHANNEL_URL/g maintemplate/client/build/web/assets/assets/env.json
-        sed -i s/#\{channel_githash\}/$GITHUB_SHA/g maintemplate/client/build/web/assets/assets/env.json
-        sed -i s/#\{flutter_channel\}/$FLUTTER_CHANNEL/g maintemplate/client/build/web/assets/assets/env.json
+      # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: |
+          # Set up docker to authenticate
+          # via gcloud command-line tool.
+          gcloud auth configure-docker
 
-        cp -rf maintemplate/client/build/web maintemplate/server/flutter
-        docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
-        
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |
-        docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
-        docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
-    # Set up helm v3
-    - name: Set up Helm
-      run: |
-        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-        chmod 700 ./get_helm.sh
-        ./get_helm.sh
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |
-        gcloud container clusters get-credentials $GKE_PROJECT --zone $GKE_ZONE --project $GKE_PROJECT
-        helm upgrade --force --install $RELEASE_CHANNEL ./maintemplate/server/deployments/helm\
-         --set flutterImage=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
-         --set maintemplateServerImage=gcr.io/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
-         ${{ secrets.HELM_VARS }}
-        kubectl --namespace ingress-nginx patch svc ingress-nginx -p '{"spec": {"loadBalancerIP": "${{ secrets.GKE_IP }}"}}'
-        kubectl get services -o wide
-        echo ${{ secrets.GKE_IP }}
+      # Create secret keys
+      # - name: Create Secrets
+      # run: |
+      #   make -C mod-account/server/authz/ gen-secrets -k
+      #   make -C maintemplate/server/ gen-app-secrets -k
+      #   kubectl apply -f keys/keypair-secrets.yaml
+      #   kubectl apply -f keys/minio-creds-secret.yaml
+      #   kubectl apply -f keys/getcourage-secrets.yaml
+
+      # Build the Docker image
+      - name: Build
+        run: |
+          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$AUTH_IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA"
+            --build-arg GITHUB_REF="$GITHUB_REF" -f mod-account/server/authz/Dockerfile .
+          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" -f maintemplate/server/Dockerfile .
+
+          ASSET_FILE=maintemplate/client/build/web/assets/assets/env.json
+          perl -i -pe 's/(?:version\=\#|(?<!^)\G)(?(?=\}\")|.)*?\K(([a-z]){3})/$ENV{'GITHUB_SHA'}/' maintemplate/client/build/web/index.html
+          perl -i -pe 's/(?:\\"channel\\"|(?<!^)\\G)(?(?=\\,)|.)*?\\K(([a-z]){3})/$ENV{'RELEASE_CHANNEL'}/' $ASSET_FILE
+          perl -i -pe 's/(?:\"url\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/$ENV{'IMAGE'}\.$ENV{'RELEASE_CHANNEL'}\.$ENV{'URL'}/g' $ASSET_FILE
+          perl -i -pe 's/(?:\"url_native\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/grpc\.$ENV{'IMAGE'}\.$ENV{'RELEASE_CHANNEL'}\.$ENV{'URL'}/g' $ASSET_FILE
+          perl -i -pe 's/(?:\"githash\"|(?<!^)\G)(?(?=\"\,)|.)*?\K(([a-z]).*\.[a-z]*)/$ENV{'GITHUB_SHA'}/g' $ASSET_FILE
+          perl -i -pe 's/(?:\"locales\":\ \[|(?<!^)\G)(?(?=\"\n\])|.)*?\K((.?))/$ENV{'LOCALES'}/g' $ASSET_FILE
+
+          cp -rf maintemplate/client/build/web maintemplate/server/flutter
+          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/flutter-web-"$IMAGE":"$RELEASE_CHANNEL"-"$GITHUB_SHA" maintemplate/server/flutter
+
+      # Push the Docker image to Google Container Registry
+      - name: Publish
+        run: |
+          docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
+          docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$AUTH_IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
+          docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA
+      # Set up helm v3
+      - name: Set up Helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          chmod 700 ./get_helm.sh
+          ./get_helm.sh
+      # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |
+          gcloud container clusters get-credentials $GKE_PROJECT --zone $GKE_ZONE --project $GKE_PROJECT
+          helm upgrade --force --install $RELEASE_CHANNEL ./maintemplate/server/deployments/helm\
+           --set flutterImage=gcr.io/$GKE_PROJECT/flutter-web-$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
+           --set maintemplateServerImage=gcr.io/$GKE_PROJECT/$IMAGE:${RELEASE_CHANNEL}-$GITHUB_SHA\
+           ${{ secrets.HELM_VARS }}

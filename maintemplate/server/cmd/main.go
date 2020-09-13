@@ -19,6 +19,9 @@ import (
 
 	modchat_pb "github.com/getcouragenow/packages/mod-chat/server/pkg/api"
 	modchat_srv "github.com/getcouragenow/packages/mod-chat/server/pkg/service"
+	// auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
+	// authz "github.com/getcouragenow/packages/mod-account/server/authz_server"
+	// healthpb "google.golang.org/grpc/health/grpc_health_v1"
 )
 
 type FileSystem struct {
@@ -63,11 +66,21 @@ func main() {
 	}
 	defer conn.Close()
 
+	// opts := []grpc.ServerOption{grpc.MaxConcurrentStreams(10)}
+	// opts = append(opts)
+
 	grpcServer := grpc.NewServer()
 
 	server := &modchat_srv.Server{conn}
 
+	// chat server
 	modchat_pb.RegisterBroadcastServer(grpcServer, server)
+
+	// authz server
+	// auth.RegisterAuthorizationServer(grpcServer, &authz.AuthorizationServer{})
+
+	// health check server
+	// healthpb.RegisterHealthServer(grpcServer, &authz.HealthServer{})
 
 	if *local {
 		fileServer := http.FileServer(FileSystem{http.Dir(*directory)})

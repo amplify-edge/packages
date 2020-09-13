@@ -2,6 +2,8 @@
 VERSION             := v0.0.0
 TARGET_MAX_CHAR_NUM := 20
 
+JETSTREAM_TAG = 0.10.0
+
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
@@ -62,27 +64,61 @@ protoc-go:
 	protoc -I grpc-web/pkg/proto grpc-web/pkg/proto/v2.proto --gofast_out=plugins=grpc:./grpc-web/pkg/api/v2
 
 
+###### nats ######
 install-nats:
 	# install nats server
 	go get -u github.com/nats-io/nats-server
 
-install-liftbridge:
-	# install liftbridge server
-	go get github.com/liftbridge-io/liftbridge
-
 nats:
 	# start nats server
 	nats-server
+
+###### liftbridge ######
+install-liftbridge:
+	# install liftbridge server
+	go get github.com/liftbridge-io/liftbridge
 
 lift:
 	# start liftbridge
 	mkdir -p lift_cache
 	liftbridge -c grpc-web/liftbridge/config.conf --raft-bootstrap-seed -d lift_cache
 
-svr-go:
-	# start serveur
-	cd grpc-web/cmd/server && go run main.go
+###### jetstream ######
+config-nats-jets:
+	# config nats to use jetstream
+	cd $(GOPATH)/src/github.com/ && git clone https://github.com/nats-io/nats-server.git
+	cd $(GOPATH)/src/github.com/nats-server && git checkout jetstream
+	cd $(GOPATH)/src/github.com/nats-server && go build
+	cd $(GOPATH)/src/github.com/nats-server && mv ./nats-server $(GOPATH)/bin 
 
-cli-go:
-	# start a client
-	cd go-client && go run main.go
+config-nats:
+	# setup nats jetstream client
+	cd $(GOPATH)/src/github.com/ && rm -rf jetstream
+	mkdir -p $(GOPATH)/src/github.com/jetstream
+	cd $(GOPATH)/src/github.com/jetstream && git clone https://github.com/nats-io/jetstream.git --tags $(JETSTREAM_TAG)
+	cd $(GOPATH)/src/github.com/jetstream/$(JETSTREAM_TAG)/nats && go build
+	cd $(GOPATH)/src/github.com/jetstream/$(JETSTREAM_TAG)/nats && mv ./nats $(GOPATH)/bin
+
+start-jetstream:
+	# start nats-server
+	mkdir -p nats
+	nats-server -js -sd ./nats
+
+###### nats streaming server ######
+config-nss:
+	# install nats-streaming-server
+	go get github.com/nats-io/nats-streaming-server
+
+nss:
+	# start nats-streaming-server
+	nats-streaming-server -SD -SV -SDV
+
+go-srv:
+	cd cmd && go run server.go
+
+go-cli:
+	cd cmd && go run client.go
+
+faker:
+	cd cmd && go run faker.go
+

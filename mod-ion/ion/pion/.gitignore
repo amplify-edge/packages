@@ -1,3 +1,0 @@
-# ignore makecert generated files that are user specific
-cert.pem
-key.pem

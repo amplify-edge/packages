@@ -1,55 +1,57 @@
 # Packages
 
-This contains the Functional modules with:
+## Project docs
 
-- GUI
-- Business Logic
-- Data schema
+This contains the Functional modules and runner.
 
-The functional spec for each is here for now:
+Project Web site: https://getcouragenow.org/
 
-https://drive.google.com/drive/folders/1X0sMEOxYP_zoBVl_E0SbZs6MMfZlnvEs
+Project Docs: https://docs.google.com/document/d/1caq1gSvHqVXVCOCGPsqi7I0fbF-Gdyryd07CL9yJ55o
 
-In each folder there is:
+Dev Team Contact: "winwisely-dev"
 
-- Flutter
-- Makefile.
+## Developer setup
 
-## Docs
+You need to make sure you have all the dependencies setup first.
 
-Use the same structure as here for this repo, so its easy to publish and easy for others to use.
+The [bootstrap](https://github.com/winwisely99/bootstrap) repo is for boot strapping your laptop.
 
-https://github.com/rodydavis/plugins
+Install what you need per OS:
 
-Its uses: https://github.com/flutter/plugin_tools
+https://github.com/getcouragenow/bootstrap/tree/master/os
 
+Install hover, so you can compile the Desktop version:
 
+https://github.com/getcouragenow/bootstrap/tree/master/tool/hover
 
-## IO
-
-IO is GRPC to the embed golang layer running on the device.
-
-See the embed repo.
+Run the examples using the Makefile to ensure you have an environment that works.
 
 
-## Modularity and IOC
+## Running
 
-Use the inside out approach so things dont get monolithic.
+See MainTemplate folder for Client and Server makefiles:
+
+https://github.com/getcouragenow/packages/tree/master/maintemplate
+
+## Demo
+
+Web CI: https://maintemplate.ci.getcouragenow.org/
+
+Web Beta: https://maintemplate.beta.getcouragenow.org
+
+Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/packages/releases
 
 
-Also we want it to be easy for others to use a Module and compose it how they want with their app.
-Flutter does not have Modular Routing yet but the following does the same:
+## Working on an issue
 
-https://pub.dev/packages/flutter_modular
+The [Kan Ban](https://github.com/orgs/getcouragenow/projects/1) should be looked at to work out what to work on.
 
-Examples:
+Is you want to work on an issue, please first ensure that you understand the issue and the suggested approach. Ask the Team on Telegram if your not sure about something or the best way to approach the implementation.
 
-- https://github.com/Flutterando/github_search
+When you take an issue, please assign yourself to it and let everyone know on the Telegram group, so we everyone knows your taking it.
 
-- https://github.com/felipewom/flutter_app_modular
+## CI and CD
 
-- https://github.com/VictorOchoaS/ToDo-App
+When your PR is merged, check it builds correctly and then check the automated release works.
 
-## maintemplate
-
-To run the maintemplate app on web, just use command  **flutter run -d chrome**
+CI: https://github.com/getcouragenow/packages/actions

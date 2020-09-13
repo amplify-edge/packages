@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
+import 'package:maintemplate/core/i18n/translations.dart';
+import 'package:sys_core/sys_core.dart';
 
-import 'generated/lang_messages_all.dart';
+import 'generated/messages_all.dart';
 
-class AppLocalizations {
+class AppLocalizations extends Translations {
   final Locale locale;
 
   AppLocalizations(this.locale);
@@ -19,87 +20,6 @@ class AppLocalizations {
   static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
-
-  String tabhome() {
-    return Intl.message(
-      'Home',
-      name: 'tabhome',
-      desc: 'text for the home tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String tabchat() {
-    return Intl.message(
-      'Chat',
-      name: 'tabchat',
-      desc: 'text for the chat tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String tabIon() {
-    return Intl.message(
-      'Ion',
-      name: 'tabIon',
-      desc: 'text for the ion tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String tabsettings() {
-    return Intl.message(
-      'Settings',
-      name: 'tabsettings',
-      desc: 'text for the settings tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String tabwriter() {
-    return Intl.message(
-      'Writer',
-      name: 'tabwriter',
-      desc: 'text for the writer tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String tabmap() {
-    return Intl.message(
-      'Map',
-      name: 'tabmap',
-      desc: 'text for the writer tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String tabSettings() {
-    return Intl.message(
-      'Settings',
-      name: 'tabSettings',
-      desc: 'text for the settings tab',
-      locale: locale.toString(),
-    );
-  }
-
-  String changeLanguageSet() {
-    return Intl.message(
-      'Change Language',
-      name: 'changeLanguageSet',
-      desc: 'text for the change language text in settings screen',
-      locale: locale.toString(),
-    );
-  }
-
-  String changeThemeSet() {
-    return Intl.message(
-      'Change Theme',
-      name: 'changeThemeSet',
-      desc: 'text for the change theme text in settings screen',
-      locale: locale.toString(),
-    );
-  }
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -112,17 +32,17 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
+    return Languages.supportedLanguages.keys.contains(locale.languageCode);
   }
 
   @override
   Future<AppLocalizations> load(Locale locale) {
-    if (this.overriddenLocale == Locale('system')) {
-      print("return system");
-      return AppLocalizations.load(locale);
-    }
-    print("return overriden");
-    return AppLocalizations.load(this.overriddenLocale);
+    //if (this.overriddenLocale == Locale('en')) {
+    //  print("return system");
+    //  return AppLocalizations.load(locale);
+    //}
+    //print("return overriden");
+    return AppLocalizations.load(locale);
   }
 }
 
@@ -132,7 +52,7 @@ class FallbackCupertinoLocalisationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      ['en', 'es', 'fr', 'ur'].contains(locale.languageCode);
+      Languages.supportedLanguages.keys.contains(locale.languageCode);
 
   @override
   Future<CupertinoLocalizations> load(Locale locale) =>

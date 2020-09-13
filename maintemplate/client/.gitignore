@@ -74,3 +74,13 @@ build/
 # ours
 *.flutter-plugins-dependencies
 *.flutter-plugins-*
+
+desktop/output/
+desktop/resources/app/
+desktop/bind_linux_amd64.go
+desktop/bind_darwin_amd64.go
+desktop/bind_windows_386.go
+desktop/windows.syso
+
+packer/build
+packer/packer

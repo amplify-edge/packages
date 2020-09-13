@@ -1,0 +1,33 @@
+{
+  "@@last_modified": "2020-05-20T10:21:01.488551",
+  "send": "Enviar",
+  "@send": {
+    "description": "Send",
+    "placeholders": {},
+    "type": "text"
+  },
+  "sendMessage": "Enviar un mensaje",
+  "@sendMessage": {
+    "description": "Send a message",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "No hay elementos seleccionados.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "No hay campañas",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "Seleccionar campaña",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  }
+}

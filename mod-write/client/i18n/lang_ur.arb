@@ -1,0 +1,27 @@
+{
+  "@@last_modified": "2020-05-20T13:55:27.153482",
+  "startupTestLog": "یہ ماڈ لکھنے سے i18n ٹیسٹ سٹرنگ ہے۔ نوشتہ جات میں ہر ایک کو سلام۔",
+  "@startupTestLog": {
+    "description": "This is i18n test string from mod-write. Hi everybody in the logs.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "کوئی آئٹم منتخب نہیں ہوا۔",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noCampaigns": "کوئی مہم نہیں",
+  "@noCampaigns": {
+    "description": "No Campaigns",
+    "placeholders": {},
+    "type": "text"
+  },
+  "selectCampaign": "مہم منتخب کریں",
+  "@selectCampaign": {
+    "description": "Select Campaign",
+    "placeholders": {},
+    "type": "text"
+  }
+}

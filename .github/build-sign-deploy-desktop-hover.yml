@@ -1,0 +1,333 @@
+# This workflow will build, package and Sign windows, MacOs, Linux App and Deploy it.
+#  
+# 1. Set up secrets in your workspace:
+#   * LINUX_PUBLIC_SIGN_KEY the public key of your secret gpg signing key.
+#   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
+#   * LINUX_SIGN_KEY_ID used to find the key.
+# To configure this workflow:
+name: DESKTOP - Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
+on:
+  #pull_request:
+    #branches:
+      #- master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-desktop.yml"
+  # push:
+  #   branches: 
+  #     - master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-desktop-hover.yml"
+env:
+  app-name: maintemplate
+  version: 1.0.0 
+jobs:
+  build-packages:
+    name: "DESKTOP - Linux Build, Package, Sign and Deploy"
+    runs-on: ubuntu-latest
+    env:
+      GOROOT: /usr/local/go
+      GO111MODULE: auto
+      
+    steps:
+#       - name: Set up Go
+#         uses: actions/setup-go@v1
+#         with:
+#           go-version: 1.14.1
+
+      - name: Cache go
+        id: install-go
+        uses: actions/cache@v1
+        with:
+          path: ${GOROOT}
+          key: ${{ runner.os }}-go
+
+      - name: Set up Go
+        if: steps.install-go.outputs.cache-hit != 'true'
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14.1
+
+#       - name: Install Hover
+#         run: |
+#           sudo apt-get install libgl1-mesa-dev xorg-dev
+#           sudo apt-get install gcc libc6-dev
+#           export GOPATH=$HOME/go
+#           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#           go version
+#           go get -u github.com/go-flutter-desktop/hover
+
+      - name: Cache hover
+        id: install-hover
+        uses: actions/cache@v1
+        with:
+          path: $HOME/go
+          key: ${{ runner.os }}-go
+      
+      - name: Set up hover
+        if: steps.install-hover.outputs.cache-hit != 'true'
+        run: |
+            sudo apt-get install libgl1-mesa-dev xorg-dev
+            sudo apt-get install gcc libc6-dev
+            export GOPATH=$HOME/go
+            export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+            go version
+            go get -u github.com/go-flutter-desktop/hover
+
+
+      - name: Cloning repository
+        uses: actions/checkout@v2.0.0
+
+      - uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+
+      - name: Setting Up Flutter SDK
+        run: flutter pub get
+        working-directory: maintemplate/client/
+
+      - name: Build Linux, Mac-os, Windows Apps
+        run: |
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          hover build linux
+          hover build windows
+          hover build darwin
+        working-directory: maintemplate/client/
+
+      - name: Packaging Linux, Mac-os, Windows Apps
+        run: |
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          hover init-packaging linux-appimage
+          hover init-packaging linux-deb
+          hover init-packaging linux-snap
+          hover init-packaging windows-msi
+          hover init-packaging darwin-pkg
+
+          hover build linux-deb --version-number ${version}
+          hover build linux-appimage --version-number ${version}
+          hover build linux-snap --version-number ${version}
+          hover build windows-msi --version-number ${version}
+          hover build darwin-pkg --version-number ${version}
+        working-directory: maintemplate/client/
+
+      - name: "publish action-artifact zip linux-deb"
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-deb
+          path: maintemplate/client/go/build/outputs/linux-deb/
+      
+      - name: "publish action-artifact zip linux-snap"
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-snap
+          path: maintemplate/client/go/build/outputs/linux-snap/
+
+      - name: "publish action-artifact zip linux-appimage"
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-appimage
+          path: maintemplate/client/go/build/outputs/linux-appimage/
+      
+      - name: "publish action-artifact zip windows-msi"
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows-msi
+          path: maintemplate/client/go/build/outputs/windows-msi/
+
+      - name: "publish action-artifact zip darwin-pkg"
+        uses: actions/upload-artifact@v1
+        with:
+          name: darwin-pkg
+          path: maintemplate/client/go/build/outputs/darwin-pkg/
+
+  # sign-linux:
+  #   name: "linux Sign"
+  #   needs: [build-packages]
+  #   runs-on: [ubuntu-latest]
+  #   steps:
+
+  #     - name: Download artefacts linux-deb
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: linux-deb
+
+  #     - name: Sign Linux App
+  #           env: 
+  #             SIGN_KEY_BASE_64: ${{ secrets.LINUX_PRIVATE_SIGN_KEY_BASE_64 }}
+  #             SIGN_KEY_ID: ${{ secrets.LINUX_SIGN_KEY_ID }}
+  #             SIGN_KEY_PASSWORD: ${{ secrets.LINUX_SIGN_PASSWORD }}
+  #           run: |
+  #             echo $SIGN_KEY_BASE_64 | base64 -d | tee private_sign_key.asc
+  #             export GPG_TTY=$(tty)
+  #             echo "no-tty" >> ~/.gnupg/gpg.conf
+  #             gpg --list-keys
+  #             echo $SIGN_KEY_PASSWORD | gpg --batch --allow-secret-key-import --import private_sign_key.asc
+  #             gpg --list-keys
+  #             sudo apt-get update
+  #             sudo apt-get install debsigs
+  #             debFile=$(ls go/build/outputs/linux-deb/*.deb)
+  #             debsigs --sign=origin -k $SIGN_KEY_ID ${debFile}
+  #           working-directory: maintemplate/client/
+
+  #     - name: "publish action-artifact zip linux-deb"
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: linux-deb
+  #         path: maintemplate/client/go/build/outputs/linux-deb/
+
+  # sign-windows:
+  #   name: "Windows Sign"
+  #   needs: [build-packages]
+  #   runs-on: [windows-latest]
+  #   steps:
+  #     - name: Download artefacts windows-msi
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: windows-msi
+
+  #     - name: Sign Windows App
+  #       run: |
+  #         echo "TODO Add signing for Windows using Sign Tool"
+  #         # https://github.com/3gstudent/signtools
+  #         # tools/signtool.exe sign //v //s MY //n "itch corp." //fd sha256 //tr http://timestamp.comodoca.com/?td=sha256 //td sha256 $TARGET
+      
+  #     - name: "publish action-artifact zip"
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: windows-msi
+  #         path: maintemplate/client/go/build/outputs/windows-msi/
+ 
+  # sign-darwin:
+  #   name: "darwin sign"
+  #   needs: [build-packages]
+  #   runs-on: [macos-latest]
+  #   steps:
+  #     - name: Download artefacts darwin-pkg
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: darwin-pkg
+
+  #     - name: Sign Mac App
+  #       run: |
+  #         echo "TODO Add signing for Mac using Sign Tool"
+  #         # SIGNKEY="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
+  #         # codesign --deep --force --verbose --sign "${SIGNKEY}" "${app-name}-${version}.pkg"
+  #         # codesign --verify -vvvv "${app-name}-${version}.pkg"
+  #       working-directory: maintemplate/client/go/build/outputs/darwin-pkg/
+      
+  #     - name: "publish action-artifact zip"
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: darwin-pkg
+  #         path: maintemplate/client/go/build/outputs/darwin-pkg/
+  
+  release:
+    # needs: [sign-darwin, sign-windows, sign-linux]
+    needs: [build-packages]
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Download artefacts linux-deb
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-deb
+
+      - name: Download artefacts linux-appimage
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-appimage
+
+      - name: Download artefacts linux-snap
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-snap
+          
+      - name: Download artefacts darwin-pkg
+        uses: actions/download-artifact@v1
+        with:
+          name: darwin-pkg
+
+      - name: Download artefacts windows-msi
+        uses: actions/download-artifact@v1
+        with:
+          name: windows-msi
+          
+      - name: zip
+        run: |
+          zip linux-deb linux-deb/*.deb
+          zip linux-appimage linux-appimage/*.AppImage
+          zip linux-snap linux-snap/*.snap
+          zip win-msi windows-msi/*.msi
+          zip mac-darwin-pkg darwin-pkg/*.pkg
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset-linux-deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./linux-deb.zip
+          asset_name: linux-deb.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset
+        id: upload-release-asset-linux-snap
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./linux-snap.zip
+          asset_name: linux-snap.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset
+        id: upload-release-asset-linux-appimage 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./linux-appimage.zip
+          asset_name: linux-appimage.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset
+        id: upload-release-asset-darwin-pkg
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./mac-darwin-pkg.zip
+          asset_name: mac-darwin-pkg.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset
+        id: upload-release-asset-windows-msi 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./win-msi.zip
+          asset_name: win-msi.zip
+          asset_content_type: application/zip

@@ -35,7 +35,7 @@ help:
 
 ## Local run
 local-run:
-	go run ./grpc-web/cmd/server/main.go
+	go run ./cmd/server.go
 
 ## minikube run
 deploy:
@@ -117,6 +117,7 @@ go-srv:
 	cd cmd && go run server.go
 
 go-cli:
+	# connects to cloud: https://maintemplate.ci.getcouragenow.org/#/chat/0
 	cd cmd && go run client.go
 
 faker:

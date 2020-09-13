@@ -1,0 +1,120 @@
+# This workflow will build, package and Sign iOS, Android Apps and publish it to Firebase APP Distribute.
+#
+# To configure this workflow:
+#
+# 1. Set up Android secrets in your workspace: 
+#   * ANDROID_SIGN_KEY_BASE_64 The base64 encoded signing key used to sign the android app.
+#   * ANDROID_SIGN_KEY_ALIAS The alias of your signing key.
+#   * ANDROID_SIGN_KEY_STORE_PASS The alias of your signing key.
+#   * ANDROID_SIGN_KEY_PASSWORD The private key password for your signing keystore.
+# Android Resources:
+#   * https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
+# 
+# 2. Set up iOS secrets in your workspace:
+#   * IOS_P12_SIGN_KEY_BASE_64 refer to the p12 certificate encoded as base 64 which will be used to sign the build and archive.
+#   * IOS_P12_SIGN_KEY_PASSWORD refer to the p12 certificate password.
+#   * IOS_SIGNING_TYPE refer to the type of signing key that should be used, IOS_APP_DEVELOPMENT or IOS_APP_STORE.
+#   * IOS_SIGN_KEY_ISSUER_ID refer to the id of the certificate issuer.
+#   * IOS_SIGN_KEY_ID refer to id of private key of the certificate.
+#   * IOS_APP_BUNDLER_ID refer the iOS application bundle identifier, which can be found in the Info.plist.
+#   * APP_STORE_CONNECT_PRIVATE_KEY refer to private key used to access app store connect api.
+#       https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api
+# iOS Resources:
+#   * https://support.magplus.com/hc/en-us/articles/203808748-iOS-Creating-a-Distribution-Certificate-and-p12-File
+
+#   * https://developer.apple.com/documentation/appstoreconnectapi/certificates
+#   * https://github.com/flutter/flutter/issues/13065
+
+name: MOBILE - Build, Package, Sign and Deploy iOS & Android Apps
+on:
+  #pull_request:
+    #branches:
+      #- master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-mobile.yml"
+  push:
+    branches: 
+      - master
+    #paths:
+      #- "maintemplate/client/**"
+      #- ".github/workflows/build-sign-deploy-mobile.yml"
+
+jobs:
+  build-sign-deploy-android:
+   name: "MOBILE - Android App Build, Package, Sign and Deploy"
+   runs-on: ubuntu-latest
+   steps:
+     - name: Cloning repository
+       uses: actions/checkout@v2.0.0
+     - uses: subosito/flutter-action@v1.2.0
+       with:
+         channel: 'beta'
+     - name: Setting Up Flutter SDK
+       run: flutter pub get
+       working-directory: maintemplate/client/       
+     - name: Running build runner
+       run: flutter pub run build_runner build --delete-conflicting-outputs
+       working-directory: maintemplate/client/
+     - name: building Android APK
+       run: flutter build apk --release
+       working-directory: maintemplate/client/
+     - name: sign Android APK
+       uses: r0adkll/sign-android-release@v1
+       with:
+        releaseDirectory: maintemplate/client/build/app/outputs/apk/release
+        signingKeyBase64: ${{ secrets.ANDROID_SIGN_KEY_BASE_64 }}
+        alias: ${{ secrets.ANDROID_SIGN_KEY_ALIAS }}
+        keyStorePassword: ${{ secrets.ANDROID_SIGN_KEY_STORE_PASS }}
+        keyPassword: ${{ secrets.ANDROID_SIGN_KEY_PASSWORD }}  
+     - name: Upload APK artifact to github release section
+       uses: marvinpinto/action-automatic-releases@latest
+       with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true  
+        files: ${{ env.SIGNED_RELEASE_FILE }}
+  build-sign-deploy-ios:
+   name: "iOS App Build, Package, Sign and Deploy"
+   runs-on: macos-latest
+   steps:
+     - name: Cloning repository
+       uses: actions/checkout@v2.0.0
+     - uses: subosito/flutter-action@v1.2.0
+       with:
+         channel: 'beta'
+     - name: Setting Up Flutter SDK
+       run: flutter pub get
+       working-directory: maintemplate/client/
+     - name: Running build runner
+       run: flutter pub run build_runner build --delete-conflicting-outputs
+       working-directory: maintemplate/client/
+     - name: Building iOS APP
+       run: flutter build ios --release --no-codesign
+       working-directory: maintemplate/client/
+     - name: Prepare signing iOS APP
+       uses: ngeri/prepare-signing@v1.0.2
+       with:
+         appStoreConnectPrivateKey: ${{ secrets.appStoreConnectPrivateKey }}
+         keyID: ${{ env.IOS_SIGN_KEY_ID }}
+         issuerID: ${{ env.IOS_SIGN_KEY_ISSUER_ID }}
+         base64P12File: ${{ secrets.IOS_P12_SIGN_KEY_BASE_64 }}
+         p12Password: ${{ secrets.IOS_P12_SIGN_KEY_PASSWORD }}
+         bundleIdentifier: ${{ secrets.IOS_APP_BUNDLER_ID }}
+         signType: ${{ secrets.IOS_SIGNING_TYPE }}
+     - name: Packaging and signing iOS App
+       run: |
+         flutter build ios --release
+         cd ios
+         xcodebuild -workspace Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Runner.xcarchive
+         xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist exportOptions.plist -exportPath $PWD/build/Runner.ipa
+         cd ..
+         cp ios/build/Runner.ipa/Runner.ipa buildOutput/
+       working-directory: maintemplate/client/
+     - name: Upload iOS IPA artifact to github release section
+       uses: marvinpinto/action-automatic-releases@latest
+       with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true  
+        files: maintemplate/client/ios/build/Runner.ipa/Runner.ipa

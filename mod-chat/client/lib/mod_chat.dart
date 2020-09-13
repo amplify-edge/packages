@@ -2,34 +2,47 @@ library mod_chat;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mod_chat/core/routes/paths.dart';
 import 'package:mod_chat/grpc_web_example/blocs/bloc.dart';
-import 'package:mod_chat/grpc_web_example/blocs/bloc_provider.dart';
-import 'package:mod_chat/grpc_web_example/grpc_web_view.dart';
-export 'chat_module.dart';
+import 'package:mod_chat/grpc_web_example/pages/master_detail_home.dart';
+export 'package:mod_chat/chat_module.dart';
+
+class ChatModuleConfig {
+  final String url;
+  final String urlNative;
+
+  ChatModuleConfig(this.url, this.urlNative);
+
+  @override
+  String toString() {
+    return "ChatModuleConfig{url: $url}";
+  }
+}
 
 class ChatModule extends ChildModule {
-  // not sure if this is the best way to store the current route statically
-  // it works ... ideas welcome
-  static String baseRoute;
+  final String baseRoute;
 
   // we need device id statically for further use with static methods
   static String deviceID;
 
-  static String cutOffBaseRoute(String route) {
-    if (route.indexOf(baseRoute) < 0) return route;
-    return route.substring(
-        route.indexOf(baseRoute) + baseRoute.length, route.length);
-  }
+  static ChatModuleConfig chatModuleConfig;
 
-  ChatModule(String baseRoute, {@required deviceID}) {
+  ChatModule(this.baseRoute,
+      {@required deviceID, @required url, @required urlNative}) {
     assert(deviceID != null);
     assert(baseRoute != null);
-    ChatModule.baseRoute = baseRoute;
+    assert(url != null);
+    //assert(urlNative != null);
     ChatModule.deviceID = deviceID;
+
+    ChatModule.chatModuleConfig = ChatModuleConfig(url, urlNative);
   }
 
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind((i) => Paths(baseRoute)),
+        Bind((i) => GRPCWebBloc()),
+      ];
 
   // routes for child module are starting with '/', e.g. "/fullpage"
   // but to call inside this module the correct route
@@ -38,14 +51,12 @@ class ChatModule extends ChildModule {
   // pattern for the child module is e.g.
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
-  List<Router> get routers => [
-        Router(
-          "/",
-          child: (context, args) => BlocProvider<GRPCWebBloc>(
-            bloc: GRPCWebBloc(),
-            child: GRPCWebApp(),
-          ),
-        ),
+  List<ModularRouter> get routers => [
+        ModularRouter("/", child: (context, args) => MasterDetailHome()),
+        ModularRouter("/:id",
+            child: (context, args) => MasterDetailHome(
+                  id: int.tryParse(args.params['id']) ?? -1,
+                )),
       ];
 
   static Inject get to => Inject<ChatModule>.of();

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mod_main/core/core.dart';
@@ -38,8 +37,9 @@ Future<void> showInfoDialogBox({
                 Align(
                     alignment: Alignment.center,
                     child: RaisedButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      color: themeData.accentColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      color: Theme.of(context).accentColor,
                       elevation: 0,
                       child: Text(buttonText),
                       onPressed: () {
@@ -53,15 +53,13 @@ Future<void> showInfoDialogBox({
   );
 }
 
-
-
-Future<void> showActionDialogBox({
-  @required String title,
-  @required String description,
-  Function onPressed,
-  String buttonText = "Yes",
-  String buttonTextCancel = "No"
-}) async {
+Future<void> showActionDialogBox(
+    {@required String title,
+    @required String description,
+    Function onPressedYes,
+    Function onPressedNo,
+    String buttonText = "Yes",
+    String buttonTextCancel = "No"}) async {
   print("show dialog");
   await showDialog<void>(
     context: Modular.navigatorKey.currentState.overlay.context,
@@ -69,23 +67,19 @@ Future<void> showActionDialogBox({
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         actions: <Widget>[
+           FlatButton(
+            // shape:
+            //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Text(buttonTextCancel),
+            onPressed: onPressedNo,
+          ),
           RaisedButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      color: themeData.accentColor,
-                      elevation: 0,
-                      child: Text(buttonText),
-                      onPressed: onPressed
-                    ),
-          FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      color: themeData.accentColor,
-                      
-                      child: Text(buttonTextCancel),
-                      onPressed: () {
-                        Modular.navigatorKey.currentState.pop();
-                      },
-                    )
-          
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(10)),
+              elevation: 0,
+              child: Text(buttonText),
+              onPressed: onPressedYes),
+         
         ],
         content: Padding(
           padding: const EdgeInsets.all(16.0),
