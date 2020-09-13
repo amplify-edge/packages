@@ -9,8 +9,8 @@ class SplashModule extends ChildModule{
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [
-    Router('/', child: (_, args) => SplashView())
+  List<ModularRouter> get routers => [
+    ModularRouter('/', child: (_, args) => SplashView())
   ];
 
 
