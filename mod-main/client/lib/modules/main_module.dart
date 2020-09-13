@@ -47,17 +47,17 @@ class MainAppModule extends ChildModule{
   ];
   
   @override
-  List<Router> get routers => [
-    Router("/", child: (_, args) => SplashView()),
+  List<ModularRouter> get routers => [
+    ModularRouter("/", child: (_, args) => SplashView()),
     /// Non-Admin Dashboard Routes
-    Router("/userInfo", child: (_, args) => UserInfoView()),
-    Router("/orgs", child: (_, args) => OrgView(),),
-    Router("/orgs/:id", child: (_, args) => OrgView(id: int.tryParse(args.params['id']) ?? -1,)),
-    Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
-    Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
+    ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
+    ModularRouter("/orgs", child: (_, args) => OrgView(),),
+    ModularRouter("/orgs/:id", child: (_, args) => OrgView(id: int.tryParse(args.params['id']) ?? -1,)),
+    ModularRouter("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
+    ModularRouter("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
     /// Admin Dashboard Routes
-    Router("/dashboard/orgs", child: (_, args) => OrgMasterDetailView()),
-    Router("/dashboard/orgs/:id", child: (_, args) => OrgMasterDetailView(id: int.tryParse(args.params['id']) ?? -1,)),
+    ModularRouter("/dashboard/orgs", child: (_, args) => OrgMasterDetailView()),
+    ModularRouter("/dashboard/orgs/:id", child: (_, args) => OrgMasterDetailView(id: int.tryParse(args.params['id']) ?? -1,)),
   ];
 
   static Inject get to => Inject<MainAppModule>.of();
