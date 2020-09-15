@@ -15,7 +15,7 @@ import 'package:mod_chat/core/i18n/mod_chat_localization.dart';
 import 'features/responvive_builder_example/responsive_template.dart';
 
 void main() => runApp(ModularApp(
-      key: "d",
+      key: Key("d"),
       module: AppModule(),
     ));
 
@@ -53,6 +53,7 @@ class AppWidget extends StatelessWidget {
     return Provider<List<MockItem>>(
       create: (context) => mockItemsList,
       child: MaterialApp(
+        navigatorKey: Modular.navigatorKey,
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         onGenerateRoute: Modular.generateRoute,

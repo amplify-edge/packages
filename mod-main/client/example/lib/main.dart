@@ -27,8 +27,8 @@ class AppModule extends MainModule {
   Widget get bootstrap => App();
 
   @override
-  List<Router> get routers => [
-        Router("/",
+  List<ModularRouter> get routers => [
+        ModularRouter("/",
             module: MainAppModule(
                 baseRoute: '/',
                 url: "http://[::1]:61146/#",
