@@ -17,9 +17,7 @@ import 'support_roles/views/support_role_view.dart';
 import 'user_needs/views/user_need_view.dart';
 import 'userinfo/views/userinfo_view.dart';
 
-
-class MainAppModule extends ChildModule{
-
+class MainAppModule extends ChildModule {
   final String baseRoute;
   final String url;
   final String urlNative;
@@ -30,35 +28,66 @@ class MainAppModule extends ChildModule{
   //       route.indexOf(baseRoute) + baseRoute.length, route.length);
   // }
 
-  MainAppModule({String baseRoute,  String url, String urlNative,}) : 
-   this.baseRoute = (baseRoute == '/') ? '' : baseRoute,
-   this.url  = url,
-   this.urlNative = urlNative;
+  MainAppModule({
+    String baseRoute,
+    String url,
+    String urlNative,
+  })  : this.baseRoute = (baseRoute == '/') ? '' : baseRoute,
+        this.url = url,
+        this.urlNative = urlNative;
 
   @override
   List<Bind> get binds => [
-      Bind((i) => Paths(baseRoute)),
-      Bind((i) => EnvConfig(url , urlNative)),
-      Bind((i) => OrgsService(repository: MockOrgRepository())), // TODO Replace this later with OrgRepository
-      Bind((i) => UserNeedService(repository: MockUserNeedRepository())), // TODO Replace this later with UserNeedRepository
-      Bind((i) => UserNeedAnswerService(repository: MockUserNeedAnswerRepository())), // TODO Replace this later with UserNeedAnswerRepository      
-      Bind((i) => SupportRoleService(repository: MockSupportRoleRepository())), // TODO Replace this later with SupportRoleRepository
-      Bind((i) => SupportRoleAnswerService(repository: MockSupportRoleAnswerRepository())), // TODO Replace this later with SupportRoleRepository
-  ];
-  
+        Bind((i) => Paths(baseRoute)),
+        Bind((i) => EnvConfig(url, urlNative)),
+        Bind((i) => OrgsService(
+            repository:
+                MockOrgRepository())), // TODO Replace this later with OrgRepository
+        Bind((i) => UserNeedService(
+            repository:
+                MockUserNeedRepository())), // TODO Replace this later with UserNeedRepository
+        Bind((i) => UserNeedAnswerService(
+            repository:
+                MockUserNeedAnswerRepository())), // TODO Replace this later with UserNeedAnswerRepository
+        Bind((i) => SupportRoleService(
+            repository:
+                MockSupportRoleRepository())), // TODO Replace this later with SupportRoleRepository
+        Bind((i) => SupportRoleAnswerService(
+            repository:
+                MockSupportRoleAnswerRepository())), // TODO Replace this later with SupportRoleRepository
+      ];
+
   @override
-  List<Router> get routers => [
-    Router("/", child: (_, args) => SplashView()),
-    /// Non-Admin Dashboard Routes
-    Router("/userInfo", child: (_, args) => UserInfoView()),
-    Router("/orgs", child: (_, args) => OrgView(),),
-    Router("/orgs/:id", child: (_, args) => OrgView(id: int.tryParse(args.params['id']) ?? -1,)),
-    Router("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
-    Router("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
-    /// Admin Dashboard Routes
-    Router("/dashboard/orgs", child: (_, args) => OrgMasterDetailView()),
-    Router("/dashboard/orgs/:id", child: (_, args) => OrgMasterDetailView(id: int.tryParse(args.params['id']) ?? -1,)),
-  ];
+  List<ModularRouter> get routers => [
+        ModularRouter("/", child: (_, args) => SplashView()),
+
+        /// Non-Admin Dashboard Routes
+        ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
+        ModularRouter(
+          "/orgs",
+          child: (_, args) => OrgView(),
+        ),
+        ModularRouter("/orgs/:id",
+            child: (_, args) => OrgView(
+                  id: int.tryParse(args.params['id']) ?? -1,
+                )),
+        ModularRouter("/myneeds/orgs/:id",
+            child: (_, args) => UserNeedsView(
+                  orgID: args.params['id'],
+                )),
+        ModularRouter("/supportRoles/orgs/:id",
+            child: (_, args) => SupportRoleView(
+                  orgId: args.params['id'],
+                )),
+
+        /// Admin Dashboard Routes
+        ModularRouter("/dashboard/orgs",
+            child: (_, args) => OrgMasterDetailView()),
+        ModularRouter("/dashboard/orgs/:id",
+            child: (_, args) => OrgMasterDetailView(
+                  id: int.tryParse(args.params['id']) ?? -1,
+                )),
+      ];
 
   static Inject get to => Inject<MainAppModule>.of();
 }

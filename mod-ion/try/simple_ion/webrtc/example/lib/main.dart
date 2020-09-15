@@ -12,7 +12,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final router = Router();
+    final router = ModularRouter();
     Routes.configureRoutes(router);
     Application.router = router;
 

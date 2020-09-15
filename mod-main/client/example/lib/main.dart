@@ -27,8 +27,8 @@ class AppModule extends MainModule {
   Widget get bootstrap => App();
 
   @override
-  List<Router> get routers => [
-        Router("/",
+  List<ModularRouter> get routers => [
+        ModularRouter("/",
             module: MainAppModule(
                 baseRoute: '/',
                 url: "http://[::1]:61146/#",
@@ -62,9 +62,8 @@ class App extends StatelessWidget {
           initialRoute: "/",
           onGenerateRoute: Modular.generateRoute,
           navigatorKey: Modular.navigatorKey,
-          supportedLocales: Languages.supportedLanguages.keys
-              .map((e) => Locale(e))
-              .toList(),
+          supportedLocales:
+              Languages.supportedLanguages.keys.map((e) => Locale(e)).toList(),
           localizationsDelegates: [
             ModMainLocalizationsDelegate(value.locale),
             GlobalWidgetsLocalizations.delegate,

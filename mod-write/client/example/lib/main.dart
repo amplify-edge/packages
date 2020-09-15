@@ -13,8 +13,8 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router(
+  List<ModularRouter> get routers => [
+        ModularRouter(
           "/",
           module: ModWriterModule("/"),
         )

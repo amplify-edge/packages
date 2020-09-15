@@ -12,7 +12,7 @@ class PaneModule extends ChildModule {
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [
-        Router("/", child: (_, args) => PaneWidget(box)),
+  List<ModularRouter> get routers => [
+        ModularRouter("/", child: (_, args) => PaneWidget(box)),
       ];
 }

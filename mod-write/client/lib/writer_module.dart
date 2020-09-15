@@ -25,17 +25,17 @@ class ModWriterModule extends ChildModule {
   // pattern for the child module is e.g.
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
-  List<Router> get routers => [
-        Router("/", child: (context, args) => DocumentList()),
-        Router("/:id",
+  List<ModularRouter> get routers => [
+        ModularRouter("/", child: (context, args) => DocumentList()),
+        ModularRouter("/:id",
             child: (context, args) => DocumentList(
                   id: int.tryParse(args.params['id']) ?? -1,
                 )),
-        /*Router(cutOffBaseRoute(fullPageRoute),
+        /*ModularRouter(cutOffBaseRoute(fullPageRoute),
             child: (context, args) => FullPageEditorScreen(id: args.params['id'],)),
-        Router(cutOffBaseRoute(formRoute),
+        ModularRouter(cutOffBaseRoute(formRoute),
             child: (context, args) => FormEmbeddedScreen()),
-        Router(cutOffBaseRoute(viewRoute),
+        ModularRouter(cutOffBaseRoute(viewRoute),
             child: (context, args) => ViewScreen()),*/
       ];
 

@@ -88,8 +88,8 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router("/", child: (_, args) => PaneWidget(box)),
+  List<ModularRouter> get routers => [
+        ModularRouter("/", child: (_, args) => PaneWidget(box)),
       ];
 
   // add your main widget here
