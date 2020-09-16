@@ -59,35 +59,17 @@ class MainAppModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter("/", child: (_, args) => SplashView()),
-
-        /// Non-Admin Dashboard Routes
-        ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
-        ModularRouter(
-          "/orgs",
-          child: (_, args) => OrgView(),
-        ),
-        ModularRouter("/orgs/:id",
-            child: (_, args) => OrgView(
-                  id: int.tryParse(args.params['id']) ?? -1,
-                )),
-        ModularRouter("/myneeds/orgs/:id",
-            child: (_, args) => UserNeedsView(
-                  orgID: args.params['id'],
-                )),
-        ModularRouter("/supportRoles/orgs/:id",
-            child: (_, args) => SupportRoleView(
-                  orgId: args.params['id'],
-                )),
-
-        /// Admin Dashboard Routes
-        ModularRouter("/dashboard/orgs",
-            child: (_, args) => OrgMasterDetailView()),
-        ModularRouter("/dashboard/orgs/:id",
-            child: (_, args) => OrgMasterDetailView(
-                  id: int.tryParse(args.params['id']) ?? -1,
-                )),
-      ];
+    ModularRouter("/", child: (_, args) => SplashView()),
+    /// Non-Admin Dashboard Routes
+    ModularRouter("/userInfo", child: (_, args) => UserInfoView()),
+    ModularRouter("/orgs", child: (_, args) => OrgView(),),
+    ModularRouter("/orgs/:id", child: (_, args) => OrgView(id: int.tryParse(args.params['id']) ?? -1,)),
+    ModularRouter("/myneeds/orgs/:id", child: (_, args) => UserNeedsView(orgID: args.params['id'],)),
+    ModularRouter("/supportRoles/orgs/:id", child: (_, args) => SupportRoleView(orgId: args.params['id'],)),
+    /// Admin Dashboard Routes
+    ModularRouter("/dashboard/orgs", child: (_, args) => OrgMasterDetailView()),
+    ModularRouter("/dashboard/orgs/:id", child: (_, args) => OrgMasterDetailView(id: int.tryParse(args.params['id']) ?? -1,)),
+  ];
 
   static Inject get to => Inject<MainAppModule>.of();
 }
