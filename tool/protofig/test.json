@@ -1,0 +1,53 @@
+{
+  "appConfig": [
+    {
+      "componentName": "MinioComponent",
+      "config": {
+        "minioAccesskey": "REPLACE_THIS",
+        "minioSecretkey": "REPLACE_THIS"
+      }
+    },
+    {
+      "componentName": "MaintemplateComponent",
+      "config": {
+        "minioAccesskey": "REPLACE_THIS",
+        "minioEnckey": "this is of type bytes",
+        "minioEndpoint": "http://127.0.0.1",
+        "minioLocation": "REPLACE_THIS",
+        "minioSecretkey": "REPLACE_THIS",
+        "minioSsl": false,
+        "minioTimeout": 0
+      }
+    },
+    {
+      "componentName": "GcpComponent",
+      "config": {
+        "gcpProject": "REPLACE_THIS",
+        "gcpUser": "REPLACE_THIS",
+        "gkeCluster": "REPLACE_THIS",
+        "gkeEmail": "test@example.com",
+        "gkeZone": "REPLACE_THIS"
+      }
+    },
+    {
+      "componentName": "JwtComponent",
+      "config": {
+        "privateKey": "REPLACE_THIS",
+        "publicKey": "REPLACE_THIS"
+      }
+    },
+    {
+      "componentName": "WorkflowComponent",
+      "config": {
+        "flutterChannel": "REPLACE_THIS",
+        "githubRef": "REPLACE_THIS",
+        "githubSha": "REPLACE_THIS",
+        "locales": "[REPLACE_THIS, REPLACE_THIS]",
+        "project": "REPLACE_THIS",
+        "registryHostname": "http://127.0.0.1",
+        "releaseChannel": "REPLACE_THIS",
+        "url": "REPLACE_THIS"
+      }
+    }
+  ]
+}

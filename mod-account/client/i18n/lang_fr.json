@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-19T18:12:48.647786",
+  "@@last_modified": "2020-09-16T17:40:14.764196",
   "signUpForAccount": "Inscrivez-vous à votre compte",
   "@signUpForAccount": {
     "description": "Sign up for your account",
     "placeholders": {},
     "type": "text"
   },
-  "emailAddress": "Adresse e-mail Adresse",
+  "emailAddress": "Adresse e-mail",
   "@emailAddress": {
     "description": "Email Address",
     "placeholders": {},
@@ -18,7 +18,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "explainWhy": "Expliquez pourquoi?",
+  "explainWhy": "Expliquer pourquoi?",
   "@explainWhy": {
     "description": "Explain why?",
     "placeholders": {},
@@ -30,7 +30,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "passwordStrength": "Votre mot de passe doit contenir au moins 8 caractères et utiliser au moins trois des quatre types de caractères disponibles: lettres minuscules , lettres majuscules, chiffres et symboles.",
+  "passwordStrength": "Votre mot de passe doit comporter au moins 8 caractères et utiliser au moins trois des quatre types de caractères disponibles: lettres minuscules, lettres majuscules, chiffres et symboles.",
   "@passwordStrength": {
     "description": "Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.",
     "placeholders": {},
@@ -42,7 +42,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "meetOthersSharedInterest": "Rencontrer d'autres personnes ayant des intérêts communs?",
+  "meetOthersSharedInterest": "Rencontrer d'autres personnes partageant des intérêts communs?",
   "@meetOthersSharedInterest": {
     "description": "Meet others with shared interests?",
     "placeholders": {},
@@ -60,13 +60,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "civilDisobedienceTraining": "J'ai une formation en désobéissance civile",
+  "civilDisobedienceTraining": "J'ai une formation de désobéissance civile",
   "@civilDisobedienceTraining": {
     "description": "I have civil disobedience training",
     "placeholders": {},
     "type": "text"
   },
-  "setupNotificationChannel": "Configurer le canal de notification",
+  "setupNotificationChannel": "Configuration du canal de notification",
   "@setupNotificationChannel": {
     "description": "Setup notification channel",
     "placeholders": {},
@@ -102,7 +102,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "protonMailExplanation": "Les e-mails ProtonMail vers ProtonMail sont considérés comme sécurisés par les professionnels de la sécurité de l'information. Ils sont tous deux gratuits à utiliser sur les téléphones intelligents Android et Apple et les ordinateurs Windows et Mac.",
+  "protonMailExplanation": "Les e-mails de ProtonMail à ProtonMail sont considérés comme sécurisés par les professionnels de la sécurité de l'information. Ils sont tous deux gratuits sur les téléphones intelligents Android et Apple et les ordinateurs Windows et Mac.",
   "@protonMailExplanation": {
     "description": "ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.",
     "placeholders": {},

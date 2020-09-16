@@ -22,14 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "changeLanguageSet" : MessageLookupByLibrary.simpleMessage("زبان تبدیل کریں"),
-    "changeThemeSet" : MessageLookupByLibrary.simpleMessage("تھیم تبدیل کریں"),
+    "changeThemeSet" : MessageLookupByLibrary.simpleMessage("تھیم کو تبدیل کریں"),
     "tabIon" : MessageLookupByLibrary.simpleMessage("آئن"),
-    "tabKanban" : MessageLookupByLibrary.simpleMessage("کنبن"),
+    "tabKanban" : MessageLookupByLibrary.simpleMessage("کنبان"),
     "tabSettings" : MessageLookupByLibrary.simpleMessage("ترتیبات"),
     "tabchat" : MessageLookupByLibrary.simpleMessage("چیٹ"),
-    "tabhome" : MessageLookupByLibrary.simpleMessage("ہوم"),
+    "tabhome" : MessageLookupByLibrary.simpleMessage("گھر"),
     "tabmap" : MessageLookupByLibrary.simpleMessage("نقشہ"),
     "tabsettings" : MessageLookupByLibrary.simpleMessage("ترتیبات"),
-    "tabwriter" : MessageLookupByLibrary.simpleMessage("مصنف")
+    "tabwriter" : MessageLookupByLibrary.simpleMessage("لکھاری")
   };
 }

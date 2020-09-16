@@ -1,24 +1,24 @@
 {
-  "@@last_modified": "2020-05-19T18:13:41.172528",
-  "country": "Paese",
+  "@@last_modified": "2020-09-16T17:35:07.648385",
+  "country": "Nazione",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "aboutYou": "Chi sei",
+  "aboutYou": "A proposito di te",
   "@aboutYou": {
     "description": "About You",
     "placeholders": {},
     "type": "text"
   },
-  "newCountrySelected": "Nuovo Paese selezionato",
+  "newCountrySelected": "Nuovo paese selezionato",
   "@newCountrySelected": {
     "description": "New Country Selected",
     "placeholders": {},
     "type": "text"
   },
-  "zipCode": "Codice postale",
+  "zipCode": "Cap",
   "@zipCode": {
     "description": "Zip Code",
     "placeholders": {},
@@ -30,7 +30,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "travelDistance": "Fino a che punto sei disposto a viaggiare?",
+  "travelDistance": "Quanto lontano sei disposto a viaggiare?",
   "@travelDistance": {
     "description": "How far are you willing to travel?",
     "placeholders": {},
@@ -42,13 +42,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "campaignAffiliation": "Hai un'affiliazione di campagna?",
+  "campaignAffiliation": "Hai un'affiliazione a una campagna?",
   "@campaignAffiliation": {
     "description": "Do you have a campaign affiliation?",
     "placeholders": {},
     "type": "text"
   },
-  "distanceInKM": "Inserisci la distanza in chilometri",
+  "distanceInKM": "Immettere la distanza in chilometri",
   "@distanceInKM": {
     "description": "Enter distance in kilometers",
     "placeholders": {},
@@ -66,7 +66,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "campaignName": "Nome campagna",
+  "campaignName": "Nome della campagna",
   "@campaignName": {
     "description": "campaignName",
     "placeholders": {},
@@ -102,7 +102,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "goal": "Obiettivo",
+  "goal": "Obbiettivo",
   "@goal": {
     "description": "Goal",
     "placeholders": {},
@@ -120,13 +120,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "Supporto / Organizzazioni sostenitrici",
+  "backingEndorsingOrganizations": "Organizzazioni di sostegno / appoggio",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "Persone già impegnate",
+  "peopleAlreadyPledged": "Le persone si sono già impegnate",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
@@ -138,31 +138,31 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Le seguenti figure sono estrapolate da simili azioni passate che hanno avuto successo e fallito",
+  "extrapolatedSimilarPastActions": "Le cifre seguenti sono estrapolate da azioni passate simili che sono riuscite e non sono riuscite",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Pionieri necessari per iniziare",
+  "pioneersToStart": "I pionieri dovevano iniziare",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Ribelli necessari per attivare i media",
+  "rebelsMedia": "I ribelli dovevano innescare i media",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Ribelli necessari per vincere",
+  "rebelsWin": "I ribelli dovevano vincere",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Contatti Dettagli",
+  "contactDetails": "Dettagli del contatto",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
@@ -180,19 +180,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "Seleziona campagna",
+  "selectCampaign": "Seleziona Campagna",
   "@selectCampaign": {
     "description": "Select Campaign",
     "placeholders": {},
     "type": "text"
   },
-  "campaignDetails": "Dettagli campagna",
+  "campaignDetails": "Dettagli della campagna",
   "@campaignDetails": {
     "description": "campaignDetails",
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "Cerca campagne",
+  "searchCampaigns": "Campagne di ricerca",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
@@ -204,31 +204,31 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Scegli quanti supporti o necessità devi soddisfare per partecipare all'azione.",
+  "needsSatisifiedRequirement": "Scegli tutti i supporti o le esigenze di cui hai bisogno per partecipare all'azione.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "Avanti",
+  "next": "Il prossimo",
   "@next": {
     "description": "Next",
     "placeholders": {},
     "type": "text"
   },
-  "supportRole": "Ruolo supporto",
+  "supportRole": "Ruolo di supporto",
   "@supportRole": {
     "description": "Support Role",
     "placeholders": {},
     "type": "text"
   },
-  "provideSupportRole": "Se non riusciamo a soddisfare le condizioni prescelte, valuteresti di fornire un ruolo di supporto a coloro che sono disposti a scioperare?",
+  "provideSupportRole": "Se non siamo in grado di soddisfare le condizioni che hai scelto, valuteresti di fornire un ruolo di supporto a coloro che desiderano scioperare?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
     "placeholders": {},
     "type": "text"
   },
-  "yes": "Sì",
+  "yes": "sì",
   "@yes": {
     "description": "Yes",
     "placeholders": {},

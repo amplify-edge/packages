@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-19T18:13:41.172528",
+  "@@last_modified": "2020-09-16T17:35:07.648385",
   "country": "Pays",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "aboutYou": "À propos de vous",
+  "aboutYou": "Au propos de vous",
   "@aboutYou": {
     "description": "About You",
     "placeholders": {},
@@ -24,7 +24,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "Où êtes-vous?",
+  "whereAreYou": "Où es-tu?",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
@@ -42,7 +42,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "campaignAffiliation": "Avez-vous une affiliation à la campagne?",
+  "campaignAffiliation": "Avez-vous une affiliation à une campagne?",
   "@campaignAffiliation": {
     "description": "Do you have a campaign affiliation?",
     "placeholders": {},
@@ -84,13 +84,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "actionLocation": "Lieu de l'action",
+  "actionLocation": "Emplacement de l'action",
   "@actionLocation": {
     "description": "Action Location",
     "placeholders": {},
     "type": "text"
   },
-  "time": "Durée",
+  "time": "Temps",
   "@time": {
     "description": "Time",
     "placeholders": {},
@@ -120,13 +120,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "Soutien / Organisations endossantes",
+  "backingEndorsingOrganizations": "Organisations de soutien / d'approbation",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "Personnes déjà engagées",
+  "peopleAlreadyPledged": "Les gens se sont déjà engagés",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
@@ -144,31 +144,31 @@
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Les pionniers devaient démarrer",
+  "pioneersToStart": "Les pionniers devaient commencer",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsMedia": "Les rebelles nécessaires pour déclencher le média",
+  "rebelsMedia": "Les rebelles nécessaires pour déclencher les médias",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Les rebelles nécessaires pour gagner",
+  "rebelsWin": "Les rebelles devaient gagner",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Contact Détails",
+  "contactDetails": "Détails du contact",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
     "type": "text"
   },
-  "notReady": "Non prêt",
+  "notReady": "Pas prêt",
   "@notReady": {
     "description": "Not Ready",
     "placeholders": {},
@@ -180,7 +180,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "Sélectionner la campagne",
+  "selectCampaign": "Sélectionnez la campagne",
   "@selectCampaign": {
     "description": "Select Campaign",
     "placeholders": {},
@@ -192,7 +192,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "searchCampaigns": "Rechercher les campagnes",
+  "searchCampaigns": "Rechercher des campagnes",
   "@searchCampaigns": {
     "description": "Search Campaigns",
     "placeholders": {},
@@ -204,19 +204,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Veuillez choisir autant de supports ou de besoins dont vous avez besoin pour vous joindre à l'action.",
+  "needsSatisifiedRequirement": "Veuillez choisir autant de supports ou de besoins dont vous avez besoin pour rejoindre l'action.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "Suivant",
+  "next": "Prochain",
   "@next": {
     "description": "Next",
     "placeholders": {},
     "type": "text"
   },
-  "supportRole": "Rôle de support",
+  "supportRole": "Rôle de soutien",
   "@supportRole": {
     "description": "Support Role",
     "placeholders": {},

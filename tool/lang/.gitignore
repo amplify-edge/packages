@@ -1,0 +1,14 @@
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+bin 
+outputs
+.DS_Store
+static/
+.idea/*
+vendor/
+builds/

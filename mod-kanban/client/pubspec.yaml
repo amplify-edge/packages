@@ -11,10 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   sys_core:
-    git:
-      url: git://github.com/getcouragenow/core-runtime.git
-      path: sys-core/client
-      ref: master
+    path: ../../sys-core/client
   flutter_modular: ^2.0.0+1
   intl_translation: ^0.17.10
 

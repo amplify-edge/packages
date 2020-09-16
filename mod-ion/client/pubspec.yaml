@@ -15,10 +15,7 @@ dependencies:
   path_provider: ^1.6.4
   shared_preferences:
   sys_core:
-    git:
-      url: git://github.com/getcouragenow/core-runtime.git
-      path: sys-core/client
-      ref: master
+    path: ../../sys-core/client
   intl: ^0.16.1
   intl_translation: ^0.17.9
 dev_dependencies:

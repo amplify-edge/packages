@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-05-20T10:21:01.488551",
+  "@@last_modified": "2020-09-16T16:01:57.699067",
   "send": "Enviar",
   "@send": {
     "description": "Send",
@@ -12,13 +12,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "noItemsSelected": "No hay elementos seleccionados.",
+  "noItemsSelected": "No se seleccionaron elementos.",
   "@noItemsSelected": {
     "description": "No items selected.",
     "placeholders": {},
     "type": "text"
   },
-  "noCampaigns": "No hay campañas",
+  "noCampaigns": "Sin campañas",
   "@noCampaigns": {
     "description": "No Campaigns",
     "placeholders": {},

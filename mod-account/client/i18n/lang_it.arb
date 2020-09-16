@@ -1,42 +1,42 @@
 {
-  "@@last_modified": "2020-05-19T18:12:48.647786",
-  "signUpForAccount": "Iscriviti per il tuo account",
+  "@@last_modified": "2020-09-16T17:40:14.764196",
+  "signUpForAccount": "Registrati per il tuo account",
   "@signUpForAccount": {
     "description": "Sign up for your account",
     "placeholders": {},
     "type": "text"
   },
-  "emailAddress": "Indirizzo e-mail Indirizzo",
+  "emailAddress": "Indirizzo di posta elettronica",
   "@emailAddress": {
     "description": "Email Address",
     "placeholders": {},
     "type": "text"
   },
-  "needProtonMail": "Hai bisogno di una protonmail?",
+  "needProtonMail": "Hai bisogno di un protonmail?",
   "@needProtonMail": {
     "description": "Need a protonmail ?",
     "placeholders": {},
     "type": "text"
   },
-  "explainWhy": "Spiega perché?",
+  "explainWhy": "Spiega perchè?",
   "@explainWhy": {
     "description": "Explain why?",
     "placeholders": {},
     "type": "text"
   },
-  "password": "Password",
+  "password": "Parola d'ordine",
   "@password": {
     "description": "Password",
     "placeholders": {},
     "type": "text"
   },
-  "passwordStrength": "La tua password deve essere di almeno 8 caratteri e utilizzare almeno tre dei quattro tipi di caratteri disponibili: lettere minuscole , lettere maiuscole, numeri e simboli.",
+  "passwordStrength": "La tua password deve contenere almeno 8 caratteri e utilizzare almeno tre dei quattro tipi di caratteri disponibili: lettere minuscole, lettere maiuscole, numeri e simboli.",
   "@passwordStrength": {
     "description": "Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.",
     "placeholders": {},
     "type": "text"
   },
-  "passwordAgain": "Ancora una volta password",
+  "passwordAgain": "Password di nuovo",
   "@passwordAgain": {
     "description": "Password Again",
     "placeholders": {},
@@ -48,7 +48,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "yes": "Sì",
+  "yes": "sì",
   "@yes": {
     "description": "Yes",
     "placeholders": {},
@@ -66,19 +66,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "setupNotificationChannel": "Imposta il canale di notifica",
+  "setupNotificationChannel": "Imposta canale di notifica",
   "@setupNotificationChannel": {
     "description": "Setup notification channel",
     "placeholders": {},
     "type": "text"
   },
-  "email": "Email",
+  "email": "E-mail",
   "@email": {
     "description": "Email",
     "placeholders": {},
     "type": "text"
   },
-  "appMessaging": "Messaggi app",
+  "appMessaging": "Messaggistica app",
   "@appMessaging": {
     "description": "App Messaging",
     "placeholders": {},
@@ -90,7 +90,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "privacyPolicy": "Informativa sulla privacy",
+  "privacyPolicy": "politica sulla riservatezza",
   "@privacyPolicy": {
     "description": "Privacy Policy",
     "placeholders": {},
@@ -102,7 +102,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "protonMailExplanation": "Le e-mail da ProtonMail a ProtonMail sono considerate sicure dai professionisti della sicurezza delle informazioni. Sono entrambi gratuiti da utilizzare su smartphone Android e Apple e su computer Windows e Mac.",
+  "protonMailExplanation": "Le e-mail da ProtonMail a ProtonMail sono considerate sicure dai professionisti della sicurezza delle informazioni. Possono essere utilizzati entrambi gratuitamente su smartphone Android e Apple e su computer Windows e Mac.",
   "@protonMailExplanation": {
     "description": "ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.",
     "placeholders": {},

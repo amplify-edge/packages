@@ -15,3 +15,5 @@ k8-print: ## os-print
 ## Installs any things the OS needs
 k8-dep: ## k8-dep
 	# installs the things needed to run k8, docker etc
+
+	bs gjgghg

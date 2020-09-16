@@ -1,0 +1,13 @@
+{
+  "name": "dummy",
+  "versions": [
+    {
+      "name": "v1",
+      "sha": "6e779f42af9ff174b44f0bbaa29a02753646b629"
+    },
+    {
+      "name": "v2",
+      "sha": "1a68c63a07511ca028d706504b9e632a3a901a13"
+    }
+  ]
+}

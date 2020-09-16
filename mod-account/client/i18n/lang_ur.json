@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-19T18:12:48.647786",
+  "@@last_modified": "2020-09-16T17:40:14.764196",
   "signUpForAccount": "اپنے اکاؤنٹ کے لئے سائن اپ کریں",
   "@signUpForAccount": {
     "description": "Sign up for your account",
     "placeholders": {},
     "type": "text"
   },
-  "emailAddress": "ای میل ایڈریس ایڈریسری",
+  "emailAddress": "ای میل ایڈریس ایڈریس",
   "@emailAddress": {
     "description": "Email Address",
     "placeholders": {},
@@ -18,7 +18,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "explainWhy": "وضاحت کریں کہ کیوں؟",
+  "explainWhy": "وضاحت کریں کیوں؟",
   "@explainWhy": {
     "description": "Explain why?",
     "placeholders": {},
@@ -30,7 +30,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "passwordStrength": "آپ کا پاس ورڈ کم سے کم 8 حروف کا ہونا چاہئے اور دستیاب چار قسموں میں کم از کم تین کا استعمال کرنا چاہئے: چھوٹے حروف ، بڑے حرف ، نمبر ، اور علامت۔",
+  "passwordStrength": "آپ کا پاس ورڈ کم از کم 8 حروف کا ہونا چاہئے اور دستیاب چار قسموں میں سے کم از کم تین استعمال کرنا چاہئے: چھوٹے حرف ، بڑے حرف ، اعداد اور علامت۔",
   "@passwordStrength": {
     "description": "Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.",
     "placeholders": {},
@@ -42,13 +42,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "meetOthersSharedInterest": "دوسروں سے مشترکہ مفادات سے ملیں؟",
+  "meetOthersSharedInterest": "مشترکہ مفادات کے ساتھ دوسروں سے ملیں؟",
   "@meetOthersSharedInterest": {
     "description": "Meet others with shared interests?",
     "placeholders": {},
     "type": "text"
   },
-  "yes": "ہاں",
+  "yes": "جی ہاں",
   "@yes": {
     "description": "Yes",
     "placeholders": {},
@@ -66,7 +66,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "setupNotificationChannel": "سیٹ اپ نوٹیفکیشن چینل",
+  "setupNotificationChannel": "نوٹیفکیشن چینل سیٹ اپ کریں",
   "@setupNotificationChannel": {
     "description": "Setup notification channel",
     "placeholders": {},
@@ -102,7 +102,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "protonMailExplanation": "پروٹون میل سے لیکر پروٹون میل ای میل کو سیکیورٹی کے پیشہ ور افراد کے ذریعہ محفوظ سمجھا جاتا ہے۔ وہ لوڈ ، اتارنا Android اور ایپل سمارٹ فونز اور ونڈوز اور میک کمپیوٹرز پر مفت استعمال کر سکتے ہیں۔",
+  "protonMailExplanation": "پروٹون میل سے لے کر پروٹون میل ای میلوں کو انفارمیشن سیکیورٹی کے پیشہ ور افراد کے ذریعہ محفوظ سمجھا جاتا ہے۔ وہ لوڈ ، اتارنا Android اور ایپل سمارٹ فونز اور ونڈوز اور میک کمپیوٹرز پر مفت استعمال کر سکتے ہیں۔",
   "@protonMailExplanation": {
     "description": "ProtonMail to ProtonMail emails are considered to be secure by Information Security professionals. They’re both free to use on Android and Apple smart phones and Windows and Mac computers.",
     "placeholders": {},

@@ -1,0 +1,7 @@
+.idea
+vendor
+generated/*.json
+generated/go/
+generated/dart/
+output
+builds/

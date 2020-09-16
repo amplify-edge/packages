@@ -7,18 +7,18 @@
 SERVER_FSPATH=$(PWD)/../server
 
 ## Prints the Server settings
-srv-print: ## srv-print
+srv-print:
 	@echo
 	@echo -- SERVER -- 
 	@echo SERVER_FSPATH: $(SERVER_FSPATH)
 	@echo
 
 ## Runs the Server.
-srv-run: ## srv-run
+srv-run:
 
 
 ## Generates the environment settings for the Server.
-srv-env: ## srv-env
+srv-env:
 
 	@echo PWD $(PWD)
 

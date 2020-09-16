@@ -1,4 +1,7 @@
 # help
+
+# Note assumes AWK is installed
+
 .DEFAULT_GOAL       := help
 HELP_TARGET_MAX_CHAR_NUM := 20
 
@@ -7,7 +10,9 @@ HELP_YELLOW := $(shell tput -Txterm setaf 3)
 HELP_WHITE  := $(shell tput -Txterm setaf 7)
 HELP_RESET  := $(shell tput -Txterm sgr0)
 
-help:  ## Display this help
+
+# Print help
+help:
 
 	@echo ''
 	@echo 'Usage:'
@@ -23,3 +28,26 @@ help:  ## Display this help
 		} \
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+
+# generic variable loader
+VARS_OLD := $(.VARIABLES)
+
+## Print our variables 
+help-print-var:
+	# generic printer
+	# TODO: Add sorting !!
+	$(foreach v, \
+	$(filter-out $(VARS_OLD) VARS_OLD,$(.VARIABLES)), \
+	$(info ${HELP_YELLOW} $(v) = ${HELP_RESET} ${HELP_GREEN} $($(v))))
+
+## Print all variables
+help-print-varall:
+	# this our variables plus everything else loaded by the OS
+	# TODO: add some form of categorisation if we can.
+	@echo "${.VARIABLES}" | tr ' ' '\n'
+	@echo BS_ROOT_FSPATH: 	$(BS_ROOT_FSPATH)
+
+	@echo GO_ARCH: 	$(GO_ARCH)
+
+
+	

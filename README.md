@@ -8,23 +8,12 @@ Project Web site: https://getcouragenow.org/
 
 Project Docs: https://docs.google.com/document/d/1caq1gSvHqVXVCOCGPsqi7I0fbF-Gdyryd07CL9yJ55o
 
-Dev Team Contact: "winwisely-dev"
 
 ## Developer setup
 
-You need to make sure you have all the dependencies setup first.
+Flutter and golang installed
 
-The [bootstrap](https://github.com/winwisely99/bootstrap) repo is for boot strapping your laptop.
-
-Install what you need per OS:
-
-https://github.com/getcouragenow/bootstrap/tree/master/os
-
-Install hover, so you can compile the Desktop version:
-
-https://github.com/getcouragenow/bootstrap/tree/master/tool/hover
-
-Run the examples using the Makefile to ensure you have an environment that works.
+In tool, run  ```make build-all```, and it will put all buidl tools into the go bin.
 
 
 ## Running

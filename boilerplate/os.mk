@@ -1,10 +1,10 @@
 # os tools
 
-GO_OS 		:= $(shell go env GOOS)
-GO_ARCH		:= $(shell go env GOARCH)
+export GO_OS 		:= $(shell go env GOOS)
+export GO_ARCH		?= $(shell go env GOARCH)
 
 ## Prints the OS settings
-os-print: ## os-print
+os-print:
 	@echo
 	@echo -- OS --
 	@echo GO_OS: $(GO_OS)
@@ -13,6 +13,6 @@ os-print: ## os-print
 
 
 ## Installs any things the OS needs
-os-dep: ## os-dep
+os-dep:
 	# TODO: grab Boostrapper
 	# TODO: scaffold out the boilerplate.

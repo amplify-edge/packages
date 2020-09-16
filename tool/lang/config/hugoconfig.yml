@@ -1,0 +1,35 @@
+content:
+  ID: 1po7GuEo4H04HEPTuG6DFreenBDvJ2QKLUQiIRPKzEBI
+  URL: https://docs.google.com/spreadsheets/d/1po7GuEo4H04HEPTuG6DFreenBDvJ2QKLUQiIRPKzEBI
+  CSV: https://docs.google.com/spreadsheets/d/e/2PACX-1vTc_p-rpZibPYukaZlggJcHcBN-XmygRNHFVGW7_BqtAE7DyewskX_kWwvr8h2XMqYT9JCHLKyRvY2m/pub?output=csv
+  MERGE: "cell"
+  OUT_DIR: "outputs/hugo/content/XXX/"
+  FILE_NAME: "" 
+  EXTENSION: ""
+
+# lang:
+#   ID: 1jtFj-gEo6Gyyy1pPqY0eNtBDzD-1MlEoTZNTA-syO6g
+#   URL: https://docs.google.com/spreadsheets/d/1jtFj-gEo6Gyyy1pPqY0eNtBDzD-1MlEoTZNTA-syO6g
+#   CSV: https://docs.google.com/spreadsheets/d/e/2PACX-1vSbABjbU7HOT9kKDiNFCvsSpoxf0l9Mv5DKqoMWaHbGliSUVKAgSiyJcjbcRSQNhtpbM3s1RPQbxyH3/pub?output=csv
+#   MERGE: "column"
+#   OUT_DIR: "outputs/flutter/lang/"
+#   FILE_NAME: "" 
+#   EXTENSION: ".json"
+
+# languages:
+#   ID: 1QjVcozbJVWG4oJkA289dF-IEZxJlr5fx-oA_FRfxHTI
+#   URL: https://docs.google.com/spreadsheets/d/1QjVcozbJVWG4oJkA289dF-IEZxJlr5fx-oA_FRfxHTI
+#   CSV: https://docs.google.com/spreadsheets/d/e/2PACX-1vQmZ9DVnxUKkGzX5OuhbC1Zf9PDv_XELImFsGr8snSDq19AwfxzZ-LnZF5V83W2eFfMsaa9t-NjxjS9/pub?output=csv
+#   MERGE: "row"
+#   OUT_DIR: "outputs/hugo/config/_default/"
+#   FILE_NAME: "languages" 
+#   EXTENSION: ".toml"
+
+# menu:
+#   ID: 1HAK9SCb0VxVr22RSpHPVNrgGiNQyn6DwN7zXpJcZhGU
+#   URL: https://docs.google.com/spreadsheets/d/1HAK9SCb0VxVr22RSpHPVNrgGiNQyn6DwN7zXpJcZhGU
+#   CSV: https://docs.google.com/spreadsheets/d/e/2PACX-1vSbiWUoMP-drlUYdPGoxe-Coy11_BTgcysH3SjGLHGMwxFubIrneAugWmA0goS5titPv-zHDuKTPCUV/pub?output=csv
+#   MERGE: "cell"
+#   OUT_DIR: "outputs/hugo/config/_default/"
+#   FILE_NAME: "menu.XXX" 
+#   EXTENSION: ".toml"
