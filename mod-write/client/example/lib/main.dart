@@ -13,8 +13,8 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router(
+  List<ModularRouter> get routers => [
+        ModularRouter(
           "/",
           module: ModWriterModule("/"),
         )
@@ -29,6 +29,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: Modular.navigatorKey,
       debugShowCheckedModeBanner: false,
       // set your initial route
       initialRoute: "/",

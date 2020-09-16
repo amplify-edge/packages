@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -14,11 +13,8 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router(
-          "/",
-          module: AccountModule("/")
-        ),
+  List<ModularRouter> get routers => [
+        ModularRouter("/", module: AccountModule("/")),
       ];
 
 // add your main widget here

@@ -29,26 +29,26 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        // Router(Paths.startup,
+  List<ModularRouter> get routers => [
+        // ModularRouter(Paths.startup,
         //     child: (context, args) => StartupView(),
         //     transition: TransitionType.fadeIn),
-        // Router(Paths.login,
+        // ModularRouter(Paths.login,
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
-        Router(
+        ModularRouter(
           Paths.startup,
           child: (_, args) => StartupView(),
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.modAccount,
           module: AccountModule(Paths.modAccount),
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.modMain,
           module: MainAppModule(
             baseRoute: Paths.modMain,
@@ -58,7 +58,7 @@ class AppModule extends MainModule {
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.chat,
           module: ChatModule(
             Paths.chat,
@@ -69,7 +69,7 @@ class AppModule extends MainModule {
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.ion,
           module: IonModule(
             Paths.ion,
@@ -79,26 +79,26 @@ class AppModule extends MainModule {
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        //Router(Paths.chat_beta, module: chatBeta.ModChatModule()),
-        Router(
+        //ModularRouter(Paths.chat_beta, module: chatBeta.ModChatModule()),
+        ModularRouter(
           Paths.modWriter,
           module: ModWriterModule(Paths.modWriter),
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.modGeo,
           module: GeoModule(Paths.modGeo),
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.settings,
           module: SettingsModule(),
           transition: TransitionType.custom,
           customTransition: noTransition,
         ),
-        Router(
+        ModularRouter(
           Paths.modKanban,
           module: KanbanModule(Paths.modKanban),
           transition: TransitionType.custom,

@@ -11,7 +11,6 @@ class IonModule extends ChildModule {
   static String deviceID;
   static String userAgent;
 
-
   IonModule(this.baseRoute,
       {@required String deviceID, @required String userAgent}) {
     assert(deviceID != null);
@@ -23,8 +22,8 @@ class IonModule extends ChildModule {
 
   @override
   List<Bind> get binds => [
-    Bind((i) => Paths(baseRoute)),
-  ];
+        Bind((i) => Paths(baseRoute)),
+      ];
 
   // routes for child module are starting with '/', e.g. "/fullpage"
   // but to call inside this module the correct route
@@ -33,9 +32,16 @@ class IonModule extends ChildModule {
   // pattern for the child module is e.g.
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
-  List<Router> get routers => [
-        Router("/", child: (context, args) => MasterDetailHome(ip: "demo.cloudwebrtc.com",)),
-        Router("/:id", child: (context, args) => MasterDetailHome(ip: "demo.cloudwebrtc.com", id: int.tryParse(args.params['id']) ?? -1,)),
+  List<ModularRouter> get routers => [
+        ModularRouter("/",
+            child: (context, args) => MasterDetailHome(
+                  ip: "demo.cloudwebrtc.com",
+                )),
+        ModularRouter("/:id",
+            child: (context, args) => MasterDetailHome(
+                  ip: "demo.cloudwebrtc.com",
+                  id: int.tryParse(args.params['id']) ?? -1,
+                )),
       ];
 
   static Inject get to => Inject<IonModule>.of();

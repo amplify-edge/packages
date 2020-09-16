@@ -17,9 +17,7 @@ import 'support_roles/views/support_role_view.dart';
 import 'user_needs/views/user_need_view.dart';
 import 'userinfo/views/userinfo_view.dart';
 
-
-class MainAppModule extends ChildModule{
-
+class MainAppModule extends ChildModule {
   final String baseRoute;
   final String url;
   final String urlNative;
@@ -30,22 +28,35 @@ class MainAppModule extends ChildModule{
   //       route.indexOf(baseRoute) + baseRoute.length, route.length);
   // }
 
-  MainAppModule({String baseRoute,  String url, String urlNative,}) : 
-   this.baseRoute = (baseRoute == '/') ? '' : baseRoute,
-   this.url  = url,
-   this.urlNative = urlNative;
+  MainAppModule({
+    String baseRoute,
+    String url,
+    String urlNative,
+  })  : this.baseRoute = (baseRoute == '/') ? '' : baseRoute,
+        this.url = url,
+        this.urlNative = urlNative;
 
   @override
   List<Bind> get binds => [
-      Bind((i) => Paths(baseRoute)),
-      Bind((i) => EnvConfig(url , urlNative)),
-      Bind((i) => OrgsService(repository: MockOrgRepository())), // TODO Replace this later with OrgRepository
-      Bind((i) => UserNeedService(repository: MockUserNeedRepository())), // TODO Replace this later with UserNeedRepository
-      Bind((i) => UserNeedAnswerService(repository: MockUserNeedAnswerRepository())), // TODO Replace this later with UserNeedAnswerRepository      
-      Bind((i) => SupportRoleService(repository: MockSupportRoleRepository())), // TODO Replace this later with SupportRoleRepository
-      Bind((i) => SupportRoleAnswerService(repository: MockSupportRoleAnswerRepository())), // TODO Replace this later with SupportRoleRepository
-  ];
-  
+        Bind((i) => Paths(baseRoute)),
+        Bind((i) => EnvConfig(url, urlNative)),
+        Bind((i) => OrgsService(
+            repository:
+                MockOrgRepository())), // TODO Replace this later with OrgRepository
+        Bind((i) => UserNeedService(
+            repository:
+                MockUserNeedRepository())), // TODO Replace this later with UserNeedRepository
+        Bind((i) => UserNeedAnswerService(
+            repository:
+                MockUserNeedAnswerRepository())), // TODO Replace this later with UserNeedAnswerRepository
+        Bind((i) => SupportRoleService(
+            repository:
+                MockSupportRoleRepository())), // TODO Replace this later with SupportRoleRepository
+        Bind((i) => SupportRoleAnswerService(
+            repository:
+                MockSupportRoleAnswerRepository())), // TODO Replace this later with SupportRoleRepository
+      ];
+
   @override
   List<ModularRouter> get routers => [
     ModularRouter("/", child: (_, args) => SplashView()),

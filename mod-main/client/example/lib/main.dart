@@ -62,9 +62,8 @@ class App extends StatelessWidget {
           initialRoute: "/",
           onGenerateRoute: Modular.generateRoute,
           navigatorKey: Modular.navigatorKey,
-          supportedLocales: Languages.supportedLanguages.keys
-              .map((e) => Locale(e))
-              .toList(),
+          supportedLocales:
+              Languages.supportedLanguages.keys.map((e) => Locale(e)).toList(),
           localizationsDelegates: [
             ModMainLocalizationsDelegate(value.locale),
             GlobalWidgetsLocalizations.delegate,

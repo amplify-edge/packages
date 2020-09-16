@@ -108,8 +108,8 @@ class _NavigationLayoutState extends State<NavigationLayout> {
         //   title: Text("ModWriter"),
         //   icon: Icon(Icons.font_download),
         //   onTap: () {
-        //     //  Navigator.of(context).pushNamed(Router.writer);
-        //     // locator<NavigationService>().navigateTo(Router.writer);
+        //     //  Navigator.of(context).pushNamed(ModularRouter.writer);
+        //     // locator<NavigationService>().navigateTo(ModularRouter.writer);
         //     Modular.to.pushNamed(Paths.modWriter);
         //     print("ModWriter tapped");},
         // ),

@@ -56,8 +56,8 @@ class ChatModule extends ChildModule {
   // pattern for the child module is e.g.
   // navigator.pushNamed("/moduleBaseRoute/fullpage")
   @override
-  List<Router> get routers => [
-        Router("/",
+  List<ModularRouter> get routers => [
+        ModularRouter("/",
             child: (context, args) =>
                 ChatPage('global test', 'User ${deviceID.substring(0, 6)}')),
       ];

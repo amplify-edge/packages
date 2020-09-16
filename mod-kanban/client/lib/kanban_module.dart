@@ -15,12 +15,12 @@ class KanbanModule extends ChildModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(
+  List<ModularRouter> get routers => [
+        ModularRouter(
           "/",
           child: (context, args) => MasterDetailHome(),
         ),
-        Router("/:id",
+        ModularRouter("/:id",
             child: (context, args) => MasterDetailHome(
                   id: int.tryParse(args.params['id']) ?? -1,
                 )),

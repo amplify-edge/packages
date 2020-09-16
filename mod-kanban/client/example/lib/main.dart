@@ -14,8 +14,8 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router(
+  List<ModularRouter> get routers => [
+        ModularRouter(
           "/",
           module: KanbanModule("/"),
         )
@@ -34,7 +34,9 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData.dark(),
       // set your initial route
       initialRoute: "/",
-      localizationsDelegates: [ModKanbanLocalizationsDelegate(Locale("en", "en"))],
+      localizationsDelegates: [
+        ModKanbanLocalizationsDelegate(Locale("en", "en"))
+      ],
       // add Modular to manage the routing system
       onGenerateRoute: Modular.generateRoute,
     );

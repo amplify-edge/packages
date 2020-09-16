@@ -11,12 +11,10 @@ class AppModule extends MainModule {
 
   // here will be the routes of your module
   @override
-  List<Router> get routers => [
-        Router(
+  List<ModularRouter> get routers => [
+        ModularRouter(
           "/",
-          module: IonModule("/module", 
-            deviceID: "deviceid", 
-            userAgent: "uuid"),
+          module: IonModule("/module", deviceID: "deviceid", userAgent: "uuid"),
         ),
       ];
 
