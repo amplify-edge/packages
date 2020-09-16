@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+option go_package = "github.com/lynxkite/lynxkite/sphynx/proto";
+option java_package = "com.lynxanalytics.biggraph.graph_api.proto";
+
+package sphynx;
+
+message CanComputeRequest {
+  string operation = 1;
+  string domain = 2;
+}
+
+message CanComputeReply {
+  bool canCompute = 1;
+}
+
+message ComputeRequest {
+  string operation = 1;
+  string domain = 2;
+}
+
+message ComputeReply {}
+
+message GetScalarRequest {
+  string guid = 1;
+}
+
+message GetScalarReply {
+  string scalar = 1;
+}
+
+message WriteToUnorderedDiskRequest {
+  string guid = 1;
+  string vsguid1 = 2;
+  string vsguid2 = 3;
+}
+
+message WriteToOrderedDiskRequest {
+  string guid = 1;
+}
+message WriteToOrderedDiskReply {}
+
+message ReadFromUnorderedDiskRequest {
+  string guid = 1;
+  string type = 2;
+  string vsguid1 = 3;
+  string vsguid2 = 4;
+  string attributeType = 5;
+}
+
+message ReadFromUnorderedDiskReply {}
+
+message WriteToUnorderedDiskReply {}
+
+message HasInSphynxMemoryRequest {
+  string guid = 1;
+}
+
+message HasInSphynxMemoryReply {
+  bool hasInMemory = 1;
+}
+
+message HasOnOrderedSphynxDiskRequest {
+  string guid = 1;
+}
+
+message HasOnOrderedSphynxDiskReply {
+  bool hasOnDisk = 1;
+}
+
+message ReadFromOrderedSphynxDiskRequest {
+  string guid = 1;
+}
+
+message ReadFromOrderedSphynxDiskReply {}
+
+message ClearRequest {
+  string domain = 1;
+}
+
+message ClearReply {}
+
+service Sphynx {
+  rpc CanCompute (CanComputeRequest) returns (CanComputeReply);
+  rpc Compute (ComputeRequest) returns (ComputeReply);
+  rpc GetScalar (GetScalarRequest) returns (GetScalarReply);
+  rpc WriteToUnorderedDisk (WriteToUnorderedDiskRequest) returns (WriteToUnorderedDiskReply);
+  rpc ReadFromUnorderedDisk (ReadFromUnorderedDiskRequest) returns (ReadFromUnorderedDiskReply);
+  rpc WriteToOrderedDisk (WriteToOrderedDiskRequest) returns (WriteToOrderedDiskReply);
+  rpc ReadFromOrderedSphynxDisk(ReadFromOrderedSphynxDiskRequest) returns (ReadFromOrderedSphynxDiskReply);
+  rpc HasOnOrderedSphynxDisk(HasOnOrderedSphynxDiskRequest) returns (HasOnOrderedSphynxDiskReply);
+  rpc HasInSphynxMemory(HasInSphynxMemoryRequest) returns (HasInSphynxMemoryReply);
+  rpc Clear(ClearRequest) returns (ClearReply);
+}
