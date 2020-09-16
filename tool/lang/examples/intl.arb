@@ -1,0 +1,14 @@
+{
+	"title": "Good Morning",
+	"@title": {
+		"description": "",
+		"type": "",
+		"placeholders": {}
+	},
+	"title1": "Good",
+	"@title1": {
+		"description": "",
+		"type": "",
+		"placeholders": {}
+	}
+}

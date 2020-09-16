@@ -1,0 +1,15 @@
+[
+    {"error": "NOTRANSLATE_", "fixe": ""},
+    {"error": "_NOTRANSLATE", "fixe": ""},
+    {"error": "\" NOTRANSLATE_", "fixe": ""},
+    {"error": "] (", "fixe": "]("},
+    {"error": "/ ", "fixe": "/"},
+    {"error": " /", "fixe": ""},
+    {"error": "„", "fixe": "\""},
+    {"error": "”", "fixe": "\""},
+    {"error": "“", "fixe": "\""},
+    {"error": "«", "fixe": "\""},
+    {"error": "»", "fixe": "\""},
+    {"error": "：", "fixe": ": "},
+    {"error":"** ** GetCourageNow应用！", "fixe": "** GetCourageNow应用！**"}
+]

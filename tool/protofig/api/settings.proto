@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package config;
+
+option go_package = ".;config";
+
+import "baseproto.proto";
+
+message ProtoModuleConfig {
+    string module_id = 1;
+    map<string, ConfigVal> configs = 2;
+}
+

@@ -1,4 +1,4 @@
-
+# flu utils
 
 
 current_dir = $(shell pwd)
@@ -11,7 +11,7 @@ FLU_SSAMPLE_FSPATH = $(PWD)/$(FLU_SAMPLE_NAME)
 
 
 ## Prints the flutter settings
-flu-print: ## print
+flu-print:
 	@echo -- FLU -- 
 	@echo FLU_LIB_NAME: $(FLU_LIB_NAME)
 	@echo FLU_LIB_FSPATH: $(FLU_LIB_FSPATH)
@@ -28,38 +28,37 @@ flu-print: ## print
 
 ### FLU
 
-## Check for outdated packages.
-flu-pub-outdated:
-	cd $(FLU_SSAMPLE_FSPATH) && flutter pub outdated
-
-## Upgrade for all packages.
-flu-pub-upgrade:
-	cd $(FLU_SSAMPLE_FSPATH) && flutter update-packages
-	cd $(FLU_SSAMPLE_FSPATH) && flutter upgrade
-	
-## Upgrade for all packages and FORCE it. This is useful for CI as we spot Issues early or when things break as its a brute force approach.
-flu-pub-upgrade-force:
-	# Seems this does a deep upgrade. Sort of recursive it seems.
-	cd $(FLU_SSAMPLE_FSPATH) && flutter update-packages --force-upgrade
-	cd $(FLU_SSAMPLE_FSPATH) && flutter upgrade --force
-
-## Recreates the Flutter scaffolding code. Useful after a SDK Channel change has occured.
-flu-recreate:
-	cd $(FLU_SSAMPLE_FSPATH) && flutter create .
-
-## Configure flutter to correct CHANNEL.
-flu-config: ## flu-config
-	flutter channel dev
+## Configure flutter.
+flu-config:
+	flutter channel beta
 	flutter upgrade --force
+	$(MAKE) flu-gen-lang
+	$(MAKE) flu-gen-lang-dart
 
+## Checks flutter dependencies.
+flu-update:
+	# Attempt to fix build when things are not working.
+	# SO far works really well.
+	flutter clean
+	flutter packages pub upgrade
+	flutter pub run build_runner build
+flu-update-check:
+	flutter pub outdated
+
+## Run Flutter Tests
+flu-test:
+	$(MAKE) flu-gen-lang-clean
+	$(MAKE) flu-gen-lang
+	$(MAKE) flu-gen-lang-dart
+	cd $(FLU_SSAMPLE_FSPATH) && flutter test
 
 ## Runs Flutter Web.
-flu-web-run: ## flu-web-run
+flu-web-run:
 	flutter config --enable-web
 	cd $(FLU_SSAMPLE_FSPATH) && flutter run -d chrome
 
 ## Builds flutter web as a release version
-flu-web-build: ## flu-web-build
+flu-web-build:
 	flutter config --enable-web
 	cd $(FLU_SSAMPLE_FSPATH) && flutter build web
 
@@ -90,36 +89,36 @@ flu-mob-fix:
 	#   * APP_STORE_CONNECT_PRIVATE_KEY refer to private key used to access app store connect api.
 
 
-flu-mob-run: ## flu-mob-run
+flu-mob-run:
 	cd $(FLU_SSAMPLE_FSPATH) && flutter run -d all
 
-flu-mob-build: ## flu-mob-build
+flu-mob-build:
 	# ios
 	# https://flutter.dev/docs/deployment/ios
 	# change to ios 11 in xcode for runner and pods
 	cd $(FLU_SSAMPLE_FSPATH)/ios && pod install
 	#cd $(FLU_SSAMPLE_FSPATH) && flutter build ios
 
-	cd $(FLU_SSAMPLE_FSPATH) && 	flutter build ios --release --no-codesign
+	cd $(FLU_SSAMPLE_FSPATH) && flutter build ios --release --no-codesign
 
 ## Inits Flutter Desktop
-flu-desk-init: ## flu-desk-init
+flu-desk-init:
 	cd $(FLU_SSAMPLE_FSPATH) && hover init
 	
 
 ## Runs Flutter Desktop
-flu-desk-run: ## flu-desk-run
+flu-desk-run:
 	cd $(FLU_SSAMPLE_FSPATH) && hover run
 
 
 ### GEN 
 
 ## Generates all code
-flu-gen: ## flu-gen
+flu-gen:
 	cd $(FLU_LIB_FSPATH) && flutter packages get
 	$(MAKE) gen-icons
 	$(MAKE) gen-hive
-	$(MAKE) gen-proto
+	#$(MAKE) gen-proto
 	cd $(FLU_LIB_FSPATH) && flutter analyze 
 
 gen-icons:
@@ -138,9 +137,13 @@ gen-icons:
 gen-hive:
 	cd $(FLU_LIB_FSPATH) && flutter packages pub run build_runner build --delete-conflicting-outputs
 
-gen-proto:
+## Generates pro
+flu-gen-proto:
 	pub global activate protoc_plugin
 	mkdir -p $(FLU_LIB_FSPATH)/lib/api/v1/google/protobuf
+
+## TODO: This is hardcoded to certain Protos, so must be refactored to be reflection based.
+# Also where should protos live ? a "api" folder ?
 
 ifeq ($(GO_OS), windows)
 	@echo Windows detected
@@ -173,39 +176,42 @@ FLU_LANG_TEMPLATE_PATH = $(FLU_LANG_DIR)/$(FLU_LANG_TEMPLATE_NAME)
 FLU_LANG_FILE_PREFIX_OUT = lang
 
 ## prints flu-lang variables
-flu-gen-lang-print: ## flu-gen-lang-print
+flu-gen-lang-print:
 	@echo
-	@echo FLU_LANG_LOCALES: 			$(FLU_LANG_LOCALES)
+	@echo FLU_LANG_LOCALES: 				$(FLU_LANG_LOCALES)
 	@echo FLU_LANG_DIR: 					$(FLU_LANG_DIR)
 	@echo FLU_LANG_LOCALIZATION_DIR: 		$(FLU_LANG_LOCALIZATION_DIR)
 	@echo FLU_LANG_GENERATED_DIR: 			$(FLU_LANG_GENERATED_DIR)
 	@echo FLU_LANG_TEMPLATE_NAME: 			$(FLU_LANG_TEMPLATE_NAME)
 	@echo FLU_LANG_FILE_PREFIX_OUT: 		$(FLU_LANG_FILE_PREFIX_OUT)
 	@echo	
-#	
-flu-gen-lang-dep: ## flu-gen-lang-dep
-	go get -u github.com/getcouragenow/bootstrap/tool/i18n
 
-#
+## Grabs the binary tool needed ( REDUNDANT when using BS tool )
+flu-gen-lang-dep:
+	go get -u github.com/getcouragenow/core-runtime/tool/i18n
+
+
 ## Generates language file for maintemplate and all submodules
-#flu-gen-lang-all: ## flu-gen-lang-all
-#	$(MAKE) flu-gen-lang
-#	$(MAKE) flu-gen-lang-dart
-#	$(MAKE) flu-gen-lang-submodules
-#
-### Generates lang for sub modules
-#flu-gen-lang-submodules: ## flu-gen-lang-submodules
-#	#TODO joe make recursive
-#	cd ../mod-account && make flu-gen-lang
-#	cd ../mod-chat && make flu-gen-lang
-#	cd ../mod-main && make flu-gen-lang
-#	cd ../mod-geo && make flu-gen-lang
-#	cd ../mod-chat && make flu-gen-lang
-#	cd ../mod-write && make flu-gen-lang
-#	cd ../mod-ion && make flu-gen-lang
+flu-gen-lang-all:
+	$(MAKE) flu-gen-lang-clean
+	$(MAKE) flu-gen-lang
+	$(MAKE) flu-gen-lang-dart
+	$(MAKE) flu-gen-lang-submodules
 
-## generates language code
-flu-gen-lang: ## flu-gen-lang
+## Generates lang for sub modules
+flu-gen-lang-submodules:
+	# TODO joe make recursive where the main build calls down itself.
+	#cd ../../mod-account/client && make lang-gen-flu
+	#cd ../../mod-chat/client && make lang-gen-flu
+	#cd ../../mod-main/client && make lang-gen-flu
+
+## Cleans up all language code
+flu-gen-lang-clean:
+	rm -rf $(FLU_LANG_DIR)
+	rm -rf $(FLU_LANG_GENERATED_DIR)
+
+## Generates language code
+flu-gen-lang:
 	@echo -- Running flutter pub get first
 	cd $(FLU_LIB_FSPATH) && flutter pub get
 
@@ -219,17 +225,17 @@ flu-gen-lang: ## flu-gen-lang
 	cd $(FLU_LIB_FSPATH) && flutter pub run intl_translation:extract_to_arb --output-dir=$(FLU_LANG_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart
 	
 	@echo -- Translating Text
-	i18n flutter --dir $(FLU_LANG_DIR) --template $(FLU_LANG_TEMPLATE_PATH) --prefix $(FLU_LANG_FILE_PREFIX_OUT) --languages $(FLU_LANG_LOCALES) -f
-	i18n flutter --dir $(FLU_LANG_DIR)
+	bs-lang flutter --dir $(FLU_LANG_DIR) --template $(FLU_LANG_TEMPLATE_PATH) --prefix $(FLU_LANG_FILE_PREFIX_OUT) --languages $(FLU_LANG_LOCALES) -f
+	bs-lang flutter --dir $(FLU_LANG_DIR)
 
-## generates dart code out of arb files
-flu-gen-lang-dart: ## flu-gen-lang-dart
+## Generates dart code out of arb files
+flu-gen-lang-dart:
 	cd $(FLU_LIB_FSPATH) && flutter pub run intl_translation:generate_from_arb --output-dir=$(FLU_LANG_GENERATED_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart $(FLU_LANG_DIR)/*.arb
 
 
 
 
-### ASTI
+### ASTI ONLY
 
 # 1. dep
 # 2. build
@@ -237,14 +243,16 @@ flu-gen-lang-dart: ## flu-gen-lang-dart
 # 4. pack (for the desktop your on)
 # 5. sign (for the desktop your on)
 
-go-desk-dep: ## go-desk-dep
+## Gets all code needed 
+go-desk-dep:
 	# as per the readme: https://github.com/asticode/go-astilectron-bundler#installation  !!
 	go get -u github.com/asticode/go-astilectron-bundler/...
 	go get -u github.com/asticode/go-astilectron-bootstrap
 	cd $(current_dir)/desktop && go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
 	which astilectron-bundler
 
-go-desk-build: ## go-desk-build
+## Builds desktop 
+go-desk-build:
 	# build flutter web
 	# flutter config --enable-web
 	# cd $(FLU_SSAMPLE_FSPATH) && flutter build web
@@ -258,13 +266,17 @@ go-desk-build: ## go-desk-build
 	cd $(FLU_LIB_FSPATH)desktop && astilectron-bundler
 
 ############## Linux ##############
-go-desk-run-lin: ## go-desk-run-lin
+
+## Runs linux desktop
+go-desk-run-lin: 
 	cd $(FLU_LIB_FSPATH) && desktop/output/linux-amd64/ION\ Desktop\ App
 
-go-desk-pack-lin: ## go-desk-pack-lin
+## Packslinux desktop
+go-desk-pack-lin:
 	# deb
 	cd $(FLU_LIB_FSPATH)packer/ && make go-pack-deb
 
+## Signs linux desktop
 go-desk-sign-lin:
 	# https://blog.packagecloud.io/eng/2014/10/28/howto-gpg-sign-verify-deb-packages-apt-repositories/
 	
@@ -273,22 +285,28 @@ go-desk-sign-lin:
 	cd packer/build/linux-deb && dpkg-sig --verify *.deb
 
 ############## Windows ##############
-go-desk-run-win: ## go-desk-run-win
+## Runs Windows Desktop
+go-desk-run-win:
 	# SOMEONE on Windows fix this to be correct pathing style
 	$(current_dir)/desktop/output/windows-386/ION\ Desktop\ App.exe
 
+## Packs Windows desktop
 go-desk-pack-win:
 	cd $(FLU_LIB_FSPATH)packer/ && make go-pack-win
 
+## Signs Windows desktop
 go-desk-sign-win:
 	# https://github.com/itchio/itch-setup/blob/master/scripts/ci-build.sh#L73
 	#TODO
 
-############## Windows ##############
-go-desk-run-mac: ## go-desk-run-mac
+############## MAC ##############
+
+## Runs Mac desktop
+go-desk-run-mac:
 	open $(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app 
 
-go-desk-pack-mac:  ## go-desk-pack-mac
+## Packs Mac desktop
+go-desk-pack-mac:
 	#darwin
 	#cd $(FLU_SSAMPLE_FSPATH) && hover init-packaging darwin-bundle
 
@@ -303,13 +321,16 @@ TARGET_MAC=$(current_dir)/desktop/output/darwin-amd64/ION\ Desktop\ App.app
 SIGNKEY_MAC="Developer ID Application: Amos Wenger (B2N6FSRTPV)"
 # From: https://developer.apple.com/account
 # NOTE: waiting on Apple to approve me...
-go-desk-sign-mac: ## go-desk-sign-mac
+
+## Signs Mac Desktop
+go-desk-sign-mac: 
 	# sign *after* packing
 	echo TARGET_MAC : $(TARGET_MAC)
 	echo SIGNKEY_MAC : $(SIGNKEY_MAC)
 	codesign --deep --force --verbose --sign ${SIGNKEY_MAC} "${TARGET}"
 	codesign --verify -vvvv "${TARGET}"
 
+## Cleans desktop build outputs
 go-desk-clean:
 	rm -rf $(FLU_LIB_FSPATH)desktop/resources/app
 	rm -rf $(FLU_LIB_FSPATH)desktop/output

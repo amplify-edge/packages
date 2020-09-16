@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-05-20T10:21:01.488551",
+  "@@last_modified": "2020-09-16T16:01:57.699067",
   "send": "Envoyer",
   "@send": {
     "description": "Send",
@@ -24,7 +24,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "Sélectionner la campagne",
+  "selectCampaign": "Sélectionnez la campagne",
   "@selectCampaign": {
     "description": "Select Campaign",
     "placeholders": {},

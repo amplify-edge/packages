@@ -1,17 +1,14 @@
-# NOTE: DO NOT USE YET -  Work in progress !!
-
-# This make file uses composition to keep things KISS and easy.
-# In the boilerpalte make files dont do any includes, because you will create multi permutations of possibilities.
-
 
 
 # git include
-include ../boilerplate/help.mk
-include ../boilerplate/os.mk
-include ../boilerplate/flu.mk
-include ../boilerplate/srv.mk
+BOILERPLATE_FSPATH=./boilerplate
+include $(BOILERPLATE_FSPATH)/help.mk
+include $(BOILERPLATE_FSPATH)/os.mk
+include $(BOILERPLATE_FSPATH)/tool.mk
+include $(BOILERPLATE_FSPATH)/flu.mk
+include $(BOILERPLATE_FSPATH)/go.mk
 
-override FLU_SAMPLE_NAME =client
+override FLU_SAMPLE_NAME =client/example
 override FLU_LIB_NAME =client
 
 ## This builds everything

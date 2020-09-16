@@ -55,10 +55,12 @@ dependencies:
   mod_kanban:
     path: ../../mod-kanban/client
   sys_core:
-    git:
-      url: git://github.com/getcouragenow/core-runtime.git
-      path: sys-core/client
-      ref: master
+    path: ../../sys-core/client
+  #sys_core:
+  #  git:
+  #    url: git://github.com/getcouragenow/core-runtime.git
+  #    path: sys-core/client
+  #    ref: master
 
   # Architectural packages
   provider: ^4.0.4

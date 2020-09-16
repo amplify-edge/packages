@@ -1,6 +1,6 @@
 {
-  "@@last_modified": "2020-05-20T16:55:31.304285",
-  "tabhome": "ہوم",
+  "@@last_modified": "2020-09-16T17:23:09.378516",
+  "tabhome": "گھر",
   "@tabhome": {
     "description": "text for the home tab",
     "placeholders": {},
@@ -24,13 +24,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "tabwriter": "مصنف",
+  "tabwriter": "لکھاری",
   "@tabwriter": {
     "description": "text for the writer tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabKanban": "کنبن",
+  "tabKanban": "کنبان",
   "@tabKanban": {
     "description": "Text for the Kanban tab",
     "placeholders": {},
@@ -54,7 +54,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "changeThemeSet": "تھیم تبدیل کریں",
+  "changeThemeSet": "تھیم کو تبدیل کریں",
   "@changeThemeSet": {
     "description": "text for the change theme text in settings screen",
     "placeholders": {},

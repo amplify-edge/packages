@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-20T16:55:31.304285",
-  "tabhome": "Home",
+  "@@last_modified": "2020-09-16T17:23:09.378516",
+  "tabhome": "Zuhause",
   "@tabhome": {
     "description": "text for the home tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabchat": "Chat",
+  "tabchat": "Plaudern",
   "@tabchat": {
     "description": "text for the chat tab",
     "placeholders": {},
@@ -18,13 +18,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "tabsettings": "Einstellungen",
+  "tabsettings": "die Einstellungen",
   "@tabsettings": {
     "description": "text for the settings tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabwriter": "Writer",
+  "tabwriter": "Schriftsteller",
   "@tabwriter": {
     "description": "text for the writer tab",
     "placeholders": {},
@@ -36,13 +36,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "tabmap": "Map",
+  "tabmap": "Karte",
   "@tabmap": {
     "description": "text for the writer tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabSettings": "Einstellungen",
+  "tabSettings": "die Einstellungen",
   "@tabSettings": {
     "description": "text for the settings tab",
     "placeholders": {},

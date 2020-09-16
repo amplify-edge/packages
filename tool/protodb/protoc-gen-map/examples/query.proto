@@ -1,0 +1,94 @@
+syntax="proto3";
+
+package gen;
+
+import "google/protobuf/timestamp.proto";
+
+//option go_package = "github.com/getcouragenow/core-runtime/tool/protoparser/examples;examples";
+option go_package = "gen;gen";
+
+service BlogQueryService {
+  rpc SelectBlog (BlogRequest) returns (BlogResponse) {}
+  rpc SelectBlogs (BlogIdsRequest) returns (stream BlogResponse) {}
+  rpc SelectDetailedBlog (BlogRequest) returns (DetailedBlogResponse) {}
+  rpc SelectDetailedBlogs (BlogIdsRequest) returns (stream DetailedBlogResponse) {}
+}
+
+service InsertService { 
+  rpc InsertAuthor (InsertAuthorRequest) returns (EmptyResponse) {}
+}
+
+message BlogRequest {
+  uint32 id = 1;
+  uint32 author_id  = 2;
+}
+
+message BlogIdsRequest {
+  repeated uint32 ids = 1;
+  repeated string titles = 2;
+}
+
+message BlogResponse {
+  uint32 id = 1;
+  string title = 2;
+  string author_id = 3;
+}
+
+message DetailedBlogResponse {
+  uint32 blog_id = 1;
+  string blog_title = 2;
+  Author author = 3;
+  repeated Post posts = 4;
+}
+
+message Author {
+  uint32 author_id = 1;
+  string author_username = 2;
+  string author_password = 3;
+  string author_email = 4;
+  string author_bio = 5;
+  Section author_favourite_section = 6;
+}
+
+message Post {
+  uint32 post_id = 1;
+  uint32 post_blog_id = 2;
+  uint32 post_author_id = 3;
+  google.protobuf.Timestamp post_created_on = 4;
+  Section post_section = 5;
+  string post_subject = 6;
+  string draft = 7;
+  string post_body = 8;
+  repeated Comment comments = 9;
+  repeated Tag tags = 10;
+}
+
+message Comment {
+  uint32 comment_id = 1;
+  uint32 comment_post_id = 2;
+  string comment_name = 3;
+  string comment_text = 4;
+}
+
+message Tag {
+  uint32 tag_id = 1;
+  string tag_name = 2;
+}
+
+enum Section {
+  cooking = 0;
+  painting = 1;
+  woodworking = 2;
+  snowboarding = 3;
+}
+
+message InsertAuthorRequest{
+  uint32 id = 1;
+  string username = 2;
+  string password = 3;
+  string email = 4;
+  string bio = 5;
+  string favourite_section = 6;
+}
+
+message EmptyResponse {}

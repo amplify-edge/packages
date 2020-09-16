@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-20T16:55:31.304285",
-  "tabhome": "Inicio",
+  "@@last_modified": "2020-09-16T17:23:09.378516",
+  "tabhome": "Hogar",
   "@tabhome": {
     "description": "text for the home tab",
     "placeholders": {},
     "type": "text"
   },
-  "tabchat": "Chat",
+  "tabchat": "Charla",
   "@tabchat": {
     "description": "text for the chat tab",
     "placeholders": {},
@@ -18,7 +18,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "tabsettings": "Configuración",
+  "tabsettings": "Configuraciones",
   "@tabsettings": {
     "description": "text for the settings tab",
     "placeholders": {},
@@ -42,7 +42,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "tabSettings": "Configuración",
+  "tabSettings": "Configuraciones",
   "@tabSettings": {
     "description": "text for the settings tab",
     "placeholders": {},
@@ -54,7 +54,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "changeThemeSet": "Cambiar tema",
+  "changeThemeSet": "Cambiar de tema",
   "@changeThemeSet": {
     "description": "text for the change theme text in settings screen",
     "placeholders": {},

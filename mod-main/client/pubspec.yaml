@@ -27,10 +27,7 @@ dependencies:
   floating_search_bar: ^0.3.0
 
   sys_core:
-    git:
-      url: git://github.com/getcouragenow/core-runtime.git
-      path: sys-core/client
-      ref: master
+    path: ../../sys-core/client
 
   
   # Architectural packages

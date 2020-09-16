@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package config;
+
+option go_package = ".;config";
+
+import "baseproto.proto";
+import "settings.proto";
+
+message MinioComponent {
+    config.ConfigVal minio_accesskey = 1; // string
+    config.ConfigVal minio_secretkey = 2; // string
+}
+
+message MaintemplateComponent {
+    config.ConfigVal minio_accesskey = 1; // string
+    config.ConfigVal minio_secretkey = 2; // string
+    config.ConfigVal minio_location = 3; // string
+    config.ConfigVal minio_timeout = 4; // double
+    config.ConfigVal minio_ssl = 5; // bool
+    config.ConfigVal minio_enckey = 6; // bytes
+    config.ConfigVal minio_endpoint = 7; // cidr
+}
+
+message GcpComponent {
+    config.ConfigVal gcp_user = 1; // string
+    config.ConfigVal gcp_project = 2; // string
+    config.ConfigVal gke_cluster = 3; // string
+    config.ConfigVal gke_zone = 4; // string
+    config.ConfigVal gke_email = 5; // email
+}
+
+message JwtComponent {
+    config.ConfigVal private_key = 1; // string
+    config.ConfigVal public_key = 2; // string
+}
+
+message WorkflowComponent {
+    config.ConfigVal github_sha = 2; // string
+    config.ConfigVal github_ref = 3; // string
+    config.ConfigVal project = 4; // string
+    config.ConfigVal registry_hostname = 5; // cidr
+    config.ConfigVal url = 6; // string
+    config.ConfigVal locales = 7; // repeated string
+    config.ConfigVal flutter_channel = 8; // string
+    config.ConfigVal release_channel = 9; // string
+}
+

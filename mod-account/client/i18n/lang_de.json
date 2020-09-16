@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-05-19T18:12:48.647786",
+  "@@last_modified": "2020-09-16T17:40:14.764196",
   "signUpForAccount": "Melden Sie sich für Ihr Konto an",
   "@signUpForAccount": {
     "description": "Sign up for your account",
@@ -18,7 +18,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "explainWhy": "Erklären Sie, warum?",
+  "explainWhy": "Erkläre warum?",
   "@explainWhy": {
     "description": "Explain why?",
     "placeholders": {},
@@ -30,7 +30,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "passwordStrength": "Ihr Passwort sollte aus mindestens 8 Zeichen bestehen und mindestens drei der vier verfügbaren Zeichentypen verwenden: Kleinbuchstaben , Großbuchstaben, Zahlen und Symbole.",
+  "passwordStrength": "Ihr Passwort sollte aus mindestens 8 Zeichen bestehen und mindestens drei der vier verfügbaren Zeichentypen verwenden: Kleinbuchstaben, Großbuchstaben, Zahlen und Symbole.",
   "@passwordStrength": {
     "description": "Your password should be a minimum of 8 of characters and use at least three of the four available character types: lowercase letters, uppercase letters, numbers, and symbols.",
     "placeholders": {},
@@ -72,7 +72,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "email": "E-Mail",
+  "email": "Email",
   "@email": {
     "description": "Email",
     "placeholders": {},
@@ -90,7 +90,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "privacyPolicy": "Datenschutzrichtlinie",
+  "privacyPolicy": "Datenschutz-Bestimmungen",
   "@privacyPolicy": {
     "description": "Privacy Policy",
     "placeholders": {},

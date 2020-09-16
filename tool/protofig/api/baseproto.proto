@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package config;
+
+option go_package = ".;config";
+
+import "validate/validate.proto";
+
+// Config is basically a map<k,v>
+// where k is always a string, and v is defined in the ConfigVal
+
+
+message Config {
+    string key = 1;
+    ConfigVal val = 2;
+}
+
+message ConfigVal {
+    oneof val {
+        string string_val = 1;
+        uint64 uint64_val = 2;
+        string email_val = 3 [(validate.rules).string.email = true];
+        bytes cidr_val = 4 [(validate.rules).bytes.ip = true];
+        bool bool_val = 5;
+        double double_val = 6;
+    }
+}

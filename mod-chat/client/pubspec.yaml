@@ -18,10 +18,7 @@ dependencies:
   shimmer: ^1.0.0
   protobuf: ^1.0.1
   sys_core:
-    git:
-      url: git://github.com/getcouragenow/core-runtime.git
-      path: sys-core/client
-      ref: master
+    path: ../../sys-core/client
 
 dev_dependencies:
   flutter_test:

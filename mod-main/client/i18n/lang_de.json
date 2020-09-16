@@ -1,12 +1,12 @@
 {
-  "@@last_modified": "2020-05-19T18:13:41.172528",
+  "@@last_modified": "2020-09-16T17:35:07.648385",
   "country": "Land",
   "@country": {
     "description": "Country",
     "placeholders": {},
     "type": "text"
   },
-  "aboutYou": "Über Sie",
+  "aboutYou": "Über dich",
   "@aboutYou": {
     "description": "About You",
     "placeholders": {},
@@ -24,7 +24,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "whereAreYou": "Wo sind Sie?",
+  "whereAreYou": "Wo bist du?",
   "@whereAreYou": {
     "description": "Where are you?",
     "placeholders": {},
@@ -48,7 +48,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "distanceInKM": "Entfernung eingeben in Kilometern",
+  "distanceInKM": "Geben Sie die Entfernung in Kilometern ein",
   "@distanceInKM": {
     "description": "Enter distance in kilometers",
     "placeholders": {},
@@ -96,13 +96,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "lengthOfTheAction": "Länge der Aktion",
+  "lengthOfTheAction": "Dauer der Aktion",
   "@lengthOfTheAction": {
     "description": "Length of the Action",
     "placeholders": {},
     "type": "text"
   },
-  "goal": "Ziel",
+  "goal": "Tor",
   "@goal": {
     "description": "Goal",
     "placeholders": {},
@@ -120,13 +120,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "backingEndorsingOrganizations": "Hintergrund / Indossierende Organisationen",
+  "backingEndorsingOrganizations": "Organisationen unterstützen / unterstützen",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
     "placeholders": {},
     "type": "text"
   },
-  "peopleAlreadyPledged": "Bereits zugesagte Personen",
+  "peopleAlreadyPledged": "Die Leute haben bereits zugesagt",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
     "placeholders": {},
@@ -138,13 +138,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "extrapolatedSimilarPastActions": "Die folgenden Zahlen wurden aus ähnlichen früheren Aktionen extrapoliert, die sowohl erfolgreich waren als auch fehlgeschlagen sind",
+  "extrapolatedSimilarPastActions": "Die folgenden Zahlen wurden aus ähnlichen früheren Aktionen extrapoliert, die sowohl erfolgreich als auch fehlgeschlagen waren",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
     "placeholders": {},
     "type": "text"
   },
-  "pioneersToStart": "Pioniere, die zum Starten benötigt wurden",
+  "pioneersToStart": "Pioniere mussten anfangen",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
     "placeholders": {},
@@ -156,13 +156,13 @@
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "Rebellen, die zum Gewinnen benötigt werden",
+  "rebelsWin": "Rebellen mussten gewinnen",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
     "type": "text"
   },
-  "contactDetails": "Kontakt Details",
+  "contactDetails": "Kontaktdetails",
   "@contactDetails": {
     "description": "Contact Details",
     "placeholders": {},
@@ -180,7 +180,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "selectCampaign": "Kampagne auswählen",
+  "selectCampaign": "Wählen Sie Kampagne",
   "@selectCampaign": {
     "description": "Select Campaign",
     "placeholders": {},
@@ -198,19 +198,19 @@
     "placeholders": {},
     "type": "text"
   },
-  "yourNeeds": "Ihre Bedürfnisse",
+  "yourNeeds": "Deine Bedürfnisse",
   "@yourNeeds": {
     "description": "Your Needs",
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "Bitte wählen Sie so viele Unterstützungen oder Bedürfnisse aus, wie Sie für die Teilnahme an der Aktion benötigen.",
+  "needsSatisifiedRequirement": "Bitte wählen Sie so viele Unterstützungen oder Bedürfnisse aus, wie Sie benötigen, um an der Aktion teilzunehmen.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},
     "type": "text"
   },
-  "next": "Weiter",
+  "next": "Nächster",
   "@next": {
     "description": "Next",
     "placeholders": {},

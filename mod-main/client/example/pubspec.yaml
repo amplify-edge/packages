@@ -26,10 +26,7 @@ dependencies:
   mod_main:
     path: ../
   sys_core:
-    git:
-      url: git://github.com/getcouragenow/core-runtime.git
-      path: sys-core/client
-      ref: master
+    path: ../../../sys-core/client
 
 
   # The following adds the Cupertino Icons font to your application.
