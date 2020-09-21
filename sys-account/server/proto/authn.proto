@@ -5,19 +5,46 @@ import "google/protobuf/timestamp.proto";
 
 package proto;
 
-option go_package = ".;pb";
+option go_package = ".;rpc";
 
 // Decision decision:
 // success param is when user passes both validation and CSRF token if any
 // ErrorReason is the reason (if any) for failure in processing request
 
 // UserRoles for now
-enum UserRoles {
+enum Roles {
     INVALID = 0;
     GUEST = 1;
     USER = 2;
-    SPECIAL_MEMBER = 3;
-    ADMIN = 4;
+    ADMIN = 3; // can be Org or Project Admin
+    SUPERADMIN = 4; // can do all
+}
+
+// resource: Project
+message Project {
+    string id = 1;
+}
+
+// resource: Org
+message Org {
+    string id = 1;
+}
+
+// UserRole as a message is super simple
+// and probably not the very best
+// it defines the role as an enum of Roles
+// alongside either None (for guest)
+// or All ( superadmin)
+// or specific project by its id (Project admin)
+// or specific org by its id (Org admin)
+message UserRole {
+    Roles role = 1;
+    oneof resource {
+        Project project = 2;
+        Org org = 3;
+        bool none = 4;
+        bool all = 5;
+    }
 }
 
 message ErrorReason {
@@ -37,9 +64,10 @@ message LoginRequest {
 
 message LoginResponse {
     bool success = 1;
-    string token = 2;
-    ErrorReason error_reason = 3;
-    google.protobuf.Timestamp last_login = 4;
+    string access_token = 2;
+    string refresh_token = 3;
+    ErrorReason error_reason = 4;
+    google.protobuf.Timestamp last_login = 5;
 }
 
 message RegisterResponse {
