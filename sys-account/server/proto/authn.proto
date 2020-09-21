@@ -37,7 +37,7 @@ message Org {
 // or All ( superadmin)
 // or specific project by its id (Project admin)
 // or specific org by its id (Org admin)
-message UserRole {
+message UserRoles {
     Roles role = 1;
     oneof resource {
         Project project = 2;
@@ -45,6 +45,13 @@ message UserRole {
         bool none = 4;
         bool all = 5;
     }
+}
+
+message Account {
+    string id = 1;
+    string email = 2;
+    string password = 3;
+    UserRoles role = 4;
 }
 
 message ErrorReason {

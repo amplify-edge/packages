@@ -99,6 +99,7 @@ go-gen-dep:
 
 go-gen:
 	# gen runs from the go folder so that the same go.mod is used for gen and run.
+	mkdir -p $(GO_LIB_FSPATH)/rpc
 	cd $(GO_LIB_FSPATH) && go generate
 
 go-mod-update:
