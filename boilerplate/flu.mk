@@ -112,6 +112,7 @@ flu-desk-run:
 
 ## Builds Flutter Desktop
 flu-desk-build:
+	cd $(FLU_SSAMPLE_FSPATH) && flutter build bundle
 	cd $(FLU_SSAMPLE_FSPATH) && $(TOOL_HOVER_BIN_NAME) build $(GO_OS)
 
 
