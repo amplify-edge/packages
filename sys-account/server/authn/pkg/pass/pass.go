@@ -1,89 +1,110 @@
+// package pass
+// provides password generation and verification using argon2id
+// encoded passwords are stored in the format of:
+// $<ARGON_ALGO (i'm using argon2id)>$<version>:$MEM,ITER,PAR:$<SALT>:$<KEY>
 package pass
 
 import (
-	"bytes"
+	"crypto/rand"
+	"crypto/subtle"
 	"encoding/base64"
 	"errors"
+	"fmt"
+	"strings"
 
-	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/argon2"
 )
 
-const (
-	timeCost   = 3
-	memoryCost = 16 * 1024
-	threads    = 4
-	keyLength  = 48
-)
-
 var (
-	// ErrHashFailed - signaling a hashing failure
-	ErrHashFailed = errors.New("crypto: hash failed")
+	ErrWrongHash           = errors.New("error: incorrect hash format")
+	ErrIncompatibleVersion = errors.New("error: incompatible version of argon algorithm")
 )
 
-// didHashFail - checks to see if the hash is empty (all zeros)
-func didHashFail(s []byte) bool {
-	for _, v := range s {
-		if v != 0 {
-			return false
-		}
-	}
-	return true
-}
+// Hashing Parameter
+// TODO: Parameterize this
+const (
+	MEM     = 64 * 1024
+	ITER    = 1
+	PAR     = 2
+	SLENGTH = 16
+	KLENGTH = 32
+)
 
-// doHash - actually does the hashing
-func doHash(password, salt []byte) []byte {
-	return argon2.IDKey(password, salt, timeCost, memoryCost, threads, keyLength)
-}
-
-// GenerateRandomKey - wraps gorilla/securecookie's GenerateRandomKey
-func GenerateRandomKey(length int) []byte {
-	return securecookie.GenerateRandomKey(length)
-}
-
-// toBase64 - turns an unencoded []byte into a base64 encoded string
-func toBase64(input []byte) string {
-	return base64.StdEncoding.EncodeToString(input)
-}
-
-// fromBase64 - converts a base64 encoded string into a unencoded []byte
-func fromBase64(input string) ([]byte, error) {
-	return base64.StdEncoding.DecodeString(input)
-}
-
-// Hash - generates the Argon2i hash of a given password
-// returns the hash and the salt that was used to create the hash
-// these values are base64 encoded
-func Hash(password string) (string, string, error) {
-	unencodedSalt := GenerateRandomKey(32)
-	if unencodedSalt == nil {
-		return "", "", ErrHashFailed
-	}
-	unencodedHash := doHash([]byte(password), unencodedSalt)
-	if didHashFail(unencodedHash) {
-		return "", "", ErrHashFailed
-	}
-	hash := toBase64(unencodedHash)
-	salt := toBase64(unencodedSalt)
-	// fmt.Println(hash)
-	// fmt.Println(salt)
-	return hash, salt, nil
-}
-
-// VerifyHash - takes a password, a base64 encoded hash, and a base64 encoded salt
-// returns true if the password matches the hash
-func VerifyHash(password, hash, salt string) bool {
-	decodedHash, err := fromBase64(hash)
+func GenHash(password string) (hash string, err error) {
+	s, err := genRandBytes(SLENGTH)
 	if err != nil {
-		return false
+		return "", err
 	}
-	// fmt.Printf("decodedHash: %s\n", string(decodedHash))
-	decodedSalt, err := fromBase64(salt)
+
+	k := argon2.IDKey([]byte(password), s, ITER, MEM, PAR, KLENGTH)
+
+	salt := base64.RawStdEncoding.EncodeToString(s)
+	key := base64.RawStdEncoding.EncodeToString(k)
+
+	hash = fmt.Sprintf(
+		"$argon2id$v=%d$m=%d,t=%d,p=%d$%s$%s",
+		argon2.Version, MEM, ITER, PAR, salt, key)
+	return base64.RawStdEncoding.Strict().EncodeToString([]byte(hash)), nil
+}
+
+func VerifyHash(password, hash string) (match bool, err error) {
+	salt, key, err := decodeHash(hash)
 	if err != nil {
-		return false
+		return false, err
 	}
-	// fmt.Printf("decoded salt: %s\n", decodedSalt)
-	testHash := doHash([]byte(password), decodedSalt)
-	// fmt.Printf("hashedpassword: %s\n", testHash)
-	return bytes.Equal(decodedHash, testHash)
+
+	otherKey := argon2.IDKey([]byte(password), salt, ITER, MEM, PAR, KLENGTH)
+
+	keyLen := int32(len(key))
+	otherKeyLen := int32(len(otherKey))
+
+	if subtle.ConstantTimeEq(keyLen, otherKeyLen) == 0 {
+		return false, nil
+	}
+	if subtle.ConstantTimeCompare(key, otherKey) == 1 {
+		return true, nil
+	}
+	return false, nil
+}
+
+func genRandBytes(n uint64) ([]byte, error) {
+	b := make([]byte, n)
+	_, err := rand.Read(b)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func decodeHash(hash string) (salt, key []byte, err error) {
+	v, err := base64.RawStdEncoding.DecodeString(hash)
+	if err != nil {
+		return nil, nil, ErrWrongHash
+	}
+	vals := strings.Split(string(v), "$")
+	if len(vals) != 6 {
+		return nil, nil, ErrWrongHash
+	}
+
+	var version int
+	_, err = fmt.Sscanf(vals[2], "v=%d", &version)
+	if err != nil {
+		return nil, nil, err
+	}
+	if version != argon2.Version {
+		return nil, nil, ErrIncompatibleVersion
+	}
+
+	salt, err = base64.RawStdEncoding.DecodeString(vals[4])
+	if err != nil {
+		return nil, nil, err
+	}
+
+	key, err = base64.RawStdEncoding.DecodeString(vals[5])
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return salt, key, nil
 }
