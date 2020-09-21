@@ -110,6 +110,10 @@ flu-desk-init:
 flu-desk-run:
 	cd $(FLU_SSAMPLE_FSPATH) && hover run
 
+## Builds Flutter Desktop
+flu-desk-build:
+	cd $(FLU_SSAMPLE_FSPATH) && hover build $(GO_OS)
+
 
 ### GEN 
 

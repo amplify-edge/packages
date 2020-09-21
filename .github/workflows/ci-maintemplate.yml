@@ -20,8 +20,8 @@ env:
   PROJECT: maintemplate
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: maintemplate
-  RELEASE_CHANNEL: ci
-  FLUTTER_CHANNEL: beta
+  RELEASE_CHANNEL: ci-maintemplate
+  FLUTTER_CHANNEL: stable
   URL: getcouragenow.org
   LOCALES: '[\"en\",\"fr\",\"es\",\"it\",\"de\",\"ur\"]'
   GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}

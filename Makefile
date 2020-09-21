@@ -30,6 +30,7 @@ this-build:
 
 this-flu-desk-build:	
 	# For CI. Does Big Gen !
+	#cd ./maintemplate && $(MAKE) flu-gen
 	cd ./maintemplate && $(MAKE) flu-desk-build
 
 this-flu-desk-run:
