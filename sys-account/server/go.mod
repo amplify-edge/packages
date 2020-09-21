@@ -8,6 +8,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/segmentio/ksuid v1.0.3
+	github.com/sirupsen/logrus v1.2.0
 	github.com/spf13/cobra v1.0.0
 	github.com/stretchr/testify v1.4.0
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a

@@ -24,9 +24,9 @@ type Claimant interface {
 
 // TokenClaims is the representation of JWT auth claims
 type TokenClaims struct {
-	UserId    string        `json:"userId"`
+	UserId    string         `json:"userId"`
 	Role      *rpc.UserRoles `json:"role"`
-	UserEmail string        `json:"userEmail"`
+	UserEmail string         `json:"userEmail"`
 	jwt.StandardClaims
 }
 
@@ -79,13 +79,17 @@ func NewTokenClaims(exp time.Duration, c Claimant) *TokenClaims {
 
 // ParseTokenStringToClaim parses given token (access or refresh) and returns token claims with embedded JWT claims
 // if token is indeed valid
-func ParseTokenStringToClaim(authenticate string, key []byte) (TokenClaims, error) {
+func ParseTokenStringToClaim(authenticate string, isAccess bool) (TokenClaims, error) {
 	var claims TokenClaims
 	token, err := jwt.ParseWithClaims(authenticate, &claims, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, AuthError{Reason: ErrDecryptionToken}
 		}
-		return key, nil
+		if isAccess {
+			return JwtAccessSecret, nil
+		} else {
+			return JwtRefreshSecret, nil
+		}
 	})
 	if err != nil {
 		return TokenClaims{}, AuthError{Reason: ErrDecryptionToken, Err: err}
@@ -99,7 +103,7 @@ func ParseTokenStringToClaim(authenticate string, key []byte) (TokenClaims, erro
 
 // RenewAccessToken given a refresh token
 func RenewAccessToken(rt string) (string, error) {
-	tc, err := ParseTokenStringToClaim(rt, JwtRefreshSecret)
+	tc, err := ParseTokenStringToClaim(rt, false)
 	if err != nil {
 		return "", err
 	}
