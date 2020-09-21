@@ -25,7 +25,16 @@ this-print: ## print
 
 ## Build
 this-build:
-
+	# Does full gen and build (web)
 	cd ./maintemplate && $(MAKE) this-build
+
+this-flu-desk-build:	
+	# For CI. Does Big Gen !
+	cd ./maintemplate && $(MAKE) flu-desk-build
+
+this-flu-desk-run:
+	# For Local dev- Does NOT do big Gen !
+	cd ./maintemplate && $(MAKE) flu-desk-run
+
 	
 
