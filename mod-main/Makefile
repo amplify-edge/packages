@@ -6,8 +6,9 @@ BOILERPLATE_FSPATH=./../boilerplate
 include $(BOILERPLATE_FSPATH)/help.mk
 include $(BOILERPLATE_FSPATH)/os.mk
 include $(BOILERPLATE_FSPATH)/tool.mk
-include $(BOILERPLATE_FSPATH)/flu.mk
 include $(BOILERPLATE_FSPATH)/go.mk
+include $(BOILERPLATE_FSPATH)/flu.mk
+
 
 
 override FLU_SAMPLE_NAME =client/example
@@ -22,12 +23,14 @@ this-print: ## print
 	
 
 	$(MAKE) os-print
+
+	$(MAKE) go-print
 	
 	$(MAKE) flu-print
 
 	$(MAKE) flu-gen-lang-print
 
-	#$(MAKE) srv-print
+	
 
 ## This builds everything
 this-build: ##
