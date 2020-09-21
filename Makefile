@@ -15,6 +15,9 @@ include $(BOILERPLATE_FSPATH)/go.mk
 # remove the "v" prefix
 VERSION ?= $(shell echo $(TAGGED_VERSION) | cut -c 2-)
 
+override FLU_SAMPLE_NAME =client
+override FLU_LIB_NAME =client
+
 
 ## Print all settings
 this-print: ## print
@@ -22,8 +25,15 @@ this-print: ## print
 	$(MAKE) os-print
 	
 	$(MAKE) gitr-print
+	
+	$(MAKE) flu-print
+
+	$(MAKE) flu-gen-lang-print
+
+	$(MAKE) go-print
 
 this-dep:
+	# LOCAL DEVS: go to root make file and call this yourself to get all the tools !!!!
 	# install tools
 	cd ./tool && $(MAKE) this-build
 

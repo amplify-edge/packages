@@ -20,7 +20,7 @@ this-print: ## print
 
 	$(MAKE) flu-gen-lang-print
 
-	#$(MAKE) srv-print
+	$(MAKE) go-print
 
 ## This builds everything
 this-build: ##
