@@ -30,14 +30,15 @@ this-build: ##
 ## This builds maintemplate and all submodules
 this-build-all: ##
 	$(MAKE) this-build
-	cd ../mod-account && make this-build
-	cd ../mod-chat && make this-build
+	# COMENTED OUT stuff we dont need for v2
+	#cd ../mod-account && make this-build
+	#cd ../mod-chat && make this-build
 	cd ../mod-main && make this-build
-	cd ../mod-geo && make this-build
-	cd ../mod-chat && make this-build
-	cd ../mod-write && make this-build
-	cd ../mod-ion && make this-build
-	cd ../mod-kanban && make this-build
+	#cd ../mod-geo && make this-build
+	#cd ../mod-chat && make this-build
+	#cd ../mod-write && make this-build
+	#cd ../mod-ion && make this-build
+	#cd ../mod-kanban && make this-build
 
 
 
