@@ -1,2 +1,2 @@
 all:
-    cd test && go test
+	cd test && go test
