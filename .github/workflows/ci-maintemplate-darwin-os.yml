@@ -1,4 +1,4 @@
-name: ci-maintemplate-all-os
+name: ci-maintemplate-darwin-os
 
 on:
   push:
