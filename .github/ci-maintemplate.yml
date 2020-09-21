@@ -1,0 +1,69 @@
+name: ci-maintemplate
+
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
+  GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
+  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  IMAGE: maintemplate
+  PROJECT: maintemplate
+  REGISTRY_HOSTNAME: gcr.io
+  DEPLOYMENT_NAME: maintemplate
+  RELEASE_CHANNEL: ci-maintemplate
+  FLUTTER_CHANNEL: stable
+  URL: getcouragenow.org
+  LOCALES: '[\"en\",\"fr\",\"es\",\"it\",\"de\",\"ur\"]'
+  GKE_KEYRING_NAME: ${{ secrets.GKE_KEYRING_NAME }}
+  GKE_KEYNAME: ${{ secrets.GKE_KEYNAME }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: CI - Setup, Build only.
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - "this-print"
+          - "this-flu-desk-build"
+    steps:
+      - name: Set up Go 
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15.2
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: go/src/github.com/${{ github.repository }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+
+      - name: make ${{ matrix.target }}
+        run: |
+          # workaround for https://github.com/actions/setup-go/issues/14
+          export GOPATH=${GITHUB_WORKSPACE}/go
+          export PATH=$PATH:$GOPATH/bin
+          make $target
+        working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
+        env:
+          target: ${{ matrix.target }}
+
+    
