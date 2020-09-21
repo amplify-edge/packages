@@ -1,15 +1,13 @@
 package db
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/genjidb/genji"
 	"github.com/genjidb/genji/document"
 )
 
-func QueryTable(db *genji.DB, in interface{}, outcb func(out interface{})) error {
-	sql := fmt.Sprintf("SELECT * FROM " + (in).(DbModel).TableName() + ";")
+func QueryTable(db *genji.DB, in interface{}, sql string, outcb func(out interface{})) error {
 	stream, err := db.Query(sql)
 	if err != nil {
 		log.Print(err)

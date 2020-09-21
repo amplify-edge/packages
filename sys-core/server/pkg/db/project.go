@@ -29,5 +29,11 @@ func (self Project) CreateSQL() []string {
 
 func (self *Project) Insert(db *genji.DB) error {
 	s := fmt.Sprintf("INSERT INTO %s (id, name, orgid) VALUES (?, ?, ?)", self.TableName())
-	return db.Exec(s, self.ID, self.Name, self.OrgID)
+	return db.
+		Exec(s, self.ID, self.Name, self.OrgID)
+}
+
+func (self *Project) Update(db *genji.DB) error {
+	s := fmt.Sprintf("UPDATE %s SET  name = ?, orgid = ? WHERE id = ?", self.TableName())
+	return db.Exec(s, self.Name, self.OrgID, self.ID)
 }

@@ -29,3 +29,8 @@ func (self *Org) Insert(db *genji.DB) error {
 	s := fmt.Sprintf("INSERT INTO %s (id, name) VALUES (?, ?)", self.TableName())
 	return db.Exec(s, self.ID, self.Name)
 }
+
+func (self *Org) Update(db *genji.DB) error {
+	s := fmt.Sprintf("UPDATE %s SET  name = ? WHERE id = ?", self.TableName())
+	return db.Exec(s, self.Name, self.ID)
+}

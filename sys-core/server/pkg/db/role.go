@@ -21,11 +21,16 @@ func (self Roles) CreateSQL() []string {
 			id TEXT NOT NULL PRIMARY KEY,
 			role TEXT NOT NULL
 		)`,
-		"CREATE INDEX IF NOT EXISTS idx_roles ON " + self.TableName() + "(name);",
+		"CREATE INDEX IF NOT EXISTS idx_roles ON " + self.TableName() + "(role);",
 	}
 }
 
 func (self *Roles) Insert(db *genji.DB) error {
 	s := fmt.Sprintf("INSERT INTO %s (id, role) VALUES (?, ?)", self.TableName())
 	return db.Exec(s, self.ID, self.Role)
+}
+
+func (self *Roles) Update(db *genji.DB) error {
+	s := fmt.Sprintf("UPDATE %s SET  role = ? WHERE id = ?", self.TableName())
+	return db.Exec(s, self.Role, self.ID)
 }

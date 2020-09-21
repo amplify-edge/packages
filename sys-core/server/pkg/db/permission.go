@@ -27,11 +27,16 @@ func (self Permission) CreateSQL() []string {
 			project TEXT NOT NULL,
 			role TEXT NOT NULL,
 		)`,
-		"CREATE INDEX IF NOT EXISTS idx_orgs ON " + self.TableName() + "(name);",
+		"CREATE INDEX IF NOT EXISTS idx_premission ON " + self.TableName() + "(id);",
 	}
 }
 
 func (self *Permission) Insert(db *genji.DB) error {
 	s := fmt.Sprintf("INSERT INTO %s (id, user, org, project, role) VALUES (?, ?, ?, ?, ?)", self.TableName())
 	return db.Exec(s, self.ID, self.User, self.Org, self.Project, self.Role)
+}
+
+func (self *Permission) Update(db *genji.DB) error {
+	s := fmt.Sprintf("UPDATE %s SET  user = ?, org = ?, project = ?,  role = ? WHERE id = ?", self.TableName())
+	return db.Exec(s, self.User, self.Org, self.Project, self.Role, self.ID)
 }

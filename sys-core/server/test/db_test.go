@@ -1,6 +1,7 @@
 package test_db
 
 import (
+	"fmt"
 	"log"
 	"testing"
 
@@ -37,7 +38,7 @@ func TestInsert(t *testing.T) {
 		t.Error(err)
 	}
 
-	p := db.Project{ID: db.UID(), Name: "proj002"}
+	p := db.Project{ID: db.UID(), Name: "proj001", OrgID: o.ID}
 	if err := p.Insert(testDb); err != nil {
 		t.Error(err)
 	}
@@ -51,41 +52,153 @@ func TestInsert(t *testing.T) {
 	if err := pr.Insert(testDb); err != nil {
 		t.Error(err)
 	}
+
+	log.Print("Print datas .....")
+	printTables(t)
+
+	log.Print("Update .....")
+	u.Name = "user2"
+	u.Update(testDb)
+
+	o.Name = "org002"
+	o.Update(testDb)
+
+	p.Name = "proj002"
+	p.Update(testDb)
+
+	r.Role = "user"
+	r.Update(testDb)
+
+	pr.Org = o.Name
+	pr.Project = p.Name
+	pr.User = u.Name
+	pr.Update(testDb)
+	log.Print("Print datas .....")
+	printTables(t)
 }
 
 func TestQuery(t *testing.T) {
-	log.Print("Query testing .....")
-
 	var o db.Org
-	if err := db.QueryTable(testDb, &o, func(out interface{}) {
+	sql := fmt.Sprintf("SELECT * FROM " + o.TableName() + " WHERE name = 'org002';")
+	if err := db.QueryTable(testDb, &o, sql, func(out interface{}) {
 		log.Printf("org => %v", out.(*db.Org))
 	}); err != nil {
 		t.Error(err)
 	}
 
 	var p db.Project
-	if err := db.QueryTable(testDb, &p, func(out interface{}) {
+	sql = fmt.Sprintf("SELECT * FROM " + p.TableName() + " WHERE name = 'proj002';")
+	if err := db.QueryTable(testDb, &p, sql, func(out interface{}) {
 		log.Printf("proj => %v", out.(*db.Project))
 	}); err != nil {
 		t.Error(err)
 	}
 
 	var u db.User
-	if err := db.QueryTable(testDb, &u, func(out interface{}) {
+	sql = fmt.Sprintf("SELECT * FROM " + u.TableName() + " WHERE name = 'user2';")
+	if err := db.QueryTable(testDb, &u, sql, func(out interface{}) {
 		log.Printf("user => %v", out.(*db.User))
 	}); err != nil {
 		t.Error(err)
 	}
 
 	var r db.Roles
-	if err := db.QueryTable(testDb, &r, func(out interface{}) {
+	sql = fmt.Sprintf("SELECT * FROM " + r.TableName() + " WHERE role = 'user';")
+	if err := db.QueryTable(testDb, &r, sql, func(out interface{}) {
 		log.Printf("role => %v", out.(*db.Roles))
 	}); err != nil {
 		t.Error(err)
 	}
 
 	var pr db.Permission
-	if err := db.QueryTable(testDb, &pr, func(out interface{}) {
+	sql = fmt.Sprintf("SELECT * FROM " + pr.TableName() + " WHERE org = 'org002' AND user = 'user2';")
+	if err := db.QueryTable(testDb, &pr, sql, func(out interface{}) {
+		log.Printf("promission => %v", out.(*db.Permission))
+	}); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestDelete(t *testing.T) {
+	log.Print("Clanup all tables .....")
+	o := db.Org{}
+	sql := "DELETE FROM " + o.TableName() + " WHERE name = 'org002';"
+	log.Printf("DELETE Table: %v\n sql = %v", o.TableName(), sql)
+	if err := testDb.Exec(sql); err != nil {
+		t.Error(err)
+	}
+
+	u := db.User{}
+	sql = "DELETE FROM " + u.TableName() + " WHERE name = 'user2';"
+	log.Printf("DELETE Table: %v\n sql = %v", u.TableName(), sql)
+	if err := testDb.Exec(sql); err != nil {
+		t.Error(err)
+	}
+
+	p := db.Project{}
+	sql = "DELETE FROM " + p.TableName() + " WHERE name = 'proj002';"
+	log.Printf("DELETE Table: %v\n sql = %v", p.TableName(), sql)
+	if err := testDb.Exec(sql); err != nil {
+		t.Error(err)
+	}
+
+	r := db.Roles{}
+	sql = "DELETE FROM " + r.TableName() + " WHERE role = 'user';"
+	log.Printf("DELETE Table: %v\n sql = %v", r.TableName(), sql)
+	if err := testDb.Exec(sql); err != nil {
+		t.Error(err)
+	}
+
+	pr := db.Permission{}
+	sql = "DELETE FROM " + pr.TableName() + " WHERE org = 'org002' AND user = 'user2';"
+	log.Printf("DELETE Table: %v\n sql = %v", pr.TableName(), sql)
+	if err := testDb.Exec(sql); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestFinalResult(t *testing.T) {
+	// If the final data is empty, it means that the test passed
+	log.Print("Print result datas .....")
+	printTables(t)
+}
+
+func printTables(t *testing.T) {
+	var o db.Org
+	sql := fmt.Sprintf("SELECT * FROM " + o.TableName() + ";")
+	if err := db.QueryTable(testDb, &o, sql, func(out interface{}) {
+		log.Printf("org => %v", out.(*db.Org))
+	}); err != nil {
+		t.Error(err)
+	}
+
+	var p db.Project
+	sql = fmt.Sprintf("SELECT * FROM " + p.TableName() + ";")
+	if err := db.QueryTable(testDb, &p, sql, func(out interface{}) {
+		log.Printf("proj => %v", out.(*db.Project))
+	}); err != nil {
+		t.Error(err)
+	}
+
+	var u db.User
+	sql = fmt.Sprintf("SELECT * FROM " + u.TableName() + ";")
+	if err := db.QueryTable(testDb, &u, sql, func(out interface{}) {
+		log.Printf("user => %v", out.(*db.User))
+	}); err != nil {
+		t.Error(err)
+	}
+
+	var r db.Roles
+	sql = fmt.Sprintf("SELECT * FROM " + r.TableName() + ";")
+	if err := db.QueryTable(testDb, &r, sql, func(out interface{}) {
+		log.Printf("role => %v", out.(*db.Roles))
+	}); err != nil {
+		t.Error(err)
+	}
+
+	var pr db.Permission
+	sql = fmt.Sprintf("SELECT * FROM " + pr.TableName() + ";")
+	if err := db.QueryTable(testDb, &pr, sql, func(out interface{}) {
 		log.Printf("promission => %v", out.(*db.Permission))
 	}); err != nil {
 		t.Error(err)
