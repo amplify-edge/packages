@@ -112,8 +112,10 @@ flu-desk-run:
 
 ## Builds Flutter Desktop
 flu-desk-build:
+	# This is for the CI environment where there is no openGL
 	cd $(FLU_SSAMPLE_FSPATH) && flutter build bundle
-	cd $(FLU_SSAMPLE_FSPATH) && $(TOOL_HOVER_BIN_NAME) build $(GO_OS)
+	cd $(FLU_SSAMPLE_FSPATH) && $(TOOL_HOVER_BIN_NAME) build $(GO_OS) --opengl=none
+	
 
 
 ### GEN 
