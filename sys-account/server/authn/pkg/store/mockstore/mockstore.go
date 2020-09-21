@@ -3,7 +3,7 @@ package mockstore
 import (
 	"encoding/json"
 	"errors"
-	"github.com/getcouragenow/getcourage-packages/mod-account/authn/pkg/store"
+	"github.com/getcouragenow/packages/sys-account/authn/pkg/store"
 	"io/ioutil"
 )
 
