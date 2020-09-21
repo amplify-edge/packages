@@ -23,18 +23,23 @@ this-print: ## print
 	
 	$(MAKE) gitr-print
 
+this-dep:
+	# install tools
+	cd ./tool && $(MAKE) this-build
+
 ## Build
-this-build:
+this-build: this-dep
 	# Does full gen and build (web)
 	cd ./maintemplate && $(MAKE) this-build
 
-this-flu-desk-build:	
+this-flu-desk-build: this-dep
 	# For CI. Does Big Gen !
 	#cd ./maintemplate && $(MAKE) flu-gen
 	cd ./maintemplate && $(MAKE) flu-desk-build
 
 this-flu-desk-run:
 	# For Local dev- Does NOT do big Gen !
+	# Manaully do a make this-dep to get the goalng tools yourself.
 	cd ./maintemplate && $(MAKE) flu-desk-run
 
 	

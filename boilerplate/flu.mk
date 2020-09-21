@@ -103,16 +103,16 @@ flu-mob-build:
 
 ## Inits Flutter Desktop
 flu-desk-init:
-	cd $(FLU_SSAMPLE_FSPATH) && hover init
+	cd $(FLU_SSAMPLE_FSPATH) && $(TOOL_HOVER_BIN_NAME) init
 	
 
 ## Runs Flutter Desktop
 flu-desk-run:
-	cd $(FLU_SSAMPLE_FSPATH) && hover run
+	cd $(FLU_SSAMPLE_FSPATH) && $(TOOL_HOVER_BIN_NAME) run
 
 ## Builds Flutter Desktop
 flu-desk-build:
-	cd $(FLU_SSAMPLE_FSPATH) && hover build $(GO_OS)
+	cd $(FLU_SSAMPLE_FSPATH) && $(TOOL_HOVER_BIN_NAME) build $(GO_OS)
 
 
 ### GEN 
@@ -192,7 +192,7 @@ flu-gen-lang-print:
 
 ## Grabs the binary tool needed ( REDUNDANT when using BS tool )
 flu-gen-lang-dep:
-	go get -u github.com/getcouragenow/core-runtime/tool/i18n
+	#go get -u github.com/getcouragenow/core-runtime/tool/i18n
 
 
 ## Generates language file for maintemplate and all submodules
@@ -229,8 +229,8 @@ flu-gen-lang:
 	cd $(FLU_LIB_FSPATH) && flutter pub run intl_translation:extract_to_arb --output-dir=$(FLU_LANG_DIR) $(FLU_LANG_LOCALIZATION_DIR)/translations.dart
 	
 	@echo -- Translating Text
-	bs-lang flutter --dir $(FLU_LANG_DIR) --template $(FLU_LANG_TEMPLATE_PATH) --prefix $(FLU_LANG_FILE_PREFIX_OUT) --languages $(FLU_LANG_LOCALES) -f
-	bs-lang flutter --dir $(FLU_LANG_DIR)
+	$(TOOL_LANG_BIN_NAME) flutter --dir $(FLU_LANG_DIR) --template $(FLU_LANG_TEMPLATE_PATH) --prefix $(FLU_LANG_FILE_PREFIX_OUT) --languages $(FLU_LANG_LOCALES) -f
+	$(TOOL_LANG_BIN_NAME) --dir $(FLU_LANG_DIR)
 
 ## Generates dart code out of arb files
 flu-gen-lang-dart:
