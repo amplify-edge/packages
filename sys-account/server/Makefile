@@ -14,11 +14,11 @@ LIB_BIN=$(LIB_BIN_FSPATH)/auth-$(GO_OS)-$(GO_ARCH)
 
 
 GO_LIB_FSPATH=$(LIB_FSPATH)
-override GO_FSPATH=$(GO_LIB_FSPATH)/cmd
+override GO_FSPATH=$(GO_LIB_FSPATH)
 override GO_BIN_NAME=sys-account
 override GO_BUILD_OUT_FSPATH=$(GO_LIB_FSPATH)/bin
 override GO_BUILD_OUT_ALL_FSPATH=$(GO_LIB_FSPATH)/bin-all
-override GO_PKG_LIST=.
+override GO_PKG_LIST=./tests
 
 GO_STATIC_BUILDARGS := go build -a -tags netgo -ldflags '-w -extldflags -static'
 
@@ -123,3 +123,6 @@ go-run-test-client: go-build
 	cd $(GO_LIB_FSPATH)/bin-all && timeout 60 ./authserver &
 	cd $(GO_LIB_FSPATH)/bin-all && timeout 60 ./authclient auth-service login --email "superadmain@getcouragenow.org" --password "superadmin" --server-addr "127.0.0.1:8888"
 
+go-test:
+	@echo Running tests
+	cd $(GO_FSPATH) && go test -race -v ./tests/
