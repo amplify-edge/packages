@@ -1,4 +1,4 @@
-module github.com/getcouragenow/getcourage-packages/sys-core/server
+module github.com/getcouragenow/packages/sys-core/server
 
 go 1.14
 
