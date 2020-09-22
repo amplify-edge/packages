@@ -1,4 +1,4 @@
-package tests_test
+package auth_test
 
 import (
 	"github.com/getcouragenow/packages/sys-account/authn/pkg/auth"

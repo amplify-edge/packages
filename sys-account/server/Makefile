@@ -18,7 +18,7 @@ override GO_FSPATH=$(GO_LIB_FSPATH)
 override GO_BIN_NAME=sys-account
 override GO_BUILD_OUT_FSPATH=$(GO_LIB_FSPATH)/bin
 override GO_BUILD_OUT_ALL_FSPATH=$(GO_LIB_FSPATH)/bin-all
-override GO_PKG_LIST=./tests
+override GO_PKG_LIST=./authn/delivery ./authn/pkg/auth ./authn/pkg/pass ./authn/pkg/utilities
 
 GO_STATIC_BUILDARGS := go build -a -tags netgo -ldflags '-w -extldflags -static'
 
@@ -125,4 +125,4 @@ go-run-test-client: go-build
 
 go-test:
 	@echo Running tests
-	cd $(GO_FSPATH) && go test -race -v ./tests/
+	cd $(GO_FSPATH) && go test -race -v  ${GO_PKG_LIST}
