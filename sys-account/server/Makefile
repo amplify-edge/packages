@@ -1,11 +1,3 @@
-# git include
-BOILERPLATE_FSPATH=./../../boilerplate
-include $(BOILERPLATE_FSPATH)/help.mk
-include $(BOILERPLATE_FSPATH)/os.mk
-include $(BOILERPLATE_FSPATH)/gitr.mk
-include $(BOILERPLATE_FSPATH)/go.mk
-
-
 LIB=github.com/getcouragenow/packages/sys-account/server
 LIB_FSPATH=$(GOPATH)/src/$(LIB)
 LIB_BIN_FSPATH=$(PWD)/bin
