@@ -1,9 +1,4 @@
-# This make file uses composition to keep things KISS and easy.
-# In the boilerpalte make files dont do any includes, because you will create multi permutations of possibilities.
 
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-# Includes
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
 BOILERPLATE_FSPATH=../boilerplate
 
 include $(BOILERPLATE_FSPATH)/help.mk
@@ -11,63 +6,22 @@ include $(BOILERPLATE_FSPATH)/gitr.mk
 include $(BOILERPLATE_FSPATH)/go.mk
 include $(BOILERPLATE_FSPATH)/tool.mk
 
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-# Overrides & Variables
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-COPY_TARGET_FSPATH = $(PWD)/assets
-COPY_SRCDIR_FSPATH = \
-	$(PWD)/dummy/builds \
-	$(PWD)/lang/builds \
-	$(PWD)/protofig/protoc-gen-configdef/builds \
-	$(PWD)/protofig/builds
-COPY_SRC_FILES := \
-	$(foreach D,$(COPY_SRCDIR_FSPATH), \
-		$(wildcard $(D)/*))
-
-.PHONY: help
-
 ## Print all settings
 this-print:
 	$(MAKE) go-print
-	@echo COPY_SRC_FILES: $(COPY_SRC_FILES)
-	@echo COPY_TARGET_FILES: $(COPY_TARGET_FILES)
 
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-# Build Phase
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+	$(MAKE) tool-print
 
-## Build all tools for all platform (CI)
-this-build-all:
+# CI smoke test
+this-ci-smoke:
 
-	@echo -- TOOLS - BUILD ALL PLATFORMS: start --
+	@echo -- TOOLS - CI SMOKE TEST: start --
+	
+	$(MAKE) this-build
+	$(MAKE) this-test
+	$(MAKE) this-build-clean
 
-	@echo Dummy
-	cd ./dummy && $(MAKE) this-build-all
-
-	@echo Lang
-	cd ./lang && $(MAKE) this-build-all
-
-	@echo Hover
-	cd ./hover && $(MAKE) this-build-all
-
-	@echo Hugo
-	cd ./hugo && $(MAKE) this-build-all
-
-	#@echo protoc-gen-configdef
-	#cd ./protofig/protoc-gen-configdef && $(MAKE) this-build-all
-
-#	@echo protoc-gen-map
-#	cd ./protodb/protoc-gen-map && $(MAKE) this-build-all
-
-	#@echo Protofig
-	#cd ./protofig && $(MAKE) this-build-all
-
-#	@echo Protodb
-#	cd ./protodb && $(MAKE) this-build-all
-
-	# -- PLUS ALL OTHER TOOLS !!
-
-	@echo -- TOOLS - BUILD ALL PLATFORMS: finish --
+	@echo -- TOOLS - CI SMOKE TEST: end --
 
 ## Build all tools
 this-build:
@@ -75,16 +29,16 @@ this-build:
 	@echo -- TOOLS - BUILD ALL: start --
 
 	@echo Dummy
-	cd ./dummy && $(MAKE) this-build
+	cd ./$(TOOL_DUMMY_BIN_NAME) && $(MAKE) this-build
 
 	@echo Lang
-	cd ./lang && $(MAKE) this-build
+	cd ./$(TOOL_LANG_BIN_NAME) && $(MAKE) this-build
 
 	@echo Hover
-	cd ./hover && $(MAKE) this-build
+	cd ./$(TOOL_HOVER_BIN_NAME) && $(MAKE) this-build
 
 	@echo Hugo
-	cd ./hugo && $(MAKE) this-build
+	cd ./$(TOOL_HUGO_BIN_NAME) && $(MAKE) this-build
 
 	# The things below do not work yet and are not going to be needed for v2
 
@@ -104,25 +58,58 @@ this-build:
 
 	@echo -- TOOLS - BUILD ALL: finish --
 
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-# Test Phase
-# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+## Clean the build
+this-build-clean:
+
+	@echo -- TOOLS - CLEAN ALL: start --
+
+	@echo Dummy
+	cd ./$(TOOL_DUMMY_BIN_NAME) && $(MAKE) this-build-clean
+
+	@echo Lang
+	cd ./$(TOOL_LANG_BIN_NAME) && $(MAKE) this-build-clean
+
+	@echo Hover
+	cd ./$(TOOL_HOVER_BIN_NAME) && $(MAKE) this-build-clean
+
+	@echo Hugo
+	cd ./$(TOOL_HUGO_BIN_NAME) && $(MAKE) this-build-clean
+
+	# The things below do not work yet and are not going to be needed for v2
+
+	#@echo protoc-gen-configdef
+	#cd ./protofig/protoc-gen-configdef && $(MAKE) this-build
+
+	#@echo protoc-gen-map
+	#cd ./protodb/protoc-gen-map && $(MAKE) this-build
+
+	#@echo Protofig
+	#cd ./protofig && $(MAKE) this-build
+
+	#@echo Protodb
+	#cd ./protodb && $(MAKE) this-build
+
+	# -- PLUS ALL OTHER TOOLS !!
+
+	@echo -- TOOLS - CLEAN ALL: finish --
 
 ## Test all tools
 this-test:
 	@echo -- TOOLS - TEST ALL: start --
 
-	@echo Dummy
-	cd ./dummy && $(MAKE) this-test
+		@echo Dummy
+	cd ./$(TOOL_DUMMY_BIN_NAME) && $(MAKE) this-test
 
 	@echo Lang
-	cd ./lang && $(MAKE) this-test
+	cd ./$(TOOL_LANG_BIN_NAME) && $(MAKE) this-test
 
 	@echo Hover
-	cd ./hover && $(MAKE) this-test
+	cd ./$(TOOL_HOVER_BIN_NAME) && $(MAKE) this-test
 
 	@echo Hugo
-	cd ./hugo && $(MAKE) this-test
+	cd ./$(TOOL_HUGO_BIN_NAME) && $(MAKE) this-test
 
 	# The things below do not work yet and are not going to be needed for v2
 
@@ -135,24 +122,4 @@ this-test:
 
 	@echo -- TOOLS - TEST ALL: finish --
 
-### Release Phase
 
-
-## Copy all binaries to assets path
-this-assets-release: this-build-all this-clean-assets this-create-assets-dir
-	${MAKE} this-copy-all
-	${MAKE} this-compress-all
-
-this-clean-assets:
-	rm -rf $(COPY_TARGET_FSPATH)
-
-this-create-assets-dir:
-	mkdir -p $(COPY_TARGET_FSPATH)
-
-this-copy-all:
-	for fl in  $(COPY_SRC_FILES); \
-		do cp -f $$fl $(COPY_TARGET_FSPATH)/$$(basename $$fl); \
-	done
-
-this-compress-all:
-	gzip $(wildcard $(COPY_TARGET_FSPATH)/*)

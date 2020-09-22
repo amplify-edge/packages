@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/emirpasic/gods/maps/linkedhashmap"
-	"github.com/getcouragenow/core-runtime/tool/lang/services/config"
-	"github.com/getcouragenow/core-runtime/tool/lang/utils"
+	"github.com/getcouragenow/core-runtime/tool/bs-lang/services/config"
+	"github.com/getcouragenow/core-runtime/tool/bs-lang/utils"
 
 	"github.com/tidwall/pretty"
 )

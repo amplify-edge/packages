@@ -36,7 +36,7 @@ jobs:
         os: [macos-latest]
         go-version: [1.15.2]
         flu-channel: ["dev", "beta", "stable"]
-        target: ["this-flu-web-build", "this-flu-desk-build"]
+        target: ["this-build", "this-flu-desk-build"]
 
     runs-on: ${{ matrix.os }}
 

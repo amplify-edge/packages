@@ -1,0 +1,55 @@
+name: ci-tool-os-all-flu-allchannels-target-all
+
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - "tool/**"
+  pull_request:
+    branches:
+      - "*"
+    paths:
+      - "tool/**"
+
+
+jobs:
+  all:
+    name: CI - tool smoke.
+   
+    strategy:
+      fail-fast: false
+      matrix:
+        # linux is enough
+        os: [ubuntu-latest]
+        go-version: [1.15.2]
+        # NOT USED as we dont need flutter for this.
+        flu-channel: ["dev", "beta", "stable"]
+        target: ["this-ci-smoke",]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Set up Go 
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go-version }}
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: go/src/github.com/${{ github.repository }}
+
+      - name: make ${{ matrix.target }}
+        run: |
+          # workaround for https://github.com/actions/setup-go/issues/14
+          export GOPATH=${GITHUB_WORKSPACE}/go
+          export PATH=$PATH:$GOPATH/bin
+          make $target
+        working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/tool
+        env:
+          target: ${{ matrix.target }}
+
+    

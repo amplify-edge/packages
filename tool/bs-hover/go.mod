@@ -1,4 +1,4 @@
-module github.com/getcouragenow/core-runtime/tool/hover
+module github.com/getcouragenow/core-runtime/tool/bs-hover
 
 go 1.14
 

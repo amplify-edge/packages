@@ -11,8 +11,8 @@ include $(BOILERPLATE_FSPATH)/go.mk
 # go
 override GO_FSPATH=${PWD}
 
-override GO_BIN_NAME=${TOOL_HUGO_BIN_NAME}
-override GO_BUILD_OUT_FSPATH:=${TOOL_HUGO_BIN_FSPATH}
+override GO_BIN_NAME=${TOOL_HOVER_BIN_NAME}
+override GO_BUILD_OUT_FSPATH:=${TOOL_HOVER_BIN_FSPATH}
 
 override GO_BUILD_OUT_ALL_FSPATH=${PWD}/assets
 
@@ -37,14 +37,6 @@ this-build: this-build-clean
 
 this-build-clean:
 	rm -rf ${TOOL_DUMMY_BIN_NAME}
-
-## Build all platforms
-this-build-all: this-build-clean-all
-	$(MAKE) go-build-all
-
-this-build-clean-all:
-	$(MAKE) go-build-clean-all
-
 
 this-test:
 	@echo TODO !
