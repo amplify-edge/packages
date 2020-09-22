@@ -53,9 +53,11 @@ this-build: this-dep this-gen
 
 	$(MAKE) go-build
 
+	$(MAKE) flu-desk-build
+
 	@echo -- BUILD ALL: finish --
 
-
+## Build everything for all OS's
 this-build-all:
 	## TODO: Build all like we do in core-bs
 

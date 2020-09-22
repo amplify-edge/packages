@@ -1,46 +1,40 @@
-# Packages
+# README
+
+GetCourageNow.org - A non-profit providing secure, open source, self organising software for Climate Change campaign organisations.
+
+See the DEVELOPMENT.md for information on developing on the system.
+
+See the ARCHITECTURE.md for information on the architecture on the system.
+
+See the DEPLOYMENT.md for information on deploying the system.
+
+# Introduction
+
+This project provides a platform offering real time collaboration to allow organisations to collaborate around a campaign.
 
 ## Project docs
 
-This contains the Functional modules and runner.
+The [Project Website](https://getcouragenow.org/) gives a general introduction about what the software is used for, the organisation behind it.
 
-Project Web site: https://getcouragenow.org/
+The [Project Docs](https://docs.google.com/document/d/1caq1gSvHqVXVCOCGPsqi7I0fbF-Gdyryd07CL9yJ55o) explains the functionality.
 
-Project Docs: https://docs.google.com/document/d/1caq1gSvHqVXVCOCGPsqi7I0fbF-Gdyryd07CL9yJ55o
+## Contacts
 
+You can contact us at [Email](mailto:contact@getcouragenow.org) regarding any questions or if you would like a demo of the system.
 
-## Developer setup
-
-Flutter and golang installed
-
-In tool, run  ```make build-all```, and it will put all buidl tools into the go bin.
-
-
-## Running
-
-See MainTemplate folder for Client and Server makefiles:
-
-https://github.com/getcouragenow/packages/tree/master/maintemplate
+If your a developer and want help then your free to contact the DEV Team at [Telegram](https://t.me/getcouragenow_dev).
 
 ## Demo
 
-Web CI: https://maintemplate.ci.getcouragenow.org/
+Web CI : https://maintemplate.ci.getcouragenow.org/
 
-Web Beta: https://maintemplate.beta.getcouragenow.org
+Web Beta: https://maintemplate.beta.getcouragenow.org/
 
-Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/packages/releases
+## Download
+
+Soon, you will be able to download the [binary release](https://github.com/getcouragenow/packages/releases) to your system.
+
+Web, Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/packages/releases
 
 
-## Working on an issue
 
-The [Kan Ban](https://github.com/orgs/getcouragenow/projects/1) should be looked at to work out what to work on.
-
-Is you want to work on an issue, please first ensure that you understand the issue and the suggested approach. Ask the Team on Telegram if your not sure about something or the best way to approach the implementation.
-
-When you take an issue, please assign yourself to it and let everyone know on the Telegram group, so we everyone knows your taking it.
-
-## CI and CD
-
-When your PR is merged, check it builds correctly and then check the automated release works.
-
-CI: https://github.com/getcouragenow/packages/actions

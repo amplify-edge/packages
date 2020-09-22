@@ -1,9 +1,6 @@
 # mod-geo
 
-Geo Module
+Geo Module provides
 
-- use can search for campaigns by Geo and se then on a map
+- A Widget that shows a Text box and a Map to allow a user to type into the text box and resolve a location and show it onthe map
 
-- campaigner can see where all their volunteers are in real time.
-
-- various use cases spure from these two basic things above.
