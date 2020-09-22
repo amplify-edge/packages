@@ -5,6 +5,7 @@ include $(BOILERPLATE_FSPATH)/os.mk
 include $(BOILERPLATE_FSPATH)/tool.mk
 include $(BOILERPLATE_FSPATH)/flu.mk
 include $(BOILERPLATE_FSPATH)/go.mk
+include ./server/Makefile
 
 
 override FLU_SAMPLE_NAME =client/example
