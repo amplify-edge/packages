@@ -1,4 +1,4 @@
-name: ci-maintemplate-darwin-os
+name: ci-maintemplate-os-darwin-flu-allchannels-target-all
 
 on:
   push:
@@ -35,9 +35,8 @@ jobs:
       matrix:
         os: [macos-latest]
         go-version: [1.15.2]
-        flu-channel: ["master", "beta", "stable"]
-
-        target: ["this-flu-desk-build"]
+        flu-channel: ["dev", "beta", "stable"]
+        target: ["this-flu-web-build", "this-flu-desk-build"]
 
     runs-on: ${{ matrix.os }}
 
