@@ -1,11 +1,10 @@
 package utilities
 
 import (
-	uuid "github.com/hashicorp/go-uuid"
+	"github.com/segmentio/ksuid"
 )
 
 func NewID() string {
 	// Yes discards error
-	s, _ := uuid.GenerateUUID()
-	return s
+	return ksuid.New().String()
 }

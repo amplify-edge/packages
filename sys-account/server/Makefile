@@ -1,30 +1,16 @@
-# https://github.com/joe-getcouragenow/gomessenger
-
-# fork: github.com/joe-getcouragenow/gomessenger
-# WOrks
-# Chat App with GRPC go backend demo.
-
-# git include
-BOILERPLATE_FSPATH=./../../boilerplate
-include $(BOILERPLATE_FSPATH)/help.mk
-include $(BOILERPLATE_FSPATH)/os.mk
-include $(BOILERPLATE_FSPATH)/gitr.mk
-include $(BOILERPLATE_FSPATH)/go.mk
-
-
 LIB=github.com/getcouragenow/packages/sys-account/server
 LIB_FSPATH=$(GOPATH)/src/$(LIB)
 LIB_BIN_FSPATH=$(PWD)/bin
 LIB_DATA_FSPATH=$(PWD)/data
-LIB_BIN=$(LIB_BIN_FSPATH)/gomessenger-$(GO_OS)-$(GO_ARCH)
+LIB_BIN=$(LIB_BIN_FSPATH)/auth-$(GO_OS)-$(GO_ARCH)
 
 
 GO_LIB_FSPATH=$(LIB_FSPATH)
-override GO_FSPATH=$(GO_LIB_FSPATH)/cmd
+override GO_FSPATH=$(GO_LIB_FSPATH)
 override GO_BIN_NAME=sys-account
 override GO_BUILD_OUT_FSPATH=$(GO_LIB_FSPATH)/bin
 override GO_BUILD_OUT_ALL_FSPATH=$(GO_LIB_FSPATH)/bin-all
-override GO_PKG_LIST=.
+override GO_PKG_LIST=./authn/delivery ./authn/pkg/auth ./authn/pkg/pass ./authn/pkg/utilities
 
 GO_STATIC_BUILDARGS := go build -a -tags netgo -ldflags '-w -extldflags -static'
 
@@ -97,16 +83,38 @@ go-gen-dep:
 
 	# then make go-mod-tidy, to ensure the imports that the generated code uses are in te go.mod
 
+## Generate golang models and interface from protobuf schema
 go-gen:
 	# gen runs from the go folder so that the same go.mod is used for gen and run.
+	mkdir -p $(GO_LIB_FSPATH)/rpc
 	cd $(GO_LIB_FSPATH) && go generate
 
+## Updates go-module dependencies
 go-mod-update:
 	# force pulling modes
-	cd $(LIB_FSPATH)/gms-go && go get -v -t -d ./...
+	cd $(GO_LIB_FSPATH) && go get -v -t -d ./...
 
+## Install, and Verify go-module dependencies
 go-mod-tidy:
-	cd $(LIB_FSPATH)/gms-go && go mod tidy
-	cd $(LIB_FSPATH)/gms-go && go mod verify
-	cd $(LIB_FSPATH)/gms-go && go mod download
+	cd $(GO_LIB_FSPATH) && go mod tidy
+	cd $(GO_LIB_FSPATH) && go mod verify
+	cd $(GO_LIB_FSPATH) && go mod download
 
+## Run server and client binary as a test
+go-run: go-run-test-client
+
+## Building both the authserver and the authclient binaries
+go-build:
+	@echo Building AuthServer binary
+	cd $(GO_FSPATH)/authserver/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/server
+	@echo Building AuthClient binary
+	cd $(GO_FSPATH)/authclient/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/client
+
+go-run-test-client: go-build
+	@echo testing grpc-client for login
+	cd $(GO_LIB_FSPATH)/bin-all && timeout 60 ./authserver &
+	cd $(GO_LIB_FSPATH)/bin-all && timeout 60 ./authclient auth-service login --email "superadmain@getcouragenow.org" --password "superadmin" --server-addr "127.0.0.1:8888"
+
+go-test:
+	@echo Running tests
+	cd $(GO_FSPATH) && go test -race -v  ${GO_PKG_LIST}
