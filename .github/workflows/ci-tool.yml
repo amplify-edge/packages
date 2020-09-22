@@ -1,4 +1,4 @@
-name: ci-tool-os-all-flu-allchannels-target-all
+name: ci-tool
 
 on:
   push:
@@ -21,10 +21,8 @@ jobs:
       fail-fast: false
       matrix:
         # linux is enough
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         go-version: [1.15.2]
-        # NOT USED as we dont need flutter for this.
-        flu-channel: ["dev", "beta", "stable"]
         target: ["this-ci-smoke",]
 
     runs-on: ${{ matrix.os }}
