@@ -32,9 +32,9 @@ Web Beta: https://maintemplate.beta.getcouragenow.org/
 
 ## Download
 
-Soon, you will be able to download the [binary release](https://github.com/getcouragenow/packages/releases) to your system.
+Soon, you will be able to download the server [binary release](https://github.com/getcouragenow/packages/releases) to your system.
 
-Web, Desktop and Mobile releases coming out of CI: https://github.com/getcouragenow/packages/releases
+Web, Desktop and Mobile client coming out of CI: https://github.com/getcouragenow/packages/releases
 
 
 
