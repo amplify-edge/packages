@@ -16,9 +16,7 @@ Sys-main is a container that loads up all of the other sys modules.
 
 ## Modules
 
-
-
-Main modules (sys-main and maintemplate2) are special in that they do nothing except load up the Modules is chooses to use.
+Main modules (sys-main and maintemplate2) are special in that they do nothing except load up the Modules is choose to use at compile time.
 
 In each Module you will always find the following structure.
 
@@ -56,7 +54,7 @@ For V3, we will be able to run the golang parts as their own binaries
 - Each golang SYS and MOD can be compiled distinctly and so do basic scaling. This is possible Now because there is only one DB.
 - Each golang SYS and MOD can be compiled distinctly and so do basic scaling. NO Raft is needed because we are just sharding the DB and so is possible now.
 
-For v4, we will be able many instances of each golang MOD as their own binaies
+For v4, we will be able many instances of each golang MOD as their own binaries.
 
 - Each golang SYS and MOD can be compiled distinctly and have many of them respectively. This requires genji to be extended with RAFT, which is not an issues.
 
