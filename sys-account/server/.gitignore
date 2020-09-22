@@ -1,3 +1,2 @@
 bin-all
-rpc/*.go
 cover.out
