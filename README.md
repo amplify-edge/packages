@@ -2,11 +2,13 @@
 
 GetCourageNow.org - A non-profit providing secure, open source, self organising software for Climate Change campaign organisations.
 
-See the DEVELOPMENT.md for information on developing on the system.
+See the [DEVELOPMENT.md](https://github.com/getcouragenow/packages/tree/master/DEVELOPMENT.md) for information on developing on the system.
 
-See the ARCHITECTURE.md for information on the architecture on the system.
+See the [ARCHITECTURE.md](https://github.com/getcouragenow/packages/tree/master/ARCHITECTURE.md) for information on the architecture on the system.
 
-See the DEPLOYMENT.md for information on deploying the system.
+See the [DEPLOYMENT.md](https://github.com/getcouragenow/packages/tree/master/DEPLOYMENT.md) for information on deploying the system.
+
+See the [SECURITY.md](https://github.com/getcouragenow/packages/tree/master/SECURITY.md) for information on the security of the system.
 
 # Introduction
 
