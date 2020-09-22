@@ -2,13 +2,14 @@ package auth_test
 
 import (
 	"github.com/getcouragenow/packages/sys-account/authn/pkg/auth"
+	"github.com/getcouragenow/packages/sys-account/authn/pkg/utilities"
 	"github.com/getcouragenow/packages/sys-account/rpc"
 	"github.com/stretchr/testify/assert"
-	"os"
 	"testing"
 )
 
 var (
+	tc             *auth.TokenConfig
 	accountSeeders = []*rpc.Account{
 		{
 			Id:       "1hpMOKQj30jOrqtB8hLmclWtXGx",
@@ -55,15 +56,18 @@ var (
 )
 
 func TestTokenAll(t *testing.T) {
-	os.Setenv("JWT_ACCESS_SECRET", "AccessVerySecretHush!")
-	os.Setenv("JWT_REFRESH_SECRET", "RefreshVeryHushHushFriends!")
+	accessSecret, err := utilities.GenRandomByteSlice(32)
+	assert.NoError(t, err)
+	refreshSecret, err := utilities.GenRandomByteSlice(32)
+	assert.NoError(t, err)
+	tc = auth.NewTokenConfig(accessSecret, refreshSecret)
 	t.Run("TestNewTokenPairs", testNewTokenPairs)
 	t.Parallel()
 }
 
 func testNewTokenPairs(t *testing.T) {
 	for _, acc := range accountSeeders {
-		tpairs, err := auth.NewTokenPairs(acc)
+		tpairs, err := tc.NewTokenPairs(acc)
 		assert.NoError(t, err)
 		t.Logf("Successfully generated token pairs for: %s => Access: %s\n, Refresh: %s\n",
 			acc.GetEmail(), tpairs.AccessToken, tpairs.RefreshToken)

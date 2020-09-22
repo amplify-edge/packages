@@ -6,7 +6,6 @@ import (
 	"github.com/getcouragenow/packages/sys-account/rpc"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	l "github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -17,7 +16,8 @@ type (
 
 	// AuthDelivery is the delivery layer of the authn
 	AuthDelivery struct {
-		Log *l.Logger
+		Log      *l.Entry
+		TokenCfg *auth.TokenConfig
 		// repo ==> some repository layer for querying users
 	}
 )
@@ -52,7 +52,7 @@ func (ad *AuthDelivery) getAndVerifyUser(_ context.Context, req *rpc.LoginReques
 
 // DefaultInterceptor is default authN/authZ interceptor, validates only token correctness without performing any role specific authorization.
 func (ad *AuthDelivery) DefaultInterceptor(ctx context.Context) (context.Context, error) {
-	claims, err := ObtainAccessClaimsFromMetadata(ctx)
+	claims, err := ad.ObtainAccessClaimsFromMetadata(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "Request unauthenticated with error: %v", err)
 	}
@@ -61,7 +61,7 @@ func (ad *AuthDelivery) DefaultInterceptor(ctx context.Context) (context.Context
 }
 
 // Register satisfies rpc.Register function on AuthService proto definition
-func (ad *AuthDelivery) Register(_ context.Context, in *rpc.RegisterRequest, opts ...grpc.CallOption) (*rpc.RegisterResponse, error) {
+func (ad *AuthDelivery) Register(_ context.Context, in *rpc.RegisterRequest) (*rpc.RegisterResponse, error) {
 	// TODO @winwisely268: currently unimplemented
 	return &rpc.RegisterResponse{
 		Success:     true,
@@ -70,7 +70,7 @@ func (ad *AuthDelivery) Register(_ context.Context, in *rpc.RegisterRequest, opt
 	}, nil
 }
 
-func (ad *AuthDelivery) Login(ctx context.Context, in *rpc.LoginRequest, opts ...grpc.CallOption) (*rpc.LoginResponse, error) {
+func (ad *AuthDelivery) Login(ctx context.Context, in *rpc.LoginRequest) (*rpc.LoginResponse, error) {
 	if in == nil {
 		return &rpc.LoginResponse{}, status.Errorf(codes.Unauthenticated, "Can't authenticate: %v", auth.AuthError{Reason: auth.ErrInvalidParameters})
 	}
@@ -84,10 +84,10 @@ func (ad *AuthDelivery) Login(ctx context.Context, in *rpc.LoginRequest, opts ..
 	}
 	claimant = u
 
-	tokenPairs, err := auth.NewTokenPairs(claimant)
+	tokenPairs, err := ad.TokenCfg.NewTokenPairs(claimant)
 	if err != nil {
 		return &rpc.LoginResponse{
-			ErrorReason: &rpc.ErrorReason{Reason: err.Error() },
+			ErrorReason: &rpc.ErrorReason{Reason: err.Error()},
 		}, status.Errorf(codes.Unauthenticated, "Can't authenticate: %v", auth.AuthError{Reason: auth.ErrCreatingToken, Err: err})
 	}
 	return &rpc.LoginResponse{
@@ -100,13 +100,13 @@ func (ad *AuthDelivery) Login(ctx context.Context, in *rpc.LoginRequest, opts ..
 }
 
 // ObtainAccessClaimsFromMetadata obtains token claims from given context with gRPC metadata.
-func ObtainAccessClaimsFromMetadata(ctx context.Context) (claims auth.TokenClaims, err error) {
+func (ad *AuthDelivery) ObtainAccessClaimsFromMetadata(ctx context.Context) (claims auth.TokenClaims, err error) {
 	var authmeta string
 	if authmeta, err = fromMetadata(ctx); err != nil {
 		return auth.TokenClaims{}, err
 	}
 
-	if claims, err = auth.ParseTokenStringToClaim(authmeta, true); err != nil {
+	if claims, err = ad.TokenCfg.ParseTokenStringToClaim(authmeta, true); err != nil {
 		return auth.TokenClaims{}, err
 	}
 

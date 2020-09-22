@@ -2,7 +2,6 @@ package auth
 
 import (
 	"github.com/getcouragenow/packages/sys-account/authn/pkg/utilities"
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -10,11 +9,25 @@ import (
 )
 
 var (
-	JwtAccessSecret   = []byte(os.Getenv("JWT_ACCESS_SECRET"))
-	JwtRefreshSecret  = []byte(os.Getenv("JWT_REFRESH_SECRET"))
-	AccessExpiration  = 10 * time.Minute    // 10 minutes access token
-	RefreshExpiration = 14 * 24 * time.Hour // two weeks
+	DefaultAccessExpiration  = 10 * time.Minute    // 10 minutes access token
+	DefaultRefreshExpiration = 14 * 24 * time.Hour // two weeks
 )
+
+type TokenConfig struct {
+	AccessSecret      []byte
+	RefreshSecret     []byte
+	AccessExpiration  time.Duration
+	RefreshExpiration time.Duration
+}
+
+func NewTokenConfig(accessSecret, refreshSecret []byte) *TokenConfig {
+	return &TokenConfig{
+		AccessSecret:      accessSecret,
+		RefreshSecret:     refreshSecret,
+		AccessExpiration:  DefaultAccessExpiration,
+		RefreshExpiration: DefaultRefreshExpiration,
+	}
+}
 
 // Claimants are ones who are able to get token claims
 type Claimant interface {
@@ -42,22 +55,22 @@ type TokenPairDetails struct {
 }
 
 // NewTokenPairs returns new TokenPairDetails for given Claimant
-func NewTokenPairs(claimant Claimant) (*TokenPairDetails, error) {
+func (tc *TokenConfig) NewTokenPairs(claimant Claimant) (*TokenPairDetails, error) {
 	var tpd TokenPairDetails
-	cl := NewTokenClaims(AccessExpiration, claimant)
-	accessToken, err := newAccessToken(cl)
+	cl := NewTokenClaims(tc.AccessExpiration, claimant)
+	accessToken, err := tc.newAccessToken(cl)
 	if err != nil {
 		return nil, err
 	}
 	tpd.AccessToken = accessToken
-	rcl := NewTokenClaims(RefreshExpiration, claimant)
-	refreshToken, err := jwt.NewWithClaims(jwt.SigningMethodHS512, rcl).SignedString(JwtRefreshSecret)
+	rcl := NewTokenClaims(tc.RefreshExpiration, claimant)
+	refreshToken, err := jwt.NewWithClaims(jwt.SigningMethodHS512, rcl).SignedString(tc.RefreshSecret)
 	if err != nil {
 		return nil, err
 	}
 	tpd.RefreshToken = refreshToken
-	tpd.ATExpiry = time.Now().Unix() + AccessExpiration.Milliseconds()
-	tpd.RTExpiry = time.Now().Unix() + RefreshExpiration.Milliseconds()
+	tpd.ATExpiry = time.Now().Unix() + tc.AccessExpiration.Milliseconds()
+	tpd.RTExpiry = time.Now().Unix() + tc.RefreshExpiration.Milliseconds()
 	tpd.ATId = utilities.NewID()
 	tpd.RTId = utilities.NewID()
 
@@ -79,16 +92,16 @@ func NewTokenClaims(exp time.Duration, c Claimant) *TokenClaims {
 
 // ParseTokenStringToClaim parses given token (access or refresh) and returns token claims with embedded JWT claims
 // if token is indeed valid
-func ParseTokenStringToClaim(authenticate string, isAccess bool) (TokenClaims, error) {
+func (tc *TokenConfig) ParseTokenStringToClaim(authenticate string, isAccess bool) (TokenClaims, error) {
 	var claims TokenClaims
 	token, err := jwt.ParseWithClaims(authenticate, &claims, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, AuthError{Reason: ErrDecryptionToken}
 		}
 		if isAccess {
-			return JwtAccessSecret, nil
+			return tc.AccessSecret, nil
 		} else {
-			return JwtRefreshSecret, nil
+			return tc.RefreshSecret, nil
 		}
 	})
 	if err != nil {
@@ -102,17 +115,17 @@ func ParseTokenStringToClaim(authenticate string, isAccess bool) (TokenClaims, e
 }
 
 // RenewAccessToken given a refresh token
-func RenewAccessToken(rt string) (string, error) {
-	tc, err := ParseTokenStringToClaim(rt, false)
+func (tc *TokenConfig) RenewAccessToken(rt string) (string, error) {
+	tcl, err := tc.ParseTokenStringToClaim(rt, false)
 	if err != nil {
 		return "", err
 	}
-	return newAccessToken(&tc)
+	return tc.newAccessToken(&tcl)
 }
 
-func newAccessToken(tc *TokenClaims) (string, error) {
+func (tc *TokenConfig) newAccessToken(tcl *TokenClaims) (string, error) {
 	return jwt.NewWithClaims(
 		jwt.SigningMethodHS512,
-		tc,
-	).SignedString(JwtAccessSecret)
+		tcl,
+	).SignedString(tc.AccessSecret)
 }

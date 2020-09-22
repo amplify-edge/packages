@@ -6,12 +6,11 @@ type User struct {
 	Role   string `json:"role"`
 	Email  string `json:"email"`
 	Hash   string `json:"hash"`
-	Salt   string `json:"salt"`
 }
 
-func NewUser(id, role, email, hash, salt string) *User {
+func NewUser(id, role, email, hash string) *User {
 	return &User{
-		id, role, email, hash, salt,
+		id, role, email, hash,
 	}
 }
 

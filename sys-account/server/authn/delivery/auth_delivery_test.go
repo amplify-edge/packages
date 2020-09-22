@@ -14,6 +14,7 @@ import (
 )
 
 var (
+	ad            *delivery.AuthDelivery
 	loginRequests = []*rpc.LoginRequest{
 		{
 			Email:    "someemail@example.com",
@@ -29,14 +30,16 @@ var (
 func TestAuthDeliveryAll(t *testing.T) {
 	os.Setenv("JWT_ACCESS_SECRET", "AccessVerySecretHush!")
 	os.Setenv("JWT_REFRESH_SECRET", "RefreshVeryHushHushFriends!")
+	tc := auth.NewTokenConfig([]byte(os.Getenv("JWT_ACCESS_SECRET")), []byte(os.Getenv("JWT_REFRESH_SECRET")))
+	ad = &delivery.AuthDelivery{
+		Log:      logrus.New().WithField("test", "auth-delivery"),
+		TokenCfg: tc,
+	}
 	t.Run("Test Login User", testUserLogin)
 	t.Parallel()
 }
 
 func testUserLogin(t *testing.T) {
-	ad := delivery.AuthDelivery{
-		Log: &logrus.Logger{},
-	}
 	// empty request
 	_, err := ad.Login(context.Background(), nil)
 	assert.Error(t, err, status.Errorf(codes.Unauthenticated, "Can't authenticate: %v", auth.AuthError{Reason: auth.ErrInvalidParameters}))
