@@ -2,7 +2,7 @@
 
 Right now we have none.
 
-For privacy reason we need to be able to run it ourselves.
+For privacy reasons we need to be able to run it ourselves.
 
 So we use the exact same approach that we use for Deployment Modes, and have a single binary that can run the Telemetry.
 
