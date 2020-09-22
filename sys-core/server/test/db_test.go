@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/genjidb/genji"
-	"github.com/getcouragenow/getcourage-packages/sys-core/server/pkg/db"
+	"github.com/getcouragenow/packages/sys-core/server/pkg/db"
 )
 
 var (

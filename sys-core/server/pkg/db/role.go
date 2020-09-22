@@ -6,6 +6,15 @@ import (
 	"github.com/genjidb/genji"
 )
 
+
+type RoleEnum string
+
+var (
+	var Admin RoeRoleEnum = "Admin"
+	var User RoeRoleEnum = "User"
+	var SuperAdmin RoeRoleEnum = "SuperAdmin"
+)
+
 type Roles struct {
 	ID   string
 	Role string
