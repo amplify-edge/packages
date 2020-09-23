@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/genjidb/genji"
+	"github.com/getcouragenow/packages/sys-accounts/accounts"
 	"github.com/getcouragenow/packages/sys-core/server/pkg/db"
-	"github.com/getcouragenow/packages/sys-core/server/pkg/db/accounts"
 )
 
 var (
