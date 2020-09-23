@@ -22,6 +22,9 @@ func AuthServiceClientCommand(options ...client.Option) *cobra.Command {
 	cmd.AddCommand(
 		_AuthServiceRegisterCommand(cfg),
 		_AuthServiceLoginCommand(cfg),
+		_AuthServiceForgotPasswordCommand(cfg),
+		_AuthServiceResetPasswordCommand(cfg),
+		_AuthServiceRefreshAccessTokenCommand(cfg),
 	)
 	return cmd
 }
@@ -109,6 +112,134 @@ func _AuthServiceLoginCommand(cfg *client.Config) *cobra.Command {
 
 	cmd.PersistentFlags().StringVar(&req.Email, cfg.FlagNamer("Email"), "", "")
 	cmd.PersistentFlags().StringVar(&req.Password, cfg.FlagNamer("Password"), "", "")
+
+	return cmd
+}
+
+func _AuthServiceForgotPasswordCommand(cfg *client.Config) *cobra.Command {
+	req := &ForgotPasswordRequest{}
+
+	cmd := &cobra.Command{
+		Use:   cfg.CommandNamer("ForgotPassword"),
+		Short: "ForgotPassword RPC client",
+		Long:  "ForgotPassword, then ResetPassword if succeed",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if cfg.UseEnvVars {
+				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AuthService"); err != nil {
+					return err
+				}
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AuthService", "ForgotPassword"); err != nil {
+					return err
+				}
+			}
+			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
+				cli := NewAuthServiceClient(cc)
+				v := &ForgotPasswordRequest{}
+
+				if err := in(v); err != nil {
+					return err
+				}
+				proto.Merge(v, req)
+
+				res, err := cli.ForgotPassword(cmd.Context(), v)
+
+				if err != nil {
+					return err
+				}
+
+				return out(res)
+
+			})
+		},
+	}
+
+	cmd.PersistentFlags().StringVar(&req.Email, cfg.FlagNamer("Email"), "", "")
+
+	return cmd
+}
+
+func _AuthServiceResetPasswordCommand(cfg *client.Config) *cobra.Command {
+	req := &ResetPasswordRequest{}
+
+	cmd := &cobra.Command{
+		Use:   cfg.CommandNamer("ResetPassword"),
+		Short: "ResetPassword RPC client",
+		Long:  "",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if cfg.UseEnvVars {
+				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AuthService"); err != nil {
+					return err
+				}
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AuthService", "ResetPassword"); err != nil {
+					return err
+				}
+			}
+			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
+				cli := NewAuthServiceClient(cc)
+				v := &ResetPasswordRequest{}
+
+				if err := in(v); err != nil {
+					return err
+				}
+				proto.Merge(v, req)
+
+				res, err := cli.ResetPassword(cmd.Context(), v)
+
+				if err != nil {
+					return err
+				}
+
+				return out(res)
+
+			})
+		},
+	}
+
+	cmd.PersistentFlags().StringVar(&req.Email, cfg.FlagNamer("Email"), "", "")
+	cmd.PersistentFlags().StringVar(&req.Password, cfg.FlagNamer("Password"), "", "")
+	cmd.PersistentFlags().StringVar(&req.PasswordConfirm, cfg.FlagNamer("PasswordConfirm"), "", "")
+
+	return cmd
+}
+
+func _AuthServiceRefreshAccessTokenCommand(cfg *client.Config) *cobra.Command {
+	req := &RefreshAccessTokenRequest{}
+
+	cmd := &cobra.Command{
+		Use:   cfg.CommandNamer("RefreshAccessToken"),
+		Short: "RefreshAccessToken RPC client",
+		Long:  "Refresh Access Token endpoint",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if cfg.UseEnvVars {
+				if err := flag.SetFlagsFromEnv(cmd.Parent().PersistentFlags(), true, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AuthService"); err != nil {
+					return err
+				}
+				if err := flag.SetFlagsFromEnv(cmd.PersistentFlags(), false, cfg.EnvVarNamer, cfg.EnvVarPrefix, "AuthService", "RefreshAccessToken"); err != nil {
+					return err
+				}
+			}
+			return client.RoundTrip(cmd.Context(), cfg, func(cc grpc.ClientConnInterface, in iocodec.Decoder, out iocodec.Encoder) error {
+				cli := NewAuthServiceClient(cc)
+				v := &RefreshAccessTokenRequest{}
+
+				if err := in(v); err != nil {
+					return err
+				}
+				proto.Merge(v, req)
+
+				res, err := cli.RefreshAccessToken(cmd.Context(), v)
+
+				if err != nil {
+					return err
+				}
+
+				return out(res)
+
+			})
+		},
+	}
+
+	cmd.PersistentFlags().StringVar(&req.RefreshToken, cfg.FlagNamer("RefreshToken"), "", "")
 
 	return cmd
 }

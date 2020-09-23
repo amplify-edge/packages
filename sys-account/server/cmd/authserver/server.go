@@ -14,6 +14,7 @@ import (
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"net"
 	"os"
 	"time"
@@ -72,9 +73,13 @@ func main() {
 		),
 	)
 	rpc.RegisterAuthServiceService(grpcSrv, &rpc.AuthServiceService{
-		Register: authDelivery.Register,
-		Login:    authDelivery.Login,
+		Register:           authDelivery.Register,
+		Login:              authDelivery.Login,
+		ForgotPassword:     authDelivery.ForgotPassword,
+		ResetPassword:      authDelivery.ResetPasssword,
+		RefreshAccessToken: authDelivery.RefreshAccessToken,
 	})
+	reflection.Register(grpcSrv)
 
 	log.Infof("Serving grpc server on %s", "127.0.0.1:8888")
 	grpcSrv.Serve(netLis)

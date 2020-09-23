@@ -3,11 +3,11 @@ package db
 import "log"
 
 func init() {
-	log.Print("DbOpen .....")
+	log.Print("Db " + dbName + "Open .....")
 	var err error
-	database, err = MakeDb(dbName)
+	database, err = makeDb(dbName)
 	if err != nil {
-		log.Fatalf("DbOpen failed: %v", err)
+		log.Fatalf("Db "+dbName+"Open failed: %v", err)
 	}
 }
 
