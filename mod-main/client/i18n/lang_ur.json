@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-09-16T17:35:07.648385",
+  "@@last_modified": "2020-09-22T18:03:12.709484",
   "country": "ملک",
   "@country": {
     "description": "Country",
@@ -156,7 +156,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "rebelsWin": "باغیوں کو جیتنے کی ضرورت تھی",
+  "rebelsWin": "باغیوں کو جیتنے کی ضرورت ہے",
   "@rebelsWin": {
     "description": "Rebels needed to win",
     "placeholders": {},
@@ -204,7 +204,7 @@
     "placeholders": {},
     "type": "text"
   },
-  "needsSatisifiedRequirement": "براہ کرم اس عمل میں شامل ہونے کے ل as زیادہ سے زیادہ سپورٹ یا ضروریات کا انتخاب کریں جو آپ کو مطمئن درکار ہیں۔",
+  "needsSatisifiedRequirement": "براہ کرم زیادہ سے زیادہ حمایت یا ضرورت کو منتخب کریں تاکہ آپ کو اس عمل میں شامل ہونے کے لئے مطمئن درکار ہو۔",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
     "placeholders": {},

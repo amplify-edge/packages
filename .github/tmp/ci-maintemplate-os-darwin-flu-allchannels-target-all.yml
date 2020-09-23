@@ -1,4 +1,4 @@
-name: ci-maintemplate-os-darwin-flu-beta-target-web
+name: ci-maintemplate-os-darwin-flu-allchannels-target-all
 
 on:
   push:
@@ -35,8 +35,8 @@ jobs:
       matrix:
         os: [macos-latest]
         go-version: [1.15.2]
-        flu-channel: [beta"]
-        target: ["this-flu-web-build"]
+        flu-channel: ["dev", "beta", "stable"]
+        target: ["this-build", "this-flu-desk-build"]
 
     runs-on: ${{ matrix.os }}
 
@@ -57,7 +57,6 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: ${{ matrix.flu-channel }}
-          
 
       - name: make ${{ matrix.target }}
         run: |

@@ -34,13 +34,6 @@ this-build: this-build-clean
 this-build-clean:
 	rm -rf ${GO_BIN_NAME}
 
-## Build all platforms
-this-build-all: this-build-clean-all
-	$(MAKE) go-build-all
-
-this-build-clean-all:
-	$(MAKE) go-build-clean-all
-
 this-test:
 	go test -v ./...
 

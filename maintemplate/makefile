@@ -11,6 +11,12 @@ include $(BOILERPLATE_FSPATH)/go.mk
 override FLU_SAMPLE_NAME =client
 override FLU_LIB_NAME =client
 
+# go build
+override GO_FSPATH:=${PWD}/server/cmd
+override GO_BIN_NAME=maintemplate
+override GO_BUILD_OUT_FSPATH:=${GOPATH}/bin/$(GO_BIN_NAME)
+override GO_BUILD_OUT_ALL_FSPATH=${PWD}/server/assets
+
 ## Print all settings
 this-print: ## print
 
@@ -24,12 +30,17 @@ this-print: ## print
 
 ## This builds everything
 this-build: ##
-	$(MAKE) flu-gen-lang
-	$(MAKE) flu-gen-lang-dart
-
+	$(MAKE) go-build
+	$(MAKE) flu-gen-all
+	$(MAKE) flu-gen-lang-all
+	$(MAKE) flu-web-build
+	
 ## This builds maintemplate and all submodules
 this-build-all: ##
-	$(MAKE) this-build
+
+	# DO bottom up so we get the embeddings i think.
+	cd ../sys-core && make this-build
+
 	# COMENTED OUT stuff we dont need for v2
 	#cd ../mod-account && make this-build
 	#cd ../mod-chat && make this-build
@@ -39,6 +50,11 @@ this-build-all: ##
 	#cd ../mod-write && make this-build
 	#cd ../mod-ion && make this-build
 	#cd ../mod-kanban && make this-build
+
+	# finally build the top :)
+	$(MAKE) this-build
+	
+	
 
 
 

@@ -1,4 +1,4 @@
-module github.com/getcouragenow/core-runtime/tool/lang
+module github.com/getcouragenow/core-runtime/tool/bs-lang
 
 go 1.14
 

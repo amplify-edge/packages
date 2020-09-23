@@ -1,4 +1,4 @@
-module github.com/getcouragenow/core-runtime/tool/hugo
+module github.com/getcouragenow/core-runtime/tool/bs-hugo
 
 go 1.14
 

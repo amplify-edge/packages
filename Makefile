@@ -37,20 +37,33 @@ this-dep:
 	# install tools
 	cd ./tool && $(MAKE) this-build
 
-## Build
+### CI
+
+## Build for CI. Does Big Gen !
 this-build: this-dep
 	# Does full gen and build (web)
 	cd ./maintemplate && $(MAKE) this-build
 
+## Build Desk For CI. Does Big Gen !
 this-flu-desk-build: this-dep
-	# For CI. Does Big Gen !
-	#cd ./maintemplate && $(MAKE) flu-gen
 	cd ./maintemplate && $(MAKE) flu-desk-build
 
+### Developers
+
+# NOTE: At dev time you only want to run long generators IF you know you need then.
+# So here are the make targets to use as you see fit.
+# Manaully do a "make this-dep" to get the golang tools yourself.
+# Manaully do a "make flu-config" to set to beta channnel yourself.
+# Manaully do a "make flu-gen-all" to gen all code yourself.
+# Manually do a "make flu-gen-lang-all" to gen all languages yourself.
+
+### For Local dev. Does NOT do big Gen !
 this-flu-desk-run:
-	# For Local dev- Does NOT do big Gen !
-	# Manaully do a make this-dep to get the goalng tools yourself.
+
 	cd ./maintemplate && $(MAKE) flu-desk-run
 
+### For Local dev. Does NOT do big Gen !
+this-flu-web-run:
 	
 
+	cd ./maintemplate && $(MAKE) flu-web-run

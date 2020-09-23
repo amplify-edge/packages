@@ -121,7 +121,7 @@ flu-desk-build:
 ### GEN 
 
 ## Generates all code
-flu-gen:
+flu-gen-all:
 	cd $(FLU_LIB_FSPATH) && flutter packages get
 	$(MAKE) gen-icons
 	$(MAKE) gen-hive
@@ -191,11 +191,7 @@ flu-gen-lang-print:
 	@echo FLU_LANG_GENERATED_DIR: 			$(FLU_LANG_GENERATED_DIR)
 	@echo FLU_LANG_TEMPLATE_NAME: 			$(FLU_LANG_TEMPLATE_NAME)
 	@echo FLU_LANG_FILE_PREFIX_OUT: 		$(FLU_LANG_FILE_PREFIX_OUT)
-	@echo	
-
-## Grabs the binary tool needed ( REDUNDANT when using BS tool )
-flu-gen-lang-dep:
-	#go get -u github.com/getcouragenow/core-runtime/tool/i18n
+	@echo
 
 
 ## Generates language file for maintemplate and all submodules
@@ -233,7 +229,7 @@ flu-gen-lang:
 	
 	@echo -- Translating Text
 	$(TOOL_LANG_BIN_NAME) flutter --dir $(FLU_LANG_DIR) --template $(FLU_LANG_TEMPLATE_PATH) --prefix $(FLU_LANG_FILE_PREFIX_OUT) --languages $(FLU_LANG_LOCALES) -f
-	$(TOOL_LANG_BIN_NAME) --dir $(FLU_LANG_DIR)
+	$(TOOL_LANG_BIN_NAME) flutter --dir $(FLU_LANG_DIR)
 
 ## Generates dart code out of arb files
 flu-gen-lang-dart:

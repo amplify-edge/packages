@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/getcouragenow/core-runtime/tool/lang/services"
+	"github.com/getcouragenow/core-runtime/tool/bs-lang/services"
 )
 
 var (
