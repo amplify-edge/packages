@@ -16,7 +16,7 @@ override FLU_LIB_NAME =client
 
 # go build
 override GO_FSPATH:=${PWD}/server/cmd
-override GO_BIN_NAME=mod-main
+override GO_BIN_NAME=sys-main
 override GO_BUILD_OUT_FSPATH:=${GOPATH}/bin/$(GO_BIN_NAME)
 override GO_BUILD_OUT_ALL_FSPATH=${PWD}/server/assets
 
@@ -36,32 +36,6 @@ this-print: ## print
 
 	$(MAKE) flu-gen-lang-print
 
-
-## CI
-
-## This builds everything
-this-build: ##
-	# Only build what maintemplate needs
-
-	# FLU
-	$(MAKE) flu-gen-all
-	$(MAKE) flu-gen-lang-all
-	$(MAKE) flu-web-build
-
-	# GO
-	# Gen Test data
-	# Gen other... 
-
-## This builds this and all submodules
-this-build-all: ##
-
-	# DO bottom up so we get the embeddings i think.
-	cd ../sys-core && make this-build
-	
-
-
-	# finally build the top :)
-	$(MAKE) this-build
 
 ### DEV
 

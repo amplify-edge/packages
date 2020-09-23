@@ -20,6 +20,15 @@ var (
 	envFile = flag.String("c", "./env.sample", "path to config file")
 )
 
+/*
+
+boot grpc
+boot http server for flutter
+load its assets
+load its sub assets
+
+*/
+
 // TODO need environment vars
 func main() {
 	flag.Parse()
