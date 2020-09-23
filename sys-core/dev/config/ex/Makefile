@@ -28,7 +28,7 @@ ex-run:
 	cd $(LIB_FSPATH)/cmd/cfx-example && EXAMPLE_FOO_BAR_APP_ID=example-app go run main.go
 
 ex-run1:
-	cd $(LIB_FSPATH)/cmd/cfx-example && go run main.go
+	cd $(LIB_FSPATH)/cmd/cfx-example && name1=app1 go run main.go
 
 # TODO
 # foo and bar are compacted into base.yaml. 

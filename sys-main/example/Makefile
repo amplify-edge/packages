@@ -2,7 +2,7 @@
 # In the boilerpalte make files dont do any includes, because you will create multi permutations of possibilities.
 
 # git include
-BOILERPLATE_FSPATH=./../boilerplate
+BOILERPLATE_FSPATH=./../../boilerplate
 include $(BOILERPLATE_FSPATH)/help.mk
 include $(BOILERPLATE_FSPATH)/os.mk
 include $(BOILERPLATE_FSPATH)/tool.mk
@@ -16,7 +16,7 @@ override FLU_LIB_NAME =client
 
 # go build
 override GO_FSPATH:=${PWD}/server/cmd
-override GO_BIN_NAME=mod-main
+override GO_BIN_NAME=sys-main
 override GO_BUILD_OUT_FSPATH:=${GOPATH}/bin/$(GO_BIN_NAME)
 override GO_BUILD_OUT_ALL_FSPATH=${PWD}/server/assets
 
@@ -43,22 +43,24 @@ this-print: ## print
 this-build: ##
 	# Only build what maintemplate needs
 
+	# Copy config of all subs up to me !!
+
+	# GO
+	# Change to using go-generate
+
 	# FLU
+	# Change to using go-generate
 	$(MAKE) flu-gen-all
 	$(MAKE) flu-gen-lang-all
 	$(MAKE) flu-web-build
 
-	# GO
-	# Gen Test data
-	# Gen other... 
+
 
 ## This builds this and all submodules
 this-build-all: ##
 
-	# DO bottom up so we get the embeddings i think.
+	# Do bottom up so we get the embeddings i think.
 	cd ../sys-core && make this-build
-	
-
 
 	# finally build the top :)
 	$(MAKE) this-build

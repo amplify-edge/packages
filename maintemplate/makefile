@@ -29,6 +29,10 @@ this-print: ## print
 
 	$(MAKE) go-print
 
+
+
+### CI
+
 ## This builds everything
 this-build: ##
 	$(MAKE) go-build
@@ -57,5 +61,23 @@ this-build-all: ##
 	
 	
 
+### DEV
 
+### DEV
+
+this-example-build:
+	## GO
+	$(MAKE) go-build
+
+	## FLU
+	$(MAKE) flu-gen-all
+	$(MAKE) flu-gen-lang-all
+	$(MAKE) flu-web-build
+
+this-example-go-run:
+	$(MAKE) go-run
+
+this-example-flu-run:
+	# web is broken currently.
+	$(MAKE) flu-desk-run
 

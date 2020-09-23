@@ -10,7 +10,7 @@ Provides all functionality related to:
 
 Examples:
 
-- user can search for campaigns by  location and see then on a map
+- user can search for campaigns by location and see then on a map
 
 - campaigner can see where all their volunteers are in real time.
 
