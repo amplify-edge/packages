@@ -8,6 +8,7 @@ include $(BOILERPLATE_FSPATH)/tool.mk
 include $(BOILERPLATE_FSPATH)/flu.mk
 include $(BOILERPLATE_FSPATH)/go.mk
 
+# flu build
 override FLU_SAMPLE_NAME =client
 override FLU_LIB_NAME =client
 

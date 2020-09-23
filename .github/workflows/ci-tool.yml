@@ -15,7 +15,7 @@ on:
 
 jobs:
   all:
-    name: CI - tool smoke.
+    name: CI - tool smoke
    
     strategy:
       fail-fast: false
