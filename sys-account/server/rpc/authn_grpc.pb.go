@@ -19,6 +19,11 @@ const _ = grpc.SupportPackageIsVersion7
 type AuthServiceClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	// ForgotPassword, then ResetPassword if succeed
+	ForgotPassword(ctx context.Context, in *ForgotPasswordRequest, opts ...grpc.CallOption) (*ForgotPasswordResponse, error)
+	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*ResetPasswordResponse, error)
+	// Refresh Access Token endpoint
+	RefreshAccessToken(ctx context.Context, in *RefreshAccessTokenRequest, opts ...grpc.CallOption) (*RefreshAccessTokenResponse, error)
 }
 
 type authServiceClient struct {
@@ -55,6 +60,45 @@ func (c *authServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 	return out, nil
 }
 
+var authServiceForgotPasswordStreamDesc = &grpc.StreamDesc{
+	StreamName: "ForgotPassword",
+}
+
+func (c *authServiceClient) ForgotPassword(ctx context.Context, in *ForgotPasswordRequest, opts ...grpc.CallOption) (*ForgotPasswordResponse, error) {
+	out := new(ForgotPasswordResponse)
+	err := c.cc.Invoke(ctx, "/proto.AuthService/ForgotPassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+var authServiceResetPasswordStreamDesc = &grpc.StreamDesc{
+	StreamName: "ResetPassword",
+}
+
+func (c *authServiceClient) ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*ResetPasswordResponse, error) {
+	out := new(ResetPasswordResponse)
+	err := c.cc.Invoke(ctx, "/proto.AuthService/ResetPassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+var authServiceRefreshAccessTokenStreamDesc = &grpc.StreamDesc{
+	StreamName: "RefreshAccessToken",
+}
+
+func (c *authServiceClient) RefreshAccessToken(ctx context.Context, in *RefreshAccessTokenRequest, opts ...grpc.CallOption) (*RefreshAccessTokenResponse, error) {
+	out := new(RefreshAccessTokenResponse)
+	err := c.cc.Invoke(ctx, "/proto.AuthService/RefreshAccessToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceService is the service API for AuthService service.
 // Fields should be assigned to their respective handler implementations only before
 // RegisterAuthServiceService is called.  Any unassigned fields will result in the
@@ -62,6 +106,11 @@ func (c *authServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 type AuthServiceService struct {
 	Register func(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	Login    func(context.Context, *LoginRequest) (*LoginResponse, error)
+	// ForgotPassword, then ResetPassword if succeed
+	ForgotPassword func(context.Context, *ForgotPasswordRequest) (*ForgotPasswordResponse, error)
+	ResetPassword  func(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error)
+	// Refresh Access Token endpoint
+	RefreshAccessToken func(context.Context, *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error)
 }
 
 func (s *AuthServiceService) register(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -98,6 +147,57 @@ func (s *AuthServiceService) login(_ interface{}, ctx context.Context, dec func(
 	}
 	return interceptor(ctx, in, info, handler)
 }
+func (s *AuthServiceService) forgotPassword(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForgotPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.ForgotPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/proto.AuthService/ForgotPassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.ForgotPassword(ctx, req.(*ForgotPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+func (s *AuthServiceService) resetPassword(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResetPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.ResetPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/proto.AuthService/ResetPassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.ResetPassword(ctx, req.(*ResetPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+func (s *AuthServiceService) refreshAccessToken(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RefreshAccessTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.RefreshAccessToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/proto.AuthService/RefreshAccessToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.RefreshAccessToken(ctx, req.(*RefreshAccessTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 
 // RegisterAuthServiceService registers a service implementation with a gRPC server.
 func RegisterAuthServiceService(s grpc.ServiceRegistrar, srv *AuthServiceService) {
@@ -112,6 +212,21 @@ func RegisterAuthServiceService(s grpc.ServiceRegistrar, srv *AuthServiceService
 			return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 		}
 	}
+	if srvCopy.ForgotPassword == nil {
+		srvCopy.ForgotPassword = func(context.Context, *ForgotPasswordRequest) (*ForgotPasswordResponse, error) {
+			return nil, status.Errorf(codes.Unimplemented, "method ForgotPassword not implemented")
+		}
+	}
+	if srvCopy.ResetPassword == nil {
+		srvCopy.ResetPassword = func(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error) {
+			return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
+		}
+	}
+	if srvCopy.RefreshAccessToken == nil {
+		srvCopy.RefreshAccessToken = func(context.Context, *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error) {
+			return nil, status.Errorf(codes.Unimplemented, "method RefreshAccessToken not implemented")
+		}
+	}
 	sd := grpc.ServiceDesc{
 		ServiceName: "proto.AuthService",
 		Methods: []grpc.MethodDesc{
@@ -122,6 +237,18 @@ func RegisterAuthServiceService(s grpc.ServiceRegistrar, srv *AuthServiceService
 			{
 				MethodName: "Login",
 				Handler:    srvCopy.login,
+			},
+			{
+				MethodName: "ForgotPassword",
+				Handler:    srvCopy.forgotPassword,
+			},
+			{
+				MethodName: "ResetPassword",
+				Handler:    srvCopy.resetPassword,
+			},
+			{
+				MethodName: "RefreshAccessToken",
+				Handler:    srvCopy.refreshAccessToken,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},

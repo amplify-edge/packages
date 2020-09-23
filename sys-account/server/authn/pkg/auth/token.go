@@ -115,12 +115,9 @@ func (tc *TokenConfig) ParseTokenStringToClaim(authenticate string, isAccess boo
 }
 
 // RenewAccessToken given a refresh token
-func (tc *TokenConfig) RenewAccessToken(rt string) (string, error) {
-	tcl, err := tc.ParseTokenStringToClaim(rt, false)
-	if err != nil {
-		return "", err
-	}
-	return tc.newAccessToken(&tcl)
+func (tc *TokenConfig) RenewAccessToken(tcl *TokenClaims) (string, error) {
+	// TODO @winwisely268: RenewAccessToken should remove / invalidates the currently supplied access token first
+	return tc.newAccessToken(tcl)
 }
 
 func (tc *TokenConfig) newAccessToken(tcl *TokenClaims) (string, error) {
