@@ -106,9 +106,9 @@ go-run: go-run-test-client
 ## Building both the authserver and the authclient binaries
 go-build:
 	@echo Building AuthServer binary
-	cd $(GO_FSPATH)/authserver/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/server
+	cd $(GO_FSPATH)/cmd/authserver/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/authserver
 	@echo Building AuthClient binary
-	cd $(GO_FSPATH)/authclient/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/client
+	cd $(GO_FSPATH)/cmd/authclient/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/authclient
 
 go-run-test-client: go-build
 	@echo testing grpc-client for login
