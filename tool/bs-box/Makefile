@@ -47,14 +47,18 @@ this-build: this-build-clean
 this-build-clean:
 	rm -f ${GO_BUILD_OUT_FSPATH}
 
+
 this-test:
 	go test -v ./...
 
 	@echo TODO - call flutter tests !!
 
+## Build Example
 this-ex-build:
 	cd mod01 && $(MAKE) build
 	cd maintemplate && $(MAKE) build
+
+## Run Example
 this-ex-run:
 	cd maintemplate && $(MAKE) run
 
