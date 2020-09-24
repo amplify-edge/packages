@@ -1,6 +1,6 @@
-module github.com/getcouragenow/core-runtime/tool/bs-lang
+module github.com/getcouragenow/packages/tool/bs-lang
 
-go 1.14
+go 1.15
 
 require (
 	github.com/bregydoc/gtranslate v0.0.0-20191225024717-45b28d4fda86

@@ -37,6 +37,9 @@ this-dep:
 	# install tools
 	cd ./tool && $(MAKE) this-build
 
+	# Install our grpc tools
+	#$(MAKE) grpc-all
+
 ### CI
 
 ## Build for CI. Does Big Gen !

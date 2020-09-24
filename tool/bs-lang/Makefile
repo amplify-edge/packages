@@ -20,11 +20,14 @@ this-print:
 	@echo
 	@echo -- TOOL LANG --
 	@echo GO_FSPATH 				${GO_FSPATH}
-	@echo TOOL_LANG_BIN_NAME 		${TOOL_LANG_BIN_NAME}
+	@echo GO_BIN_NAME 				${GO_BIN_NAME}
 	@echo GO_BUILD_OUT_FSPATH: 		${GO_BUILD_OUT_FSPATH}
 	@echo GO_BUILD_OUT_ALL_FSPATH: 	${GO_BUILD_OUT_ALL_FSPATH}
 	
 	@echo
+## fixes go mod
+this-mod:
+	$(MAKE) go-mod-update
 
 ## Build
 this-build: this-build-clean
@@ -32,7 +35,7 @@ this-build: this-build-clean
 	which ${GO_BIN_NAME}
 
 this-build-clean:
-	rm -rf ${GO_BIN_NAME}
+	rm -f ${GO_BUILD_OUT_FSPATH}
 
 this-test:
 	go test -v ./...

@@ -4,8 +4,8 @@ import (
 	"log"
 	"sync"
 
-	"github.com/getcouragenow/core-runtime/tool/googlesheet/services"
-	"github.com/getcouragenow/core-runtime/tool/googlesheet/services/config"
+	"github.com/getcouragenow/packages/tool/googlesheet/services"
+	"github.com/getcouragenow/packages/tool/googlesheet/services/config"
 )
 
 // Service service

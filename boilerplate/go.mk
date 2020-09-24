@@ -94,6 +94,10 @@ go-os-clean:
 	go clean -modcache
 	go clean -testcache
 
+## Updates go mod file
+go-mod-update:
+	go mod tidy
+
 ## Run the code
 go-run:
 	@echo Running

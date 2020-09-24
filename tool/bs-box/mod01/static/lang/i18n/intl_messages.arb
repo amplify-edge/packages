@@ -1,19 +1,14 @@
-package services_test
-
-import (
-	"io/ioutil"
-	"testing"
-
-	"github.com/getcouragenow/packages/tool/bs-lang/services"
-)
-
-var (
-	arbData = []byte(`
 {
-  "@@last_modified": "2020-05-08T01:32:44.656753",
-  "country": "Country Road Take Me Home To The Place I Belong West Virginia Country Mama Take Me Home Country Road",
+  "@@last_modified": "2020-09-22T18:03:12.709484",
+  "country": "Country",
   "@country": {
     "description": "Country",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutYou": "About you",
+  "@aboutYou": {
+    "description": "About You",
     "type": "text",
     "placeholders": {}
   },
@@ -32,6 +27,36 @@ var (
   "whereAreYou": "Where are you?",
   "@whereAreYou": {
     "description": "Where are you?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "travelDistance": "How far are you willing to travel?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "howOldAreYou": "How old are you?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "campaignAffiliation": "Do you have a campaign affiliation?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "distanceInKM": "Enter distance in kilometers",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
     "type": "text",
     "placeholders": {}
   },
@@ -221,41 +246,4 @@ var (
     "type": "text",
     "placeholders": {}
   }
-}
-`)
-)
-
-const (
-	success = "\u2713"
-	failed  = "\u274c"
-)
-
-func TestTranslate(t *testing.T) {
-	if err := ioutil.WriteFile("/tmp/data.arb", arbData, 0644); err != nil {
-		t.Fatalf("\t%s\tShould be able to write data file to /tmp: %v", failed, err)
-	}
-	t.Run("Test Multi Languages Files From Template", testGenerateMultiLanguageFilesFromTemplate)
-}
-
-func testGenerateMultiLanguageFilesFromTemplate(t *testing.T) {
-	t.Log("Test multi language files from template")
-	{
-		err := services.GenerateMultiLanguageFilesFromTemplate(
-			"/tmp/data.arb",
-			"/tmp",
-			"out",
-			".json",
-			[]string{"fr", "es", "de", "it", "ur"},
-			false,
-		)
-		if err != nil {
-			t.Fatalf(
-				"\t%s\tShould be able to write translated output files to /tmp, got: %v",
-				failed,
-				err,
-			)
-		}
-		t.Logf("\t%s\tShould be able to write translated output files to /tmp",
-			success)
-	}
 }

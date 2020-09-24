@@ -11,7 +11,7 @@ include $(BOILERPLATE_FSPATH)/flu.mk
 
 
 # flu build
-override FLU_SAMPLE_NAME =client/example
+override FLU_SAMPLE_NAME =client
 override FLU_LIB_NAME =client
 
 # go build
@@ -36,21 +36,32 @@ this-print: ## print
 
 	$(MAKE) flu-gen-lang-print
 
+## Gen everything
+this-gen: ##
+	# Only build what maintemplate needs
 
-### DEV
+	# Copy config of all subs up to me !!
 
-this-example-build:
-	## GO
-	$(MAKE) go-build
+	# To build or run this use example.
 
-	## FLU
-	$(MAKE) flu-gen-all
-	$(MAKE) flu-gen-lang-all
-	$(MAKE) flu-web-build
+	# GO
+	# Change to using go-generate
+	cd server && go generate
 
-this-example-go-run:
-	$(MAKE) go-run
 
-this-example-flu-run:
-	# web is broken currently.
-	$(MAKE) flu-desk-run
+	# FLU
+	# Change to using go-generate
+	#$(MAKE) flu-gen-all
+	#$(MAKE) flu-gen-lang-all
+	#$(MAKE) flu-desk-build
+	#$(MAKE) flu-web-build
+
+	
+this-mod:
+	cd ./server && go mod tidy
+
+this-run:
+	cd ./server/cmd and go run .
+	
+this-build:
+	cd ./server/cmd and go build .

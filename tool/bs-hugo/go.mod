@@ -1,8 +1,8 @@
-module github.com/getcouragenow/core-runtime/tool/bs-hugo
+module github.com/getcouragenow/packages/tool/bs-hugo
 
-go 1.14
+go 1.15
 
 require (
 	github.com/gobuffalo/envy v1.9.0 // indirect
-	github.com/gohugoio/hugo v0.71.0
+	github.com/gohugoio/hugo v0.75.0
 )
