@@ -1,7 +1,10 @@
 package db
 
 import (
+	"crypto/md5"
+	"fmt"
 	"log"
+	"time"
 
 	"github.com/dgraph-io/badger/v2"
 	"github.com/genjidb/genji"
@@ -13,7 +16,9 @@ import (
 var (
 	database *genji.DB
 	dbName   = "getcouragenow.db"
-	models   = make(map[string][]DbModel)
+	//Move the encrypt key to the yml configuration file later.
+	dbEncryptKey = "testkey!@"
+	models       = make(map[string][]DbModel)
 )
 
 //UID Generate ksuid.
@@ -34,8 +39,22 @@ func SharedDatabase() *genji.DB {
 	return database
 }
 
-func makeDb(name string) (*genji.DB, error) {
+func md5enc(str string) []byte {
+	h := md5.New()
+	h.Write([]byte(str))
+	return h.Sum(nil)
+}
+
+func makeDb(name string, key string) (*genji.DB, error) {
 	// Create a badger engine
+	options := badger.DefaultOptions(name)
+	if len(key) == 0 {
+		return nil, fmt.Errorf("[%s] Invalid encryption key", name)
+	}
+	// The key length must be 16 or 32, so use md5 to encrypt once.
+	options.EncryptionKey = md5enc(key)
+	// Set to 180 days or something else?
+	options.EncryptionKeyRotationDuration = 180 * 24 * time.Hour
 	ng, err := badgerengine.NewEngine(badger.DefaultOptions(name))
 	if err != nil {
 		log.Fatal(err)
