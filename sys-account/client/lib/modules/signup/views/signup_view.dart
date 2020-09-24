@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mod_account/modules/signup/view_model/signup_view_model.dart';
+import 'package:sys_account/modules/signup/view_model/signup_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:mod_account/core/core.dart';
-
-
+import 'package:sys_account/core/core.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({Key key, this.campaignID}) : super(key: key);
@@ -14,15 +12,13 @@ class SignUpView extends StatefulWidget {
 }
 
 class SignUpViewState extends State<SignUpView> {
-
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider.withConsumer(
       viewModel: SignUpViewModel(),
-      builder: (context, SignUpViewModel model, child) =>
-           Scaffold(
-             appBar: AppBar(),
-            body: ListView(
+      builder: (context, SignUpViewModel model, child) => Scaffold(
+        appBar: AppBar(),
+        body: ListView(
           children: <Widget>[
             const SizedBox(height: 16.0),
             Align(
@@ -35,86 +31,98 @@ class SignUpViewState extends State<SignUpView> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(ModAccountLocalizations.of(context).translate('signUpForAccount'),
-                    style: Theme.of(context).textTheme.display1),
+              child: Text(
+                  ModAccountLocalizations.of(context)
+                      .translate('signUpForAccount'),
+                  style: Theme.of(context).textTheme.display1),
             ),
             const SizedBox(height: 32.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: ModAccountLocalizations.of(context).translate('emailAddress') + ' *',
-                    labelStyle: Theme.of(context).textTheme.bodyText2,
-                    suffix: const Icon(Icons.email),
-                  ),
-                ),
-            ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      '* ' + ModAccountLocalizations.of(context).translate('needProtonMail'),
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _showProtonMail(context);
-                      },
-                      child: Text(
-                        ModAccountLocalizations.of(context).translate('explainWhy'),
-                        style: Theme.of(context).textTheme.body2.copyWith(
-                              color: Theme.of(context).accentColor,
-                              fontStyle: FontStyle.italic,
-                            ),
-                      ),
-                    )
-                  ],
+                decoration: InputDecoration(
+                  labelText: ModAccountLocalizations.of(context)
+                          .translate('emailAddress') +
+                      ' *',
+                  labelStyle: Theme.of(context).textTheme.bodyText2,
+                  suffix: const Icon(Icons.email),
                 ),
               ),
-               const SizedBox(height: 32.0),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    '* ' +
+                        ModAccountLocalizations.of(context)
+                            .translate('needProtonMail'),
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _showProtonMail(context);
+                    },
+                    child: Text(
+                      ModAccountLocalizations.of(context)
+                          .translate('explainWhy'),
+                      style: Theme.of(context).textTheme.body2.copyWith(
+                            color: Theme.of(context).accentColor,
+                            fontStyle: FontStyle.italic,
+                          ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 32.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: ModAccountLocalizations.of(context).translate('password'),
-                    labelStyle: Theme.of(context).textTheme.body2,
-                    suffix: Icon(Icons.lock_outline),
-                  ),
-                ),
-            ),
-             Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                child: Text(
-                  ModAccountLocalizations.of(context).translate('passwordStrength'),
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText:
+                      ModAccountLocalizations.of(context).translate('password'),
+                  labelStyle: Theme.of(context).textTheme.body2,
+                  suffix: Icon(Icons.lock_outline),
                 ),
               ),
-             const SizedBox(height: 32.0),
-             Padding(
-               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-               child: TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: ModAccountLocalizations.of(context).translate('passwordAgain'),
-                    labelStyle: Theme.of(context).textTheme.body2,
-                    suffix: Icon(Icons.lock_outline),
-                  ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              child: Text(
+                ModAccountLocalizations.of(context)
+                    .translate('passwordStrength'),
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+            const SizedBox(height: 32.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: ModAccountLocalizations.of(context)
+                      .translate('passwordAgain'),
+                  labelStyle: Theme.of(context).textTheme.body2,
+                  suffix: Icon(Icons.lock_outline),
                 ),
-             ),
-             const SizedBox(height: 32.0),
+              ),
+            ),
+            const SizedBox(height: 32.0),
             ListTile(
-              title: Text(ModAccountLocalizations.of(context).translate('meetOthersSharedInterest')),
+              title: Text(ModAccountLocalizations.of(context)
+                  .translate('meetOthersSharedInterest')),
             ),
             RadioListTile<bool>(
               title: Text(ModAccountLocalizations.of(context).translate('yes')),
               value: true,
               groupValue: model.meetOthers,
               onChanged: (value) {
-               model.selectMeetOthers(value);
+                model.selectMeetOthers(value);
               },
             ),
             RadioListTile<bool>(
@@ -122,18 +130,19 @@ class SignUpViewState extends State<SignUpView> {
               value: false,
               groupValue: model.meetOthers,
               onChanged: (bool value) {
-               model.selectMeetOthers(value);
+                model.selectMeetOthers(value);
               },
             ),
             ListTile(
-              title: Text(ModAccountLocalizations.of(context).translate('civilDisobedienceTraining')),
+              title: Text(ModAccountLocalizations.of(context)
+                  .translate('civilDisobedienceTraining')),
             ),
-             RadioListTile<bool>(
+            RadioListTile<bool>(
               title: Text(ModAccountLocalizations.of(context).translate('yes')),
               value: true,
               groupValue: model.haveTraining,
               onChanged: (value) {
-               model.selectTraining(value);
+                model.selectTraining(value);
               },
             ),
             RadioListTile<bool>(
@@ -141,14 +150,16 @@ class SignUpViewState extends State<SignUpView> {
               value: false,
               groupValue: model.haveTraining,
               onChanged: (bool value) {
-               model.selectTraining(value);
+                model.selectTraining(value);
               },
             ),
             ListTile(
-              title: Text(ModAccountLocalizations.of(context).translate('setupNotificationChannel')),
+              title: Text(ModAccountLocalizations.of(context)
+                  .translate('setupNotificationChannel')),
             ),
             SwitchListTile(
-              title: Text(ModAccountLocalizations.of(context).translate('email')),
+              title:
+                  Text(ModAccountLocalizations.of(context).translate('email')),
               value: model.emailEnabled,
               onChanged: (bool value) {
                 model.enableEmail(value);
@@ -156,7 +167,8 @@ class SignUpViewState extends State<SignUpView> {
               secondary: const Icon(Icons.email),
             ),
             SwitchListTile(
-              title: Text(ModAccountLocalizations.of(context).translate('appMessaging')),
+              title: Text(ModAccountLocalizations.of(context)
+                  .translate('appMessaging')),
               value: model.messagesEnabled,
               onChanged: (bool value) {
                 model.enableMessages(value);
@@ -167,14 +179,15 @@ class SignUpViewState extends State<SignUpView> {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: <Widget>[
-                
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Center(
                         child: RaisedButton(
                           padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: Text(ModAccountLocalizations.of(context).translate('signUp'),
+                          child: Text(
+                              ModAccountLocalizations.of(context)
+                                  .translate('signUp'),
                               style: Theme.of(context).textTheme.body2),
                           onPressed: () {
                             Modular.to.pushReplacementNamed('/home');
@@ -193,7 +206,8 @@ class SignUpViewState extends State<SignUpView> {
                           _showBottomSheet(context);
                         },
                         child: Text(
-                          ModAccountLocalizations.of(context).translate('privacyPolicy'),
+                          ModAccountLocalizations.of(context)
+                              .translate('privacyPolicy'),
                           style: Theme.of(context).textTheme.body2.copyWith(
                                 color: Theme.of(context).accentColor,
                                 decoration: TextDecoration.underline,
@@ -244,9 +258,10 @@ class SignUpViewState extends State<SignUpView> {
                   children: <Widget>[
                     const SizedBox(height: 24),
                     ListTile(
-                      title: Text(ModAccountLocalizations.of(context).translate('whyProtonMail')),
-                      subtitle: Text(
-                          ModAccountLocalizations.of(context).translate('protonMailExplanation')),
+                      title: Text(ModAccountLocalizations.of(context)
+                          .translate('whyProtonMail')),
+                      subtitle: Text(ModAccountLocalizations.of(context)
+                          .translate('protonMailExplanation')),
                     )
                   ],
                 ),
@@ -259,7 +274,6 @@ class SignUpViewState extends State<SignUpView> {
   }
 
   void _showBottomSheet(BuildContext context) {
-   
     showModalBottomSheet<Widget>(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -295,7 +309,8 @@ class SignUpViewState extends State<SignUpView> {
                   children: <Widget>[
                     const SizedBox(height: 24),
                     ListTile(
-                      title: Text(ModAccountLocalizations.of(context).translate('privacyPolicy')),
+                      title: Text(ModAccountLocalizations.of(context)
+                          .translate('privacyPolicy')),
                     ),
                   ],
                 ),
