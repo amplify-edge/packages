@@ -5,6 +5,7 @@ include $(BOILERPLATE_FSPATH)/os.mk
 include $(BOILERPLATE_FSPATH)/tool.mk
 include $(BOILERPLATE_FSPATH)/flu.mk
 include $(BOILERPLATE_FSPATH)/go.mk
+include $(BOILERPLATE_FSPATH)/grpc.mk
 include ./server/Makefile
 
 
@@ -27,12 +28,11 @@ this-print: ## print
 	#$(MAKE) srv-print
 
 ## This builds everything
-this-build: #go-gen-dep
+this-build: grpc-all-git-delete grpc-all-git-clone grpc-go-build grpc-grpcui-build grpc-protoc-build
 	@echo "Generating GRPC models and services for Go & Flutter"
 	@mkdir -p server/rpc/v2
 	@mkdir -p client/lib/api/v2
 	@go generate
-	#$(MAKE) flu-gen-lang
 
 ## Build and Run Server Example (Temporary until structure/stack is fixed)
 this-run-example: this-build go-run-test-client

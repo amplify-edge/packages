@@ -21,14 +21,14 @@ LIB_GRPCUI_REPO_FSPATH=			$(GOPATH)/src/$(LIB_GRPCUI_REPO)
 # GO GRPC is now here:https://github.com/grpc/grpc-go
 LIB_GOGRPC_REPO=				github.com/grpc/grpc-go
 LIB_GOGRPC_REPO_FSPATH=			$(GOPATH)/src/$(LIB_GOGRPC_REPO)
-LIB_GOGRPC_REPO_VERSION= 		v1.23.0
+LIB_GOGRPC_REPO_VERSION= 		v1.32.0
 
 # New
 # https://github.com/protocolbuffers/protobuf-go
 # which is https://godoc.org/google.golang.org/protobuf/cmd/protoc-gen-go
 LIB_GO_REPO=					github.com/protocolbuffers/protobuf-go
 LIB_GO_REPO_FSPATH=				$(GOPATH)/src/$(LIB_GO_REPO)
-LIB_GO_REPO_VERSION= 			v1.23.0
+LIB_GO_REPO_VERSION= 			v1.25.0
 
 # Old ( last update in 14 May, 2020, so very old )
 # https://github.com/golang/protobuf/
@@ -41,12 +41,12 @@ LIB_GOOLD_REPO_REPO_FSPATH=		$(GOPATH)/src/$(LIB_GOOLD_REPO_REPO)
 # has github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 LIB_GRPC_GATEWAY_REPO=			github.com/grpc-ecosystem/grpc-gateway
 LIB_GRPC_GATEWAY_REPO_FSPATH=	$(GOPATH)/src/$(LIB_GRPC_GATEWAY_REPO)
-LIB_GRPC_GATEWAY_REPO_VERSION=	v1.14.8
+LIB_GRPC_GATEWAY_REPO_VERSION=	v1.15.0
 
 # Protoc
 # All tags here: https://github.com/protocolbuffers/protobuf/tags
 # For now just using Brew. Will upgrade to use a golang downloader soon.
-LIB_PROTOC_VERSION=				v3.13.0
+LIB_PROTOC_VERSION=				3.13
 
 ## Print
 grpc-print:
@@ -167,11 +167,11 @@ grpc-all-git-clone:
 	cd $(LIB_GO_REPO_FSPATH) && git checkout $(LIB_GO_REPO_VERSION)
 
 	# OLD golang protobuf compiler
-	git clone https://$(LIB_GOOLD_REPO_REPO) $(LIB_GOOLD_REPO_REPO_FSPATH)
+	# git clone https://$(LIB_GOOLD_REPO_REPO) $(LIB_GOOLD_REPO_REPO_FSPATH)
 
 	# GRPC Gateway compiler
 	git clone https://$(LIB_GRPC_GATEWAY_REPO) $(LIB_GRPC_GATEWAY_REPO_FSPATH)
-	cd $(LIB_GRPC_GATEWAY_REPO_VERSION) && git checkout $(LIB_GRPC_GATEWAY_REPO_VERSION)
+	cd $(LIB_GRPC_GATEWAY_REPO_FSPATH) && git checkout $(LIB_GRPC_GATEWAY_REPO_VERSION)
 	
 
 ## All-git-delete
@@ -200,16 +200,17 @@ grpc-all-delete: grpc-envoy-delete grpc-go-delete grpc-grpcui-delete grpc-grpcli
 
 ### ENVOY
 
-## Envyo-build
+## Envoy-build
 grpc-envoy-build:
 	@echo
 	@echo -- Start: Envoy build --
 	@echo
 
 	# this pulls down envoy to /usr/local/bin
-	getenvoy fetch $(LIB_ENVOY_VERSION)
+	# getenvoy is undefined
+	# getenvoy fetch $(LIB_ENVOY_VERSION)
 	# copy it to GOBIN.
-	cp -f /usr/local/bin/envoy $(GOPATH)/bin/envoy
+	# cp -f /usr/local/bin/envoy $(GOPATH)/bin/envoy
 
 	@echo
 	@echo -- End: Envoy build --
@@ -279,7 +280,7 @@ grpc-protoc-build:
 	@echo -- protoc --
 
 	# Protoc that is the basis
-	brew install protobuf $(LIB_PROTOC_VERSION)
+	brew install protobuf@$(LIB_PROTOC_VERSION)
 
 grpc-protoc-delete:
 	brew uninstall protobuf
@@ -307,7 +308,9 @@ grpc-go-build:
 	# Dart GRPC and Protobuf
 	# NOT git cloned, but installed by Dart itself for Latest. If we hit probs then we can version it.
 	# Assumes dart installed 
-	pub global activate protoc_plugin
+	# pub global activate protoc_plugin
+	# this way we don't need separate dart installation, other than what's bundled with flutter
+	flutter pub global activate protoc_plugin
 
 	@echo
 	@echo -- End: Golang PB build --
