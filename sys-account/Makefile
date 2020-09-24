@@ -27,5 +27,9 @@ this-print: ## print
 	#$(MAKE) srv-print
 
 ## This builds everything
-this-build: ##
-	$(MAKE) flu-gen-lang
+this-build: go-gen-dep
+	@echo "Generating GRPC models and services for Go & Flutter"
+	@mkdir -p server/rpc/v2
+	@mkdir -p client/lib/api/v2
+	@go generate
+	#$(MAKE) flu-gen-lang

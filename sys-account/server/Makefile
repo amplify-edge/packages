@@ -46,16 +46,16 @@ vscode-add:
 
 ### GRPC
 
-evans-dep:
+#evans-dep:
 	#go get github.com/ktr0731/evans
 	# OR
-	brew tap ktr0731/evans
-	brew install evans
+	#brew tap ktr0731/evans
+	#brew install evans
 
-grpc-evans:
+#grpc-evans:
 	# CLI for GRPC
 	# Must have GRPC Reflection turns on in code.
-	evans repl $(LIB_FSPATH)/proto/chat_service.proto
+	#evans repl $(LIB_FSPATH)/proto/chat_service.proto
 
 go-gen-dep:
 	# Install protoc
@@ -79,14 +79,12 @@ go-gen-dep:
 	go get -u -v github.com/NathanBaulch/protoc-gen-cobra
 	stat ${GOPATH}/bin/protoc-gen-cobra
 
-	# then make go-gen, to gen the grpc code.
-
 	# then make go-mod-tidy, to ensure the imports that the generated code uses are in te go.mod
 
 ## Generate golang models and interface from protobuf schema
 go-gen:
 	# gen runs from the go folder so that the same go.mod is used for gen and run.
-	mkdir -p $(GO_LIB_FSPATH)/rpc
+	mkdir -p $(GO_LIB_FSPATH)/rpc/v2/{authn,users}
 	cd $(GO_LIB_FSPATH) && go generate
 
 ## Updates go-module dependencies

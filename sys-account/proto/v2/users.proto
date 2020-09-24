@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "authn.proto";
+
+package getcouragenow.v2.sys_account;
+
+option go_package = "github.com/getcouragenow/packages/sys-account/rpc";
+
+message User {
+  string id = 1;
+  getcouragenow.v2.sys_account.UserRoles roles = 2;
+}
