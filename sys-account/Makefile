@@ -33,3 +33,6 @@ this-build: #go-gen-dep
 	@mkdir -p client/lib/api/v2
 	@go generate
 	#$(MAKE) flu-gen-lang
+
+## Build and Run Server Example (Temporary until structure/stack is fixed)
+this-run-example: this-build go-run-test-client

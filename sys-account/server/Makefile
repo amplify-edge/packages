@@ -81,27 +81,17 @@ go-gen-dep:
 
 	# then make go-mod-tidy, to ensure the imports that the generated code uses are in te go.mod
 
-## Generate golang models and interface from protobuf schema
-go-gen:
-	# gen runs from the go folder so that the same go.mod is used for gen and run.
-	mkdir -p $(GO_LIB_FSPATH)/rpc/v2/{authn,users}
-	cd $(GO_LIB_FSPATH) && go generate
-
-## Updates go-module dependencies
 go-mod-update:
 	# force pulling modes
 	cd $(GO_LIB_FSPATH) && go get -v -t -d ./...
 
-## Install, and Verify go-module dependencies
 go-mod-tidy:
 	cd $(GO_LIB_FSPATH) && go mod tidy
 	cd $(GO_LIB_FSPATH) && go mod verify
 	cd $(GO_LIB_FSPATH) && go mod download
 
-## Run server and client binary as a test
 go-run: go-run-test-client
 
-## Building both the authserver and the authclient binaries
 go-build:
 	@echo Building AuthServer binary
 	cd $(GO_FSPATH)/cmd/authserver/ && go build -v -o $(GO_BUILD_OUT_ALL_FSPATH)/authserver
