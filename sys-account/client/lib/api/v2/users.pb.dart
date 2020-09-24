@@ -108,8 +108,6 @@ class Org extends $pb.GeneratedMessage {
 enum UserRoles_Resource {
   project, 
   org, 
-  none, 
-  all, 
   notSet
 }
 
@@ -117,17 +115,13 @@ class UserRoles extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, UserRoles_Resource> _UserRoles_ResourceByTag = {
     2 : UserRoles_Resource.project,
     3 : UserRoles_Resource.org,
-    4 : UserRoles_Resource.none,
-    5 : UserRoles_Resource.all,
     0 : UserRoles_Resource.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserRoles', package: const $pb.PackageName('getcouragenow.v2.sys_account'), createEmptyInstance: create)
-    ..oo(0, [2, 3, 4, 5])
+    ..oo(0, [2, 3])
     ..e<Roles>(1, 'role', $pb.PbFieldType.OE, defaultOrMaker: Roles.INVALID, valueOf: Roles.valueOf, enumValues: Roles.values)
     ..aOM<Project>(2, 'project', subBuilder: Project.create)
     ..aOM<Org>(3, 'org', subBuilder: Org.create)
-    ..aOB(4, 'none')
-    ..aOB(5, 'all')
     ..hasRequiredFields = false
   ;
 
@@ -179,24 +173,6 @@ class UserRoles extends $pb.GeneratedMessage {
   void clearOrg() => clearField(3);
   @$pb.TagNumber(3)
   Org ensureOrg() => $_ensure(2);
-
-  @$pb.TagNumber(4)
-  $core.bool get none => $_getBF(3);
-  @$pb.TagNumber(4)
-  set none($core.bool v) { $_setBool(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasNone() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearNone() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.bool get all => $_getBF(4);
-  @$pb.TagNumber(5)
-  set all($core.bool v) { $_setBool(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasAll() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearAll() => clearField(5);
 }
 
 class Account extends $pb.GeneratedMessage {

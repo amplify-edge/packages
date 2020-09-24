@@ -56,8 +56,6 @@ const UserRoles$json = const {
     const {'1': 'role', '3': 1, '4': 1, '5': 14, '6': '.getcouragenow.v2.sys_account.Roles', '10': 'role'},
     const {'1': 'project', '3': 2, '4': 1, '5': 11, '6': '.getcouragenow.v2.sys_account.Project', '9': 0, '10': 'project'},
     const {'1': 'org', '3': 3, '4': 1, '5': 11, '6': '.getcouragenow.v2.sys_account.Org', '9': 0, '10': 'org'},
-    const {'1': 'none', '3': 4, '4': 1, '5': 8, '9': 0, '10': 'none'},
-    const {'1': 'all', '3': 5, '4': 1, '5': 8, '9': 0, '10': 'all'},
   ],
   '8': const [
     const {'1': 'resource'},

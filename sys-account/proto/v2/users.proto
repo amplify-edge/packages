@@ -42,8 +42,6 @@ message UserRoles {
   oneof resource {
     Project project = 2;
     Org org = 3;
-    bool none = 4;
-    bool all = 5;
   }
 }
 

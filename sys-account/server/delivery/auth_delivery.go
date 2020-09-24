@@ -48,7 +48,7 @@ func (ad *AuthDelivery) getAndVerifyAccount(_ context.Context, req *rpc.LoginReq
 		Password: req.GetPassword(),
 		Role: &rpc.UserRoles{
 			Role:     rpc.Roles_SUPERADMIN,
-			Resource: &rpc.UserRoles_All{All: true},
+			Resource: nil,
 		},
 	}, nil
 }

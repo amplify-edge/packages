@@ -83,8 +83,6 @@ func _AccountServiceNewAccountCommand(cfg *client.Config) *cobra.Command {
 	RoleOrg := &Org{}
 	cmd.PersistentFlags().StringVar(&RoleOrg.Id, cfg.FlagNamer("Role Org Id"), "", "")
 	flag.WithPostSetHook(cmd.PersistentFlags(), cfg.FlagNamer("Role Org Id"), func() { req.Role.Resource = &UserRoles_Org{Org: RoleOrg} })
-	flag.BoolPointerVar(cmd.PersistentFlags(), &req.Role.None, cfg.FlagNamer("Role None"), "")
-	flag.BoolPointerVar(cmd.PersistentFlags(), &req.Role.All, cfg.FlagNamer("Role All"), "")
 	flag.TimestampVar(cmd.PersistentFlags(), &req.CreatedAt, cfg.FlagNamer("CreatedAt"), "")
 	flag.TimestampVar(cmd.PersistentFlags(), &req.UpdatedAt, cfg.FlagNamer("UpdatedAt"), "")
 	flag.TimestampVar(cmd.PersistentFlags(), &req.LastLogin, cfg.FlagNamer("LastLogin"), "")
@@ -274,8 +272,6 @@ func _AccountServiceAssignAccountToRoleCommand(cfg *client.Config) *cobra.Comman
 	RoleOrg := &Org{}
 	cmd.PersistentFlags().StringVar(&RoleOrg.Id, cfg.FlagNamer("Role Org Id"), "", "")
 	flag.WithPostSetHook(cmd.PersistentFlags(), cfg.FlagNamer("Role Org Id"), func() { req.Role.Resource = &UserRoles_Org{Org: RoleOrg} })
-	flag.BoolPointerVar(cmd.PersistentFlags(), &req.Role.None, cfg.FlagNamer("Role None"), "")
-	flag.BoolPointerVar(cmd.PersistentFlags(), &req.Role.All, cfg.FlagNamer("Role All"), "")
 
 	return cmd
 }
@@ -330,8 +326,6 @@ func _AccountServiceUpdateAccountCommand(cfg *client.Config) *cobra.Command {
 	RoleOrg := &Org{}
 	cmd.PersistentFlags().StringVar(&RoleOrg.Id, cfg.FlagNamer("Role Org Id"), "", "")
 	flag.WithPostSetHook(cmd.PersistentFlags(), cfg.FlagNamer("Role Org Id"), func() { req.Role.Resource = &UserRoles_Org{Org: RoleOrg} })
-	flag.BoolPointerVar(cmd.PersistentFlags(), &req.Role.None, cfg.FlagNamer("Role None"), "")
-	flag.BoolPointerVar(cmd.PersistentFlags(), &req.Role.All, cfg.FlagNamer("Role All"), "")
 	flag.TimestampVar(cmd.PersistentFlags(), &req.CreatedAt, cfg.FlagNamer("CreatedAt"), "")
 	flag.TimestampVar(cmd.PersistentFlags(), &req.UpdatedAt, cfg.FlagNamer("UpdatedAt"), "")
 	flag.TimestampVar(cmd.PersistentFlags(), &req.LastLogin, cfg.FlagNamer("LastLogin"), "")
