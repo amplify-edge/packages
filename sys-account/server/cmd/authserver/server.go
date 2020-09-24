@@ -5,10 +5,10 @@ package main
 
 import (
 	"context"
-	"github.com/getcouragenow/packages/sys-account/authn/delivery"
-	"github.com/getcouragenow/packages/sys-account/authn/pkg/auth"
-	"github.com/getcouragenow/packages/sys-account/authn/pkg/utilities"
-	"github.com/getcouragenow/packages/sys-account/rpc"
+	"github.com/getcouragenow/packages/sys-account/delivery"
+	"github.com/getcouragenow/packages/sys-account/pkg/auth"
+	"github.com/getcouragenow/packages/sys-account/pkg/utilities"
+	"github.com/getcouragenow/packages/sys-account/rpc/v2"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
