@@ -94,6 +94,9 @@ func main() {
 		ResetPassword:      authDelivery.ResetPasssword,
 		RefreshAccessToken: authDelivery.RefreshAccessToken,
 	})
+	rpc.RegisterAccountServiceService(grpcSrv, &rpc.AccountServiceService{
+		GetAccount: authDelivery.GetAccount,
+	})
 	reflection.Register(grpcSrv)
 
 	grpcWebServer := grpcweb.WrapServer(

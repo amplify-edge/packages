@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sys_account/core/core.dart';
-import 'package:sys_account/modules/signup/views/signup_view.dart';
+import 'package:sys_account/modules/account/view/account_view.dart';
+// import 'package:sys_account/modules/signup/views/signup_view.dart';
 
 class AccountModule extends ChildModule {
   static String baseRoute;
@@ -17,7 +18,8 @@ class AccountModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter('/signup', child: (_, args) => SignUpView()),
+        ModularRouter('/', child: (_, args) => AccountView())
+        // ModularRouter('/signup', child: (_, args) => SignUpView()),
         // ModularRouter('/signin', child: (_, args) => SignInView()),
       ];
 

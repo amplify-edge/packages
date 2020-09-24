@@ -2,13 +2,14 @@ import 'package:sys_account/api/v2/users.pbgrpc.dart' as rpc;
 import 'package:grpc/grpc_web.dart';
 
 class UserRepo {
-  static final client = _accountClient();
-
-  static Future<rpc.Account> getUser({String id}) async {
+  static Future<rpc.Account> getUser({String id, String accessToken}) async {
     final req = rpc.GetAccountRequest()..id = id;
 
     try {
-      final resp = await client.getAccount(req).then((res) {
+      final resp = await accountClient(accessToken)
+          .getAccount(req,
+              options: CallOptions(metadata: {"Authorization": accessToken}))
+          .then((res) {
         print(res);
         return res;
       });
@@ -19,7 +20,7 @@ class UserRepo {
     }
   }
 
-  static rpc.AccountServiceClient _accountClient() {
+  static rpc.AccountServiceClient accountClient(String accessToken) {
     final channel =
         GrpcWebClientChannel.xhr(Uri(host: "127.0.0.1", port: 8888));
     return rpc.AccountServiceClient(channel);
