@@ -1,261 +1,249 @@
-package services_test
-
-import (
-	"io/ioutil"
-	"testing"
-
-	"github.com/getcouragenow/packages/tool/bs-lang/services"
-)
-
-var (
-	arbData = []byte(`
 {
-  "@@last_modified": "2020-05-08T01:32:44.656753",
-  "country": "Country Road Take Me Home To The Place I Belong West Virginia Country Mama Take Me Home Country Road",
+  "@@last_modified": "2020-09-22T18:03:12.709484",
+  "country": "Country",
   "@country": {
     "description": "Country",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
+  },
+  "aboutYou": "About you",
+  "@aboutYou": {
+    "description": "About You",
+    "placeholders": {},
+    "type": "text"
   },
   "newCountrySelected": "New Country Selected",
   "@newCountrySelected": {
     "description": "New Country Selected",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "zipCode": "Zip Code",
   "@zipCode": {
     "description": "Zip Code",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "whereAreYou": "Where are you?",
   "@whereAreYou": {
     "description": "Where are you?",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
+  },
+  "travelDistance": "How far are you willing to travel?",
+  "@travelDistance": {
+    "description": "How far are you willing to travel?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "howOldAreYou": "How old are you?",
+  "@howOldAreYou": {
+    "description": "How old are you?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "campaignAffiliation": "Do you have a campaign affiliation?",
+  "@campaignAffiliation": {
+    "description": "Do you have a campaign affiliation?",
+    "placeholders": {},
+    "type": "text"
+  },
+  "distanceInKM": "Enter distance in kilometers",
+  "@distanceInKM": {
+    "description": "Enter distance in kilometers",
+    "placeholders": {},
+    "type": "text"
+  },
+  "noItemsSelected": "No items selected.",
+  "@noItemsSelected": {
+    "description": "No items selected.",
+    "placeholders": {},
+    "type": "text"
   },
   "category": "Category",
   "@category": {
     "description": "Category",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "campaignName": "Campaign Name",
   "@campaignName": {
     "description": "campaignName",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "noCampaigns": "No Campaigns",
   "@noCampaigns": {
     "description": "No Campaigns",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "actionType": "Type of Action",
   "@actionType": {
     "description": "Type of Action",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "actionLocation": "Action Location",
   "@actionLocation": {
     "description": "Action Location",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "time": "Time",
   "@time": {
     "description": "Time",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "lengthOfTheAction": "Length of the Action",
   "@lengthOfTheAction": {
     "description": "Length of the Action",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "goal": "Goal",
   "@goal": {
     "description": "Goal",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "strategy": "Strategy",
   "@strategy": {
     "description": "strategy",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "historicalPrecedents": "Historical Precedents",
   "@historicalPrecedents": {
     "description": "Historical Precedents",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "backingEndorsingOrganizations": "Backing/Endorsing Organizations",
   "@backingEndorsingOrganizations": {
     "description": "Backing/Endorsing Organizations",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "peopleAlreadyPledged": "People already pledged",
   "@peopleAlreadyPledged": {
     "description": "People already pledged",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "weNeed": "We Need",
   "@weNeed": {
     "description": "We Need",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "extrapolatedSimilarPastActions": "The following figures are extrapolated from similar past actions that both succeeded and failed",
   "@extrapolatedSimilarPastActions": {
     "description": "The following figures are extrapolated from similar past actions that both succeeded and failed",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "pioneersToStart": "Pioneers needed to start",
   "@pioneersToStart": {
     "description": "Pioneers needed to start",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "rebelsMedia": "Rebels needed to trigger media",
   "@rebelsMedia": {
     "description": "Rebels needed to trigger media",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "rebelsWin": "Rebels needed to win",
   "@rebelsWin": {
     "description": "Rebels needed to win",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "contactDetails": "Contact Details",
   "@contactDetails": {
     "description": "Contact Details",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "notReady": "Not Ready",
   "@notReady": {
     "description": "Not Ready",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "ready": "Ready",
   "@ready": {
     "description": "Ready",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "selectCampaign": "Select Campaign",
   "@selectCampaign": {
     "description": "Select Campaign",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "campaignDetails": "Campaign Details",
   "@campaignDetails": {
     "description": "campaignDetails",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "searchCampaigns": "Search Campaigns",
   "@searchCampaigns": {
     "description": "Search Campaigns",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "yourNeeds": "Your Needs",
   "@yourNeeds": {
     "description": "Your Needs",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "needsSatisifiedRequirement": "Please choose as many supports or needs you need satisfied to join the action.",
   "@needsSatisifiedRequirement": {
     "description": "Please choose as many supports or needs you need satisfied to join the action.",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "next": "Next",
   "@next": {
     "description": "Next",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "supportRole": "Support Role",
   "@supportRole": {
     "description": "Support Role",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "provideSupportRole": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
   "@provideSupportRole": {
     "description": "If we cannot satisfy your chosen conditions, would you consider providing a support role to those willing to go on strike?",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "yes": "Yes",
   "@yes": {
     "description": "Yes",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "no": "No",
   "@no": {
     "description": "No",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   },
   "supportRoles": "Support Roles",
   "@supportRoles": {
     "description": "Support Roles",
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {},
+    "type": "text"
   }
-}
-`)
-)
-
-const (
-	success = "\u2713"
-	failed  = "\u274c"
-)
-
-func TestTranslate(t *testing.T) {
-	if err := ioutil.WriteFile("/tmp/data.arb", arbData, 0644); err != nil {
-		t.Fatalf("\t%s\tShould be able to write data file to /tmp: %v", failed, err)
-	}
-	t.Run("Test Multi Languages Files From Template", testGenerateMultiLanguageFilesFromTemplate)
-}
-
-func testGenerateMultiLanguageFilesFromTemplate(t *testing.T) {
-	t.Log("Test multi language files from template")
-	{
-		err := services.GenerateMultiLanguageFilesFromTemplate(
-			"/tmp/data.arb",
-			"/tmp",
-			"out",
-			".json",
-			[]string{"fr", "es", "de", "it", "ur"},
-			false,
-		)
-		if err != nil {
-			t.Fatalf(
-				"\t%s\tShould be able to write translated output files to /tmp, got: %v",
-				failed,
-				err,
-			)
-		}
-		t.Logf("\t%s\tShould be able to write translated output files to /tmp",
-			success)
-	}
 }
