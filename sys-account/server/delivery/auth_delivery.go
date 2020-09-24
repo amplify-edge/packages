@@ -37,7 +37,7 @@ var (
 
 // for now we hardcode the user first
 // later we'll use Genji from getcouragenow/sys-core/server/db
-func (ad *AuthDelivery) getAndVerifyUser(_ context.Context, req *rpc.LoginRequest) (*rpc.Account, error) {
+func (ad *AuthDelivery) getAndVerifyAccount(_ context.Context, req *rpc.LoginRequest) (*rpc.Account, error) {
 	// TODO @winwisely268: query actual account from database and verify it here.
 	if req.GetEmail() != "superadmin@getcouragenow.org" && req.GetPassword() != "superadmin" {
 		return nil, status.Errorf(codes.Unauthenticated, "cannot authenticate: %v", auth.AuthError{Reason: auth.ErrInvalidCredentials})
@@ -91,7 +91,7 @@ func (ad *AuthDelivery) Login(ctx context.Context, in *rpc.LoginRequest) (*rpc.L
 	}
 	var claimant auth.Claimant
 
-	u, err := ad.getAndVerifyUser(ctx, in)
+	u, err := ad.getAndVerifyAccount(ctx, in)
 	if err != nil {
 		return &rpc.LoginResponse{
 			ErrorReason: &rpc.ErrorReason{Reason: err.Error()},

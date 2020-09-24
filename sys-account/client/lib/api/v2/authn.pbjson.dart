@@ -7,55 +7,6 @@
 
 import 'google/protobuf/timestamp.pbjson.dart' as $0;
 
-const Roles$json = const {
-  '1': 'Roles',
-  '2': const [
-    const {'1': 'INVALID', '2': 0},
-    const {'1': 'GUEST', '2': 1},
-    const {'1': 'USER', '2': 2},
-    const {'1': 'ADMIN', '2': 3},
-    const {'1': 'SUPERADMIN', '2': 4},
-  ],
-};
-
-const Project$json = const {
-  '1': 'Project',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-  ],
-};
-
-const Org$json = const {
-  '1': 'Org',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-  ],
-};
-
-const UserRoles$json = const {
-  '1': 'UserRoles',
-  '2': const [
-    const {'1': 'role', '3': 1, '4': 1, '5': 14, '6': '.getcouragenow.v2.sys_account.Roles', '10': 'role'},
-    const {'1': 'project', '3': 2, '4': 1, '5': 11, '6': '.getcouragenow.v2.sys_account.Project', '9': 0, '10': 'project'},
-    const {'1': 'org', '3': 3, '4': 1, '5': 11, '6': '.getcouragenow.v2.sys_account.Org', '9': 0, '10': 'org'},
-    const {'1': 'none', '3': 4, '4': 1, '5': 8, '9': 0, '10': 'none'},
-    const {'1': 'all', '3': 5, '4': 1, '5': 8, '9': 0, '10': 'all'},
-  ],
-  '8': const [
-    const {'1': 'resource'},
-  ],
-};
-
-const Account$json = const {
-  '1': 'Account',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    const {'1': 'email', '3': 2, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
-    const {'1': 'role', '3': 4, '4': 1, '5': 11, '6': '.getcouragenow.v2.sys_account.UserRoles', '10': 'role'},
-  ],
-};
-
 const ErrorReason$json = const {
   '1': 'ErrorReason',
   '2': const [
