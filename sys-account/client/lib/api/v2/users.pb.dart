@@ -5,14 +5,13 @@
 // @dart = 2.3
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
-import 'dart:async' as $async;
 import 'dart:core' as $core;
 
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/any.pb.dart' as $2;
-import 'google/protobuf/timestamp.pb.dart' as $0;
+import 'google/protobuf/any.pb.dart' as $3;
+import 'google/protobuf/timestamp.pb.dart' as $2;
 
 import 'users.pbenum.dart';
 
@@ -20,7 +19,7 @@ export 'users.pbenum.dart';
 
 class UserDefinedFields extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('UserDefinedFields', package: const $pb.PackageName('getcouragenow.v2.sys_account'), createEmptyInstance: create)
-    ..m<$core.String, $2.Any>(1, 'fields', entryClassName: 'UserDefinedFields.FieldsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $2.Any.create, packageName: const $pb.PackageName('getcouragenow.v2.sys_account'))
+    ..m<$core.String, $3.Any>(1, 'fields', entryClassName: 'UserDefinedFields.FieldsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $3.Any.create, packageName: const $pb.PackageName('getcouragenow.v2.sys_account'))
     ..hasRequiredFields = false
   ;
 
@@ -40,7 +39,7 @@ class UserDefinedFields extends $pb.GeneratedMessage {
   static UserDefinedFields _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.Map<$core.String, $2.Any> get fields => $_getMap(0);
+  $core.Map<$core.String, $3.Any> get fields => $_getMap(0);
 }
 
 class Project extends $pb.GeneratedMessage {
@@ -181,9 +180,9 @@ class Account extends $pb.GeneratedMessage {
     ..aOS(2, 'email')
     ..aOS(3, 'password')
     ..aOM<UserRoles>(4, 'role', subBuilder: UserRoles.create)
-    ..aOM<$0.Timestamp>(5, 'createdAt', subBuilder: $0.Timestamp.create)
-    ..aOM<$0.Timestamp>(6, 'updatedAt', subBuilder: $0.Timestamp.create)
-    ..aOM<$0.Timestamp>(7, 'lastLogin', subBuilder: $0.Timestamp.create)
+    ..aOM<$2.Timestamp>(5, 'createdAt', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(6, 'updatedAt', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(7, 'lastLogin', subBuilder: $2.Timestamp.create)
     ..aOB(8, 'disabled')
     ..aOM<UserDefinedFields>(9, 'fields', subBuilder: UserDefinedFields.create)
     ..hasRequiredFields = false
@@ -243,37 +242,37 @@ class Account extends $pb.GeneratedMessage {
   UserRoles ensureRole() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $0.Timestamp get createdAt => $_getN(4);
+  $2.Timestamp get createdAt => $_getN(4);
   @$pb.TagNumber(5)
-  set createdAt($0.Timestamp v) { setField(5, v); }
+  set createdAt($2.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasCreatedAt() => $_has(4);
   @$pb.TagNumber(5)
   void clearCreatedAt() => clearField(5);
   @$pb.TagNumber(5)
-  $0.Timestamp ensureCreatedAt() => $_ensure(4);
+  $2.Timestamp ensureCreatedAt() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $0.Timestamp get updatedAt => $_getN(5);
+  $2.Timestamp get updatedAt => $_getN(5);
   @$pb.TagNumber(6)
-  set updatedAt($0.Timestamp v) { setField(6, v); }
+  set updatedAt($2.Timestamp v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasUpdatedAt() => $_has(5);
   @$pb.TagNumber(6)
   void clearUpdatedAt() => clearField(6);
   @$pb.TagNumber(6)
-  $0.Timestamp ensureUpdatedAt() => $_ensure(5);
+  $2.Timestamp ensureUpdatedAt() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  $0.Timestamp get lastLogin => $_getN(6);
+  $2.Timestamp get lastLogin => $_getN(6);
   @$pb.TagNumber(7)
-  set lastLogin($0.Timestamp v) { setField(7, v); }
+  set lastLogin($2.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasLastLogin() => $_has(6);
   @$pb.TagNumber(7)
   void clearLastLogin() => clearField(7);
   @$pb.TagNumber(7)
-  $0.Timestamp ensureLastLogin() => $_ensure(6);
+  $2.Timestamp ensureLastLogin() => $_ensure(6);
 
   @$pb.TagNumber(8)
   $core.bool get disabled => $_getBF(7);
@@ -571,39 +570,5 @@ class DisableAccountRequest extends $pb.GeneratedMessage {
   $core.bool hasAccountId() => $_has(0);
   @$pb.TagNumber(1)
   void clearAccountId() => clearField(1);
-}
-
-class AccountServiceApi {
-  $pb.RpcClient _client;
-  AccountServiceApi(this._client);
-
-  $async.Future<Account> newAccount($pb.ClientContext ctx, Account request) {
-    var emptyResponse = Account();
-    return _client.invoke<Account>(ctx, 'AccountService', 'NewAccount', request, emptyResponse);
-  }
-  $async.Future<Account> getAccount($pb.ClientContext ctx, GetAccountRequest request) {
-    var emptyResponse = Account();
-    return _client.invoke<Account>(ctx, 'AccountService', 'GetAccount', request, emptyResponse);
-  }
-  $async.Future<ListAccountsResponse> listAccounts($pb.ClientContext ctx, ListAccountsRequest request) {
-    var emptyResponse = ListAccountsResponse();
-    return _client.invoke<ListAccountsResponse>(ctx, 'AccountService', 'ListAccounts', request, emptyResponse);
-  }
-  $async.Future<SearchAccountsResponse> searchAccounts($pb.ClientContext ctx, SearchAccountsRequest request) {
-    var emptyResponse = SearchAccountsResponse();
-    return _client.invoke<SearchAccountsResponse>(ctx, 'AccountService', 'SearchAccounts', request, emptyResponse);
-  }
-  $async.Future<Account> assignAccountToRole($pb.ClientContext ctx, AssignAccountToRoleRequest request) {
-    var emptyResponse = Account();
-    return _client.invoke<Account>(ctx, 'AccountService', 'AssignAccountToRole', request, emptyResponse);
-  }
-  $async.Future<Account> updateAccount($pb.ClientContext ctx, Account request) {
-    var emptyResponse = Account();
-    return _client.invoke<Account>(ctx, 'AccountService', 'UpdateAccount', request, emptyResponse);
-  }
-  $async.Future<Account> disableAccount($pb.ClientContext ctx, DisableAccountRequest request) {
-    var emptyResponse = Account();
-    return _client.invoke<Account>(ctx, 'AccountService', 'DisableAccount', request, emptyResponse);
-  }
 }
 
