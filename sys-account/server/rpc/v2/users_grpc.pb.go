@@ -140,6 +140,9 @@ type AccountServiceService struct {
 }
 
 func (s *AccountServiceService) newAccount(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.NewAccount == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method NewAccount not implemented")
+	}
 	in := new(Account)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -157,6 +160,9 @@ func (s *AccountServiceService) newAccount(_ interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AccountServiceService) getAccount(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.GetAccount == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
+	}
 	in := new(GetAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -174,6 +180,9 @@ func (s *AccountServiceService) getAccount(_ interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AccountServiceService) listAccounts(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.ListAccounts == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
+	}
 	in := new(ListAccountsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -191,6 +200,9 @@ func (s *AccountServiceService) listAccounts(_ interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AccountServiceService) searchAccounts(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.SearchAccounts == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method SearchAccounts not implemented")
+	}
 	in := new(SearchAccountsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -208,6 +220,9 @@ func (s *AccountServiceService) searchAccounts(_ interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AccountServiceService) assignAccountToRole(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.AssignAccountToRole == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method AssignAccountToRole not implemented")
+	}
 	in := new(AssignAccountToRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -225,6 +240,9 @@ func (s *AccountServiceService) assignAccountToRole(_ interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AccountServiceService) updateAccount(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.UpdateAccount == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method UpdateAccount not implemented")
+	}
 	in := new(Account)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -242,6 +260,9 @@ func (s *AccountServiceService) updateAccount(_ interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AccountServiceService) disableAccount(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.DisableAccount == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method DisableAccount not implemented")
+	}
 	in := new(DisableAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -261,72 +282,36 @@ func (s *AccountServiceService) disableAccount(_ interface{}, ctx context.Contex
 
 // RegisterAccountServiceService registers a service implementation with a gRPC server.
 func RegisterAccountServiceService(s grpc.ServiceRegistrar, srv *AccountServiceService) {
-	srvCopy := *srv
-	if srvCopy.NewAccount == nil {
-		srvCopy.NewAccount = func(context.Context, *Account) (*Account, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method NewAccount not implemented")
-		}
-	}
-	if srvCopy.GetAccount == nil {
-		srvCopy.GetAccount = func(context.Context, *GetAccountRequest) (*Account, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
-		}
-	}
-	if srvCopy.ListAccounts == nil {
-		srvCopy.ListAccounts = func(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
-		}
-	}
-	if srvCopy.SearchAccounts == nil {
-		srvCopy.SearchAccounts = func(context.Context, *SearchAccountsRequest) (*SearchAccountsResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method SearchAccounts not implemented")
-		}
-	}
-	if srvCopy.AssignAccountToRole == nil {
-		srvCopy.AssignAccountToRole = func(context.Context, *AssignAccountToRoleRequest) (*Account, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method AssignAccountToRole not implemented")
-		}
-	}
-	if srvCopy.UpdateAccount == nil {
-		srvCopy.UpdateAccount = func(context.Context, *Account) (*Account, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method UpdateAccount not implemented")
-		}
-	}
-	if srvCopy.DisableAccount == nil {
-		srvCopy.DisableAccount = func(context.Context, *DisableAccountRequest) (*Account, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method DisableAccount not implemented")
-		}
-	}
 	sd := grpc.ServiceDesc{
 		ServiceName: "getcouragenow.v2.sys_account.AccountService",
 		Methods: []grpc.MethodDesc{
 			{
 				MethodName: "NewAccount",
-				Handler:    srvCopy.newAccount,
+				Handler:    srv.newAccount,
 			},
 			{
 				MethodName: "GetAccount",
-				Handler:    srvCopy.getAccount,
+				Handler:    srv.getAccount,
 			},
 			{
 				MethodName: "ListAccounts",
-				Handler:    srvCopy.listAccounts,
+				Handler:    srv.listAccounts,
 			},
 			{
 				MethodName: "SearchAccounts",
-				Handler:    srvCopy.searchAccounts,
+				Handler:    srv.searchAccounts,
 			},
 			{
 				MethodName: "AssignAccountToRole",
-				Handler:    srvCopy.assignAccountToRole,
+				Handler:    srv.assignAccountToRole,
 			},
 			{
 				MethodName: "UpdateAccount",
-				Handler:    srvCopy.updateAccount,
+				Handler:    srv.updateAccount,
 			},
 			{
 				MethodName: "DisableAccount",
-				Handler:    srvCopy.disableAccount,
+				Handler:    srv.disableAccount,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},
@@ -334,4 +319,64 @@ func RegisterAccountServiceService(s grpc.ServiceRegistrar, srv *AccountServiceS
 	}
 
 	s.RegisterService(&sd, nil)
+}
+
+// NewAccountServiceService creates a new AccountServiceService containing the
+// implemented methods of the AccountService service in s.  Any unimplemented
+// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
+// This includes situations where the method handler is misspelled or has the wrong
+// signature.  For this reason, this function should be used with great care and
+// is not recommended to be used by most users.
+func NewAccountServiceService(s interface{}) *AccountServiceService {
+	ns := &AccountServiceService{}
+	if h, ok := s.(interface {
+		NewAccount(context.Context, *Account) (*Account, error)
+	}); ok {
+		ns.NewAccount = h.NewAccount
+	}
+	if h, ok := s.(interface {
+		GetAccount(context.Context, *GetAccountRequest) (*Account, error)
+	}); ok {
+		ns.GetAccount = h.GetAccount
+	}
+	if h, ok := s.(interface {
+		ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	}); ok {
+		ns.ListAccounts = h.ListAccounts
+	}
+	if h, ok := s.(interface {
+		SearchAccounts(context.Context, *SearchAccountsRequest) (*SearchAccountsResponse, error)
+	}); ok {
+		ns.SearchAccounts = h.SearchAccounts
+	}
+	if h, ok := s.(interface {
+		AssignAccountToRole(context.Context, *AssignAccountToRoleRequest) (*Account, error)
+	}); ok {
+		ns.AssignAccountToRole = h.AssignAccountToRole
+	}
+	if h, ok := s.(interface {
+		UpdateAccount(context.Context, *Account) (*Account, error)
+	}); ok {
+		ns.UpdateAccount = h.UpdateAccount
+	}
+	if h, ok := s.(interface {
+		DisableAccount(context.Context, *DisableAccountRequest) (*Account, error)
+	}); ok {
+		ns.DisableAccount = h.DisableAccount
+	}
+	return ns
+}
+
+// UnstableAccountServiceService is the service API for AccountService service.
+// New methods may be added to this interface if they are added to the service
+// definition, which is not a backward-compatible change.  For this reason,
+// use of this type is not recommended.
+type UnstableAccountServiceService interface {
+	NewAccount(context.Context, *Account) (*Account, error)
+	GetAccount(context.Context, *GetAccountRequest) (*Account, error)
+	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	SearchAccounts(context.Context, *SearchAccountsRequest) (*SearchAccountsResponse, error)
+	AssignAccountToRole(context.Context, *AssignAccountToRoleRequest) (*Account, error)
+	UpdateAccount(context.Context, *Account) (*Account, error)
+	DisableAccount(context.Context, *DisableAccountRequest) (*Account, error)
 }

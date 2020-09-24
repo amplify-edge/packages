@@ -10,4 +10,4 @@ package main
 // Flutter
 // ============================================================================
 // GRPC & Protobuf
-//go:generate protoc -I./proto/v2 -I. --dart_out=./client/lib/api/v2/ ./proto/v2/authn.proto ./proto/v2/users.proto
+//go:generate protoc -I./proto/v2 -I. --dart_out=grpc:./client/lib/api/v2/ ./proto/v2/authn.proto ./proto/v2/users.proto
