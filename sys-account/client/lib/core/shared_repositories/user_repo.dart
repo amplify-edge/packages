@@ -2,6 +2,8 @@ import 'package:sys_account/api/v2/users.pbgrpc.dart' as rpc;
 import 'package:grpc/grpc_web.dart';
 
 class UserRepo {
+  // TODO @winwisely268: this is ugly, ideally we want client side interceptor
+  // as well so each request will have authorization metadata.
   static Future<rpc.Account> getUser({String id, String accessToken}) async {
     final req = rpc.GetAccountRequest()..id = id;
 

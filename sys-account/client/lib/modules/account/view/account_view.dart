@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sys_account/modules/account/view_model/account_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:sys_account/core/core.dart';
@@ -81,49 +80,31 @@ class AccountViewState extends State<AccountView> {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Center(
-                        child: RaisedButton(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: !model.buzy
-                              ? Text('Submit',
-                                  style: Theme.of(context).textTheme.bodyText1)
-                              : Text('Loading',
-                                  style: Theme.of(context).textTheme.bodyText1),
-                          onPressed: () async {
-                            model.enableEmailField(false);
-                            model.enablePasswordField(false);
-                            model.enableAccountField(false);
-                            model.setBuzy(true);
-                            final resp = await authRepo.AuthRepo.loginUser(
-                              email: model.getEmail,
-                              password: model.getPassword,
-                            );
-                            if (resp.success) {
-                              model.enablePasswordField(true);
-                              model.enableEmailField(true);
-                              model.enableRefreshField(true);
-                              model.enableAccountField(true);
-                              model.setAccessToken(resp.accessToken);
-                              model.setRefreshToken(resp.refreshToken);
-                              _refreshCtrl.text = model.refreshToken;
-                              model.enableResponseView(true);
-                              model.setResponse(resp.toString());
-                            }
-                            model.setBuzy(false);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            SubmitRequestButton(
+              isLoading: model.buzy,
+              onPressed: () async {
+                model.enableEmailField(false);
+                model.enablePasswordField(false);
+                model.enableAccountField(false);
+                model.setBuzy(true);
+                final resp = await authRepo.AuthRepo.loginUser(
+                  email: model.getEmail,
+                  password: model.getPassword,
+                );
+                if (resp.success) {
+                  model.enablePasswordField(true);
+                  model.enableEmailField(true);
+                  model.enableRefreshField(true);
+                  model.enableAccountField(true);
+                  model.setAccessToken(resp.accessToken);
+                  model.setRefreshToken(resp.refreshToken);
+                  _refreshCtrl.text = model.refreshToken;
+                  model.enableResponseView(true);
+                  model.setResponse(resp.toString());
+                }
+                model.setBuzy(false);
+              },
+              functionName: "Login Request",
             ),
             const SizedBox(height: 32.0),
             Padding(
@@ -141,41 +122,22 @@ class AccountViewState extends State<AccountView> {
               ),
             ),
             const SizedBox(height: 32.0),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Center(
-                        child: RaisedButton(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: !model.buzy
-                              ? Text('Submit',
-                                  style: Theme.of(context).textTheme.bodyText1)
-                              : Text('Loading',
-                                  style: Theme.of(context).textTheme.bodyText1),
-                          onPressed: () async {
-                            model.enableRefreshField(false);
-                            model.setBuzy(true);
-                            final resp =
-                                await authRepo.AuthRepo.renewAccessToken(
-                              refreshToken: model.refreshToken,
-                            );
-                            model.enableRefreshField(true);
-                            _refreshCtrl.text = model.refreshToken;
-                            model.setAccessToken(resp.accessToken);
-                            model.enableResponseView(true);
-                            model.setResponse(resp.toString());
-                            model.setBuzy(false);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            SubmitRequestButton(
+              isLoading: model.buzy,
+              onPressed: () async {
+                model.enableRefreshField(false);
+                model.setBuzy(true);
+                final resp = await authRepo.AuthRepo.renewAccessToken(
+                  refreshToken: model.refreshToken,
+                );
+                model.enableRefreshField(true);
+                _refreshCtrl.text = model.refreshToken;
+                model.setAccessToken(resp.accessToken);
+                model.enableResponseView(true);
+                model.setResponse(resp.toString());
+                model.setBuzy(false);
+              },
+              functionName: "Get Refresh Token",
             ),
             const SizedBox(height: 32.0),
             Padding(
@@ -193,40 +155,21 @@ class AccountViewState extends State<AccountView> {
               ),
             ),
             const SizedBox(height: 32.0),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Center(
-                        child: RaisedButton(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: !model.buzy
-                              ? Text('Submit',
-                                  style: Theme.of(context).textTheme.bodyText1)
-                              : Text('Loading',
-                                  style: Theme.of(context).textTheme.bodyText1),
-                          onPressed: () async {
-                            model.enableAccountField(false);
-                            model.setBuzy(true);
-                            final resp = await accountRepo.UserRepo.getUser(
-                              id: model.accountId,
-                              accessToken: model.accessToken,
-                            );
-                            model.enableAccountField(true);
-                            model.enableResponseView(true);
-                            model.setResponse(resp.toString());
-                            model.setBuzy(false);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            SubmitRequestButton(
+                isLoading: model.buzy,
+                onPressed: () async {
+                  model.enableAccountField(false);
+                  model.setBuzy(true);
+                  final resp = await accountRepo.UserRepo.getUser(
+                    id: model.accountId,
+                    accessToken: model.accessToken,
+                  );
+                  model.enableAccountField(true);
+                  model.enableResponseView(true);
+                  model.setResponse(resp.toString());
+                  model.setBuzy(false);
+                },
+                functionName: "Get Account By Id"),
             const SizedBox(height: 16.0),
             model.hasResponse
                 ? Container(
@@ -306,6 +249,48 @@ class AccountViewState extends State<AccountView> {
           ),
         );
       },
+    );
+  }
+}
+
+class SubmitRequestButton extends StatelessWidget {
+  const SubmitRequestButton({
+    Key key,
+    @required bool isLoading,
+    @required Function onPressed,
+    @required String functionName,
+  })  : _isLoading = isLoading,
+        _onPressed = onPressed,
+        _functionName = functionName,
+        super(key: key);
+
+  final bool _isLoading;
+  final Function _onPressed;
+  final String _functionName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: RaisedButton(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: !_isLoading
+                      ? Text('Submit ' + _functionName,
+                          style: Theme.of(context).textTheme.bodyText1)
+                      : CircularProgressIndicator(),
+                  onPressed: _onPressed,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
