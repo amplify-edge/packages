@@ -5,12 +5,11 @@
 // @dart = 2.3
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
-import 'dart:async' as $async;
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $0;
+import 'google/protobuf/timestamp.pb.dart' as $2;
 
 class ErrorReason extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('ErrorReason', package: const $pb.PackageName('getcouragenow.v2.sys_account'), createEmptyInstance: create)
@@ -141,7 +140,7 @@ class LoginResponse extends $pb.GeneratedMessage {
     ..aOS(2, 'accessToken')
     ..aOS(3, 'refreshToken')
     ..aOM<ErrorReason>(4, 'errorReason', subBuilder: ErrorReason.create)
-    ..aOM<$0.Timestamp>(5, 'lastLogin', subBuilder: $0.Timestamp.create)
+    ..aOM<$2.Timestamp>(5, 'lastLogin', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -199,15 +198,15 @@ class LoginResponse extends $pb.GeneratedMessage {
   ErrorReason ensureErrorReason() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $0.Timestamp get lastLogin => $_getN(4);
+  $2.Timestamp get lastLogin => $_getN(4);
   @$pb.TagNumber(5)
-  set lastLogin($0.Timestamp v) { setField(5, v); }
+  set lastLogin($2.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasLastLogin() => $_has(4);
   @$pb.TagNumber(5)
   void clearLastLogin() => clearField(5);
   @$pb.TagNumber(5)
-  $0.Timestamp ensureLastLogin() => $_ensure(4);
+  $2.Timestamp ensureLastLogin() => $_ensure(4);
 }
 
 class RegisterResponse extends $pb.GeneratedMessage {
@@ -299,7 +298,7 @@ class ForgotPasswordResponse extends $pb.GeneratedMessage {
     ..aOB(1, 'success')
     ..aOS(2, 'successMsg')
     ..aOM<ErrorReason>(3, 'errorReason', subBuilder: ErrorReason.create)
-    ..aOM<$0.Timestamp>(4, 'forgotPasswordRequestedAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$2.Timestamp>(4, 'forgotPasswordRequestedAt', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -348,15 +347,15 @@ class ForgotPasswordResponse extends $pb.GeneratedMessage {
   ErrorReason ensureErrorReason() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $0.Timestamp get forgotPasswordRequestedAt => $_getN(3);
+  $2.Timestamp get forgotPasswordRequestedAt => $_getN(3);
   @$pb.TagNumber(4)
-  set forgotPasswordRequestedAt($0.Timestamp v) { setField(4, v); }
+  set forgotPasswordRequestedAt($2.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasForgotPasswordRequestedAt() => $_has(3);
   @$pb.TagNumber(4)
   void clearForgotPasswordRequestedAt() => clearField(4);
   @$pb.TagNumber(4)
-  $0.Timestamp ensureForgotPasswordRequestedAt() => $_ensure(3);
+  $2.Timestamp ensureForgotPasswordRequestedAt() => $_ensure(3);
 }
 
 class ResetPasswordRequest extends $pb.GeneratedMessage {
@@ -415,7 +414,7 @@ class ResetPasswordResponse extends $pb.GeneratedMessage {
     ..aOB(1, 'success')
     ..aOS(2, 'successMsg')
     ..aOM<ErrorReason>(3, 'errorReason', subBuilder: ErrorReason.create)
-    ..aOM<$0.Timestamp>(4, 'resetPasswordRequestedAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$2.Timestamp>(4, 'resetPasswordRequestedAt', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -464,15 +463,15 @@ class ResetPasswordResponse extends $pb.GeneratedMessage {
   ErrorReason ensureErrorReason() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $0.Timestamp get resetPasswordRequestedAt => $_getN(3);
+  $2.Timestamp get resetPasswordRequestedAt => $_getN(3);
   @$pb.TagNumber(4)
-  set resetPasswordRequestedAt($0.Timestamp v) { setField(4, v); }
+  set resetPasswordRequestedAt($2.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasResetPasswordRequestedAt() => $_has(3);
   @$pb.TagNumber(4)
   void clearResetPasswordRequestedAt() => clearField(4);
   @$pb.TagNumber(4)
-  $0.Timestamp ensureResetPasswordRequestedAt() => $_ensure(3);
+  $2.Timestamp ensureResetPasswordRequestedAt() => $_ensure(3);
 }
 
 class RefreshAccessTokenRequest extends $pb.GeneratedMessage {
@@ -547,31 +546,5 @@ class RefreshAccessTokenResponse extends $pb.GeneratedMessage {
   void clearErrorReason() => clearField(2);
   @$pb.TagNumber(2)
   ErrorReason ensureErrorReason() => $_ensure(1);
-}
-
-class AuthServiceApi {
-  $pb.RpcClient _client;
-  AuthServiceApi(this._client);
-
-  $async.Future<RegisterResponse> register($pb.ClientContext ctx, RegisterRequest request) {
-    var emptyResponse = RegisterResponse();
-    return _client.invoke<RegisterResponse>(ctx, 'AuthService', 'Register', request, emptyResponse);
-  }
-  $async.Future<LoginResponse> login($pb.ClientContext ctx, LoginRequest request) {
-    var emptyResponse = LoginResponse();
-    return _client.invoke<LoginResponse>(ctx, 'AuthService', 'Login', request, emptyResponse);
-  }
-  $async.Future<ForgotPasswordResponse> forgotPassword($pb.ClientContext ctx, ForgotPasswordRequest request) {
-    var emptyResponse = ForgotPasswordResponse();
-    return _client.invoke<ForgotPasswordResponse>(ctx, 'AuthService', 'ForgotPassword', request, emptyResponse);
-  }
-  $async.Future<ResetPasswordResponse> resetPassword($pb.ClientContext ctx, ResetPasswordRequest request) {
-    var emptyResponse = ResetPasswordResponse();
-    return _client.invoke<ResetPasswordResponse>(ctx, 'AuthService', 'ResetPassword', request, emptyResponse);
-  }
-  $async.Future<RefreshAccessTokenResponse> refreshAccessToken($pb.ClientContext ctx, RefreshAccessTokenRequest request) {
-    var emptyResponse = RefreshAccessTokenResponse();
-    return _client.invoke<RefreshAccessTokenResponse>(ctx, 'AuthService', 'RefreshAccessToken', request, emptyResponse);
-  }
 }
 

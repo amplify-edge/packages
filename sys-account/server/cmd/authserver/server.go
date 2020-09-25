@@ -10,12 +10,16 @@ import (
 	"github.com/getcouragenow/packages/sys-account/pkg/utilities"
 	"github.com/getcouragenow/packages/sys-account/rpc/v2"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"net"
+	"net/http"
 	"os"
 	"time"
 )
@@ -45,6 +49,15 @@ func main() {
 	authDelivery := delivery.AuthDelivery{
 		Log:      log,
 		TokenCfg: tokenConfig,
+		UnauthenticatedRoutes: []string{
+			"/getcouragenow.v2.sys_account.AuthService/Login",
+			"/getcouragenow.v2.sys_account.AuthService/Register",
+			"/getcouragenow.v2.sys_account.AuthService/ResetPassword",
+			"/getcouragenow.v2.sys_account.AuthService/ForgotPassword",
+			"/getcouragenow.v2.sys_account.AuthService/RefreshAccessToken",
+			// debugging purposes
+			"/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo",
+		},
 	}
 	recoveryOptions := []grpc_recovery.Option{
 		grpc_recovery.WithRecoveryHandler(recoveryHandler(log)),
@@ -53,11 +66,11 @@ func main() {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
-	netLis, err := net.Listen("tcp", "127.0.0.1:8888")
-	if err != nil {
-		log.Fatalf("error listening to http://127.0.0.1:8888 => %v\n", err)
-		os.Exit(1)
-	}
+	//netLis, err := net.Listen("tcp", "127.0.0.1:8888")
+	//if err != nil {
+	//	log.Fatalf("error listening to http://127.0.0.1:8888 => %v\n", err)
+	//	os.Exit(1)
+	//}
 	logrusOpts := []grpc_logrus.Option{
 		grpc_logrus.WithLevels(grpc_logrus.DefaultCodeToLevel),
 	}
@@ -66,10 +79,12 @@ func main() {
 		grpc_middleware.WithUnaryServerChain(
 			grpc_recovery.UnaryServerInterceptor(recoveryOptions...),
 			grpc_logrus.UnaryServerInterceptor(log, logrusOpts...),
+			grpc_auth.UnaryServerInterceptor(authDelivery.DefaultInterceptor),
 		),
 		grpc_middleware.WithStreamServerChain(
 			grpc_recovery.StreamServerInterceptor(recoveryOptions...),
 			grpc_logrus.StreamServerInterceptor(log, logrusOpts...),
+			grpc_auth.StreamServerInterceptor(authDelivery.DefaultInterceptor),
 		),
 	)
 	rpc.RegisterAuthServiceService(grpcSrv, &rpc.AuthServiceService{
@@ -79,8 +94,32 @@ func main() {
 		ResetPassword:      authDelivery.ResetPasssword,
 		RefreshAccessToken: authDelivery.RefreshAccessToken,
 	})
+	rpc.RegisterAccountServiceService(grpcSrv, &rpc.AccountServiceService{
+		GetAccount: authDelivery.GetAccount,
+	})
 	reflection.Register(grpcSrv)
 
-	log.Infof("Serving grpc server on %s", "127.0.0.1:8888")
-	grpcSrv.Serve(netLis)
+	grpcWebServer := grpcweb.WrapServer(
+		grpcSrv,
+		grpcweb.WithCorsForRegisteredEndpointsOnly(false),
+		grpcweb.WithWebsocketOriginFunc(func(req *http.Request) bool {
+			return true
+		}),
+		grpcweb.WithWebsockets(true),
+	)
+
+	httpServer := &http.Server{
+		Handler: h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, X-User-Agent, X-Grpc-Web")
+			log.Infof("Request Endpoint: %s", r.URL)
+			grpcWebServer.ServeHTTP(w, r)
+		}), &http2.Server{}),
+	}
+	httpServer.Addr = "127.0.0.1:8888"
+	log.Infof("server listening at %v\n", httpServer.Addr)
+	if err := httpServer.ListenAndServe(); err != nil {
+		log.Fatalf("error running http server: %v\n", err)
+	}
 }
