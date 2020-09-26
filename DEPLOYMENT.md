@@ -34,15 +34,15 @@ This allows running everything on a laptop up to a large global cluster of serve
 
 All the golang code is compiled as single binary always.
 
-When the binary starts, the configuration tells it what Services to run. If not told what Services to run it must fail to start, to ensure no accidental data corruption..
+When the binary starts, the configuration tells it what Services to run. If not told what Services to run it must fail to start, to ensure no accidental data corruption.
 
 Each Service always has its own DB namespace it uses.
 
 Ingress Routing is always the same.
 
-Auth & Authz is always done in golang.
+Security Auth & Authz is always done in golang. The GRPC layer does not.
 
-TLS Certs is always managed in golang.
+Security TLS Certs is always managed in golang. The GRPC layer does not.
 
 <a name="single-mode"></a>
 
@@ -86,13 +86,13 @@ Configuration
 Each Server runs a single binary, configured as a specific Service, with DB distributed with failover.
 
 This gets you more scale out with automatic failover.
+
+DB:
+- Uses flamed to distribute the data using RAFT.
+- IP addresses of followers and master are hardcoded. No SPOF.
  
 DISCO:
 - None. All manual 
-
-DB:
-- Uses flamed to distribute the data
-- IP addresses of followers and master are hardcoded. No SPOF.
 
 LB:
 - Needed
@@ -102,15 +102,28 @@ LB:
 
 ## Kubernetes mode
 
-Many Servers in 1 DC.
+Many Servers in many DC's
 
-Each Server runs a single binary, configured as a specific Service, with DB distributed with failover.
+Each Server runs a single binary (but as a docker), configured as a specific Service, with DB distributed with failover.
 
 This gets you scale out with automatic failover.
 
 Uses k3d and Envoy (and its XSD functionality).
 - Can deploy and scale up or down dynamically using the kubectl cli.
 - Can run on google, aws, azure or own servers. If on own servers must manually bootstrap k3d.
-- Disco handles by Envoy XDS
+
+DB:
+- Uses flamed to distribute the data using RAFT.
+- IP addresses of followers and master sourced from DISCO. NO DNS SPOF.
+ 
+DISCO:
+- Envoy XDS
+
+Local LB:
 - LB handled by Envoy GRPC LB.
-- Ingress handled by Envoy
+
+Global LB
+- DNS LB
+
+PROVISIONING
+- Uses the Hashicorp tools of NOMAD, CONSUL to manage the k3d system.
