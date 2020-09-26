@@ -15,6 +15,7 @@ const (
 	ErrInsufficientRights
 	ErrRegistrationError
 	ErrCreatingToken
+	ErrAccountNotFound
 )
 
 // AuthError containing error reason and golang's err
@@ -55,6 +56,9 @@ func (err AuthError) description() string {
 
 	case ErrCreatingToken:
 		return "Error while creating token"
+
+	case ErrAccountNotFound:
+		return "Error account not found"
 	}
 	return "Unknown error"
 }

@@ -143,9 +143,9 @@ func (ad *AuthDelivery) RefreshAccessToken(ctx context.Context, in *rpc.RefreshA
 	if in == nil {
 		return &rpc.RefreshAccessTokenResponse{}, status.Errorf(codes.InvalidArgument, "cannot request new access token: %v", auth.AuthError{Reason: auth.ErrInvalidParameters})
 	}
-	claims, err := ad.ObtainAccessClaimsFromMetadata(ctx, false)
+	claims, err := ad.TokenCfg.ParseTokenStringToClaim(in.RefreshToken, false)
 	if err != nil {
-		return &rpc.RefreshAccessTokenResponse{}, status.Errorf(codes.Unauthenticated, "cannot request new access token: %v", auth.AuthError{Reason: auth.ErrInvalidToken})
+		return &rpc.RefreshAccessTokenResponse{}, status.Errorf(codes.InvalidArgument, "refresh token is invalid: %v", auth.AuthError{Reason: auth.ErrInvalidToken})
 	}
 	newAccessToken, err := ad.TokenCfg.RenewAccessToken(&claims)
 	if err != nil {
@@ -154,6 +154,26 @@ func (ad *AuthDelivery) RefreshAccessToken(ctx context.Context, in *rpc.RefreshA
 	return &rpc.RefreshAccessTokenResponse{
 		AccessToken: newAccessToken,
 		ErrorReason: nil,
+	}, nil
+}
+
+// TODO @winwisely268: GetAccount is just dummy method at this point, do use DAO!!
+func (ad *AuthDelivery) GetAccount(ctx context.Context, in *rpc.GetAccountRequest) (*rpc.Account, error) {
+	if in == nil {
+		return &rpc.Account{}, status.Errorf(codes.InvalidArgument, "cannot get user account: %v", auth.AuthError{Reason: auth.ErrInvalidParameters})
+	}
+	if in.Id != "1hpR8BL89uYI1ibPNgcRHI9Nn5Wi" {
+		return &rpc.Account{}, status.Errorf(codes.NotFound, "cannot get user account with id: %s", auth.AuthError{Reason: auth.ErrAccountNotFound})
+	}
+
+	return &rpc.Account{
+		Id:       "1hpR8BL89uYI1ibPNgcRHI9Nn5Wi",
+		Email:    "superadmin@getcouragenow.org",
+		Password: "superadmin",
+		Role: &rpc.UserRoles{
+			Role:     rpc.Roles_SUPERADMIN,
+			Resource: nil,
+		},
 	}, nil
 }
 

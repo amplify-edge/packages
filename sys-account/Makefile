@@ -27,12 +27,21 @@ this-print: ## print
 
 	#$(MAKE) srv-print
 
+## Get dependencies for building
+this-dep: grpc-all-git-delete grpc-all-git-clone grpc-go-build grpc-grpcui-build grpc-protoc-build
+
 ## This builds everything
-this-build: grpc-all-git-delete grpc-all-git-clone grpc-go-build grpc-grpcui-build grpc-protoc-build
+this-build:
 	@echo "Generating GRPC models and services for Go & Flutter"
 	@mkdir -p server/rpc/v2
 	@mkdir -p client/lib/api/v2
 	@go generate
 
 ## Build and Run Server Example (Temporary until structure/stack is fixed)
-this-run-example: this-build go-run-test-client
+this-run-example: this-build
+	@echo Running Example Server
+	$(GO_LIB_FSPATH)/bin-all/authserver
+
+this-run-example-ui:
+	@echo Running grpc-ui
+	@grpcui -plaintext localhost:8888

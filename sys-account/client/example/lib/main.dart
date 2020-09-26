@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:mod_account/modules/account_module.dart';
-import 'package:mod_account/core/i18n/mod_account_localization.dart';
+import 'package:sys_account/modules/account_module.dart';
+import 'package:sys_account/core/i18n/sys_account_localization.dart';
 
 void main() => runApp(ModularApp(module: AppModule()));
 

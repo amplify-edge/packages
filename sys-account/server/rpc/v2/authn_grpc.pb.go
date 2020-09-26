@@ -114,6 +114,9 @@ type AuthServiceService struct {
 }
 
 func (s *AuthServiceService) register(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.Register == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+	}
 	in := new(RegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -131,6 +134,9 @@ func (s *AuthServiceService) register(_ interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AuthServiceService) login(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.Login == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+	}
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -148,6 +154,9 @@ func (s *AuthServiceService) login(_ interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AuthServiceService) forgotPassword(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.ForgotPassword == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method ForgotPassword not implemented")
+	}
 	in := new(ForgotPasswordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -165,6 +174,9 @@ func (s *AuthServiceService) forgotPassword(_ interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AuthServiceService) resetPassword(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.ResetPassword == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
+	}
 	in := new(ResetPasswordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -182,6 +194,9 @@ func (s *AuthServiceService) resetPassword(_ interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 func (s *AuthServiceService) refreshAccessToken(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.RefreshAccessToken == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method RefreshAccessToken not implemented")
+	}
 	in := new(RefreshAccessTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -201,54 +216,28 @@ func (s *AuthServiceService) refreshAccessToken(_ interface{}, ctx context.Conte
 
 // RegisterAuthServiceService registers a service implementation with a gRPC server.
 func RegisterAuthServiceService(s grpc.ServiceRegistrar, srv *AuthServiceService) {
-	srvCopy := *srv
-	if srvCopy.Register == nil {
-		srvCopy.Register = func(context.Context, *RegisterRequest) (*RegisterResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
-		}
-	}
-	if srvCopy.Login == nil {
-		srvCopy.Login = func(context.Context, *LoginRequest) (*LoginResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
-		}
-	}
-	if srvCopy.ForgotPassword == nil {
-		srvCopy.ForgotPassword = func(context.Context, *ForgotPasswordRequest) (*ForgotPasswordResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method ForgotPassword not implemented")
-		}
-	}
-	if srvCopy.ResetPassword == nil {
-		srvCopy.ResetPassword = func(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
-		}
-	}
-	if srvCopy.RefreshAccessToken == nil {
-		srvCopy.RefreshAccessToken = func(context.Context, *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method RefreshAccessToken not implemented")
-		}
-	}
 	sd := grpc.ServiceDesc{
 		ServiceName: "getcouragenow.v2.sys_account.AuthService",
 		Methods: []grpc.MethodDesc{
 			{
 				MethodName: "Register",
-				Handler:    srvCopy.register,
+				Handler:    srv.register,
 			},
 			{
 				MethodName: "Login",
-				Handler:    srvCopy.login,
+				Handler:    srv.login,
 			},
 			{
 				MethodName: "ForgotPassword",
-				Handler:    srvCopy.forgotPassword,
+				Handler:    srv.forgotPassword,
 			},
 			{
 				MethodName: "ResetPassword",
-				Handler:    srvCopy.resetPassword,
+				Handler:    srv.resetPassword,
 			},
 			{
 				MethodName: "RefreshAccessToken",
-				Handler:    srvCopy.refreshAccessToken,
+				Handler:    srv.refreshAccessToken,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},
@@ -256,4 +245,54 @@ func RegisterAuthServiceService(s grpc.ServiceRegistrar, srv *AuthServiceService
 	}
 
 	s.RegisterService(&sd, nil)
+}
+
+// NewAuthServiceService creates a new AuthServiceService containing the
+// implemented methods of the AuthService service in s.  Any unimplemented
+// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
+// This includes situations where the method handler is misspelled or has the wrong
+// signature.  For this reason, this function should be used with great care and
+// is not recommended to be used by most users.
+func NewAuthServiceService(s interface{}) *AuthServiceService {
+	ns := &AuthServiceService{}
+	if h, ok := s.(interface {
+		Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	}); ok {
+		ns.Register = h.Register
+	}
+	if h, ok := s.(interface {
+		Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	}); ok {
+		ns.Login = h.Login
+	}
+	if h, ok := s.(interface {
+		ForgotPassword(context.Context, *ForgotPasswordRequest) (*ForgotPasswordResponse, error)
+	}); ok {
+		ns.ForgotPassword = h.ForgotPassword
+	}
+	if h, ok := s.(interface {
+		ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error)
+	}); ok {
+		ns.ResetPassword = h.ResetPassword
+	}
+	if h, ok := s.(interface {
+		RefreshAccessToken(context.Context, *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error)
+	}); ok {
+		ns.RefreshAccessToken = h.RefreshAccessToken
+	}
+	return ns
+}
+
+// UnstableAuthServiceService is the service API for AuthService service.
+// New methods may be added to this interface if they are added to the service
+// definition, which is not a backward-compatible change.  For this reason,
+// use of this type is not recommended.
+type UnstableAuthServiceService interface {
+	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	// ForgotPassword, then ResetPassword if succeed
+	ForgotPassword(context.Context, *ForgotPasswordRequest) (*ForgotPasswordResponse, error)
+	ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error)
+	// Refresh Access Token endpoint
+	RefreshAccessToken(context.Context, *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error)
 }

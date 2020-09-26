@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -17,7 +16,7 @@ class ModAccountLocalizations extends Translations {
 
   Future<bool> load() async {
     String jsonString = await rootBundle.loadString(
-        'packages/mod_account/i18n/lang_${locale.languageCode}.json');
+        'packages/sys_account/i18n/lang_${locale.languageCode}.json');
 
     Map<String, dynamic> jsonMap = Map.from(json.decode(jsonString))
       ..removeWhere((key, value) => key[0] == '@');

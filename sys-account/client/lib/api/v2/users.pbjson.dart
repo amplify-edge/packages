@@ -5,9 +5,6 @@
 // @dart = 2.3
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
-import 'google/protobuf/timestamp.pbjson.dart' as $0;
-import 'google/protobuf/any.pbjson.dart' as $2;
-
 const Roles$json = const {
   '1': 'Roles',
   '2': const [
@@ -130,36 +127,5 @@ const DisableAccountRequest$json = const {
   '2': const [
     const {'1': 'account_id', '3': 1, '4': 1, '5': 9, '10': 'accountId'},
   ],
-};
-
-const AccountServiceBase$json = const {
-  '1': 'AccountService',
-  '2': const [
-    const {'1': 'NewAccount', '2': '.getcouragenow.v2.sys_account.Account', '3': '.getcouragenow.v2.sys_account.Account', '4': const {}},
-    const {'1': 'GetAccount', '2': '.getcouragenow.v2.sys_account.GetAccountRequest', '3': '.getcouragenow.v2.sys_account.Account', '4': const {}},
-    const {'1': 'ListAccounts', '2': '.getcouragenow.v2.sys_account.ListAccountsRequest', '3': '.getcouragenow.v2.sys_account.ListAccountsResponse', '4': const {}},
-    const {'1': 'SearchAccounts', '2': '.getcouragenow.v2.sys_account.SearchAccountsRequest', '3': '.getcouragenow.v2.sys_account.SearchAccountsResponse', '4': const {}},
-    const {'1': 'AssignAccountToRole', '2': '.getcouragenow.v2.sys_account.AssignAccountToRoleRequest', '3': '.getcouragenow.v2.sys_account.Account', '4': const {}},
-    const {'1': 'UpdateAccount', '2': '.getcouragenow.v2.sys_account.Account', '3': '.getcouragenow.v2.sys_account.Account', '4': const {}},
-    const {'1': 'DisableAccount', '2': '.getcouragenow.v2.sys_account.DisableAccountRequest', '3': '.getcouragenow.v2.sys_account.Account', '4': const {}},
-  ],
-};
-
-const AccountServiceBase$messageJson = const {
-  '.getcouragenow.v2.sys_account.Account': Account$json,
-  '.getcouragenow.v2.sys_account.UserRoles': UserRoles$json,
-  '.getcouragenow.v2.sys_account.Project': Project$json,
-  '.getcouragenow.v2.sys_account.Org': Org$json,
-  '.google.protobuf.Timestamp': $0.Timestamp$json,
-  '.getcouragenow.v2.sys_account.UserDefinedFields': UserDefinedFields$json,
-  '.getcouragenow.v2.sys_account.UserDefinedFields.FieldsEntry': UserDefinedFields_FieldsEntry$json,
-  '.google.protobuf.Any': $2.Any$json,
-  '.getcouragenow.v2.sys_account.GetAccountRequest': GetAccountRequest$json,
-  '.getcouragenow.v2.sys_account.ListAccountsRequest': ListAccountsRequest$json,
-  '.getcouragenow.v2.sys_account.ListAccountsResponse': ListAccountsResponse$json,
-  '.getcouragenow.v2.sys_account.SearchAccountsRequest': SearchAccountsRequest$json,
-  '.getcouragenow.v2.sys_account.SearchAccountsResponse': SearchAccountsResponse$json,
-  '.getcouragenow.v2.sys_account.AssignAccountToRoleRequest': AssignAccountToRoleRequest$json,
-  '.getcouragenow.v2.sys_account.DisableAccountRequest': DisableAccountRequest$json,
 };
 
