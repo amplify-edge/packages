@@ -1,7 +1,6 @@
 package db
 
 import (
-	"crypto/md5"
 	"fmt"
 	"log"
 	"time"
@@ -39,10 +38,8 @@ func SharedDatabase() *genji.DB {
 	return database
 }
 
-func md5enc(str string) []byte {
-	h := md5.New()
-	h.Write([]byte(str))
-	return h.Sum(nil)
+func SharedDbName() string {
+	return dbName
 }
 
 func makeDb(name string, key string) (*genji.DB, error) {
@@ -52,7 +49,7 @@ func makeDb(name string, key string) (*genji.DB, error) {
 		return nil, fmt.Errorf("[%s] Invalid encryption key", name)
 	}
 	// The key length must be 16 or 32, so use md5 to encrypt once.
-	options.EncryptionKey = md5enc(key)
+	options.EncryptionKey = MD5(key)
 	// Set to 180 days or something else?
 	options.EncryptionKeyRotationDuration = 180 * 24 * time.Hour
 	ng, err := badgerengine.NewEngine(badger.DefaultOptions(name))

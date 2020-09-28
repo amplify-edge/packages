@@ -1,4 +1,4 @@
-package test_db
+package db_test
 
 import (
 	"fmt"
@@ -54,15 +54,15 @@ func makeOrOpenEncDb(name string, key []byte) (*genji.DB, error) {
 		log.Fatal(err)
 		return nil, err
 	}
-	var db *genji.DB
+	var gdb *genji.DB
 	// Pass it to genji
-	db, err = genji.New(ng)
+	gdb, err = genji.New(ng)
 	if err != nil {
 		log.Fatal(err)
 		return nil, err
 	}
 
-	return db, nil
+	return gdb, nil
 }
 
 func reOpenDb(name string) (*genji.DB, error) {
@@ -71,12 +71,12 @@ func reOpenDb(name string) (*genji.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	var db *genji.DB
+	var gdb *genji.DB
 	// Pass it to genji
-	db, err = genji.New(ng)
+	gdb, err = genji.New(ng)
 	if err != nil {
 		return nil, err
 	}
 
-	return db, nil
+	return gdb, nil
 }
